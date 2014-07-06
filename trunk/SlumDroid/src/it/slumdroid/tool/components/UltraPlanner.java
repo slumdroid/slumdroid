@@ -56,8 +56,11 @@ public class UltraPlanner implements Planner {
 					|| w.getSimpleType().equals(EXPAND_MENU)){
 				setIncludeRotation(false);
 			}
-			if (w.getSimpleType().equals(ACTION_HOME)) setIncludeAction(true);
-
+			if (w.getSimpleType().equals(ACTION_HOME) 
+					&& w.isClickable()){
+				setIncludeAction(true);
+			}
+			
 			Collection<UserEvent> events = getUser().handleEvent(w);
 			for (UserEvent event: events) {                           
 				if (event == null) continue;
