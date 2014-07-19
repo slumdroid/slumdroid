@@ -28,6 +28,7 @@ public class ReportGenerator extends StatsReport {
 	private InteractionStats eventReport = new InteractionStats();
 
 	private int depth = 0;
+	private int crash = 0;
 	private Set<String> activity;
 	private Set<String> activityStates;
 
@@ -79,16 +80,21 @@ public class ReportGenerator extends StatsReport {
 		evaluate();
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.traceReport + NEW_LINE);
+		int stateSize = this.activityStates.size() + crash;
 		if (actualCrashes.size()!=0) builder.append("List of actual crashed traces: " + expandList(this.actualCrashes) + NEW_LINE);
 		builder.append("Depth reached: " + this.depth + NEW_LINE + "Transitions: " + NEW_LINE + 
-				TAB + "different gui states found: " + this.activityStates.size() + NEW_LINE + 
+				TAB + "different gui states found: " + stateSize + NEW_LINE + 
 				TAB + "different activities found: " + this.activity.size() +
 				BREAK + this.eventReport);
 		return builder.toString();
 	}
 
 	public void countWidgets (ActivityState activity) {
-		if (activity.isFailure() || activity.isCrash()) return;
+		if (activity.isFailure()) return;
+		if (activity.isCrash()){
+			crash = 1;
+			return;
+		}
 		int localCount = 0;
 		String key = activity.getName();
 		String key2 = activity.getId();
