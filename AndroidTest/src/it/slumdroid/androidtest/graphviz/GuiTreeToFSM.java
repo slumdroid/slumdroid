@@ -44,12 +44,10 @@ public class GuiTreeToFSM {
 			ActivityState start = action.getStartActivity();
 			UserEvent event = action.getEvent();
 			ActivityState end = action.getFinalActivity();
-			if(!insertedEvents.contains(event.getId())){
-				String startnode = start.getId().equals("a0")?"start":start.getId();
-				String endnode = end.getId().equals("a0")?"start":end.getId();
-				dot.append("\t" + startnode + " -> " + endnode + " [label=\"" + event.getId() + ": " + event.getType() + "\"];" + EOL);
-				this.nodes.add(endnode);
-			}
+			String startnode = start.getId().equals("a0")?"start":start.getId();
+			String endnode = end.getId().equals("a0")?"start":end.getId();
+			dot.append("\t" + startnode + " -> " + endnode + " [label=\"" + event.getId() + ": " + event.getType() + "\"];" + EOL);
+			this.nodes.add(endnode);
 			insertedEvents.add(event.getId());
 		}
 
