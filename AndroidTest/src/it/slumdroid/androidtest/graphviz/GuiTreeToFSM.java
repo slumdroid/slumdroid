@@ -59,8 +59,4 @@ public class GuiTreeToFSM {
 		return dot.toString();
 	}
 
-	protected boolean abnormalState (String id) {
-		return ((id.equals("exit")) || (id.equals("crash")) || (id.equals("fail")));
-	}
-
 }
