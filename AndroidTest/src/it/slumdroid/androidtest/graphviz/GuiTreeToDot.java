@@ -16,6 +16,7 @@
 package it.slumdroid.androidtest.graphviz;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
@@ -49,7 +50,7 @@ public class GuiTreeToDot {
 		dot.append("digraph GuiTree {" + EOL + EOL);
 
 		for (Edge edge: this.edges) {
-			dot.append(TAB + edge + " [label=\"" + edge.getId() + ": " + edge.getLabel() + "\"];" + EOL);
+			dot.append(TAB + edge + " [label=\"" + edge.getId().replace("e", "Event") + ": " + edge.getLabel() + "\"];" + EOL);
 		}
 		dot.append(EOL);
 		for (Node node: this.nodes) {
@@ -69,6 +70,13 @@ public class GuiTreeToDot {
 		Node start = getNode(action.getStartActivity()); 
 		Node finish = getNode(action.getFinalActivity()); 
 		UserEvent event = action.getEvent();
+		
+		Iterator<UserInput> inputs = action.iterator();
+		String userInputs = new String();
+		while(inputs.hasNext()){
+			UserInput input = inputs.next();
+			userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " Value: "+ input.getValue());
+		}
 
 		// Add main activity to nodes
 		if (first) {
@@ -81,7 +89,7 @@ public class GuiTreeToDot {
 
 		// Add event to edges
 		Edge e = new Edge(start,finish);
-		e.setLabel(getCaption(event));
+		e.setLabel(getCaption(event) + userInputs);
 		e.setId(event.getId());
 		this.edges.add(e);
 	}
