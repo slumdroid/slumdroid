@@ -58,11 +58,13 @@ public class GraphicalEditor extends JFrame {
 	private static JComboBox autoCompleteBox;
 	private static JComboBox checkBox;
 	private static JComboBox toggleBox;
+	private static JComboBox inputTextBox;
 	
 	private static JButton btnDefaultValues;
 	private static JButton btnSave;
 	
 	private static String[] bool = {"true", "false"};
+	private static String[] inputs = {"hash values", "random values"};
 	private static String[] comparator = {"Compositional","None"};
 	private static String[] interactions = {"event", "input", "both", "none"};
 	private static boolean random;
@@ -78,7 +80,7 @@ public class GraphicalEditor extends JFrame {
 		setFirstPath(expPath);
 		setRandom(random);
 		
-		setBounds(100, 100, 511, 281);
+		setBounds(100, 100, 511, 314);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -173,6 +175,10 @@ public class GraphicalEditor extends JFrame {
 		lblToggleInteractions.setBounds(255, 193, 132, 14);
 		contentPane.add(lblToggleInteractions);
 		
+		JLabel lblTextInputs = new JLabel("Text Inputs");
+		lblTextInputs.setBounds(255, 216, 107, 14);
+		contentPane.add(lblTextInputs);
+		
 		// FormattedTextField
 		waitingEventField = new JFormattedTextField();
 		waitingEventField.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -245,6 +251,10 @@ public class GraphicalEditor extends JFrame {
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 		
+		inputTextBox = new JComboBox(inputs);
+		inputTextBox.setBounds(397, 215, 89, 20);
+		contentPane.add(inputTextBox);
+		
 		resetDefaultValues();
 		
 		// Button
@@ -254,7 +264,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 214, 152, 23);
+		btnDefaultValues.setBounds(245, 241, 152, 23);
 		contentPane.add(btnDefaultValues);
 		
 		btnSave = new JButton("Save");
@@ -263,7 +273,7 @@ public class GraphicalEditor extends JFrame {
 				saveXML(); 
 			}
 		});
-		btnSave.setBounds(397, 214, 89, 23);
+		btnSave.setBounds(397, 241, 89, 23);
 		contentPane.add(btnSave);
 		
 	}
@@ -304,6 +314,9 @@ public class GraphicalEditor extends JFrame {
 		if (isRandom()){
 			builder.append("\t\t\t<entry key=\"RANDOM_SEED\"  value=\"0\"/>\n");
 			builder.append("\t\t\t<entry key=\"MAX_NUM_EVENTS\"  value=\"100\"/>\n");
+		}
+		if (inputTextBox.getSelectedIndex()!=0){
+			builder.append("\t\t\t<entry key=\"HASH_VALUES\" value=\"false\"/>\n");
 		}
 		builder.append("\t\t</map>\n");
 	}
