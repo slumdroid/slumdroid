@@ -106,39 +106,39 @@ public class GraphicalEditor extends JFrame {
 		
 		JLabel lblAutomationParameters = new JLabel("Automation Parameters");
 		lblAutomationParameters.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAutomationParameters.setBounds(10, 118, 225, 14);
+		lblAutomationParameters.setBounds(10, 141, 225, 14);
 		contentPane.add(lblAutomationParameters);
 		
 		JLabel lblAfterEvent = new JLabel("Waiting after Event");
-		lblAfterEvent.setBounds(10, 143, 126, 14);
+		lblAfterEvent.setBounds(10, 166, 126, 14);
 		contentPane.add(lblAfterEvent);
 		
 		JLabel lblAfterRestart = new JLabel("Waiting after Restart");
-		lblAfterRestart.setBounds(10, 168, 126, 14);
+		lblAfterRestart.setBounds(10, 191, 126, 14);
 		contentPane.add(lblAfterRestart);
 		
 		JLabel lblAfterTask = new JLabel("Waiting after Task");
-		lblAfterTask.setBounds(10, 193, 126, 14);
+		lblAfterTask.setBounds(10, 216, 126, 14);
 		contentPane.add(lblAfterTask);
 		
 		JLabel lblOnThrobber = new JLabel("Waiting on Throbber");
-		lblOnThrobber.setBounds(10, 218, 126, 14);
+		lblOnThrobber.setBounds(10, 241, 126, 14);
 		contentPane.add(lblOnThrobber);
 		
 		JLabel lblMs0 = new JLabel("ms");
-		lblMs0.setBounds(214, 143, 21, 14);
+		lblMs0.setBounds(214, 166, 21, 14);
 		contentPane.add(lblMs0);
 		
 		JLabel lblMs1 = new JLabel("ms");
-		lblMs1.setBounds(214, 168, 21, 14);
+		lblMs1.setBounds(214, 191, 21, 14);
 		contentPane.add(lblMs1);
 		
 		JLabel lblMs2 = new JLabel("ms");
-		lblMs2.setBounds(214, 193, 21, 14);
+		lblMs2.setBounds(214, 216, 21, 14);
 		contentPane.add(lblMs2);
 		
 		JLabel lblMs3 = new JLabel("ms");
-		lblMs3.setBounds(214, 218, 21, 14);
+		lblMs3.setBounds(214, 241, 21, 14);
 		contentPane.add(lblMs3);
 		
 		JLabel lblComparatorParameters = new JLabel("Comparator Parameters");
@@ -156,52 +156,52 @@ public class GraphicalEditor extends JFrame {
 			
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
 		lblInteractionParameters.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblInteractionParameters.setBounds(255, 84, 231, 25);
+		lblInteractionParameters.setBounds(255, 107, 231, 25);
 		contentPane.add(lblInteractionParameters);
 		
 		JLabel lblEdittextInteractions = new JLabel("EditText Interactions");
-		lblEdittextInteractions.setBounds(255, 120, 132, 14);
+		lblEdittextInteractions.setBounds(255, 143, 132, 14);
 		contentPane.add(lblEdittextInteractions);
 		
 		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete Interactions");
-		lblAutocompleteInteractions.setBounds(255, 143, 142, 14);
+		lblAutocompleteInteractions.setBounds(255, 166, 142, 14);
 		contentPane.add(lblAutocompleteInteractions);
 		
 		JLabel lblCheckboxInteractions = new JLabel("CheckBox Interactions");
-		lblCheckboxInteractions.setBounds(255, 168, 132, 14);
+		lblCheckboxInteractions.setBounds(255, 191, 132, 14);
 		contentPane.add(lblCheckboxInteractions);
 		
 		JLabel lblToggleInteractions = new JLabel("Toggle Interactions");
-		lblToggleInteractions.setBounds(255, 193, 132, 14);
+		lblToggleInteractions.setBounds(255, 213, 132, 14);
 		contentPane.add(lblToggleInteractions);
 		
 		JLabel lblTextInputs = new JLabel("Text Inputs");
-		lblTextInputs.setBounds(255, 216, 107, 14);
+		lblTextInputs.setBounds(10, 111, 107, 14);
 		contentPane.add(lblTextInputs);
 		
 		// FormattedTextField
 		waitingEventField = new JFormattedTextField();
 		waitingEventField.setHorizontalAlignment(SwingConstants.RIGHT);
 		waitingEventField.setText("1000");
-		waitingEventField.setBounds(146, 140, 64, 20);
+		waitingEventField.setBounds(146, 163, 64, 20);
 		contentPane.add(waitingEventField);
 				
 		waitingRestartField = new JFormattedTextField();
 		waitingRestartField.setHorizontalAlignment(SwingConstants.RIGHT);
 		waitingRestartField.setText("0");
-		waitingRestartField.setBounds(146, 165, 64, 20);
+		waitingRestartField.setBounds(146, 188, 64, 20);
 		contentPane.add(waitingRestartField);
 				
 		waitingTaskField = new JFormattedTextField();
 		waitingTaskField.setText("0");
 		waitingTaskField.setHorizontalAlignment(SwingConstants.RIGHT);
-		waitingTaskField.setBounds(146, 190, 64, 20);
+		waitingTaskField.setBounds(146, 213, 64, 20);
 		contentPane.add(waitingTaskField);
 		
 		waitingThrobberField = new JFormattedTextField();
 		waitingThrobberField.setText("1000");
 		waitingThrobberField.setHorizontalAlignment(SwingConstants.RIGHT);
-		waitingThrobberField.setBounds(146, 215, 64, 20);
+		waitingThrobberField.setBounds(146, 238, 64, 20);
 		contentPane.add(waitingThrobberField);
 		
 		// ComboBox
@@ -232,27 +232,27 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(tabBox);
 		
 		editTextBox = new JComboBox(interactions);
-		editTextBox.setBounds(397, 117, 89, 20);
+		editTextBox.setBounds(397, 140, 89, 20);
 		editTextBox.setSelectedIndex(1);
 		contentPane.add(editTextBox);
 		
 		autoCompleteBox = new JComboBox(interactions);
-		autoCompleteBox.setBounds(397, 140, 89, 20);
+		autoCompleteBox.setBounds(397, 163, 89, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
 		
 		checkBox = new JComboBox(interactions);
-		checkBox.setBounds(397, 165, 89, 20);
+		checkBox.setBounds(397, 188, 89, 20);
 		checkBox.setSelectedIndex(1);
 		contentPane.add(checkBox);
 		
 		toggleBox = new JComboBox(interactions);
-		toggleBox.setBounds(397, 190, 89, 20);
+		toggleBox.setBounds(397, 210, 89, 20);
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 		
 		inputTextBox = new JComboBox(inputs);
-		inputTextBox.setBounds(397, 215, 89, 20);
+		inputTextBox.setBounds(127, 108, 108, 20);
 		contentPane.add(inputTextBox);
 		
 		resetDefaultValues();
@@ -264,7 +264,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 241, 152, 23);
+		btnDefaultValues.setBounds(245, 237, 152, 23);
 		contentPane.add(btnDefaultValues);
 		
 		btnSave = new JButton("Save");
@@ -273,7 +273,7 @@ public class GraphicalEditor extends JFrame {
 				saveXML(); 
 			}
 		});
-		btnSave.setBounds(397, 241, 89, 23);
+		btnSave.setBounds(397, 237, 89, 23);
 		contentPane.add(btnSave);
 		
 	}
