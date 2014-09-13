@@ -153,7 +153,6 @@ public class UltraPlanner implements Planner {
 		transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
 		planner.addTask(transition);
 
-
 		return planner;
 	}
 
