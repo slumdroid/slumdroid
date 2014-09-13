@@ -28,12 +28,8 @@ public class CustomStrategy extends SimpleStrategy {
 
 	private Collection<ExplorationCriteria> explorers = new ArrayList<ExplorationCriteria>();
 
-	public CustomStrategy(Comparator c) {
-		super(c);
-	}
-
 	public CustomStrategy(Comparator c, StrategyCriteria ... criterias) {
-		this (c);
+		super(c);
 		for (StrategyCriteria s: criterias) {
 			if (s==null) continue;
 			addCriteria(s);
