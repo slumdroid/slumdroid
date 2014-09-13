@@ -17,7 +17,7 @@ package it.slumdroid.androidtest;
 
 public class Resources {
 
-	public static final int DEFAULT_WIDTH = 1000;
+	public static final int DEFAULT_WIDTH = 650;
 	public static final int DEFAULT_HEIGHT = 500;
 	public final static String GUI_TREE = "GUI Tree (XML)";
 	public final static String GUI_TREE_DOT = "Gui Tree (DOT)";

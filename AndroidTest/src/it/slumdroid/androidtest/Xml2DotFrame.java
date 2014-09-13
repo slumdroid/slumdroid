@@ -64,6 +64,7 @@ public class Xml2DotFrame extends JFrame  {
 
 	public Xml2DotFrame (String inputPath) {
 		super();
+		setTitle("AndroidTest");
 		if (!inputPath.equals("")){
 			this.inputFileName = inputPath + "\\files\\guitree.xml";
 			this.reportFileName = inputPath + "\\output\\report.txt";
@@ -112,7 +113,7 @@ public class Xml2DotFrame extends JFrame  {
 			}
 		});
 
-		this.add(schermo);
+		getContentPane().add(schermo);
 		if (!inputFileName.equals("")) { 
 			processFile(inputFileName);
 		}
