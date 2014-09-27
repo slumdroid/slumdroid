@@ -42,7 +42,6 @@ public class CustomStrategy implements Strategy {
 	private Comparator c;
 	protected Collection<TerminationCriteria> terminators = new ArrayList<TerminationCriteria>();
 	protected Collection<PauseCriteria> pausers = new ArrayList<PauseCriteria>();
-	protected boolean positiveComparation = true;
 	private Trace theTask;
 	private ActivityState beforeEvent;
 	private ActivityState afterEvent;
@@ -75,7 +74,6 @@ public class CustomStrategy implements Strategy {
 
 	public boolean compareState(ActivityState theActivity) {
 		this.afterEvent = theActivity;
-		this.positiveComparation = true;
 		String name = theActivity.getName();
 		if (theActivity.isExit()) {
 			Log.i(TAG, "Exit state. Not performing comparation for activity " + name);
@@ -92,7 +90,6 @@ public class CustomStrategy implements Strategy {
 			}	
 		}
 
-		this.positiveComparation = false;
 		if (ENABLE_MODEL) {
 			if (!COMPARATOR_TYPE.equals(NULL_COMPARATOR)) Log.i(TAG, "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
 			addState (theActivity);
@@ -135,10 +132,6 @@ public class CustomStrategy implements Strategy {
 
 	public void setComparator(Comparator c) {
 		this.c = c;
-	}
-
-	public final boolean checkForExploration() {
-		return !this.positiveComparation;
 	}
 
 	public void setTask(Trace theTask) {

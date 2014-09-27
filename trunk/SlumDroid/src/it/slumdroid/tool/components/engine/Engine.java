@@ -111,7 +111,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	protected boolean canPlanTests (ActivityState theActivity){
-		return (!(theActivity.isExit()) && getStrategy().checkForExploration());
+		return !theActivity.isExit();
 	}
 
 	@Override

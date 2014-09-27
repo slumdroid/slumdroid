@@ -28,7 +28,6 @@ public interface Strategy {
 	public boolean compareState (ActivityState theActivity);
 
 	public boolean checkForTermination ();
-	public boolean checkForExploration ();
 	public boolean checkForPause ();
 
 	public void setTask(Trace theTask);
