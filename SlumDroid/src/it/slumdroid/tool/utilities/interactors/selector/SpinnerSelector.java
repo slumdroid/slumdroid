@@ -20,10 +20,9 @@ import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
 public class SpinnerSelector extends IterativeInteractorAdapter {
 
-	public SpinnerSelector (String ... simpleTypes) {
-		super (simpleTypes);
+	public SpinnerSelector (int maxItems, String ... simpleTypes) {
+		super (maxItems, simpleTypes);
 	}
-
 	public String getInteractionType () {
 		return SPINNER_SELECT;
 	}

@@ -109,7 +109,7 @@ public class CustomStrategy implements Strategy {
 		return false;
 	}
 
-	public boolean checkForTermination () { // Logic OR of the criterias
+	public boolean checkForTermination () { // Logic OR of the criteria
 		for (TerminationCriteria t: this.terminators) {
 			if (t.termination()) {
 				for (TerminationListener tl: getEndListeners()) {
@@ -121,7 +121,7 @@ public class CustomStrategy implements Strategy {
 		return false;
 	}
 
-	public boolean checkForPause () { // Logic OR of the criterias
+	public boolean checkForPause () { // Logic OR of the criteria
 		for (PauseCriteria p: this.pausers) {
 			if (p.pause()) return true;
 		}
@@ -150,7 +150,7 @@ public class CustomStrategy implements Strategy {
 		return explorationNeeded();
 	}
 
-	protected boolean explorationNeeded() { // Logic AND of the criterias
+	protected boolean explorationNeeded() { // Logic AND of the criteria
 		//return !isLastComparationPositive();
 		for (ExplorationCriteria e: this.explorers) {
 			if (!e.exploration()) return false;

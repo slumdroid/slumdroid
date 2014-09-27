@@ -48,7 +48,7 @@ public class Resources {
 
 	public static int MAX_NUM_EVENTS = 0; // After performing this amount of traces, the tool exits (0 = no length limit)
 
-	public static int MAX_NUM_EVENTS_PER_SELECTOR = 2; // For ListViews (0 = try all items in the list)
+	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
 	public static void setMaxEventsSelector(int maxSelector) {
 		MAX_NUM_EVENTS_PER_SELECTOR = maxSelector;		
 	}
