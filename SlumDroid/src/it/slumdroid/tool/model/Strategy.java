@@ -26,7 +26,6 @@ public interface Strategy {
 	public void setComparator (Comparator c);
 
 	public boolean compareState (ActivityState theActivity);
-	public boolean isLastComparationPositive ();
 
 	public boolean checkForTermination ();
 	public boolean checkForExploration ();
