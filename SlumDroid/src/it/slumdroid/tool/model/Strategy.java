@@ -27,6 +27,7 @@ public interface Strategy {
 
 	public boolean compareState (ActivityState theActivity);
 
+	public boolean checkForExploration ();
 	public boolean checkForTermination ();
 	public boolean checkForPause ();
 
