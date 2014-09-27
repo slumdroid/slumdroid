@@ -216,6 +216,20 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			delete (getTaskListFileName());
 			delete (backup(getTaskListFileName()));
 
+			FileOutputStream fOut;
+			try {
+				fOut = w.openFileOutput("closed.txt", ContextWrapper.MODE_PRIVATE);
+				OutputStreamWriter osw = new OutputStreamWriter(fOut); 
+				osw.write("the end");
+				osw.flush();
+				osw.close();
+				fOut.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 			return;
 		}
 	}
