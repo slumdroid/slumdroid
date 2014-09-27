@@ -137,15 +137,15 @@ public class StartWindow {
 		lblAvdName.setBounds(10, 81, 62, 14);
 		frmWizard.getContentPane().add(lblAvdName);
 
-		JLabel lblAutPath = new JLabel("A.U.T. Path");
+		JLabel lblAutPath = new JLabel("AUT Path");
 		lblAutPath.setBounds(10, 137, 62, 14);
 		frmWizard.getContentPane().add(lblAutPath);
 
-		JLabel lblAutPackage = new JLabel("A.U.T. Package");
+		JLabel lblAutPackage = new JLabel("AUT Package");
 		lblAutPackage.setBounds(10, 193, 97, 14);
 		frmWizard.getContentPane().add(lblAutPackage);
 
-		JLabel lblAutClass = new JLabel("A.U.T. Class");
+		JLabel lblAutClass = new JLabel("AUT Class");
 		lblAutClass.setBounds(10, 249, 72, 14);
 		frmWizard.getContentPane().add(lblAutClass);
 
