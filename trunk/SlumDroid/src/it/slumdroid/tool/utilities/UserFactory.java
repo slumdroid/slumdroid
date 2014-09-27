@@ -78,8 +78,8 @@ public class UserFactory {
 		
 		userAdapter.addEvent(new ListSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_SELECT)));
 		userAdapter.addEvent(new ListLongSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_LONG_SELECT)));
-		userAdapter.addEvent(new SpinnerSelector(typesForEvent(SPINNER_SELECT)));
-		userAdapter.addEvent(new RadioSelector(typesForEvent(RADIO_SELECT)));
+		userAdapter.addEvent(new SpinnerSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(SPINNER_SELECT)));
+		userAdapter.addEvent(new RadioSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(RADIO_SELECT)));
 		userAdapter.addEvent(new TabSwapper(typesForEvent(SWAP_TAB)));
 		userAdapter.addEvent(new Drager(typesForEvent(DRAG)));
 

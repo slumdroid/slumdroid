@@ -20,8 +20,8 @@ import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
 public class RadioSelector extends IterativeInteractorAdapter {
 
-	public RadioSelector (String ... simpleTypes) {
-		super (simpleTypes);
+	public RadioSelector (int maxItems, String ... simpleTypes) {
+		super (maxItems, simpleTypes);
 	}
 
 	public String getInteractionType () {
