@@ -47,7 +47,7 @@ public class GuiTreeToFSM {
 			String userInputs = new String();
 			while(inputs.hasNext()){
 				UserInput input = inputs.next();
-				userInputs = userInputs.concat("Input" + input.getId().replace("i", "") + ": " + input.getType() + " Value: "+ input.getValue());
+				userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " Value: "+ input.getValue());
 			}
 			UserEvent event = action.getEvent();
 			ActivityState end = action.getFinalActivity();
