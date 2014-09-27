@@ -21,7 +21,7 @@ import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.utilities.ScreenshotFactory;
-import it.slumdroid.tool.utilities.strategy.SimpleStrategy;
+import it.slumdroid.tool.utilities.strategy.CustomStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +69,8 @@ public class PersistenceFactory {
 		}
 
 		getDispatcher().registerListener(resumer);
-		if (getStrategy() instanceof SimpleStrategy) {
-			((SimpleStrategy)getStrategy()).registerStateListener(resumer);				
+		if (getStrategy() instanceof CustomStrategy) {
+			((CustomStrategy)getStrategy()).registerStateListener(resumer);				
 		}
 
 		thePersistence.setSession(getTheSession());
