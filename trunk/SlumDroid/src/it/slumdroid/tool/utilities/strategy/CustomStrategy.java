@@ -20,7 +20,6 @@ import static it.slumdroid.tool.Resources.ENABLE_MODEL;
 import static it.slumdroid.tool.Resources.COMPARATOR_TYPE;
 import static it.slumdroid.tool.Resources.NULL_COMPARATOR;
 import it.slumdroid.tool.model.Comparator;
-import it.slumdroid.tool.model.ExplorationCriteria;
 import it.slumdroid.tool.model.PauseCriteria;
 import it.slumdroid.tool.model.StateDiscoveryListener;
 import it.slumdroid.tool.model.Strategy;
@@ -49,7 +48,6 @@ public class CustomStrategy implements Strategy {
 	private ActivityState afterEvent;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 	private List<TerminationListener> endListeners = new ArrayList<TerminationListener>();
-	private Collection<ExplorationCriteria> explorers = new ArrayList<ExplorationCriteria>();
 	
 	public CustomStrategy (Comparator c, StrategyCriteria ... criterias) {
 		super();
@@ -61,18 +59,11 @@ public class CustomStrategy implements Strategy {
 	}
 	
 	public void addCriteria (StrategyCriteria criteria) {
-		if (criteria instanceof ExplorationCriteria) {
-			addExplorationCriteria((ExplorationCriteria)criteria);
-		} else if (criteria instanceof TerminationCriteria) {
+		if (criteria instanceof TerminationCriteria) {
 			addTerminationCriteria((TerminationCriteria)criteria);
 		} else if (criteria instanceof PauseCriteria) {
 			addPauseCriteria((PauseCriteria)criteria);
 		}
-	}
-
-	public void addExplorationCriteria (ExplorationCriteria e) {
-		e.setStrategy(this);
-		this.explorers.add(e);
 	}
 
 	public void addState(ActivityState newActivity) {
@@ -147,19 +138,7 @@ public class CustomStrategy implements Strategy {
 	}
 
 	public final boolean checkForExploration() {
-		return explorationNeeded();
-	}
-
-	protected boolean explorationNeeded() { // Logic AND of the criteria
-		//return !isLastComparationPositive();
-		for (ExplorationCriteria e: this.explorers) {
-			if (!e.exploration()) return false;
-		}
-		return true;
-	}
-
-	public boolean isLastComparationPositive() {
-		return positiveComparation;
+		return !this.positiveComparation;
 	}
 
 	public void setTask(Trace theTask) {
