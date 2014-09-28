@@ -385,8 +385,8 @@ public class StartWindow {
 
 	public boolean checkJavaVersion () {
 		String version = "";
-		String CommandList = CommandLine.get(JAVA_VERSION);
 		try {
+			String CommandList = CommandLine.get(JAVA_VERSION);
 			Process proc = Runtime.getRuntime().exec(CommandList);
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
 			Pattern pattern = Pattern.compile("java version \"([^\"]+)\"");
@@ -398,7 +398,7 @@ public class StartWindow {
 					break;
 				}
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Error detecting installed Java version.");
 		}
 
