@@ -59,7 +59,7 @@ public abstract class StatsReport {
 	public static String expandMap (Map<String,Integer> map) {
 		StringBuilder s = new StringBuilder();
 		for (Map.Entry<String,Integer> e:map.entrySet()) {
-			s.append(TAB + TAB + e.getKey() + ": " + e.getValue() + NEW_LINE);
+			s.append(TAB + TAB + e.getKey().substring(0,1).toUpperCase() + e.getKey().substring(1,e.getKey().length()) +  ": " + e.getValue() + NEW_LINE);
 		}
 		return s.toString();
 	}

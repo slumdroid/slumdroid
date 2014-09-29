@@ -89,9 +89,9 @@ public class InteractionStats extends StatsReport {
 
 	public String getReport() {
 		return 	"Interactions: " + NEW_LINE +
-				TAB + "different events: " + getDifferentEvents() + NEW_LINE +
+				TAB + "Different events: " + getDifferentEvents() + NEW_LINE +
 				expandMap(this.eventTypes) +
-				TAB + "different inputs: " + getDifferentInputs() + NEW_LINE +
+				TAB + "Different inputs: " + getDifferentInputs() + NEW_LINE +
 				expandMap(this.inputTypes);
 	}
 

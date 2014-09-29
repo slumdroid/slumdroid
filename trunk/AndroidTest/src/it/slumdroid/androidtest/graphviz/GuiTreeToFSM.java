@@ -40,7 +40,7 @@ public class GuiTreeToFSM {
 		dot.append("digraph finite_state_machine {" + EOL + EOL);
 		dot.append("\trankdir=LR;" + EOL + "\tnode [shape = circle];" + EOL + EOL);
 
-		for (Trace t: this.session) {
+		for (Task t: this.session) {
 			Transition action = t.getFinalTransition();
 			ActivityState start = action.getStartActivity();
 			Iterator<UserInput> inputs = action.iterator();
