@@ -45,6 +45,7 @@ public class GraphicalEditor extends JFrame {
 	private static JComboBox modelBox;
 	private static JComboBox screenshotBox;
 	private static JComboBox tabBox;
+	private static JComboBox schedulerBox;
 	
 	private static JFormattedTextField waitingEventField;
 	private static JFormattedTextField waitingRestartField;
@@ -63,6 +64,7 @@ public class GraphicalEditor extends JFrame {
 	private static JButton btnDefaultValues;
 	private static JButton btnSave;
 	
+	private static String[] algorithm = {"Breadth (BFS)","Depth (DFS)"};
 	private static String[] bool = {"true", "false"};
 	private static String[] inputs = {"hash values", "random values"};
 	private static String[] comparator = {"Compositional","None"};
@@ -103,6 +105,10 @@ public class GraphicalEditor extends JFrame {
 		JLabel lblTabEventsOnly = new JLabel("Tab Events only Start");
 		lblTabEventsOnly.setBounds(10, 86, 126, 14);
 		contentPane.add(lblTabEventsOnly);
+				
+		JLabel lblScheduler = new JLabel("Scheduler Algorithm");
+		lblScheduler.setBounds(10, 111, 126, 14);
+		contentPane.add(lblScheduler);
 		
 		JLabel lblAutomationParameters = new JLabel("Automation Parameters");
 		lblAutomationParameters.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -156,15 +162,15 @@ public class GraphicalEditor extends JFrame {
 			
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
 		lblInteractionParameters.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblInteractionParameters.setBounds(255, 107, 231, 25);
+		lblInteractionParameters.setBounds(255, 89, 231, 25);
 		contentPane.add(lblInteractionParameters);
 		
 		JLabel lblEdittextInteractions = new JLabel("EditText Interactions");
-		lblEdittextInteractions.setBounds(255, 143, 132, 14);
+		lblEdittextInteractions.setBounds(255, 115, 132, 14);
 		contentPane.add(lblEdittextInteractions);
 		
 		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete Interactions");
-		lblAutocompleteInteractions.setBounds(255, 166, 142, 14);
+		lblAutocompleteInteractions.setBounds(255, 141, 142, 14);
 		contentPane.add(lblAutocompleteInteractions);
 		
 		JLabel lblCheckboxInteractions = new JLabel("CheckBox Interactions");
@@ -176,7 +182,7 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(lblToggleInteractions);
 		
 		JLabel lblTextInputs = new JLabel("Text Inputs");
-		lblTextInputs.setBounds(10, 111, 107, 14);
+		lblTextInputs.setBounds(255, 166, 107, 14);
 		contentPane.add(lblTextInputs);
 		
 		// FormattedTextField
@@ -232,12 +238,12 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(tabBox);
 		
 		editTextBox = new JComboBox(interactions);
-		editTextBox.setBounds(397, 140, 89, 20);
+		editTextBox.setBounds(397, 115, 89, 20);
 		editTextBox.setSelectedIndex(1);
 		contentPane.add(editTextBox);
 		
 		autoCompleteBox = new JComboBox(interactions);
-		autoCompleteBox.setBounds(397, 163, 89, 20);
+		autoCompleteBox.setBounds(397, 140, 89, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
 		
@@ -252,8 +258,13 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(toggleBox);
 		
 		inputTextBox = new JComboBox(inputs);
-		inputTextBox.setBounds(127, 108, 108, 20);
+		inputTextBox.setBounds(378, 163, 108, 20);
 		contentPane.add(inputTextBox);
+		
+		schedulerBox = new JComboBox(algorithm);
+		schedulerBox.setSelectedIndex(1);
+		schedulerBox.setBounds(146, 108, 89, 20);
+		contentPane.add(schedulerBox);
 		
 		resetDefaultValues();
 		
@@ -308,12 +319,15 @@ public class GraphicalEditor extends JFrame {
 		if (screenshotBox.getSelectedIndex()!=0){
 			builder.append("\t\t\t<entry key=\"SCREENSHOT_ENABLED\" value=\"false\"/>\n");
 		}
+		if (schedulerBox.getSelectedIndex()!=0){
+			if (!isRandom()) builder.append("\t\t\t<entry key=\"SCHEDULER_ALGORITHM\" value=\"DEPTH_FIRST\"/>\n");
+		}
 		if (tabBox.getSelectedIndex()!=1){
 			builder.append("\t\t\t<entry key=\"TAB_EVENTS_START_ONLY\" value=\"true\"/>\n");
 		}
 		if (isRandom()){
 			builder.append("\t\t\t<entry key=\"RANDOM_SEED\"  value=\"0\"/>\n");
-			builder.append("\t\t\t<entry key=\"MAX_NUM_EVENTS\"  value=\"100\"/>\n");
+			builder.append("\t\t\t<entry key=\"MAX_NUM_EVENTS\"  value=\"0\"/>\n");
 		}
 		if (inputTextBox.getSelectedIndex()!=0){
 			builder.append("\t\t\t<entry key=\"HASH_VALUES\" value=\"false\"/>\n");
@@ -474,10 +488,12 @@ public class GraphicalEditor extends JFrame {
 		if (isRandom()){
 			i=1;
 			listComparatorBox.setEnabled(false);
+			schedulerBox.setEnabled(false);
 		}
 			
 		modelBox.setSelectedIndex(i);
 		screenshotBox.setSelectedIndex(i);
+		schedulerBox.setSelectedIndex(i);
 		tabBox.setSelectedIndex(1);
 		
 		comparatorBox.setSelectedIndex(i);
