@@ -24,7 +24,7 @@ public class ReportGenerator extends StatsReport {
 
 	private GuiTree session;
 
-	private TraceStats traceReport = new TraceStats();
+	private TaskStats taskReport = new TaskStats();
 	private InteractionStats eventReport = new InteractionStats();
 
 	private int depth = 0;
@@ -48,20 +48,15 @@ public class ReportGenerator extends StatsReport {
 	}
 
 	public void evaluate() {
-
-		for (Trace theTrace: this.session) {
+		for (Task theTrace: this.session) {
 			// Trace count
-			traceReport.analyzeTrace(theTrace);
-
+			taskReport.analyzeTrace(theTrace);
 			boolean first = true;
 			int currentDepth = 0;
 			for (Transition step: theTrace) {				
-
 				currentDepth++;
-
 				// Events and input count
 				eventReport.analyzeInteractions(step);
-
 				// Widgets count
 				if (first) {
 					countWidgets(step.getStartActivity());
@@ -72,20 +67,24 @@ public class ReportGenerator extends StatsReport {
 			}
 			this.depth = max(this.depth,currentDepth);
 		}
-
-
 	}
 
 	public String getReport () {
 		evaluate();
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.traceReport + NEW_LINE);
+		builder.append(this.taskReport + NEW_LINE);
 		int stateSize = this.activityStates.size() + crash;
-		if (actualCrashes.size()!=0) builder.append("List of actual crashed traces: " + expandList(this.actualCrashes) + NEW_LINE);
-		builder.append("Depth reached: " + this.depth + NEW_LINE + "Transitions: " + NEW_LINE + 
-				TAB + "different gui states found: " + stateSize + NEW_LINE + 
-				TAB + "different activities found: " + this.activity.size() +
+		int startState = 1;
+		int leaves = taskReport.getTasks() - (this.activityStates.size() - startState); 
+		
+		if (actualCrashes.size()!=0) builder.append("List of Crashed Tasks: " + expandList(this.actualCrashes) + NEW_LINE);
+		builder.append("Model Information: " + NEW_LINE + 
+				TAB + "Different Gui States: " + stateSize + NEW_LINE + 
+				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
+				TAB + "Leaves of GuiTree: " + leaves + NEW_LINE + 
+				TAB + "Maximum Depth: " + this.depth +
 				BREAK + this.eventReport);
+		
 		return builder.toString();
 	}
 

@@ -40,7 +40,7 @@ public class GuiTreeToDot {
 	public String getDot () {
 
 		boolean first = true;
-		for (Trace t: this.session) {
+		for (Task t: this.session) {
 			Transition action = t.getFinalTransition();
 			addTransition(action, first);
 			first = false;
