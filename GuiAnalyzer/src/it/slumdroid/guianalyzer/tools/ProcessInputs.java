@@ -64,7 +64,7 @@ public class ProcessInputs {
 		Screens = new HashMap<String, String>();
 
 		try {
-			for (Trace t: guiTree) {
+			for (Task t: guiTree) {
 				for (Transition tr: t) {
 					for (UserInput input: tr) {
 						if (input.getType().equals(WRITE_TEXT)) {                       	
