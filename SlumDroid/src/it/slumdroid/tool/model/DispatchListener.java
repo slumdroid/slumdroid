@@ -15,11 +15,11 @@
 
 package it.slumdroid.tool.model;
 
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 public interface DispatchListener {
 
-	public void onTaskDispatched (Trace t);
-	public void onNewTaskAdded (Trace t);
+	public void onTaskDispatched (Task t);
+	public void onNewTaskAdded (Task t);
 
 }

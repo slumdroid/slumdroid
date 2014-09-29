@@ -20,7 +20,7 @@ import it.slumdroid.tool.model.SessionParams;
 import android.content.ContextWrapper;
 
 import it.slumdroid.droidmodels.model.Session;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 import static it.slumdroid.tool.Resources.ENABLE_MODEL;
 
@@ -63,7 +63,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 
 	@Override
-	public void addTrace (Trace t) {
+	public void addTrace (Task t) {
 		super.addTrace (t);
 		this.count++;
 		if (this.count == this.step) {
@@ -109,7 +109,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 
 	public void saveStep () {
 		if (ENABLE_MODEL) save(isLast());
-		for (Trace t: getSession()) {
+		for (Task t: getSession()) {
 			getSession().removeTrace(t);
 		}
 		setNotFirst();

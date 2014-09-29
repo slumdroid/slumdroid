@@ -40,7 +40,7 @@ import android.widget.Spinner;
 
 import com.robotium.solo.Solo;
 
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
@@ -68,11 +68,11 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		refreshCurrentActivity();
 	}
 
-	public void execute (Trace t) {
+	public void execute (Task t) {
 		this.executor.process (t);
 	}
 
-	public void process (Trace t) {
+	public void process (Task t) {
 		afterRestart();
 		if (!ONLY_FINAL_TRANSITION) Log.i (TAG, "Playing Trace " + t.getId());
 		extractState();

@@ -18,17 +18,17 @@ package it.slumdroid.tool.model;
 import java.util.Collection;
 import java.util.List;
 
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 public interface TaskScheduler {
 
-	public Trace nextTask();
-	public void addTasks (Collection<Trace> newTasks);
-	public void addPlannedTasks(List<Trace> newTasks);
-	public void setTaskList (List<Trace> theList);
+	public Task nextTask();
+	public void addTasks (Collection<Task> newTasks);
+	public void addPlannedTasks(List<Task> newTasks);
+	public void setTaskList (List<Task> theList);
 	public boolean hasMore();
-	public void remove (Trace t);
-	public void addTasks(Trace t);
-	public List<Trace> getTaskList();
+	public void remove (Task t);
+	public void addTasks(Task t);
+	public List<Task> getTaskList();
 
 }

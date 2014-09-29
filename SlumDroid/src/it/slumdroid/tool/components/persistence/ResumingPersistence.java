@@ -36,7 +36,7 @@ import it.slumdroid.droidmodels.xml.ElementWrapper;
 
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener, TerminationListener {
 
-	private List<Trace> taskList;
+	private List<Task> taskList;
 	private String activityFile;
 	private String taskListFile;
 	private String parametersFile;
@@ -56,14 +56,14 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 
 	@Override 
-	public void addTrace (Trace t) {
+	public void addTrace (Task t) {
 		t.setFailed(false);
 		super.addTrace(t);
 	}
 
-	public void onNewTaskAdded (Trace t) { /* do nothing */ }
+	public void onNewTaskAdded (Task t) { /* do nothing */ }
 
-	public void onTaskDispatched(Trace t) {
+	public void onTaskDispatched(Task t) {
 		t.setFailed(true);
 		saveTaskList();
 		saveParameters();
@@ -81,7 +81,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 		try {
 			openTaskFile();
-			for (Trace task: this.taskList) {
+			for (Task task: this.taskList) {
 				String xml = new String();
 				if (ONLY_FINAL_TRANSITION){
 					try{
@@ -325,7 +325,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		return (this.taskList.size()==0);
 	}
 
-	public void setTaskList(List<Trace> taskList) {
+	public void setTaskList(List<Task> taskList) {
 		this.taskList = taskList;
 	}
 

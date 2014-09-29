@@ -31,7 +31,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import it.slumdroid.droidmodels.model.Session;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 
 public class DiskPersistence implements Persistence, ImageStorage {
@@ -70,7 +70,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		this.w = new ContextWrapper(a);
 	}
 
-	public void addTrace(Trace t) {
+	public void addTrace(Task t) {
 		this.theSession.addTrace(t);
 	}
 

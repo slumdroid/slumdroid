@@ -170,7 +170,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		theStep.setStartActivity (stubActivity(theActivity));
 	}
 
-	public void setFinalActivity (Trace theTask, ActivityState theActivity) {
+	public void setFinalActivity (Task theTask, ActivityState theActivity) {
 		theTask.setFinalActivity (stubActivity(theActivity));
 	}
 
@@ -224,19 +224,19 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newInput;
 	}
 
-	public Trace createTrace(Trace head, Transition tail) {
-		TestCaseTrace t;
+	public Task createTrace(Task head, Transition tail) {
+		TestCaseTask t;
 		if (head!= null) {
-			t = ((TestCaseTrace)head).clone();
+			t = ((TestCaseTask)head).clone();
 		} else {
-			t = new TestCaseTrace (getTheSession());
+			t = new TestCaseTask (getTheSession());
 		}
 		t.addTransition(tail);
 		return t;
 	}
 
-	public Trace importTask (Element fromXml) {
-		TestCaseTrace imported = new TestCaseTrace (getTheSession());
+	public Task importTask (Element fromXml) {
+		TestCaseTask imported = new TestCaseTask (getTheSession());
 		Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
 		imported.setElement(task);
 		return imported;

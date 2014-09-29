@@ -16,7 +16,7 @@
 package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 public interface Strategy {
 
@@ -31,8 +31,8 @@ public interface Strategy {
 	public boolean checkForTermination ();
 	public boolean checkForPause ();
 
-	public void setTask(Trace theTask);
-	public Trace getTask();
+	public void setTask(Task theTask);
+	public Task getTask();
 
 	public ActivityState getStateBeforeEvent();
 	public ActivityState getStateAfterEvent ();

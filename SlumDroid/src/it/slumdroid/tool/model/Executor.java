@@ -17,7 +17,7 @@ package it.slumdroid.tool.model;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
@@ -27,7 +27,7 @@ public interface Executor {
 	public void bind (ActivityInstrumentationTestCase2<?> engine);
 	public void fireEvent (UserEvent e);
 	public void setInput (UserInput i);
-	public void process (Trace t);
+	public void process (Task t);
 	public void process (Transition tr);
 	public void finalize();
 	public void wait (int milli);

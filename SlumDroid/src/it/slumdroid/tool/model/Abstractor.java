@@ -20,7 +20,7 @@ import java.util.Collection;
 import org.w3c.dom.Element;
 
 import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
@@ -34,10 +34,10 @@ public interface Abstractor {
 	public ActivityState getBaseActivity ();
 	public UserEvent createEvent (WidgetState target, String type);
 	public UserInput createInput (WidgetState target, String value, String type);
-	public Trace createTrace (Trace prototype, Transition appendix);
+	public Task createTrace (Task prototype, Transition appendix);
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
-	public Trace importTask (Element e);
+	public Task importTask (Element e);
 	public ActivityState importState (Element fromXml);
-	public void setFinalActivity (Trace theTask, ActivityState theActivity);
+	public void setFinalActivity (Task theTask, ActivityState theActivity);
 
 }

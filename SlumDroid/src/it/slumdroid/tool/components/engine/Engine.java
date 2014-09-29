@@ -90,7 +90,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	public void testAndCrawl() {
-		for (Trace theTask: getScheduler()) {
+		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
 			process(theTask);
 			ActivityDescription d = getExtractor().describeActivity();
@@ -106,7 +106,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		}
 	}
 
-	protected void process(Trace theTask) {
+	protected void process(Task theTask) {
 		getExecutor().process(theTask);
 	}
 
@@ -168,8 +168,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		Session sandboxSession = getNewSession();
 		Element e;
 		entries = r.readTaskFile();
-		List<Trace> taskList = new ArrayList<Trace>();
-		Trace t;
+		List<Task> taskList = new ArrayList<Task>();
+		Task t;
 		for (String trace: entries) {
 			sandboxSession.parse(trace);
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
@@ -187,13 +187,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		planTests (null, thePlan);
 	}
 
-	protected void planTests (Trace theTask, ActivityState theActivity) {
+	protected void planTests (Task theTask, ActivityState theActivity) {
 		Plan thePlan = getPlanner().getPlanForActivity(theActivity);
 		planTests (theTask, thePlan);
 	}
 
-	protected void planTests (Trace baseTask, Plan thePlan) {
-		List<Trace> tasks = new ArrayList<Trace>();
+	protected void planTests (Task baseTask, Plan thePlan) {
+		List<Task> tasks = new ArrayList<Task>();
 		for (Transition t: thePlan) {
 			tasks.add(getNewTask(baseTask, t));
 		}
@@ -204,8 +204,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		// do nothing 
 	}
 
-	protected Trace getNewTask (Trace theTask, Transition t) {
-		Trace newTrace = getAbstractor().createTrace(theTask, t);
+	protected Task getNewTask (Task theTask, Transition t) {
+		Task newTrace = getAbstractor().createTrace(theTask, t);
 		newTrace.setId(nextId());
 		return newTrace;
 	}
