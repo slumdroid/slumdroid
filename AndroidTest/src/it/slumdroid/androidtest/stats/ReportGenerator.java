@@ -74,14 +74,11 @@ public class ReportGenerator extends StatsReport {
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.taskReport + NEW_LINE);
 		int stateSize = this.activityStates.size() + crash;
-		int startState = 1;
-		int leaves = taskReport.getTasks() - (this.activityStates.size() - startState); 
 		
 		if (actualCrashes.size()!=0) builder.append("List of Crashed Tasks: " + expandList(this.actualCrashes) + NEW_LINE);
 		builder.append("Model Information: " + NEW_LINE + 
 				TAB + "Different Gui States: " + stateSize + NEW_LINE + 
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
-				TAB + "Leaves of GuiTree: " + leaves + NEW_LINE + 
 				TAB + "Maximum Depth: " + this.depth +
 				BREAK + this.eventReport);
 		
