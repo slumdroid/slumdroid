@@ -254,7 +254,7 @@ public class UnionTaskListDiet {
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
 
-				NodeList nList = doc.getElementsByTagName("TRACE");
+				NodeList nList = doc.getElementsByTagName("TASK");
 
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
@@ -282,7 +282,7 @@ public class UnionTaskListDiet {
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
 
-				NodeList nList = doc.getElementsByTagName("TRACE");
+				NodeList nList = doc.getElementsByTagName("TASK");
 
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
