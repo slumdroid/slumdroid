@@ -25,7 +25,7 @@ import it.slumdroid.tool.utilities.strategy.criteria.OnExitPause;
 import java.util.Random;
 
 import android.util.Log;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import static it.slumdroid.tool.Resources.*;
 import static it.slumdroid.tool.components.scheduler.TraceDispatcher.SchedulerAlgorithm.DEPTH_FIRST;
@@ -61,7 +61,7 @@ public class RandomEngine extends SystematicEngine {
 	}
 
 	@Override
-	protected void planTests (Trace theTask, Plan thePlan) {
+	protected void planTests (Task theTask, Plan thePlan) {
 		int n;
 		int max;
 		Transition t;
@@ -86,7 +86,7 @@ public class RandomEngine extends SystematicEngine {
 	}
 
 	@Override
-	protected void process(Trace theTask) {
+	protected void process(Task theTask) {
 		if (this.first) super.process(theTask);
 		else getExecutor().process(theTask.getFinalTransition());
 		this.first=false;

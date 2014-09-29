@@ -24,12 +24,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 class TrivialScheduler implements TaskScheduler {
 
 	private final TraceDispatcher traceDispatcher;
-	private List<Trace> tasks;
+	private List<Task> tasks;
 	private SchedulerAlgorithm algorithm;
 
 	public TrivialScheduler (TraceDispatcher traceDispatcher, SchedulerAlgorithm algorithm) {
@@ -41,7 +41,7 @@ class TrivialScheduler implements TaskScheduler {
 		this.algorithm = algorithm;
 	}
 
-	public Trace nextTask() {
+	public Task nextTask() {
 		if (!hasMore()) return null;
 
 		switch (algorithm) {
@@ -51,8 +51,8 @@ class TrivialScheduler implements TaskScheduler {
 		}
 	}
 
-	public void addTasks(Collection<Trace> newTasks) {
-		for (Trace t: newTasks) {
+	public void addTasks(Collection<Task> newTasks) {
+		for (Task t: newTasks) {
 			tasks.add(t);
 			for (DispatchListener theListener: this.traceDispatcher.theListeners) {
 				theListener.onNewTaskAdded(t);
@@ -60,7 +60,7 @@ class TrivialScheduler implements TaskScheduler {
 		}				
 	}
 
-	public void addPlannedTasks(List<Trace> newTasks) {
+	public void addPlannedTasks(List<Task> newTasks) {
 		switch (algorithm) {
 		case DEPTH_FIRST:
 			Collections.reverse(newTasks);
@@ -71,11 +71,11 @@ class TrivialScheduler implements TaskScheduler {
 		}
 	}
 
-	public void setTaskList(List<Trace> theList) {
+	public void setTaskList(List<Task> theList) {
 		this.tasks = theList;
 	}
 
-	public List<Trace> getTaskList() {
+	public List<Task> getTaskList() {
 		return this.tasks;
 	}
 
@@ -83,11 +83,11 @@ class TrivialScheduler implements TaskScheduler {
 		return (!tasks.isEmpty());
 	}
 
-	public void remove(Trace t) {
+	public void remove(Task t) {
 		tasks.remove(t);
 	}
 
-	public void addTasks(Trace t) {
+	public void addTasks(Task t) {
 		discardTasks();
 		this.tasks.add(t);
 	}
@@ -107,11 +107,11 @@ class TrivialScheduler implements TaskScheduler {
 		}
 	}
 
-	public Trace firstTask() {
+	public Task firstTask() {
 		return this.tasks.get(0);
 	}
 
-	public Trace lastTask() {
+	public Task lastTask() {
 		return this.tasks.get(this.tasks.size()-1);
 	}
 

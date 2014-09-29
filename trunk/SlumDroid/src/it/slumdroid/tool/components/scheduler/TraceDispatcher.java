@@ -23,11 +23,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 import static it.slumdroid.tool.Resources.SCHEDULER_ALGORITHM;
 
-public class TraceDispatcher implements Iterable<Trace> {
+public class TraceDispatcher implements Iterable<Task> {
 
 	private TaskScheduler scheduler;
 	List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
@@ -47,21 +47,21 @@ public class TraceDispatcher implements Iterable<Trace> {
 		this.scheduler = ts;
 	}
 
-	public void addPlannedTasks (List<Trace> t) {
+	public void addPlannedTasks (List<Task> t) {
 		getScheduler().addPlannedTasks(t);
 	}
 
-	public void addTasks (Collection<Trace> t) {
+	public void addTasks (Collection<Task> t) {
 		getScheduler().addTasks(t);
 	}
 
-	public void addTasks (Trace t) {
+	public void addTasks (Task t) {
 		getScheduler().addTasks(t);
 	}
 
 	public TaskScheduler getTrivialScheduler(SchedulerAlgorithm a) {
 		TaskScheduler s = new TrivialScheduler(this, a);
-		s.setTaskList(new ArrayList<Trace>());
+		s.setTaskList(new ArrayList<Task>());
 		return s;
 	}
 
@@ -73,16 +73,16 @@ public class TraceDispatcher implements Iterable<Trace> {
 		this.theListeners.add(theListener);
 	}
 
-	public Iterator<Trace> iterator() {
-		return new Iterator<Trace> () {
+	public Iterator<Task> iterator() {
+		return new Iterator<Task> () {
 
-			Trace lastTask;
+			Task lastTask;
 
 			public boolean hasNext() {
 				return scheduler.hasMore();
 			}
 
-			public Trace next() {
+			public Task next() {
 				this.lastTask = scheduler.nextTask();
 				for (DispatchListener theListener: theListeners) {
 					theListener.onTaskDispatched(this.lastTask);

@@ -34,7 +34,7 @@ import java.util.List;
 
 import android.util.Log;
 import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 
 public class CustomStrategy implements Strategy {
 
@@ -43,7 +43,7 @@ public class CustomStrategy implements Strategy {
 	protected Collection<TerminationCriteria> terminators = new ArrayList<TerminationCriteria>();
 	protected Collection<PauseCriteria> pausers = new ArrayList<PauseCriteria>();
 	protected boolean positiveComparation = true;
-	private Trace theTask;
+	private Task theTask;
 	private ActivityState beforeEvent;
 	private ActivityState afterEvent;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
@@ -141,12 +141,12 @@ public class CustomStrategy implements Strategy {
 		this.c = c;
 	}
 
-	public void setTask(Trace theTask) {
+	public void setTask(Task theTask) {
 		this.theTask = theTask;
 		this.beforeEvent = theTask.getFinalTransition().getStartActivity();
 	}
 
-	public Trace getTask () {
+	public Task getTask () {
 		return this.theTask;
 	}
 
