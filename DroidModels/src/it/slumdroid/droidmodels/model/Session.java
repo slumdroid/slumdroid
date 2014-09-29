@@ -17,15 +17,15 @@ package it.slumdroid.droidmodels.model;
 
 import java.util.Iterator;
 
-public interface Session extends Iterable<Trace> {
+public interface Session extends Iterable<Task> {
 
 	public String getDateTime ();
-	public Iterator<Trace> traces();
+	public Iterator<Task> traces();
 	public ActivityState getBaseActivity();
-	public void addTrace (Trace theTrace);
-	public void removeTrace (Trace theTrace);
-	public void addFailedTrace(Trace theTask);
-	public void addCrashedTrace (Trace theTask);
+	public void addTrace (Task theTrace);
+	public void removeTrace (Task theTrace);
+	public void addFailedTrace(Task theTask);
+	public void addCrashedTrace (Task theTask);
 	public void parse (String xml);
 
 }

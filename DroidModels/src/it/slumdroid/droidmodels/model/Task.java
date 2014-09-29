@@ -17,7 +17,7 @@ package it.slumdroid.droidmodels.model;
 
 import java.util.Iterator;
 
-public interface Trace extends Iterable<Transition>, WrapperInterface {
+public interface Task extends Iterable<Transition>, WrapperInterface {
 
 	public String getId ();
 	public void setId (String id);

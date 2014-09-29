@@ -17,7 +17,7 @@ package it.slumdroid.droidmodels.testcase;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Trace;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
 import it.slumdroid.droidmodels.xml.NodeListWrapper;
@@ -27,23 +27,23 @@ import java.util.Iterator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public class TestCaseTrace extends ElementWrapper implements Trace {
+public class TestCaseTask extends ElementWrapper implements Task {
 
 	public final static String TAG = "TRACE";
 
-	public TestCaseTrace () {
+	public TestCaseTask () {
 		super();
 	}
 
-	public TestCaseTrace (Element trace) {
-		super(trace);
+	public TestCaseTask (Element task) {
+		super(task);
 	}
 
-	public TestCaseTrace (GuiTree session) {
+	public TestCaseTask (GuiTree session) {
 		this (session.getDom());
 	}
 
-	public TestCaseTrace (Document dom) {
+	public TestCaseTask (Document dom) {
 		super (dom, TAG);
 	}
 
@@ -77,8 +77,8 @@ public class TestCaseTrace extends ElementWrapper implements Trace {
 		return getAttribute("fail");
 	}
 
-	public TestCaseTrace getWrapper(Element e) {
-		return new TestCaseTrace (e);
+	public TestCaseTask getWrapper(Element e) {
+		return new TestCaseTask (e);
 	}
 
 	// Iterator Methods
@@ -99,8 +99,8 @@ public class TestCaseTrace extends ElementWrapper implements Trace {
 	}
 
 	@Override
-	public TestCaseTrace clone () {
-		TestCaseTrace t = new TestCaseTrace (getElement().getOwnerDocument());
+	public TestCaseTask clone () {
+		TestCaseTask t = new TestCaseTask (getElement().getOwnerDocument());
 		for (Transition child: this) {
 			TestCaseTransition newChild = ((TestCaseTransition)child).clone();
 			t.addTransition(newChild);

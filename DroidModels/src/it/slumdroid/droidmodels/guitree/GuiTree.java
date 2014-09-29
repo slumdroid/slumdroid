@@ -17,7 +17,7 @@ package it.slumdroid.droidmodels.guitree;
 
 import it.slumdroid.droidmodels.model.*;
 import it.slumdroid.droidmodels.testcase.TestCaseActivity;
-import it.slumdroid.droidmodels.testcase.TestCaseTrace;
+import it.slumdroid.droidmodels.testcase.TestCaseTask;
 import it.slumdroid.droidmodels.xml.NodeListWrapper;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 
@@ -84,19 +84,19 @@ public class GuiTree extends XmlGraph implements Session {
 		return g;
 	}
 
-	public void addTrace (Trace t) {
+	public void addTrace (Task t) {
 		getDom().getDocumentElement().appendChild(t.getElement());
 	}
 
-	public void addCrashedTrace (Trace t) {
+	public void addCrashedTrace (Task t) {
 		addFailedTrace (t,ActivityState.CRASH);
 	}
 
-	public void addFailedTrace (Trace t) {
+	public void addFailedTrace (Task t) {
 		addFailedTrace (t,ActivityState.FAILURE);
 	}
 
-	protected void addFailedTrace (Trace t, String failType) {
+	protected void addFailedTrace (Task t, String failType) {
 		t.setFailed(true);
 		FinalActivity fail = FinalActivity.createActivity(this);
 		fail.setName(failType);
@@ -106,20 +106,20 @@ public class GuiTree extends XmlGraph implements Session {
 		addTrace(t);
 	}
 
-	public void removeTrace (Trace t) {
+	public void removeTrace (Task t) {
 		getDom().getDocumentElement().removeChild(t.getElement());
 	}
 
 	// Iterator Methods
-	public Iterator<Trace> traces() {
+	public Iterator<Task> traces() {
 		Element session = getDom().getDocumentElement();
 		if (session.getNodeName().equals(TAG)) {
-			return new NodeListWrapper<Trace> (session, new TestCaseTrace());
+			return new NodeListWrapper<Task> (session, new TestCaseTask());
 		}
 		return null;		
 	}
 
-	public Iterator<Trace> iterator() {
+	public Iterator<Task> iterator() {
 		return traces();
 	}
 
