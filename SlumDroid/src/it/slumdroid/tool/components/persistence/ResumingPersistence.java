@@ -56,9 +56,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 
 	@Override 
-	public void addTrace (Task t) {
+	public void addTask (Task t) {
 		t.setFailed(false);
-		super.addTrace(t);
+		super.addTask(t);
 	}
 
 	public void onNewTaskAdded (Task t) { /* do nothing */ }

@@ -99,7 +99,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			if (screenshotEnabled()) takeScreenshot(theActivity);
 			getExecutor().wait(SLEEP_AFTER_TASK);
 			getAbstractor().setFinalActivity (theTask, theActivity);
-			getPersistence().addTrace(theTask);
+			getPersistence().addTask(theTask);
 			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
 			else doNotPlanTests();
 			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
@@ -205,7 +205,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	protected Task getNewTask (Task theTask, Transition t) {
-		Task newTrace = getAbstractor().createTrace(theTask, t);
+		Task newTrace = getAbstractor().createTask(theTask, t);
 		newTrace.setId(nextId());
 		return newTrace;
 	}

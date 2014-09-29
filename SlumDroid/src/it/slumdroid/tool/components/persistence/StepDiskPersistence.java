@@ -35,8 +35,8 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	public final static String ACTOR_NAME = "StepDiskPersistence";
 	public final static String PARAM_NAME = "footer";
 
-	private final static String XML_BODY_BEGIN = "    <TRACE";
-	private final static String XML_BODY_END = "/TRACE>";
+	private final static String XML_BODY_BEGIN = "    <TASK";
+	private final static String XML_BODY_END = "/TASK>";
 
 	public StepDiskPersistence () {
 		super();
@@ -63,8 +63,8 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 
 	@Override
-	public void addTrace (Task t) {
-		super.addTrace (t);
+	public void addTask (Task t) {
+		super.addTask (t);
 		this.count++;
 		if (this.count == this.step) {
 			saveStep();
