@@ -29,7 +29,7 @@ import org.w3c.dom.Element;
 
 public class TestCaseTask extends ElementWrapper implements Task {
 
-	public final static String TAG = "TRACE";
+	public final static String TAG = "TASK";
 
 	public TestCaseTask () {
 		super();
