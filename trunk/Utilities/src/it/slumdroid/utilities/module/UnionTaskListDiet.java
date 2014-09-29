@@ -44,8 +44,8 @@ public class UnionTaskListDiet {
 
 	static Preferences prefs;
 
-	static final String FAKE_TRACE_IDENTIFIER = "!_FAKE_TRACE_!";
-	static final String FAKE_TRACE = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TRACE date=\""+FAKE_TRACE_IDENTIFIER+"\" id=\"_ID_\"/>";
+	static final String FAKE_TASK_IDENTIFIER = "!_FAKE_TASK_!";
+	static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\""+FAKE_TASK_IDENTIFIER+"\" id=\"_ID_\"/>";
 	static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
 	static String TASKLIST_XML = new String();
 
@@ -108,7 +108,7 @@ public class UnionTaskListDiet {
 
 	private static void handleDepthOutTasklist(PrintWriter outTasklist, ArrayList<String> tasklist) throws Exception {
 		Integer id_fake = Integer.parseInt( getID( tasklist.get(tasklist.size()-1) ) ) + 1;
-		outTasklist.println(FAKE_TRACE.replace("_ID_", id_fake.toString())); 
+		outTasklist.println(FAKE_TASK.replace("_ID_", id_fake.toString())); 
 		String lastString = tasklist.remove(tasklist.size() - 1);
 		if (lastString.contains("fail=\"true\"")) outTasklist.println(tasklist.remove(tasklist.size() - 1));
 		outTasklist.println(lastString);
@@ -146,7 +146,7 @@ public class UnionTaskListDiet {
 
 	private static int getFakeTracePosition(ArrayList<String> tasklist) {
 		for (int i = 0; i < tasklist.size(); i++)
-			if (tasklist.get(i).contains(FAKE_TRACE_IDENTIFIER))
+			if (tasklist.get(i).contains(FAKE_TASK_IDENTIFIER))
 				return i;
 		return -1;
 	}
@@ -186,7 +186,7 @@ public class UnionTaskListDiet {
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
 					if (strLine.length() > 1) {
-						if (strLine.contains(FAKE_TRACE_IDENTIFIER) == false) {
+						if (strLine.contains(FAKE_TASK_IDENTIFIER) == false) {
 							tasklist_xml.add(strLine);
 						}
 						else {
@@ -221,7 +221,7 @@ public class UnionTaskListDiet {
 				out.println(lastString);
 				if (previous_track_found) out.println(tasklist_diet.remove(num));
 				Integer id_fake = Integer.parseInt( getID( lastString ) ) + 1;
-				out.println(FAKE_TRACE.replace("_ID_", id_fake.toString()));
+				out.println(FAKE_TASK.replace("_ID_", id_fake.toString()));
 				out.close();
 
 				if (tasklist_diet.size() > 0) {
