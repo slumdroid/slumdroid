@@ -25,7 +25,7 @@ public interface Persistence {
 	public void save ();
 	public void setFileName(String name);
 	public void setSession (Session s);
-	public void addTrace (Task t);
+	public void addTask (Task t);
 	public void setContext(Activity activity);
 	public boolean exists (String fileName);
 	public void registerListener (SaveStateListener listener);

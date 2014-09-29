@@ -224,7 +224,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newInput;
 	}
 
-	public Task createTrace(Task head, Transition tail) {
+	public Task createTask(Task head, Transition tail) {
 		TestCaseTask t;
 		if (head!= null) {
 			t = ((TestCaseTask)head).clone();

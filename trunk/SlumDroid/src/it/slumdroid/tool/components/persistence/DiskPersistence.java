@@ -70,7 +70,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		this.w = new ContextWrapper(a);
 	}
 
-	public void addTrace(Task t) {
+	public void addTask(Task t) {
 		this.theSession.addTrace(t);
 	}
 
