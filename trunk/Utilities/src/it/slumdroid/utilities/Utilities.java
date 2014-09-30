@@ -66,6 +66,7 @@ public class Utilities {
 			}
 			else if (args[0].equals("preferenceEditor")) new PreferenceEditor().preferenceEditor(args, TOOL); 
 			else if (args[0].equals("retarget")) new Retarget().retarget(args[1], args[2]);
+			else if (args[0].equals("traslate")) new TrasformActivity().traslate(args[1], args[2]);
 		}
 	}
 
