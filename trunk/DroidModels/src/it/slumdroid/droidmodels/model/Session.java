@@ -20,12 +20,12 @@ import java.util.Iterator;
 public interface Session extends Iterable<Task> {
 
 	public String getDateTime ();
-	public Iterator<Task> traces();
+	public Iterator<Task> tasks();
 	public ActivityState getBaseActivity();
-	public void addTrace (Task theTrace);
-	public void removeTrace (Task theTrace);
-	public void addFailedTrace(Task theTask);
-	public void addCrashedTrace (Task theTask);
+	public void addTask (Task theTrace);
+	public void removeTask (Task theTrace);
+	public void addFailedTask(Task theTask);
+	public void addCrashedTask (Task theTask);
 	public void parse (String xml);
 
 }

@@ -51,11 +51,11 @@ public class ActivityMap implements Iterable<ActivityState> {
 	}
 
 	public ActivityState getActivity(ActivityState t) {
-		return getActivity(t.getDescriptionId());
+		return getActivity(t.getId());
 	}
 
 	public boolean hasActivity (ActivityState t) {
-		return hasActivity(t.getDescriptionId());
+		return hasActivity(t.getId());
 	}
 
 	public boolean hasActivity (String id) {

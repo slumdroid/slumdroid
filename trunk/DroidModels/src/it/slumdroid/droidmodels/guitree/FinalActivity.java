@@ -41,8 +41,6 @@ public class FinalActivity extends TestCaseActivity {
 
 	public static FinalActivity createActivity (Document dom, String tag) {
 		Element el = dom.createElement(tag);
-		Element desc = dom.createElement(DESC_TAG);
-		el.appendChild(desc);
 		return new FinalActivity (el);
 	}
 
@@ -52,7 +50,6 @@ public class FinalActivity extends TestCaseActivity {
 		newActivity.setName(originalActivity.getName());
 		newActivity.setTitle(originalActivity.getTitle());
 		newActivity.setId(originalActivity.getId());
-		newActivity.copyDescriptionFrom(originalActivity);
 		newActivity.setUniqueId(originalActivity.getUniqueId());
 		newActivity.setScreenshot(originalActivity.getScreenshot());
 		return newActivity;

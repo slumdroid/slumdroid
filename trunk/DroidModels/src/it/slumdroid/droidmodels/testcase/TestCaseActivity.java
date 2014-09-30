@@ -43,14 +43,10 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	@Override
 	public void setElement (Element e) {
 		super.setElement(e);
-		this.description = (Element) getElement().getChildNodes().item(0);
 	}
 
 	public Iterator<WidgetState> iterator() {
-		if (this.description.getNodeName().equals(DESC_TAG)) {
-			return new NodeListWrapper<WidgetState> (this.description, new TestCaseWidget());
-		}
-		return null;
+		return new NodeListWrapper<WidgetState> (this.element, new TestCaseWidget());
 	}
 
 	public String getName() {
@@ -95,8 +91,6 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 
 	public static TestCaseActivity createActivity (Document dom, String tag) {
 		Element el = dom.createElement(tag);
-		Element desc = dom.createElement(DESC_TAG);
-		el.appendChild(desc);	
 		return new TestCaseActivity (el);		
 	}
 
@@ -111,39 +105,12 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	// The main purpose of this method is to create the start activity of a transition from the final activity of the previous one
 	public static TestCaseActivity createActivity (ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
-		TestCaseActivity newActivity = createActivity (dom);
-		newActivity.copyDescriptionFrom(originalActivity);		
+		TestCaseActivity newActivity = createActivity (dom);		
 		return newActivity;
-	}
-
-	public void copyDescriptionFrom (ActivityState originalActivity) {
-		this.setDescriptionId(originalActivity.getDescriptionId());
-		for (WidgetState w: originalActivity) {
-			this.addWidget (w.clone());
-		}
-	}
-
-	public void resetDescription () {
-		for (WidgetState w: this) {
-			this.description.removeChild(w.getElement());
-		}
-	}
-
-	public void setDescriptionId (String id) {
-		this.description.setAttribute("id", id);
-	}
-
-	public String getDescriptionId() {
-		if (!this.description.hasAttribute("id")) return "";
-		return this.description.getAttribute("id");
 	}
 
 	public TestCaseActivity clone () {
 		return createActivity(this);
-	}
-
-	public void addWidget(WidgetState w) {
-		this.description.appendChild(w.getElement());
 	}
 
 	public boolean hasWidget(WidgetState widgetToCheck) {
@@ -181,8 +148,5 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	public void markAsFailure() {
 		setId(FAILURE);
 	}
-
-	private Element description;	
-	public final static String DESC_TAG = "DESCRIPTION";
 
 }
