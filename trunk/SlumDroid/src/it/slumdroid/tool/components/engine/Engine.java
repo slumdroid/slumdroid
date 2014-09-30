@@ -117,7 +117,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	@Override
 	protected void tearDown() throws Exception {
 		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
-			getSession().addFailedTrace(getStrategy().getTask());
+			getSession().addFailedTask(getStrategy().getTask());
 		}
 		getPersistence().save();
 		getExecutor().finalize();
@@ -175,7 +175,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			t = getAbstractor().importTask (e);
 			if (t.isFailed()) 
-				getSession().addCrashedTrace(t);
+				getSession().addCrashedTask(t);
 			else 
 				taskList.add(t);
 		}
