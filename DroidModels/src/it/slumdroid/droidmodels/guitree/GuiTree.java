@@ -75,7 +75,7 @@ public class GuiTree extends XmlGraph implements Session {
 	}
 
 	public ActivityState getBaseActivity () {
-		return traces().next().transitions().next().getStartActivity();
+		return tasks().next().transitions().next().getStartActivity();
 	}
 
 	public static GuiTree fromXml (File f) throws ParserConfigurationException, SAXException, IOException {
@@ -84,34 +84,34 @@ public class GuiTree extends XmlGraph implements Session {
 		return g;
 	}
 
-	public void addTrace (Task t) {
+	public void addTask (Task t) {
 		getDom().getDocumentElement().appendChild(t.getElement());
 	}
 
-	public void addCrashedTrace (Task t) {
-		addFailedTrace (t,ActivityState.CRASH);
+	public void addCrashedTask (Task t) {
+		addFailedTask (t,ActivityState.CRASH);
 	}
 
-	public void addFailedTrace (Task t) {
-		addFailedTrace (t,ActivityState.FAILURE);
+	public void addFailedTask (Task t) {
+		addFailedTask (t,ActivityState.FAILURE);
 	}
 
-	protected void addFailedTrace (Task t, String failType) {
+	protected void addFailedTask (Task t, String failType) {
 		t.setFailed(true);
 		FinalActivity fail = FinalActivity.createActivity(this);
 		fail.setName(failType);
 		fail.setId(failType);
 		fail.setTitle(failType);
 		t.setFinalActivity(fail);
-		addTrace(t);
+		addTask(t);
 	}
 
-	public void removeTrace (Task t) {
+	public void removeTask (Task t) {
 		getDom().getDocumentElement().removeChild(t.getElement());
 	}
 
 	// Iterator Methods
-	public Iterator<Task> traces() {
+	public Iterator<Task> tasks() {
 		Element session = getDom().getDocumentElement();
 		if (session.getNodeName().equals(TAG)) {
 			return new NodeListWrapper<Task> (session, new TestCaseTask());
@@ -120,7 +120,7 @@ public class GuiTree extends XmlGraph implements Session {
 	}
 
 	public Iterator<Task> iterator() {
-		return traces();
+		return tasks();
 	}
 
 	public TestCaseActivity importState (Element fromXml) {
