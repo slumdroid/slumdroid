@@ -19,13 +19,29 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.prefs.Preferences;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class Tools {
 
@@ -130,5 +146,35 @@ public class Tools {
 			}
 		});
 		return files;
+	}
+	
+	public void xmlWriter(String path, StringBuilder builder){
+		xmlWriter(path, builder, path);
+	}
+	
+	public void xmlWriter(String path, StringBuilder builder, String output){
+		Document doc = null;	
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
+			try {
+				doc = dombuilder.parse( new InputSource( new StringReader( builder.toString() ) ) );
+			} catch (SAXException | IOException e) {
+				e.printStackTrace();
+			}
+
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
+			DOMSource domSource = new DOMSource(doc);
+			StreamResult outputstream = new StreamResult(output);
+			transformer.transform(domSource, outputstream);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		} 
 	}
 }
