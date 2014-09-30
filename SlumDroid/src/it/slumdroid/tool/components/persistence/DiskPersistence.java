@@ -71,7 +71,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	}
 
 	public void addTask(Task t) {
-		this.theSession.addTrace(t);
+		this.theSession.addTask(t);
 	}
 
 	public void save() {

@@ -110,7 +110,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	public void saveStep () {
 		if (ENABLE_MODEL) save(isLast());
 		for (Task t: getSession()) {
-			getSession().removeTrace(t);
+			getSession().removeTask(t);
 		}
 		setNotFirst();
 	}

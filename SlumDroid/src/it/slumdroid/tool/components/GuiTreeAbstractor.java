@@ -34,6 +34,7 @@ import android.widget.TextView;
 import it.slumdroid.droidmodels.guitree.*;
 import it.slumdroid.droidmodels.model.*;
 import it.slumdroid.droidmodels.testcase.*;
+import it.slumdroid.droidmodels.xml.ElementWrapper;
 import static it.slumdroid.tool.model.AbstractorUtilities.*;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
@@ -148,7 +149,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			}
 
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
-			newActivity.addWidget(w);
+			((ElementWrapper) newActivity).appendChild(w.getElement());
 
 			for (Filter f: this.filters) {
 				f.loadItem(w);
@@ -176,8 +177,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 
 	private TestCaseActivity stubActivity (ActivityState theActivity) {
 		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
-		theStub.resetDescription();
-		theStub.setDescriptionId(theActivity.getId());
 		return theStub;
 	}
 
