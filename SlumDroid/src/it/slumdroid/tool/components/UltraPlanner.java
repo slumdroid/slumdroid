@@ -57,7 +57,8 @@ public class UltraPlanner implements Planner {
 				setIncludeRotation(false);
 			}
 			if (w.getSimpleType().equals(ACTION_HOME) 
-					&& w.isClickable()){
+					&& w.isClickable() 
+					&& w.isAvailable()){
 				setIncludeAction(true);
 			}
 			
