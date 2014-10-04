@@ -21,6 +21,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
+	
+	private NodeList items = null;
+	private int currentItem;
 
 	public NodeListIterator (Element e) {
 		this (e.getChildNodes());
@@ -60,8 +63,5 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 		this.items = items;
 		this.currentItem = 0;
 	}
-
-	private NodeList items = null;
-	private int currentItem;
 
 }

@@ -24,6 +24,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class TestCaseWidget extends ElementWrapper implements WidgetState {
+	
+	public final static String TAG = "WIDGET";
 
 	public TestCaseWidget () {
 		super();
@@ -204,7 +206,5 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 			return "tabHost";
 		return "";
 	}
-
-	public final static String TAG = "WIDGET";
 
 }

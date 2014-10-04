@@ -25,6 +25,8 @@ import org.w3c.dom.Element;
 
 public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 
+	public static String TAG = "EVENT";
+	
 	public TestCaseEvent () {
 		super();
 	}
@@ -116,7 +118,5 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 		that.setWidget(this.getWidget().clone());
 		return that;
 	}
-
-	public static String TAG = "EVENT";
 
 }

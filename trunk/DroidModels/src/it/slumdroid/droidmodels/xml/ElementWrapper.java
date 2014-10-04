@@ -31,6 +31,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public abstract class ElementWrapper implements WrapperInterface {
+	
+	protected Element element;
+	protected static Transformer t;
 
 	public ElementWrapper() {
 		super();
@@ -89,8 +92,5 @@ public abstract class ElementWrapper implements WrapperInterface {
 		t = TransformerFactory.newInstance().newTransformer();
 		return t;
 	}
-
-	protected Element element;
-	protected static Transformer t;
 
 }

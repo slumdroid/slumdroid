@@ -25,6 +25,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> {
+	
+	private Iterator<Element> iterator;
+	static Class<Element> elemento = Element.class;
+	private WrapperInterface aWrapper;
+	private Class<E> classe;
+	Constructor<E> costruisci;
 
 	public NodeListWrapper (Element parent, Class<E> classe) {
 		this (parent.getChildNodes(), classe);
@@ -87,11 +93,5 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 			return this.costruisci.newInstance (e);
 		return null;
 	}
-
-	private Iterator<Element> iterator;
-	static Class<Element> elemento = Element.class;
-	private WrapperInterface aWrapper;
-	private Class<E> classe;
-	Constructor<E> costruisci;
 
 }

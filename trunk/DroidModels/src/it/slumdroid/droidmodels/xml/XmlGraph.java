@@ -32,6 +32,14 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public abstract class XmlGraph {
+	
+	protected String doctype_system = new String();
+	protected String doctype_public = new String();
+	protected String indent = "yes";
+	protected int indent_amount = 4;
+	protected String method = "xml";
+	static boolean validation = true;
+	static private DocumentBuilder builder = null;
 
 	public abstract Document getDom ();
 
@@ -94,11 +102,4 @@ public abstract class XmlGraph {
 		validation = v;
 	}
 
-	protected String doctype_system = "";
-	protected String doctype_public = "";
-	protected String indent = "yes";
-	protected int indent_amount = 4;
-	protected String method = "xml";
-	static boolean validation = true;
-	static private DocumentBuilder builder = null;
 }
