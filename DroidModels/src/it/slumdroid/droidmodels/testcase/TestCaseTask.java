@@ -60,11 +60,6 @@ public class TestCaseTask extends ElementWrapper implements Task {
 		return (getAttribute("fail").equals("true"));
 	}
 
-	public boolean isAsync() {
-		if (!hasAttribute("async")) return false;
-		return (getAttribute("async").equals("true"));
-	}
-
 	public void setFailed(boolean failure) {
 		setAttribute("fail", (failure)?"true":"false");
 	}

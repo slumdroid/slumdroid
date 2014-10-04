@@ -33,6 +33,9 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class GuiTree extends XmlGraph implements Session {
+	
+	private Document guiTree;
+	public final static String TAG = "SESSION";
 
 	public GuiTree () throws ParserConfigurationException {
 		super ("guitree.dtd", TAG);
@@ -129,8 +132,5 @@ public class GuiTree extends XmlGraph implements Session {
 		imported.setElement(state);
 		return imported;
 	}
-
-	private Document guiTree;
-	public final static String TAG = "SESSION";
 
 }
