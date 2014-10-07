@@ -16,50 +16,98 @@
 package it.slumdroid.guianalyzer.gui;
 
 import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.guianalyzer.perturbation.PerturbationHandler;
+import it.slumdroid.guianalyzer.perturbation.Perturbations;
 import it.slumdroid.guianalyzer.tools.ProcessInputs;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 import java.awt.event.*;
 import java.io.*;
 import java.util.Collection;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.KeyStroke;
+import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentType;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import net.iharder.dnd.FileDrop;
 
 import java.awt.Dimension;
 
-public class GuiAnalyzer extends javax.swing.JFrame {
+public class GuiAnalyzer extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private ProcessInputs pI;
-	private String[] comboValues = PerturbationHandler.listPerturbations();
+	private String[] comboValues = {
+			"Generic",
+			"Number",
+			"Url",
+			"EMail",
+			"Zip Code",
+			"ISBN",
+			"Credit Card",
+			"Exclude"
+	};
 	private String currentDirectory;
 	private File theFile;
-	private DefaultTableModel model1, model2;
-	private final String screenshotsDirectory = "\\..\\screenshots\\";
+	private DefaultTableModel tabelModel;
+	private String screenshotsDirectory = "\\..\\screenshots\\";
+	private String preferencesPath = "\\..\\data\\preferences.xml";
 	private JComboBox<?> comboBox;
 
-	private javax.swing.JMenu jMenu1;
-	private javax.swing.JMenuBar jMenuBar1;
-	private javax.swing.JMenuItem jMenuItem1;
-	private javax.swing.JMenuItem jMenuItem2;
-	private javax.swing.JMenuItem jMenuItem3;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JScrollPane jScrollPane3;
-	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JTabbedPane jTabbedPane1;
-	private javax.swing.JTable jTable1;
-	private javax.swing.JTable jTable2;
-	private javax.swing.JTextArea jTextArea1;
-	private javax.swing.JTextArea jTextArea2;
+	private JMenu jMenuFile;
+	private JMenuBar jMenuBar;
+
+	private JMenuItem jMenuOpen;
+	private JMenuItem jMenuSave;
+	private JMenuItem jMenuExit;
+
+	private JPanel jPanelWidgets;
+	private JPanel jPanelImage;
+
+	private JScrollPane jScrollPane;
+
+	private JTabbedPane jTabbedWidget;
+	private JTable jTableInfo;
+
+	private Object[] colId;
+	private Object[] colWidgets;
+	private Object[] colName;
+	private Object[] colValue;
+	private Object[] colType;
+	private Object[] colScreen;
 	
 	public static void main (String args[]) {
 
@@ -76,79 +124,60 @@ public class GuiAnalyzer extends javax.swing.JFrame {
 
 		setResizable(false);
 		initComponents();
-		
-		new FileDrop (null, jPanel1, new FileDrop.Listener() {
+
+		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
 				if (files.length==0) return;
 				theFile = files[0];
+				currentDirectory = files[0].getPath().replace(files[0].getName(), "");
 				createLayout();
 			}
 		});
 
 	}
-	
+
 	private void initComponents() {
 
-		jTabbedPane1 = new javax.swing.JTabbedPane();
-		jPanel1 = new javax.swing.JPanel();
-		jScrollPane4 = new javax.swing.JScrollPane();
-		jTable1 = new javax.swing.JTable();
-		jPanel2 = new javax.swing.JPanel();
-		jScrollPane2 = new javax.swing.JScrollPane();
-		jTable2 = new javax.swing.JTable();
-		jScrollPane3 = new javax.swing.JScrollPane();
-		jTextArea2 = new javax.swing.JTextArea();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		jTextArea1 = new javax.swing.JTextArea();
-		jMenuBar1 = new javax.swing.JMenuBar();
-		jMenu1 = new javax.swing.JMenu();
-		jMenuItem1 = new javax.swing.JMenuItem();
-		jMenuItem2 = new javax.swing.JMenuItem();
-		jMenuItem3 = new javax.swing.JMenuItem();
+		jTabbedWidget = new JTabbedPane();
+		jPanelWidgets = new JPanel();
+		jPanelWidgets.setLayout(new BorderLayout());
+		jTableInfo = new JTable();
+		jMenuBar = new JMenuBar();
+		jMenuFile = new JMenu();
+		jMenuFile.setText("File");
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("GUI Analyzer");
 		setPreferredSize(new Dimension(960, 513));
-		getContentPane().setLayout(new java.awt.GridLayout(1, 0));
+		getContentPane().setLayout(new GridLayout(1, 0));
 
-		jPanel1.setLayout(new java.awt.BorderLayout());
-		jScrollPane4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-		jScrollPane4.setViewportView(jTable1);
-		jPanel1.add(jScrollPane4, java.awt.BorderLayout.CENTER);
-		jTabbedPane1.addTab("Widgets", jPanel1);
+		jScrollPane = new JScrollPane();
+		jScrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+		jScrollPane.setViewportView(jTableInfo);
+		jPanelWidgets.add(jScrollPane, BorderLayout.CENTER);
+		jPanelImage = new ImagePanel("");
+		jPanelWidgets.add(jPanelImage, BorderLayout.LINE_END);
+		jTabbedWidget.addTab("Widgets", jPanelWidgets);
+		
+		getContentPane().add(jTabbedWidget);
 
-		jPanel2.setLayout(new java.awt.GridLayout(1, 0));
-		jScrollPane2.setViewportView(jTable2);
-		jPanel2.add(jScrollPane2);
-
-		jTextArea2.setColumns(20);
-		jTextArea2.setRows(5);
-		jScrollPane3.setViewportView(jTextArea2);
-
-		jTextArea1.setColumns(20);
-		jTextArea1.setEditable(false);
-		jTextArea1.setRows(5);
-		jScrollPane1.setViewportView(jTextArea1);
-
-		getContentPane().add(jTabbedPane1);
-
-		jMenu1.setText("File");
-
-		jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/open.png"))); 
-		jMenuItem1.setText("Open");
-		jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		jMenuOpen = new javax.swing.JMenuItem();
+		jMenuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+		jMenuOpen.setIcon(new ImageIcon(getClass().getResource("/open.png"))); 
+		jMenuOpen.setText("Open");
+		jMenuOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				open();
 			}
 		});
-		jMenu1.add(jMenuItem1);
+		jMenuFile.add(jMenuOpen);
 
-		jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save.png")));
-		jMenuItem2.setText("Save as...");
-		jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		jMenuSave = new JMenuItem();
+		jMenuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		jMenuSave.setIcon(new ImageIcon(getClass().getResource("/save.png")));
+		jMenuSave.setText("Save");
+		jMenuSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				try {
 					save();
 				} catch (NullPointerException e) {
@@ -156,23 +185,24 @@ public class GuiAnalyzer extends javax.swing.JFrame {
 				}
 			}
 		});
-		jMenu1.add(jMenuItem2);
+		jMenuFile.add(jMenuSave);
 
-		jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-		jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/exit.png")));
-		jMenuItem3.setText("Exit");
-		jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
+		jMenuExit = new JMenuItem();
+		jMenuExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+		jMenuExit.setIcon(new ImageIcon(getClass().getResource("/exit.png")));
+		jMenuExit.setText("Exit");
+		jMenuExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
 				System.exit(0);
 			}
 		});
-		jMenu1.add(jMenuItem3);
+		jMenuFile.add(jMenuExit);
 
-		jMenuBar1.add(jMenu1);
-		setJMenuBar(jMenuBar1);
+		jMenuBar.add(jMenuFile);
+		setJMenuBar(jMenuBar);
 		pack();
 	}
-	
+
 	private void open () {
 
 		JFileChooser toLoad = new JFileChooser();
@@ -184,55 +214,105 @@ public class GuiAnalyzer extends javax.swing.JFrame {
 			currentDirectory = toLoad.getCurrentDirectory().toString();
 			createLayout();
 		}
+
 	}
-	
-	private void save () {
 
-		JFileChooser toSave = new JFileChooser();
-		toSave.setFileFilter(new FileNameExtensionFilter("Files", "java"));
-		toSave.setCurrentDirectory(new File(currentDirectory));
-		toSave.setSelectedFile(new File(currentDirectory + "\\JUnit.java")); 
-		int code = toSave.showSaveDialog(this);
-		File fileName = toSave.getSelectedFile();
+	private void save(){
+		try {
+			String place = System.getProperty("user.dir");
+			writeXml(place + preferencesPath);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-		if (code == JFileChooser.APPROVE_OPTION) {
-			try {
-				FileWriter fileOut = new FileWriter(fileName);
-				fileOut.write(jTextArea1.getText());
-				fileOut.close();
-			} catch (Exception e) {
-				System.err.println(e);
+	private void writeXml(String preferencesFile) {
+
+		StringBuilder builder =  new StringBuilder();
+		String line = new String();
+		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
+		
+		try{
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (preferencesFile));
+			while ((line = inputStream1.readLine()) != null ) {
+				builder.append("<"+ line.split("<")[1]);
+				if (line.contains("<node name=\"interactions\">")){
+					line = inputStream1.readLine();
+					builder.append("<"+ line.split("<")[1]);
+					int count = 0;
+					for (int i=0; i < pI.numWidgets; i++){ 
+						String control = (String) jTableInfo.getValueAt(i, 5);
+						if (!control.equals("exclude")){
+							String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 3)).perturb(control);
+							builder.append(data.replace("INDEX", String.valueOf(count)).
+									replace("ID",  String.valueOf(colId[i])).
+									replace("PERTUBATIONS", pertubedInput));
+							count++;
+						}	
+					}
+				}
 			}
+			inputStream1.close();
+			xmlCreate(preferencesFile, builder);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
 
-	private void createLayout() {
+	private void xmlCreate(String preferencesFile, StringBuilder builder) {
 		
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
+			Document doc = null;	
+			try {
+				doc = dombuilder.parse( new InputSource( new StringReader( builder.toString() ) ) );
+			} catch (SAXException | IOException e) {
+				e.printStackTrace();
+			}
+			
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+			
+			DocumentType doctype = doc.getDoctype();
+	        if(doctype != null) {
+	        	if (doctype.getPublicId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+	        	if (doctype.getSystemId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+	        }
+
+			DOMSource domSource = new DOMSource(doc);
+			StreamResult outputstream = new StreamResult(preferencesFile);
+			transformer.transform(domSource, outputstream);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	private void createLayout() {
+
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		resetAll();
 
 		try {
-			pI = new ProcessInputs(theFile.toString(), currentDirectory + "\\JUnit.java");
+			pI = new ProcessInputs(theFile.toString());
 		} catch (Exception e) {
-			pI = null;
-			currentDirectory = null;
-
-			JOptionPane.showMessageDialog(null, e.getMessage());
-
-			return;
+			e.printStackTrace();
 		} finally {
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 
-		pI.PerturbWidgets();
-
-		Object[] colId = new Object[pI.numWidgets];
-		Object[] colWidgets = new Object[pI.numWidgets];
-		Object[] colName = new Object[pI.numWidgets];
-		Object[] colValue = new Object[pI.numWidgets];
-		Object[] colType = new Object[pI.numWidgets];
-		Object[] colScreen = new Object[pI.numWidgets];
+		colId = new Object[pI.numWidgets];
+		colWidgets = new Object[pI.numWidgets];
+		colName = new Object[pI.numWidgets];
+		colValue = new Object[pI.numWidgets];
+		colType = new Object[pI.numWidgets];
+		colScreen = new Object[pI.numWidgets];
 
 		int i = 0;
 		Collection<WidgetState> WidgetsColl = pI.getWidgets().values();
@@ -246,136 +326,73 @@ public class GuiAnalyzer extends javax.swing.JFrame {
 			i++;
 		}
 
-		model1.addColumn("Id", colId);
-		model1.addColumn("Widgets Type", colWidgets);
-		model1.addColumn("Description", colName);
-		model1.addColumn("Value", colValue);
-		model1.addColumn("Text Type", colType);
-		model1.addColumn("Perturbation", new String[]{""});
-		model1.addColumn("Screenshot", colScreen);
-
-		jTable1.setRowHeight(20);
-		// Resize ID column
-		jTable1.getColumnModel().getColumn(0).setWidth(80);
-		jTable1.getColumnModel().getColumn(0).setMinWidth(80);
-		jTable1.getColumnModel().getColumn(0).setMaxWidth(80);
+		tabelModel.addColumn("Id", colId);	
+		tabelModel.addColumn("Widgets Type", colWidgets);	
+		tabelModel.addColumn("Name", colName);
+		tabelModel.addColumn("Valid Input", colValue);
+		tabelModel.addColumn("Text Type", colType);
+		tabelModel.addColumn("Perturbation", new String[]{""});
+		tabelModel.addColumn("Screenshot", colScreen);
 
 		// ComboBox
 		comboBox = new JComboBox<Object>(comboValues);
-		jTable1.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(comboBox));
-		jTable1.getColumnModel().getColumn(5).setCellRenderer(new ComboBoxRenderer(comboValues));
+		jTableInfo.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(comboBox));
+		jTableInfo.getColumnModel().getColumn(5).setCellRenderer(new ComboBoxRenderer(comboValues));
 
 		comboBox.addItemListener(new ItemListener() {
 
 			@Override
 			public void itemStateChanged (ItemEvent e) {
 				changeWidgetInfo();
-
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					String widgetId = (String) jTable1.getValueAt(jTable1.getSelectedRow(), 0);
-					String value = e.getItem().toString().toLowerCase();
-
-					if (value.equals("dictionary")) {
-						JFileChooser toLoad = new JFileChooser();
-						toLoad.setFileFilter(new FileNameExtensionFilter("Dictionary", "txt"));
-						toLoad.setCurrentDirectory(new File(System.getProperty("user.dir"))); 
-						int code = toLoad.showOpenDialog(jTable1);
-						if (code == JFileChooser.APPROVE_OPTION) {
-							File dicFile = toLoad.getSelectedFile();
-							if (!dicFile.exists()) {
-								JOptionPane.showMessageDialog(null, "Unable to find: " + dicFile);
-								comboBox.setSelectedItem("");
-							} else {
-								pI.perturbationHandler.addManualPerturbation(widgetId, "file:" + dicFile.toString());
-							}
-						} else {
-							comboBox.setSelectedItem("");
-						}
-					} else if (value.equals("manual")) {
-						String input = JOptionPane.showInputDialog(null, "Enter text: ", "", 1);
-						if (input != null) {
-							pI.perturbationHandler.addManualPerturbation(widgetId, "manual:" + input);
-						} else {
-							comboBox.setSelectedItem("");
-						}
-					} else if (value.equals("manualregex")) {
-						String input = JOptionPane.showInputDialog(null, "Enter Regular Expression: ", "", 1);
-						if (input != null) {
-							pI.perturbationHandler.addManualPerturbation(widgetId, "regex:" + input);
-						} else {
-							comboBox.setSelectedItem("");
-						}
-					} else {
-						pI.perturbationHandler.addManualPerturbation(widgetId, value);
-					}
-				}
 			}
-		});
-
-		jTable1.getColumnModel().getColumn(6).setMinWidth(0);
-		jTable1.getColumnModel().getColumn(6).setMaxWidth(0);
-		jTable1.getColumnModel().getColumn(6).setWidth(0);
-
-		jTable1.addMouseListener(new MouseAdapter() {
 			
+		});
+				
+		jTableInfo.setRowHeight(20);
+		jTableInfo.getColumnModel().getColumn(6).setMinWidth(0);
+		jTableInfo.getColumnModel().getColumn(6).setMaxWidth(0);
+		jTableInfo.getColumnModel().getColumn(6).setWidth(0);
+
+		jTableInfo.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked (MouseEvent e) {
 				changeWidgetInfo();
 			}
-			
-		});
 
-		jPanel2 = new JPanel();
-		jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-		jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel2);
-		jPanel2.setLayout(jPanel3Layout);
-		jPanel3Layout.setHorizontalGroup(
-				jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 240, Short.MAX_VALUE));
-		jPanel3Layout.setVerticalGroup(
-				jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 489, Short.MAX_VALUE));
-		jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_END);
-		jPanel1.revalidate();
-		
+		});	
+
 	}
-	
+
 	private void resetAll () {
 
-		model1 = (DefaultTableModel) jTable1.getModel();
-		model1.setRowCount(0);
-		model1.setColumnCount(0);
-
-		model2 = (DefaultTableModel) jTable2.getModel();
-		model2.setRowCount(0);
-		model2.setColumnCount(0);
-
-		jTextArea1.setText("");
-		jTextArea2.setText("");
-
-		jPanel1.remove(jPanel2);
+		tabelModel = (DefaultTableModel) jTableInfo.getModel();
+		tabelModel.setRowCount(0);
+		tabelModel.setColumnCount(0);
 
 	}
-	
+
 	private void changeWidgetInfo () {
 
-		int row = jTable1.getSelectedRow();
-		Object value = ((JButton) jTable1.getValueAt(row, 6)).getText();
-		String perturbations = pI.perturbationHandler.getWidgetsPerturbations().get(jTable1.getValueAt(row, 0).toString()).toString();
+		int row = jTableInfo.getSelectedRow();
+		Object value = ((JButton) jTableInfo.getValueAt(row, 6)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
-		jTable1.setToolTipText(perturbations);
 
 	}
-	
+
 	private void addImage (String image) {
 
-		jPanel1.remove(jPanel2);
-		jPanel2 = new ImagePanel(image);
-		jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-		jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-		javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel2);
-		jPanel2.setLayout(jPanel3Layout);
-		jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_END);
-		jPanel1.revalidate();
+		try{
+			jPanelWidgets.remove(jPanelImage);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		jPanelImage = new ImagePanel(image);
+		jPanelImage.setBackground(new Color(255, 255, 255));
+		jPanelImage.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
+		jPanelWidgets.add(jPanelImage, BorderLayout.LINE_END);
+		jPanelWidgets.revalidate();
 
 	}
 
