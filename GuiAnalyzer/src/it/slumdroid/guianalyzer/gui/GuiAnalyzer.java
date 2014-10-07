@@ -71,6 +71,7 @@ public class GuiAnalyzer extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private ProcessInputs pI;
 	private String[] comboValues = {
+			"",
 			"Generic",
 			"Number",
 			"Url",
@@ -108,7 +109,8 @@ public class GuiAnalyzer extends JFrame {
 	private Object[] colValue;
 	private Object[] colType;
 	private Object[] colScreen;
-	
+	private Object[] colInteraction;
+
 	public static void main (String args[]) {
 
 		EventQueue.invokeLater(new Runnable() {
@@ -158,7 +160,7 @@ public class GuiAnalyzer extends JFrame {
 		jPanelImage = new ImagePanel("");
 		jPanelWidgets.add(jPanelImage, BorderLayout.LINE_END);
 		jTabbedWidget.addTab("Widgets", jPanelWidgets);
-		
+
 		getContentPane().add(jTabbedWidget);
 
 		jMenuOpen = new javax.swing.JMenuItem();
@@ -178,11 +180,7 @@ public class GuiAnalyzer extends JFrame {
 		jMenuSave.setText("Save");
 		jMenuSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				try {
-					save();
-				} catch (NullPointerException e) {
-					JOptionPane.showMessageDialog(null, "You must first generate JUnit.java in order to save it.");
-				}
+				if (!save()) JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
 			}
 		});
 		jMenuFile.add(jMenuSave);
@@ -217,13 +215,15 @@ public class GuiAnalyzer extends JFrame {
 
 	}
 
-	private void save(){
+	private boolean save(){
 		try {
 			String place = System.getProperty("user.dir");
 			writeXml(place + preferencesPath);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
+		return true;
 	}
 
 	private void writeXml(String preferencesFile) {
@@ -231,7 +231,7 @@ public class GuiAnalyzer extends JFrame {
 		StringBuilder builder =  new StringBuilder();
 		String line = new String();
 		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
-		
+
 		try{
 			BufferedReader inputStream1 = new BufferedReader (new FileReader (preferencesFile));
 			while ((line = inputStream1.readLine()) != null ) {
@@ -239,16 +239,57 @@ public class GuiAnalyzer extends JFrame {
 				if (line.contains("<node name=\"interactions\">")){
 					line = inputStream1.readLine();
 					builder.append("<"+ line.split("<")[1]);
-					int count = 0;
+					int countInput = 0;
+					int countEvent = 0;
 					for (int i=0; i < pI.numWidgets; i++){ 
-						String control = (String) jTableInfo.getValueAt(i, 5);
-						if (!control.equals("exclude")){
-							String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 3)).perturb(control);
-							builder.append(data.replace("INDEX", String.valueOf(count)).
-									replace("ID",  String.valueOf(colId[i])).
-									replace("PERTUBATIONS", pertubedInput));
-							count++;
-						}	
+						String control = (String) jTableInfo.getValueAt(i, 6);
+						if (control!=null){
+							try{
+								if (!control.equals("exclude")){
+									String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 3)).perturb(control);
+									if (!pertubedInput.equals("")){
+										if ((boolean) jTableInfo.getValueAt(i, 5).equals("Input")){
+											builder.append(data
+													.replace("INDEX", String.valueOf(countInput))
+													.replace("ID",  String.valueOf(colId[i]))
+													.replace("PERTUBATIONS", pertubedInput));
+											countInput++;
+										} else if ((boolean) jTableInfo.getValueAt(i, 5).equals("Event")){
+											if ((boolean) ((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
+												builder.append(data
+														.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
+														.replace("INDEX", String.valueOf(countEvent))
+														.replace("ID",  String.valueOf(colId[i]))
+														.replace("writeText", "enterText")
+														.replace("PERTUBATIONS", pertubedInput));
+											} else{
+												builder.append(data
+														.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
+														.replace("INDEX", String.valueOf(countEvent))
+														.replace("ID",  String.valueOf(colId[i]))
+														.replace("PERTUBATIONS", pertubedInput));	
+											}
+
+											countEvent++;
+										} else if ((boolean) jTableInfo.getValueAt(i, 5).equals("Input & Event")){
+											builder.append(data
+													.replace("INDEX", String.valueOf(countInput))
+													.replace("ID",  String.valueOf(colId[i]))
+													.replace("PERTUBATIONS", pertubedInput));
+											countInput++;
+											builder.append(data
+													.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
+													.replace("INDEX", String.valueOf(countEvent))
+													.replace("ID",  String.valueOf(colId[i]))
+													.replace("PERTUBATIONS", pertubedInput));
+											countEvent++;
+										}
+									}
+								}	
+							}catch (Exception e){
+								e.printStackTrace();
+							}
+						}
 					}
 				}
 			}
@@ -261,7 +302,7 @@ public class GuiAnalyzer extends JFrame {
 	}
 
 	private void xmlCreate(String preferencesFile, StringBuilder builder) {
-		
+
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
@@ -271,17 +312,17 @@ public class GuiAnalyzer extends JFrame {
 			} catch (SAXException | IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-			
+
 			DocumentType doctype = doc.getDoctype();
-	        if(doctype != null) {
-	        	if (doctype.getPublicId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
-	        	if (doctype.getSystemId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
-	        }
+			if(doctype != null) {
+				if (doctype.getPublicId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+				if (doctype.getSystemId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+			}
 
 			DOMSource domSource = new DOMSource(doc);
 			StreamResult outputstream = new StreamResult(preferencesFile);
@@ -291,7 +332,7 @@ public class GuiAnalyzer extends JFrame {
 		} catch (TransformerException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private void createLayout() {
@@ -313,6 +354,7 @@ public class GuiAnalyzer extends JFrame {
 		colValue = new Object[pI.numWidgets];
 		colType = new Object[pI.numWidgets];
 		colScreen = new Object[pI.numWidgets];
+		colInteraction = new Object[pI.numWidgets];
 
 		int i = 0;
 		Collection<WidgetState> WidgetsColl = pI.getWidgets().values();
@@ -322,6 +364,7 @@ public class GuiAnalyzer extends JFrame {
 			colName[i] = widget.getName();
 			colValue[i] = widget.getValue();
 			colType[i] = widget.getTextType();
+			colInteraction[i] = pI.getInteractions().get(widget.getId());
 			colScreen[i] = new JButton(pI.getScreens().get(widget.getId()));
 			i++;
 		}
@@ -331,13 +374,14 @@ public class GuiAnalyzer extends JFrame {
 		tabelModel.addColumn("Name", colName);
 		tabelModel.addColumn("Valid Input", colValue);
 		tabelModel.addColumn("Text Type", colType);
+		tabelModel.addColumn("Interactions", colInteraction);
 		tabelModel.addColumn("Perturbation", new String[]{""});
 		tabelModel.addColumn("Screenshot", colScreen);
 
 		// ComboBox
 		comboBox = new JComboBox<Object>(comboValues);
-		jTableInfo.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(comboBox));
-		jTableInfo.getColumnModel().getColumn(5).setCellRenderer(new ComboBoxRenderer(comboValues));
+		jTableInfo.getColumnModel().getColumn(6).setCellEditor(new DefaultCellEditor(comboBox));
+		jTableInfo.getColumnModel().getColumn(6).setCellRenderer(new ComboBoxRenderer(comboValues));
 
 		comboBox.addItemListener(new ItemListener() {
 
@@ -345,14 +389,13 @@ public class GuiAnalyzer extends JFrame {
 			public void itemStateChanged (ItemEvent e) {
 				changeWidgetInfo();
 			}
-			
-		});
-				
-		jTableInfo.setRowHeight(20);
-		jTableInfo.getColumnModel().getColumn(6).setMinWidth(0);
-		jTableInfo.getColumnModel().getColumn(6).setMaxWidth(0);
-		jTableInfo.getColumnModel().getColumn(6).setWidth(0);
 
+		});
+
+		jTableInfo.setRowHeight(20);
+		jTableInfo.getColumnModel().getColumn(7).setMinWidth(0);
+		jTableInfo.getColumnModel().getColumn(7).setMaxWidth(0);
+		jTableInfo.getColumnModel().getColumn(7).setWidth(0);
 		jTableInfo.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -375,7 +418,7 @@ public class GuiAnalyzer extends JFrame {
 	private void changeWidgetInfo () {
 
 		int row = jTableInfo.getSelectedRow();
-		Object value = ((JButton) jTableInfo.getValueAt(row, 6)).getText();
+		Object value = ((JButton) jTableInfo.getValueAt(row, 7)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
 
 	}
@@ -387,7 +430,7 @@ public class GuiAnalyzer extends JFrame {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		
+
 		jPanelImage = new ImagePanel(image);
 		jPanelImage.setBackground(new Color(255, 255, 255));
 		jPanelImage.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));

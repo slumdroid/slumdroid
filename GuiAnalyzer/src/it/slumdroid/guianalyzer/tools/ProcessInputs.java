@@ -34,6 +34,7 @@ public class ProcessInputs {
 	public int numWidgets = 0;
 	public int numPerturbatedWidgets = 0;
 	private HashMap<String, WidgetState> Widgets = null;
+	private HashMap<String, String> Interactions = null;
 	private HashMap<String, String> Screens = null;
 	private GuiTree guiTree = null;
 
@@ -52,6 +53,7 @@ public class ProcessInputs {
 	private void processFile () throws Exception {
 		Widgets = new HashMap<String, WidgetState>();
 		Screens = new HashMap<String, String>();
+		Interactions = new HashMap<String, String>();
 
 		try {
 			for (Task t: guiTree) {
@@ -61,6 +63,7 @@ public class ProcessInputs {
 							if (!Screens.containsKey(input.getWidgetId())) {
 								Widgets.put(input.getWidgetId(), input.getWidget());
 								Screens.put(input.getWidgetId(), tr.getStartActivity().getId() + ".jpg");
+								Interactions.put(input.getWidgetId(), "Input");
 							}
 						}
 					}
@@ -70,6 +73,10 @@ public class ProcessInputs {
 						if (!Screens.containsKey(event.getWidgetId())) {
 							Widgets.put(event.getWidgetId(), event.getWidget());
 							Screens.put(event.getWidgetId(), tr.getStartActivity().getId() + ".jpg");
+							Interactions.put(event.getWidgetId(), "Event");
+						} else {
+							Interactions.remove(event.getWidgetId());
+							Interactions.put(event.getWidgetId(), "Input & Event");
 						}
 					}
 
@@ -77,6 +84,7 @@ public class ProcessInputs {
 						if (!Screens.containsKey(event.getWidgetId())) {
 							Widgets.put(event.getWidgetId(), event.getWidget());
 							Screens.put(event.getWidgetId(), tr.getStartActivity().getId() + ".jpg");
+							Interactions.put(event.getWidgetId(), "Event");
 						}
 					}
 
@@ -97,5 +105,9 @@ public class ProcessInputs {
 	public HashMap<String, String> getScreens () {
 		return Screens;  
 	}
-	
+
+	public HashMap<String, String> getInteractions () {
+		return Interactions;  
+	}
+
 }

@@ -49,18 +49,19 @@ public class Perturbations {
 	// Number: [0-9]+
 	public String number () {
 		String pertubedInputs =  new String();
+		pertubedInputs = pertubedInputs.concat(",0");
 		if (type.contains("Decimal") && type.contains("Signed")) {
 			// MO3 - Special Input
-			pertubedInputs = pertubedInputs.concat(createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}"));
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}"));
 		} else if (type.contains("Decimal")) {
 			// MO3 - Special Input
-			pertubedInputs = pertubedInputs.concat(createRegEx("[0-9]{20,}\\.[0-9]{20,}"));
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}"));
 		} else if (type.contains("Signed")) {
 			// MO3 - Special Input
-			pertubedInputs = pertubedInputs.concat(createRegEx("(\\-|+)[0-9]{30,}"));
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{30,}"));
 		} else {
 			// MO3 - Special Input
-			pertubedInputs = pertubedInputs.concat(createRegEx("[0-9]{20,}"));
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}"));
 		}
 		return pertubedInputs;
 	}
@@ -145,7 +146,7 @@ public class Perturbations {
 
 		String pertubedInputs =  new String();
 		// MO3 - Special Inputs
-		pertubedInputs = pertubedInputs.concat("," + "SlumDroid's Test");
+		pertubedInputs = pertubedInputs.concat(",SlumDroid's Test");
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[A-Za-z0-9]{20}"));
 		return pertubedInputs;
 		
@@ -160,7 +161,7 @@ public class Perturbations {
 		String pertubedInputs =  new String();
 		// MO0 - Starter input 
 		// M03 - Empty Input
-		if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(valueLowerCase).concat(",,");
+		if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(valueLowerCase).concat(",");
 		else pertubedInputs = pertubedInputs.concat(valueLowerCase);
 		
 		if (type.equals("Number")) return pertubedInputs.concat(number());
