@@ -16,47 +16,37 @@
 package it.slumdroid.guianalyzer.tools;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.*;
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import it.slumdroid.guianalyzer.perturbation.PerturbationHandler;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
+
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
 
 public class ProcessInputs {
 
 	protected String[] widgetClasses;
-	public long executionTime;
-	public int totalTestGenerated = 0;
 	public int numWidgets = 0;
 	public int numPerturbatedWidgets = 0;
-	public PerturbationHandler perturbationHandler;
 	private HashMap<String, WidgetState> Widgets = null;
 	private HashMap<String, String> Screens = null;
-	private HashMap<String, List<WidgetState>> WidgetsPerturbated = null;
 	private GuiTree guiTree = null;
 
-	public ProcessInputs (String inputFileName, String outputFileName) throws Exception {
+	public ProcessInputs (String inputFileName) {
 
 		try {
 			File file = new File(inputFileName);
 			guiTree = GuiTree.fromXml(file);
-		} catch (ParserConfigurationException e) {
-			throw new Exception(e.toString());
-		} catch (SAXException e) {
-			throw new Exception(e.toString());
-		} catch (IOException e) {
-			throw new Exception("File \"" + inputFileName + "\" not found.");
+			processFile();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		processFile();
 	}
 
 	private void processFile () throws Exception {
@@ -96,44 +86,7 @@ public class ProcessInputs {
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
-
 		numWidgets = Widgets.size();
-		perturbationHandler = new PerturbationHandler(Widgets);
-
-	}
-
-	public void ListWidgets () {
-
-		Collection<WidgetState> WidgetsColl = Widgets.values();
-
-		for (WidgetState widget: WidgetsColl) {
-			System.out.println("ID: " + widget.getId() + " - Name: " + widget.getName() + " - Value: " + widget.getValue());
-		}
-
-	}
-
-	public void PerturbWidgets () {
-
-		perturbationHandler.perturb();
-		WidgetsPerturbated = perturbationHandler.getWidgetsPerturbated();
-		Collection<List<WidgetState>> WidgetsPerturbatedColl = WidgetsPerturbated.values();
-
-		numPerturbatedWidgets = 0;
-		for (List<WidgetState> list: WidgetsPerturbatedColl) {
-			numPerturbatedWidgets += list.size();
-		}
-
-	}
-
-	public void ListPerturbatedWidgets () {
-
-		Collection<List<WidgetState>> WidgetsPerturbatedColl = WidgetsPerturbated.values();
-
-		for (List<WidgetState> list: WidgetsPerturbatedColl) {
-			for (WidgetState element: list) {
-				System.out.println("ID: " + element.getId() + " - Name: " + element.getName() + " - Value: " + element.getValue());
-			}
-		}
 
 	}
 
@@ -141,11 +94,8 @@ public class ProcessInputs {
 		return Widgets;
 	}
 
-	public HashMap<String, List<WidgetState>> getWidgetsPerturbated () {
-		return WidgetsPerturbated;
-	}
-
 	public HashMap<String, String> getScreens () {
 		return Screens;  
 	}
+	
 }
