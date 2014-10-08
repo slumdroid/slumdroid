@@ -110,6 +110,7 @@ public class GuiAnalyzer extends JFrame {
 	private Object[] colType;
 	private Object[] colScreen;
 	private Object[] colInteraction;
+	private Object[] colSimpleType;
 
 	public static void main (String args[]) {
 
@@ -242,19 +243,19 @@ public class GuiAnalyzer extends JFrame {
 					int countInput = 0;
 					int countEvent = 0;
 					for (int i=0; i < pI.numWidgets; i++){ 
-						String control = (String) jTableInfo.getValueAt(i, 6);
+						String control = (String) jTableInfo.getValueAt(i, 7);
 						if (control!=null){
 							try{
 								if (!control.equals("exclude")){
-									String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 3)).perturb(control);
+									String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturb(control);
 									if (!pertubedInput.equals("")){
-										if ((boolean) jTableInfo.getValueAt(i, 5).equals("Input")){
+										if ((boolean) jTableInfo.getValueAt(i, 6).equals("Input")){
 											builder.append(data
 													.replace("INDEX", String.valueOf(countInput))
 													.replace("ID",  String.valueOf(colId[i]))
 													.replace("PERTUBATIONS", pertubedInput));
 											countInput++;
-										} else if ((boolean) jTableInfo.getValueAt(i, 5).equals("Event")){
+										} else if ((boolean) jTableInfo.getValueAt(i, 6).equals("Event")){
 											if ((boolean) ((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
 												builder.append(data
 														.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
@@ -271,7 +272,7 @@ public class GuiAnalyzer extends JFrame {
 											}
 
 											countEvent++;
-										} else if ((boolean) jTableInfo.getValueAt(i, 5).equals("Input & Event")){
+										} else if ((boolean) jTableInfo.getValueAt(i, 6).equals("Input & Event")){
 											builder.append(data
 													.replace("INDEX", String.valueOf(countInput))
 													.replace("ID",  String.valueOf(colId[i]))
@@ -355,6 +356,7 @@ public class GuiAnalyzer extends JFrame {
 		colType = new Object[pI.numWidgets];
 		colScreen = new Object[pI.numWidgets];
 		colInteraction = new Object[pI.numWidgets];
+		colSimpleType = new Object[pI.numWidgets];
 
 		int i = 0;
 		Collection<WidgetState> WidgetsColl = pI.getWidgets().values();
@@ -365,12 +367,14 @@ public class GuiAnalyzer extends JFrame {
 			colValue[i] = widget.getValue();
 			colType[i] = widget.getTextType();
 			colInteraction[i] = pI.getInteractions().get(widget.getId());
+			colSimpleType[i] = widget.getSimpleType();
 			colScreen[i] = new JButton(pI.getScreens().get(widget.getId()));
 			i++;
 		}
 
 		tabelModel.addColumn("Id", colId);	
-		tabelModel.addColumn("Widgets Type", colWidgets);	
+		tabelModel.addColumn("Widgets Type", colWidgets);
+		tabelModel.addColumn("Simple Type", colSimpleType);
 		tabelModel.addColumn("Name", colName);
 		tabelModel.addColumn("Valid Input", colValue);
 		tabelModel.addColumn("Text Type", colType);
@@ -380,8 +384,8 @@ public class GuiAnalyzer extends JFrame {
 
 		// ComboBox
 		comboBox = new JComboBox<Object>(comboValues);
-		jTableInfo.getColumnModel().getColumn(6).setCellEditor(new DefaultCellEditor(comboBox));
-		jTableInfo.getColumnModel().getColumn(6).setCellRenderer(new ComboBoxRenderer(comboValues));
+		jTableInfo.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(comboBox));
+		jTableInfo.getColumnModel().getColumn(7).setCellRenderer(new ComboBoxRenderer(comboValues));
 
 		comboBox.addItemListener(new ItemListener() {
 
@@ -393,9 +397,9 @@ public class GuiAnalyzer extends JFrame {
 		});
 
 		jTableInfo.setRowHeight(20);
-		jTableInfo.getColumnModel().getColumn(7).setMinWidth(0);
-		jTableInfo.getColumnModel().getColumn(7).setMaxWidth(0);
-		jTableInfo.getColumnModel().getColumn(7).setWidth(0);
+		jTableInfo.getColumnModel().getColumn(8).setMinWidth(0);
+		jTableInfo.getColumnModel().getColumn(8).setMaxWidth(0);
+		jTableInfo.getColumnModel().getColumn(8).setWidth(0);
 		jTableInfo.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -418,7 +422,7 @@ public class GuiAnalyzer extends JFrame {
 	private void changeWidgetInfo () {
 
 		int row = jTableInfo.getSelectedRow();
-		Object value = ((JButton) jTableInfo.getValueAt(row, 7)).getText();
+		Object value = ((JButton) jTableInfo.getValueAt(row, 8)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
 
 	}
