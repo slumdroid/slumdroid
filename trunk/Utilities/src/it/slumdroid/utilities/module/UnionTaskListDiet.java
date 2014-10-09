@@ -23,22 +23,19 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.prefs.Preferences;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+
+import static it.slumdroid.utilities.Utilities.TOOL;
 
 public class UnionTaskListDiet {
 
@@ -49,9 +46,9 @@ public class UnionTaskListDiet {
 	static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
 	static String TASKLIST_XML = new String();
 
-	public void tasklistDiet(String filePath, String preferencesPath, String packageTool){
+	public void tasklistDiet(String filePath, String preferencesPath){
 		TASKLIST_XML = filePath + "/tasklist.xml";
-		if (!loadPreferences(preferencesPath, packageTool)) {
+		if (!loadPreferences(preferencesPath)) {
 			try {
 				mergeTasklistsDepth();
 			} catch (Exception e) {
@@ -67,16 +64,16 @@ public class UnionTaskListDiet {
 		}
 	}
 
-	private static boolean loadPreferences (String path, String packageTool) {
-		prefs = Preferences.userRoot().node(packageTool);
+	private static boolean loadPreferences (String path) {
+		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
-		prefs = Preferences.userRoot().node(packageTool);
+		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().loadNode(path);
 		String BREADTH = "BREADTH_FIRST";
 		return (prefs.get("SCHEDULER_ALGORITHM", BREADTH).equals(BREADTH));
 	}
 
-	public static void mergeTasklistsDepth() throws Exception {	
+	private static void mergeTasklistsDepth() throws Exception {	
 		ArrayList<String> tasklist_diet = readAndDeleteTasklistDietFile();        
 		if (tasklist_diet == null) tasklist_diet = new ArrayList<String>();
 
@@ -151,7 +148,7 @@ public class UnionTaskListDiet {
 		return -1;
 	}
 
-	public static void mergeTasklistsBreadth() {
+	private static void mergeTasklistsBreadth() {
 		boolean tasklist_diet_xml_found = false;
 		boolean previous_track_found = false;
 
@@ -250,12 +247,10 @@ public class UnionTaskListDiet {
 				is.setCharacterStream(new StringReader(line));
 
 				Document doc = dBuilder.parse(is);
-
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
 
 				NodeList nList = doc.getElementsByTagName("TASK");
-
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
 
@@ -278,36 +273,22 @@ public class UnionTaskListDiet {
 				is.setCharacterStream(new StringReader(line));
 
 				Document doc = dBuilder.parse(is);
-
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
 
 				NodeList nList = doc.getElementsByTagName("TASK");
-
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
 
 				firstNodeElement.setAttribute("id", Integer.toString(newID));
 
-				return convertXMLFileToString(doc);
+				return new Tools().xmlToString(doc);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return null;
-	}
-
-	public static String convertXMLFileToString(Document doc) throws Exception {
-		try {
-			StringWriter stw = new StringWriter();
-			Transformer serializer = TransformerFactory.newInstance().newTransformer();
-			serializer.transform(new DOMSource(doc), new StreamResult(stw));
-			return stw.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new String();
 	}
 
 	private static ArrayList<String> readAndDeleteTasklistDietFile() throws Exception {

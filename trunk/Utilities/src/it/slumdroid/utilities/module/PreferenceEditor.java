@@ -17,14 +17,16 @@ package it.slumdroid.utilities.module;
 
 import java.util.prefs.Preferences;
 
+import static it.slumdroid.utilities.Utilities.TOOL;
+
 public class PreferenceEditor {
 
 	static Preferences prefs;
 
-	public void preferenceEditor(String[] args, String packageTool){
-		prefs = Preferences.userRoot().node(packageTool);
+	public void preferenceEditor(String[] args){
+		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
-		prefs = Preferences.userRoot().node(packageTool);
+		prefs = Preferences.userRoot().node(TOOL);
 
 		String preferencesPath = args[2];
 		if (new Tools().loadNode (preferencesPath)) {

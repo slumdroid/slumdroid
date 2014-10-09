@@ -15,14 +15,24 @@
 
 package it.slumdroid.utilities.module;
 
+import static it.slumdroid.utilities.Utilities.ACTIVITY;
+import static it.slumdroid.utilities.Utilities.ACTIVITY_DIR;
+import static it.slumdroid.utilities.Utilities.GUITREE;
+import static it.slumdroid.utilities.Utilities.GUITREE_DIR;
+
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -36,11 +46,13 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
+import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -49,6 +61,7 @@ public class Tools {
 	static final int maxPerEs = 100;
 	static String metadata = new String();
 
+	// Preference Editor Utilities
 	public void cleanNode (Preferences prefs) {
 		try {
 			prefs.removeNode();
@@ -85,7 +98,103 @@ public class Tools {
 		return generatedSeed;
 	}
 
-	public String coverage(PrintWriter out){
+	public File[] dirListByAscendingDate(File folder) {
+		if (!folder.isDirectory()) {
+			return null;
+		}
+		File files[] = folder.listFiles();
+		Arrays.sort(files, new Comparator<Object>() {
+			public int compare(final Object o1, final Object o2) {
+				return new Long(((File) o1).lastModified()).compareTo(new Long(
+						((File) o2).lastModified()));
+			}
+		});
+		return files;
+	}
+	
+	// XML Utilities
+	public void xmlWriter(String path, StringBuilder builder){
+		xmlWriter(path, builder, path);
+	}
+	
+	public void xmlWriter(String path, StringBuilder builder, String output){
+		Document doc = null;	
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
+			try {
+				doc = dombuilder.parse( new InputSource( new StringReader( builder.toString() ) ) );
+			} catch (SAXException | IOException e) {
+				e.printStackTrace();
+			}
+
+			Transformer transformer = TransformerFactory.newInstance().newTransformer();
+			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+			
+			DocumentType doctype = doc.getDoctype();
+	        if(doctype != null) {
+	        	if (doctype.getPublicId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+	        	if (doctype.getSystemId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+	        }
+
+			DOMSource domSource = new DOMSource(doc);
+			StreamResult outputstream = new StreamResult(output);
+			transformer.transform(domSource, outputstream);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	// Split Utilities
+	public void split(String path, String folder, String output, String suboutput) {
+		if (!new File(folder).exists()) new File(folder).mkdir();
+		String guitreeXml = path.concat(output);
+		File file = new File(guitreeXml);
+		if (file.exists()) file.renameTo(new File(new File(folder), suboutput + System.currentTimeMillis() + ".xml"));
+		try {
+			new File(guitreeXml).createNewFile();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Coverage Text Parsing Utilities
+	public void covTextParsing(String path) {
+		try {
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains("all classes")) {
+					System.out.println("Actual Coverage is");
+					System.out.println("[class, %]	[method, %]	[block, %]		[line, %]");
+					System.out.println(line.replace("all classes", "").replace(",","."));
+					inputStream1.close();
+					return;
+				}
+			}
+			inputStream1.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//Coverage Generator Utilities
+	public void covGenerator(String header){
+		try {
+			PrintWriter out = new PrintWriter ("../coverage/Copertura.bat");
+			String esFiles = new Tools().coverage(out);
+			out.print(header + esFiles);
+			out.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}	
+	}
+	
+	private String coverage(PrintWriter out){
 		int esCounter = 0;
 		String[] theFiles = showFiles();	
 		String esFiles = new String(); 
@@ -101,7 +210,7 @@ public class Tools {
 		}
 		return esFiles;
 	}
-
+	
 	private static String[] showFiles() {
 		ArrayList<String> fileList = new ArrayList<String>();
 		int counter = 0;
@@ -134,54 +243,171 @@ public class Tools {
 		}
 		return null;
 	}
-
-	public File[] dirListByAscendingDate(File folder) {
-		if (!folder.isDirectory()) {
-			return null;
+	
+	// CountEvents Utilities
+	public void countEvents(String path) {
+		try{
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
+			int count = 0;
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains("Firing event:")) count++;	 			 	
+			}
+			System.out.println("Performed " + count + " events");
+			inputStream1.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		File files[] = folder.listFiles();
-		Arrays.sort(files, new Comparator<Object>() {
-			public int compare(final Object o1, final Object o2) {
-				return new Long(((File) o1).lastModified()).compareTo(new Long(
-						((File) o2).lastModified()));
-			}
-		});
-		return files;
 	}
 	
-	public void xmlWriter(String path, StringBuilder builder){
-		xmlWriter(path, builder, path);
-	}
-	
-	public void xmlWriter(String path, StringBuilder builder, String output){
-		Document doc = null;	
+	// BuildControl Utilities
+	public void buildControl(String path){
 		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
-			try {
-				doc = dombuilder.parse( new InputSource( new StringReader( builder.toString() ) ) );
-			} catch (SAXException | IOException e) {
-				e.printStackTrace();
+			boolean success = false;
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
+			int count = 0;
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains("[exec] Success")) {
+					count++;
+					if (count==2) success = true;  
+				}
 			}
-
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			
-			DocumentType doctype = doc.getDoctype();
-	        if(doctype != null) {
-	        	if (doctype.getPublicId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
-	        	if (doctype.getSystemId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
-	        }
-
-			DOMSource domSource = new DOMSource(doc);
-			StreamResult outputstream = new StreamResult(output);
-			transformer.transform(domSource, outputstream);
-		} catch (ParserConfigurationException e) {
+			inputStream1.close();
+			if (success){
+				PrintWriter outputStream1 = new PrintWriter ("build.txt");
+				outputStream1.write("completed");
+				outputStream1.close();
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		} 
+		}
 	}
+	
+	// ReTargeting Utilities
+	public void retarget(String fileName, String targetPackage) {
+
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = null;
+		Document document = null;
+
+		try {
+			builder = builderFactory.newDocumentBuilder();
+			document = builder.parse(new FileInputStream(fileName));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Element manifest = document.getDocumentElement();
+		Element target = (Element)manifest.getElementsByTagName("instrumentation").item(0);
+		target.setAttribute("android:targetPackage", targetPackage);
+
+		String newManifest = new String();
+		try {
+			newManifest = toXml(manifest);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		PrintWriter autput;
+		try {
+			autput = new PrintWriter (fileName);
+			autput.println(newManifest);
+			autput.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private String toXml (Element dom) throws TransformerFactoryConfigurationError, TransformerException {
+		DOMSource theDom = new DOMSource(dom);
+		StringWriter autput = new StringWriter();
+		Transformer t = TransformerFactory.newInstance().newTransformer();
+		t.setOutputProperty(OutputKeys.METHOD, "xml");
+		t.transform(theDom, new StreamResult(autput));
+		return autput.toString();
+	}
+	
+	public String xmlToString(Document doc) throws Exception {
+		try {
+			StringWriter stw = new StringWriter();
+			Transformer serializer = TransformerFactory.newInstance().newTransformer();
+			serializer.transform(new DOMSource(doc), new StreamResult(stw));
+			return stw.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new String();
+	}
+	
+	// TrasformActivity Utilities
+	public void traslate(String path, String output) {
+
+		String xmlHead = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+		StringBuilder builder = new StringBuilder();
+		builder.append(xmlHead + "<ACTIVITY_STATES>");
+		try{
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {				 
+				builder.append(line.replace(xmlHead, "")
+						.replace("START_STATE", "ACTIVITY_STATE")
+						.replace("FINAL_STATE", "ACTIVITY_STATE"));	
+			}
+			builder.append("</ACTIVITY_STATES>");
+			inputStream1.close();
+			new Tools().xmlWriter(path, builder, output);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	// Merge Utilities
+	public void mergeA(String path) {	    
+		String activityXml = path.concat(ACTIVITY);
+		File dir = new File(ACTIVITY_DIR);
+		if (dir.exists() && dir.isDirectory()) merge(activityXml, ACTIVITY_DIR);
+	}
+
+	public void mergeG(String path) {
+		String closedTxt = path.concat("/closed.txt");
+		String guitreeXml = path.concat(GUITREE);
+		File dir = new File(GUITREE_DIR);
+		if (dir.exists() && dir.isDirectory()) merge(guitreeXml, GUITREE_DIR, closedTxt);
+	}
+	
+	private void merge(String xml, String dir){
+		merge(xml, dir, new String());
+	}
+	
+	private void merge(String xml, String dir, String close){
+		int count = 0;
+		try{
+		File fl[] = new Tools().dirListByAscendingDate( new File(dir) );
+		if (fl.length > 0){
+			FileWriter outFile = new FileWriter(xml, false);
+			PrintWriter out = new PrintWriter(outFile);	
+			for (File f : fl){
+				FileReader inFile = new FileReader(f); 
+				BufferedReader in = new BufferedReader(inFile);
+				String s = null; 
+				while((s = in.readLine()) != null) {
+					if (!s.equals("")) {
+						count++;
+						out.println(s);
+					}
+				}
+				inFile.close(); 
+			}
+			if (!close.equals("")) if (!new File(close).exists()) out.println("</SESSION>");
+			out.close();
+		}
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		if (count==0) new File(xml).delete();
+	}
+
 }
