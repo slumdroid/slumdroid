@@ -17,8 +17,6 @@ package it.slumdroid.utilities.module.guianalyzer;
 
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.utilities.module.Tools;
-import it.slumdroid.utilities.module.guianalyzer.tools.ProcessGuiTree;
-import it.slumdroid.utilities.module.guianalyzer.perturbation.Perturbations;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
