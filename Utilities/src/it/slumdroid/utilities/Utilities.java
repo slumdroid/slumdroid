@@ -19,6 +19,7 @@ import java.awt.EventQueue;
 import java.io.File;
 
 import it.slumdroid.utilities.module.*;
+import it.slumdroid.utilities.module.guianalyzer.GuiAnalyzer;
 
 public class Utilities {
 	
@@ -50,6 +51,17 @@ public class Utilities {
 						try {
 							GraphicalEditor frame = new GraphicalEditor(random, path);
 							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+			else if (args[0].equals("guiAnalyzer")) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							new GuiAnalyzer().setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
