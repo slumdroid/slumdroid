@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.utilities.module.guianalyzer.perturbation;
+package it.slumdroid.utilities.module.guianalyzer;
 
 import nl.flotsam.xeger.Xeger;
 

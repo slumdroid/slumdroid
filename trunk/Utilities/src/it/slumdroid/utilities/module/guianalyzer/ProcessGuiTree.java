@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.utilities.module.guianalyzer.tools;
+package it.slumdroid.utilities.module.guianalyzer;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.Task;
