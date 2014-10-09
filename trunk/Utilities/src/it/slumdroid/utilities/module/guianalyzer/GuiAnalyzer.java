@@ -53,7 +53,7 @@ public class GuiAnalyzer extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private ProcessGuiTree pI;
-	
+
 	private String currentDirectory = new String();
 	private String firstPath = new String();
 	private String screenshotsDirectory = "\\..\\screenshots\\";
@@ -69,10 +69,10 @@ public class GuiAnalyzer extends JFrame {
 			"Credit Card",
 			"Exclude"
 	};
-	
+
 	private File theFile;
 	private DefaultTableModel tabelModel;
-	
+
 	private JComboBox<?> comboBox;
 	private JMenu jMenuFile;
 	private JMenuBar jMenuBar;
@@ -93,6 +93,22 @@ public class GuiAnalyzer extends JFrame {
 	private Object[] colScreen;
 	private Object[] colInteraction;
 	private Object[] colSimpleType;
+
+	public GuiAnalyzer () {
+
+		setResizable(false);
+		initComponents();
+
+		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
+			public void filesDropped(File[] files ) {
+				if (files.length==0) return;
+				theFile = files[0];
+				currentDirectory = files[0].getPath().replace(files[0].getName(), "");
+				createLayout();
+			}
+		});
+
+	}
 
 	public GuiAnalyzer (String expPath) {
 
@@ -249,7 +265,7 @@ public class GuiAnalyzer extends JFrame {
 		});	
 
 	}
-	
+
 	private void resetAll () {
 
 		tabelModel = (DefaultTableModel) jTableInfo.getModel();
@@ -257,7 +273,7 @@ public class GuiAnalyzer extends JFrame {
 		tabelModel.setColumnCount(0);
 
 	}
-	
+
 	private void changeWidgetInfo () {
 
 		int row = jTableInfo.getSelectedRow();
@@ -265,7 +281,7 @@ public class GuiAnalyzer extends JFrame {
 		addImage(currentDirectory + screenshotsDirectory + value);
 
 	}
-	
+
 	private void addImage (String image) {
 
 		try{
@@ -281,7 +297,7 @@ public class GuiAnalyzer extends JFrame {
 		jPanelWidgets.revalidate();
 
 	}
-	
+
 	private void open () {
 
 		JFileChooser toLoad = new JFileChooser();
@@ -297,7 +313,7 @@ public class GuiAnalyzer extends JFrame {
 	}
 
 	private boolean save(){
-		
+
 		try {
 			String place = System.getProperty("user.dir");
 			createXml(place + preferencesPath);
@@ -306,7 +322,7 @@ public class GuiAnalyzer extends JFrame {
 			return false;
 		}
 		return true;
-		
+
 	}
 
 	private void createXml(String preferencesFile) {
@@ -379,17 +395,20 @@ public class GuiAnalyzer extends JFrame {
 			inputStream1.close();
 			new Tools().xmlWriter(preferencesFile, builder);
 
-			if (!new File(firstPath).exists()) new File(firstPath).mkdir();
-			PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
-			outputStream1.write("firstboot");
-			outputStream1.close();	
+
+			if (!firstPath.equals("")){
+				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
+				PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
+				outputStream1.write("firstboot");
+				outputStream1.close();	
+			}	
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public void setFirstPath(String s) {
 		firstPath = s;
 	}
