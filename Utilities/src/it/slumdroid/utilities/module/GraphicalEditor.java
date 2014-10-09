@@ -15,6 +15,9 @@
 
 package it.slumdroid.utilities.module;
 
+import static it.slumdroid.utilities.Utilities.TOOL;
+import it.slumdroid.utilities.module.guianalyzer.GuiAnalyzer;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -28,9 +31,11 @@ import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("rawtypes")
 public class GraphicalEditor extends JFrame {
@@ -38,7 +43,6 @@ public class GraphicalEditor extends JFrame {
 	private JPanel contentPane;
 
 	private static final long serialVersionUID = 1L;
-	private final  String TOOL = "it.slumdroid.tool";
 	private static String path = System.getProperty("user.dir") + "/../data/preferences.xml";
 	private static int automation = 0;
 
@@ -73,8 +77,10 @@ public class GraphicalEditor extends JFrame {
 	private static String firstPath = new String();
 	private static StringBuilder builder = new StringBuilder();
 
+	private static JCheckBox chckbxInputPertubationTesting;
+	
 	@SuppressWarnings("unchecked")
-	public GraphicalEditor(boolean random, String expPath) {
+	public GraphicalEditor(boolean random, final String expPath) {
 		setType(Type.UTILITY);
 		setTitle("Preference Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,7 +88,7 @@ public class GraphicalEditor extends JFrame {
 		setFirstPath(expPath);
 		setRandom(random);
 
-		setBounds(100, 100, 511, 314);
+		setBounds(100, 100, 511, 331);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -275,21 +281,25 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 237, 152, 23);
+		btnDefaultValues.setBounds(245, 263, 152, 23);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				saveXML(); 
+				saveXML(expPath); 
 			}
 		});
-		btnSave.setBounds(397, 237, 89, 23);
+		btnSave.setBounds(397, 263, 89, 23);
 		contentPane.add(btnSave);
+		
+		chckbxInputPertubationTesting = new JCheckBox("Input Pertubation Testing");
+		chckbxInputPertubationTesting.setBounds(320, 237, 166, 23);
+		contentPane.add(chckbxInputPertubationTesting);
 
 	}
 
-	private void saveXML() {
+	private void saveXML(String expPath) {
 		if(!validateField()){
 			JOptionPane.showMessageDialog(null, "Automation Parameters don't valid", "Information", JOptionPane.INFORMATION_MESSAGE);
 		} else{
@@ -297,8 +307,8 @@ public class GraphicalEditor extends JFrame {
 			createAutomationParameters();
 			if (!isRandom()) createComparatorParameters();
 			createInteractionsParameters();
-			finalizeXml();
-			System.exit(NORMAL);
+			if (!finalizeXml()) JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
+			else System.exit(NORMAL);
 		}
 	}
 
@@ -434,7 +444,7 @@ public class GraphicalEditor extends JFrame {
 		builder.append("</node>");
 	}
 
-	private void finalizeXml() {
+	private boolean finalizeXml() {
 		builder.append("</node>");
 		builder.append("</root>");
 		builder.append("</preferences>");
@@ -443,14 +453,24 @@ public class GraphicalEditor extends JFrame {
 			String folder = System.getProperty("user.dir") + "/../data";
 			if (!new File(folder).exists()) new File(folder).mkdir();
 			new Tools().xmlWriter(path, builder);
-			if (!new File(firstPath).exists()) new File(firstPath).mkdir();
-			PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
-			outputStream1.write("firstboot");
-			outputStream1.close();
-		} catch (IOException e) {
+			if (chckbxInputPertubationTesting.isSelected()){ //è cliccato???
+				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
+				PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
+				outputStream1.write("firstboot");
+				outputStream1.close();	
+			} else {
+				EventQueue.invokeLater(new Runnable() {
+					@Override
+					public void run () {
+						new GuiAnalyzer(firstPath).setVisible(true);
+					}
+				});
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-
+		return true;
 	}
 
 	private boolean validateField() {
@@ -510,11 +530,10 @@ public class GraphicalEditor extends JFrame {
 	}
 
 	public static void setRandom(boolean value) {
-		GraphicalEditor.random = value;
+		random = value;
 	}
 
-	public static void setFirstPath(String firstPath) {
-		GraphicalEditor.firstPath = firstPath;
+	public static void setFirstPath(String s) {
+		firstPath = s;
 	}
-
 }
