@@ -17,7 +17,7 @@ package it.slumdroid.utilities.module;
 
 import java.util.prefs.Preferences;
 
-import static it.slumdroid.utilities.Utilities.TOOL;
+import static it.slumdroid.utilities.Resources.TOOL;
 
 public class PreferenceEditor {
 

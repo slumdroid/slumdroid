@@ -15,10 +15,10 @@
 
 package it.slumdroid.utilities.module;
 
-import static it.slumdroid.utilities.Utilities.ACTIVITY;
-import static it.slumdroid.utilities.Utilities.ACTIVITY_DIR;
-import static it.slumdroid.utilities.Utilities.GUITREE;
-import static it.slumdroid.utilities.Utilities.GUITREE_DIR;
+import static it.slumdroid.utilities.Resources.ACTIVITY;
+import static it.slumdroid.utilities.Resources.ACTIVITY_DIR;
+import static it.slumdroid.utilities.Resources.GUITREE;
+import static it.slumdroid.utilities.Resources.GUITREE_DIR;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

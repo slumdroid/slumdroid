@@ -13,10 +13,13 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.utilities.module.guianalyzer;
+package it.slumdroid.utilities.module;
 
 import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.utilities.module.Tools;
+import it.slumdroid.utilities.module.guianalyzer.ComboBoxRenderer;
+import it.slumdroid.utilities.module.guianalyzer.ImagePanel;
+import it.slumdroid.utilities.module.guianalyzer.Perturbations;
+import it.slumdroid.utilities.module.guianalyzer.ProcessGuiTree;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
