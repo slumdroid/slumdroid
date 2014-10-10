@@ -30,26 +30,28 @@ import org.xml.sax.SAXException;
 
 public class AndroidTest  {
 
+	private String inputFileName = new String();
 	private String reportFileName = new String();
 	private String dotFileName = new String();
 	private String fsmFileName = new String();
 	private GuiTree guiTree;
 
 	public AndroidTest (String inputPath) {
+		this.inputFileName = inputPath + "\\files\\guitree.xml";
 		this.reportFileName = inputPath + "\\output\\report.txt";
 		this.dotFileName = inputPath + "\\output\\guitree.dot";
 		this.fsmFileName = inputPath + "\\output\\fsm.dot";
 	}
 
-	public void processFile(String filename) {
+	public void processFile() {
 		try {
-			this.guiTree = GuiTree.fromXml(new File (filename));
+			this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
 		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
 		}
-		createArtifact(exportToFsm(this.guiTree), fsmFileName); // FsmDot
-		createArtifact(exportToDot(this.guiTree), dotFileName); // GuiTreeDot
-		createArtifact(new ReportGenerator (this.guiTree).getReport(), reportFileName); // ReportTxt 
+		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot
+		createArtifact(exportToDot(this.guiTree), getDotFileName()); // GuiTreeDot
+		createArtifact(new ReportGenerator (this.guiTree).getReport(), getReportFileName()); // ReportTxt 
 	}
 		
 	private void createArtifact(String inputString, String outputFile) {
@@ -60,6 +62,22 @@ public class AndroidTest  {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getInputFileName() {
+		return inputFileName;
+	}
+
+	public String getReportFileName() {
+		return reportFileName;
+	}
+
+	public String getDotFileName() {
+		return dotFileName;
+	}
+
+	public String getFsmFileName() {
+		return fsmFileName;
 	}
 
 }

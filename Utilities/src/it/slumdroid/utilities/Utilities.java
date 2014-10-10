@@ -26,15 +26,7 @@ public class Utilities {
 	public static void main(String[] args) {
 		if (args.length!=0){
 			if (args[0].equals("androidTest")) {
-				final String inputPath  = args[1];
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						AndroidTest frame = new AndroidTest(inputPath);
-						if (!inputPath.equals("")) {
-							frame.processFile(inputPath + "\\files\\guitree.xml");		
-						}
-					}
-				});
+				if (!args[1].equals("")) new AndroidTest(args[1]).processFile();		
 			}
 			else if (args[0].equals("buildControl")) new Tools().buildControl(args[1]);
 			else if (args[0].equals("countEvents")) new Tools().countEvents(args[1]);
