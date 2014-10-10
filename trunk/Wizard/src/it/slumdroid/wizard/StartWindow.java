@@ -239,8 +239,10 @@ public class StartWindow {
 				if (success==true){
 					String command = (chckbxRandom.isSelected())?FIRST_BOOT_RANDOM:FIRST_BOOT;
 					String avd = comboBoxAVDs.getDevice();
+					String thePackage = textFieldAUTpackage.getText();
+					String theClass = textFieldAUTClass.getText();
 					try{
-						String commandLine = CommandLine.get(command, DEVICE, avd);
+						String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
 						DownSide(false);
 						Upside(false);				
 
