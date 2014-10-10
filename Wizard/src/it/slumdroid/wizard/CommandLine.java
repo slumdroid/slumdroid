@@ -110,8 +110,8 @@ public class CommandLine {
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
 		dosCommands.put(LOAD_AVD, path(ANDROID_PATH, "\\tools\\android.bat") + " list avd");
 
-		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 0" + arg(PACKAGE) + " " + arg(CLASS) );
-		dosCommands.put(FIRST_BOOT_RANDOM, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 1" + arg(PACKAGE) + " " + arg(CLASS));
+		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 0 " + arg(PACKAGE) + " " + arg(CLASS) );
+		dosCommands.put(FIRST_BOOT_RANDOM, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 1 " + arg(PACKAGE) + " " + arg(CLASS));
 		
 		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + arg(DEVICE) + " " + path(APP_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) + " " + path(RESULTS_PATH));
 
