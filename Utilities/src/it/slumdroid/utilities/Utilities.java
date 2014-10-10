@@ -19,24 +19,24 @@ import java.awt.EventQueue;
 import java.io.File;
 
 import it.slumdroid.utilities.module.*;
-import it.slumdroid.utilities.module.guianalyzer.GuiAnalyzer;
+import static it.slumdroid.utilities.Resources.*;
 
 public class Utilities {
 	
-	public static final String ACTIVITY = "/activities.xml";
-	public static final String ACTIVITY_DIR = "./diet/activity/";
-	public static final String ACTIVITY_SUB = "activities_";
-	public static final String COV_GENERATOR = "%EMMA% report -r html -sp %APKPATH%\\src -Dreport.sort=+name -in ";
-	public static final String DIET_DIR = "./diet/";
-	public static final String GUITREE = "/guitree.xml";
-	public static final String GUITREE_DIR = "./diet/guitree/";
-	public static final String GUITREE_SUB = "guitree_"; 
-	public static final String INCREMENTAL_COV = "%EMMA% report -r txt -Dreport.sort=+name -in ";
-	public static final String TOOL = "it.slumdroid.tool";
-
 	public static void main(String[] args) {
 		if (args.length!=0){
-			if (args[0].equals("buildControl")) new Tools().buildControl(args[1]);
+			if (args[0].equals("androidTest")) {
+				final String inputPath  = args[1];
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						AndroidTest frame = new AndroidTest(inputPath);
+						if (!inputPath.equals("")) {
+							frame.processFile(inputPath + "\\files\\guitree.xml");		
+						}
+					}
+				});
+			}
+			else if (args[0].equals("buildControl")) new Tools().buildControl(args[1]);
 			else if (args[0].equals("countEvents")) new Tools().countEvents(args[1]);
 			else if (args[0].contains("coverage")) {
 				if (args[0].equals("coverageG")) new Tools().covGenerator(COV_GENERATOR);  	

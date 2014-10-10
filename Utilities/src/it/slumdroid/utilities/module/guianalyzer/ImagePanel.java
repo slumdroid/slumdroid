@@ -21,7 +21,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-class ImagePanel extends JPanel {
+public class ImagePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private Image img;

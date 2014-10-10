@@ -35,7 +35,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
-import static it.slumdroid.utilities.Utilities.TOOL;
+import static it.slumdroid.utilities.Resources.TOOL;
 
 public class UnionTaskListDiet {
 

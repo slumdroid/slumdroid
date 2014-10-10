@@ -15,8 +15,7 @@
 
 package it.slumdroid.utilities.module;
 
-import static it.slumdroid.utilities.Utilities.TOOL;
-import it.slumdroid.utilities.module.guianalyzer.GuiAnalyzer;
+import static it.slumdroid.utilities.Resources.TOOL;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
