@@ -46,10 +46,12 @@ public class Utilities {
 			else if (args[0].equals("graphicalEditor")) {
 				final boolean random = args[1].equals("1"); 
 				final String path = args[2];
+				final String appPackage = args[3];
+				final String appClass = args[4];
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							GraphicalEditor frame = new GraphicalEditor(random, path);
+							GraphicalEditor frame = new GraphicalEditor(random, path, appPackage, appClass);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();

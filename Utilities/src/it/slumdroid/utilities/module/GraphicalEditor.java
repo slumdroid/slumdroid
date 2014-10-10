@@ -44,6 +44,8 @@ public class GraphicalEditor extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static String path = System.getProperty("user.dir") + "/../data/preferences.xml";
+	private static String appPackage = new String();
+	private static String appPackageClass = new String();
 	private static int automation = 0;
 
 	private static JComboBox modelBox;
@@ -80,11 +82,13 @@ public class GraphicalEditor extends JFrame {
 	private static JCheckBox chckbxInputPertubationTesting;
 	
 	@SuppressWarnings("unchecked")
-	public GraphicalEditor(boolean random, final String expPath) {
+	public GraphicalEditor(boolean random, final String expPath, String appPack, String appClass) {
 		setType(Type.UTILITY);
 		setTitle("Preference Editor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		setAppPackage(appPack);
+		setAppPackageClass(appClass);
 		setFirstPath(expPath);
 		setRandom(random);
 
@@ -294,7 +298,7 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(btnSave);
 		
 		chckbxInputPertubationTesting = new JCheckBox("Input Pertubation Testing");
-		chckbxInputPertubationTesting.setBounds(320, 237, 166, 23);
+		chckbxInputPertubationTesting.setBounds(255, 237, 231, 23);
 		contentPane.add(chckbxInputPertubationTesting);
 
 	}
@@ -320,8 +324,8 @@ public class GraphicalEditor extends JFrame {
 		builder.append("<map/>");
 		builder.append("<node name=\""+ TOOL +"\">");
 		builder.append("<map>");
-		builder.append("<entry key=\"PACKAGE_NAME\" value=\"app.package\"/>");
-		builder.append("<entry key=\"CLASS_NAME\"   value=\"app.package.main.class\"/>");
+		builder.append("<entry key=\"PACKAGE_NAME\" value=\""+ getAppPackage() +"\"/>");
+		builder.append("<entry key=\"CLASS_NAME\"   value=\"" + getAppPackageClass() + "\"/>");
 
 		if (modelBox.getSelectedIndex()!=0){
 			builder.append("<entry key=\"ENABLE_MODEL\" value=\"false\"/>");
@@ -448,12 +452,11 @@ public class GraphicalEditor extends JFrame {
 		builder.append("</node>");
 		builder.append("</root>");
 		builder.append("</preferences>");
-
 		try {
 			String folder = System.getProperty("user.dir") + "/../data";
 			if (!new File(folder).exists()) new File(folder).mkdir();
 			new Tools().xmlWriter(path, builder);
-			if (chckbxInputPertubationTesting.isSelected()){ //è cliccato???
+			if (chckbxInputPertubationTesting.isSelected()){
 				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
 				PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
 				outputStream1.write("firstboot");
@@ -500,6 +503,7 @@ public class GraphicalEditor extends JFrame {
 
 	private void resetDefaultValues() {
 		int i=0;
+		chckbxInputPertubationTesting.setSelected(false);
 		if (isRandom()){
 			i=1;
 			listComparatorBox.setEnabled(false);
@@ -535,5 +539,21 @@ public class GraphicalEditor extends JFrame {
 
 	public static void setFirstPath(String s) {
 		firstPath = s;
+	}
+
+	public static String getAppPackage() {
+		return appPackage;
+	}
+
+	public static void setAppPackage(String value) {
+		appPackage = value;
+	}
+
+	public static String getAppPackageClass() {
+		return appPackageClass;
+	}
+
+	public static void setAppPackageClass(String value) {
+		appPackageClass = value;
 	}
 }
