@@ -58,6 +58,8 @@ public class GraphicalEditor extends JFrame {
 	private static JFormattedTextField waitingTaskField;
 	private static JFormattedTextField waitingThrobberField;
 
+	private JCheckBox chckbxInputPertubation;
+	
 	private static JComboBox comparatorBox;
 	private static JComboBox listComparatorBox;
 
@@ -78,14 +80,10 @@ public class GraphicalEditor extends JFrame {
 	private static boolean random;
 	private static String firstPath = new String();
 	private static StringBuilder builder = new StringBuilder();
-
-	private static JCheckBox chckbxInputPertubationTesting;
 	
 	@SuppressWarnings("unchecked")
 	public GraphicalEditor(boolean random, final String expPath, String appPack, String appClass) {
-		setType(Type.UTILITY);
 		setTitle("Preference Editor");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setAppPackage(appPack);
 		setAppPackageClass(appClass);
@@ -275,8 +273,11 @@ public class GraphicalEditor extends JFrame {
 		schedulerBox.setSelectedIndex(1);
 		schedulerBox.setBounds(146, 108, 89, 20);
 		contentPane.add(schedulerBox);
-
-		resetDefaultValues();
+		
+		// CheckBox
+		chckbxInputPertubation = new JCheckBox("Input Pertubation Testing");
+		chckbxInputPertubation.setBounds(255, 237, 231, 23);
+		contentPane.add(chckbxInputPertubation);
 
 		// Button
 		btnDefaultValues = new JButton("Default Values");
@@ -297,10 +298,7 @@ public class GraphicalEditor extends JFrame {
 		btnSave.setBounds(397, 263, 89, 23);
 		contentPane.add(btnSave);
 		
-		chckbxInputPertubationTesting = new JCheckBox("Input Pertubation Testing");
-		chckbxInputPertubationTesting.setBounds(255, 237, 231, 23);
-		contentPane.add(chckbxInputPertubationTesting);
-
+		resetDefaultValues();
 	}
 
 	private void saveXML(String expPath) {
@@ -312,7 +310,6 @@ public class GraphicalEditor extends JFrame {
 			if (!isRandom()) createComparatorParameters();
 			createInteractionsParameters();
 			if (!finalizeXml()) JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
-			else System.exit(NORMAL);
 		}
 	}
 
@@ -383,7 +380,6 @@ public class GraphicalEditor extends JFrame {
 		if (listComparatorBox.getSelectedIndex()!=1) builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
 		builder.append("</map>");
 		builder.append("</node>");
-
 	}
 
 	private void createInteractionsParameters() {
@@ -456,18 +452,21 @@ public class GraphicalEditor extends JFrame {
 			String folder = System.getProperty("user.dir") + "/../data";
 			if (!new File(folder).exists()) new File(folder).mkdir();
 			new Tools().xmlWriter(path, builder);
-			if (chckbxInputPertubationTesting.isSelected()){
+			if (!chckbxInputPertubation.isSelected()){
 				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
 				PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
 				outputStream1.write("firstboot");
-				outputStream1.close();	
+				outputStream1.close();
+				System.exit(NORMAL);
 			} else {
 				EventQueue.invokeLater(new Runnable() {
 					@Override
 					public void run () {
-						new GuiAnalyzer(firstPath).setVisible(true);
+						GuiAnalyzer frame = new GuiAnalyzer(firstPath);
+						frame.setVisible(true);
 					}
 				});
+				setVisible(false);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -503,7 +502,7 @@ public class GraphicalEditor extends JFrame {
 
 	private void resetDefaultValues() {
 		int i=0;
-		chckbxInputPertubationTesting.setSelected(false);
+		chckbxInputPertubation.setSelected(false);
 		if (isRandom()){
 			i=1;
 			listComparatorBox.setEnabled(false);
