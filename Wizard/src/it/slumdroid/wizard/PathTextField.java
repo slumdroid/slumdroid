@@ -22,6 +22,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 public abstract class PathTextField extends JTextField {
+	
+	private static final long serialVersionUID = 1L;
 
 	public PathTextField() {
 		super();
@@ -63,7 +65,5 @@ public abstract class PathTextField extends JTextField {
 	public void setPath(String p) {
 		setText(p);
 	}
-
-	private static final long serialVersionUID = 1L;
 
 }

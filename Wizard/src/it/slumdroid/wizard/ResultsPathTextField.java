@@ -22,6 +22,8 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 public class ResultsPathTextField extends PathTextField {
+	
+	private static final long serialVersionUID = 1L;
 
 	public ResultsPathTextField () {
 		super();
@@ -55,7 +57,5 @@ public class ResultsPathTextField extends PathTextField {
 		});
 		return button;
 	}
-
-	private static final long serialVersionUID = 1L;
 
 }
