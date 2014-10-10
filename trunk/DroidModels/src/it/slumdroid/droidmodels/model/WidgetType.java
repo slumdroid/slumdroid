@@ -31,11 +31,9 @@ public class WidgetType {
 
 	public String convert () {
 		String output = "";
-
 		if (isText()) {
 			output = "Text";
 			if (isTextMultiline()) output += ", Multiline";
-
 			if (isTextEmailAddress()) {
 				output += ", EmailAddress";
 			} else if (isTextPostalAddress()) {
@@ -51,10 +49,8 @@ public class WidgetType {
 			} else if (nameLowerCase.contains("credit") && nameLowerCase.contains("card")){
 				output += ", CreditCard";
 			}
-
 		} else if (isNumber()) {
 			output = "Number";
-
 			if (isNumberSigned()) {
 				output += ", Signed";
 			}
@@ -64,13 +60,11 @@ public class WidgetType {
 			if (isNumberPassword()){
 				output += ", NumberPassword";
 			}
-
 		} else if (isDatetime()) {
 			output = "DateTime";
 		} else if (isPhone()) {
 			output = "Phone";
 		}
-
 		return output;
 	}
 
