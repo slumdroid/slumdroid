@@ -38,26 +38,20 @@ public class Resources {
 	// Main Parameters
 	public static String PACKAGE_NAME = "app.package";
 	public static String CLASS_NAME = "app.package.class";
-	
 	public static long RANDOM_SEED = 93874383493L; 
-
 	public static boolean ENABLE_MODEL = true;
 	public static boolean SCREENSHOT_ENABLED = true; // Performs an image capture of the screen after processing a task
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
 	public static boolean HASH_VALUES = true;
-
 	public static int MAX_NUM_EVENTS = 0; // After performing this amount of traces, the tool exits (0 = no length limit)
-
 	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
 	public static void setMaxEventsSelector(int maxSelector) {
 		MAX_NUM_EVENTS_PER_SELECTOR = maxSelector;		
 	}
-
 	public static int PAUSE_AFTER_TRACES = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
 	public static void setPauseTraces(int pauseAfterTraces) {
 		PAUSE_AFTER_TRACES = pauseAfterTraces;		
 	}
-
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 
 	// Automation Parameters
@@ -128,7 +122,6 @@ public class Resources {
 	};
 
 	public static boolean COMPARE_LIST_COUNT = false;
-	
 	public static void getComparator() {
 		if (COMPARATOR_TYPE.equals(COMPOSITIONAL_COMPARATOR)) {
 			COMPARATOR = new CompositionalComparator();
@@ -163,14 +156,12 @@ public class Resources {
 		Prefs.updateNode("automation", Resources.class);
 		Prefs.updateNode("comparator", Resources.class);
 		Prefs.updateNode("interactions", Resources.class);
-
 		try {
 			theClass = Class.forName(CLASS_NAME);
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 		getComparator();
-
 		if (EVENTS != null) {
 			boolean isClick = false;
 			for (String s: EVENTS) {
@@ -184,7 +175,6 @@ public class Resources {
 		} else {
 			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, LINEAR_LAYOUT);
 		}
-
 		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW, TEXT_VIEW);
 		UserFactory.addEvent(ENTER_TEXT, SEARCH_BAR);
 		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, PREFERENCE_LIST, EXPAND_MENU);
@@ -193,7 +183,6 @@ public class Resources {
 		UserFactory.addEvent(SPINNER_SELECT, SPINNER);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		UserFactory.addEvent(DRAG, SLIDING_DRAWER);
-
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
 			for (String s: EXTRA_EVENTS) {
@@ -209,7 +198,6 @@ public class Resources {
 				}	
 			}
 		}
-
 		if (INPUTS != null) {
 			boolean isClick = false;
 			for (String s: INPUTS) {		

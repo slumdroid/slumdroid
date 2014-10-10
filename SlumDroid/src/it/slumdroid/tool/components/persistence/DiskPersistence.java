@@ -137,16 +137,13 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		FileInputStream in;
 		FileOutputStream out;
 		byte[] buffer = new byte[4096];
-
 		try {
 			in = w.openFileInput(from);
 			out = w.openFileOutput(to, ContextWrapper.MODE_PRIVATE);
 			int n = 0;
-
 			while ((n = in.read(buffer)) != -1) {
 				out.write(buffer, 0, n);
 			}
-
 			in.close();
 			out.close();
 		} catch (IOException e) {

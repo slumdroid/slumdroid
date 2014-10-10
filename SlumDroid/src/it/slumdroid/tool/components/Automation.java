@@ -181,7 +181,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		if (view!=null) {
 			requestView(view);
 		}
-
 		if (interactionType.equals(CLICK)) click (view);
 		else if (interactionType.equals(LONG_CLICK))longClick(view);
 		else if (interactionType.endsWith("Item")){
@@ -190,23 +189,19 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 			else if (interactionType.equals(SPINNER_SELECT)) selectSpinnerItem((Spinner)view, value);
 			else if (interactionType.equals(RADIO_SELECT)) selectRadioItem((RadioGroup)view, value);	
 		} 
-
 		else if (interactionType.endsWith("Text")){
 			if (interactionType.equals(WRITE_TEXT)) writeText((EditText)view, value);
 			else enterText((EditText)view, value);	
 		}
-
 		else if (interactionType.contains("press")){
 			if (interactionType.equals(PRESS_BACK)) goBack();
 			else if (interactionType.equals(PRESS_MENU)) openMenu();
 			else if (interactionType.equals(PRESS_ACTION)) actionBarHome();
 		}
-
 		else if (interactionType.equals(CHANGE_ORIENTATION)) changeOrientation();
 		else if (interactionType.equals(SET_BAR)) setProgressBar(view, value);
 		else if (interactionType.equals(DRAG)) drag(view);	
 		else if (interactionType.equals(SWAP_TAB) && (value!=null)) DroidExecutor.swapTab (view, value);
-
 	}
 
 	private void refreshCurrentActivity() {
@@ -230,7 +225,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 				if (v!=null) break;
 			}
 		}
-
 		injectInteraction(v, inputType, value);
 	}
 
@@ -263,7 +257,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	public void waitOnThrobber() {
 		int sleepTime = SLEEP_ON_THROBBER;
 		if (sleepTime==0) return;
-
 		boolean flag;
 		do {
 			flag = false;
@@ -302,7 +295,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public boolean checkWidgetEquivalence (View testee, int theId, String theType, String theName) {
-
 		String testeeType = AbstractorUtilities.getType(testee); 
 		if ( !(theType.equals(testeeType)) ) return false;
 		String testeeName = AbstractorUtilities.detectName(testee);

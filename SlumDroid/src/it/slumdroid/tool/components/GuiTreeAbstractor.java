@@ -113,48 +113,37 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
 		String id = String.valueOf(v.getId());
 		String name = detectName(v);
-
 		w.setIdNameType(id, name, getType(v));
 		w.setSimpleType(getTypeDetector().getSimpleType(v));
-
 		setCount (v,w);
 		setValue (v,w);
-
 		if (v instanceof TextView) {
 			int type = ((TextView)v).getInputType();
 			if (type!=0){
 				w.setTextType(new WidgetType(type, name, w.getValue()).convert());
 			}	
 		}
-
 		w.setAvailable((v.isEnabled())?"true":"false");
 		w.setClickable((v.isClickable())?"true":"false");
 		w.setLongClickable((v.isLongClickable())?"true":"false");
-
 		return w;
 	}
 
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
-
 		for (View v: desc) {
 			hasDescription = true;
 			if (!v.isShown()) continue;
-
 			TestCaseWidget w = createWidget (v);
 			w.setIndex(desc.getWidgetIndex(v));
-
 			if (w.getIndex() == 0 && w.getSimpleType().equals(TEXT_VIEW)) {
 				w.setSimpleType(TOAST);
 			}
-
 			if (detectDuplicates && newActivity.hasWidget(w)) continue;
 			((ElementWrapper) newActivity).appendChild(w.getElement());
-
 			for (Filter f: this.filters) {
 				f.loadItem(w);
 			}
-
 		}
 		return hasDescription;
 	}

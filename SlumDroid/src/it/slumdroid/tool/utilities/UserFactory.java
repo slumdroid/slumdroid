@@ -61,46 +61,36 @@ public class UserFactory {
 	}
 
 	public static UserAdapter getUser (Abstractor abstractor) {
-
 		UserAdapter userAdapter = new SimpleUserAdapter(abstractor,new Random(RANDOM_SEED));
-
 		userAdapter.addEvent(new Clicker(typesForEvent(CLICK)));
 		userAdapter.addEvent(new LongClicker(typesForEvent(LONG_CLICK)));
-
 		if (isRequiredEvent(WRITE_TEXT)) {
 			if(HASH_VALUES) userAdapter.addEvent(new HashWriteEditor(typesForEvent(WRITE_TEXT)));
 			else userAdapter.addEvent(new RandomWriteEditor(typesForEvent(WRITE_TEXT)));
 		}
-
 		if(HASH_VALUES){
 			userAdapter.addEvent(new HashEnterEditor(typesForEvent(ENTER_TEXT)));
 		} else userAdapter.addEvent(new RandomEnterEditor(typesForEvent(ENTER_TEXT)));
-		
 		userAdapter.addEvent(new ListSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_SELECT)));
 		userAdapter.addEvent(new ListLongSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_LONG_SELECT)));
 		userAdapter.addEvent(new SpinnerSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(SPINNER_SELECT)));
 		userAdapter.addEvent(new RadioSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(RADIO_SELECT)));
 		userAdapter.addEvent(new TabSwapper(typesForEvent(SWAP_TAB)));
 		userAdapter.addEvent(new Drager(typesForEvent(DRAG)));
-
 		for (SimpleInteractorAdapter i: ADDITIONAL_EVENTS) {
 			userAdapter.addEvent(i);			
 		}
-
 		userAdapter.addInput(new Clicker (typesForInput(CLICK)));	
-
 		if (isRequiredInput(WRITE_TEXT)) {
 			if (HASH_VALUES) userAdapter.addInput(new HashWriteEditor(typesForInput(WRITE_TEXT)));
 			else userAdapter.addInput(new RandomWriteEditor(typesForInput(WRITE_TEXT)));
 		}
-
 		userAdapter.addInput(new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)));
 		userAdapter.addInput(new BarSlider(typesForInput(SET_BAR)));
-
 		for (SimpleInteractorAdapter i: ADDITIONAL_INPUTS) {
 			userAdapter.addInput(i);
 		}
-
 		return userAdapter;
 	}	
+	
 }

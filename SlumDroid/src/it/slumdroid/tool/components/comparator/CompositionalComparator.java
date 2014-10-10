@@ -38,39 +38,31 @@ public class CompositionalComparator implements Comparator {
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());		
 		boolean compareWidget = compareId && compareType;
-
 		if (compareWidget){ 
 			boolean isDialog = field.getSimpleType().equals(DIALOG_TITLE);
 			if (isDialog) return otherField.getName().equals(field.getName());
-
 			boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(PREFERENCE_LIST);	
 			boolean isMenu = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU);
 			if (isMenu || (isList && COMPARE_LIST_COUNT)) return otherField.getCount() == field.getCount();
 		}
-
 		return compareWidget;
 	}
 
 	@Override
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
-
 		if (!compareNameTitle(currentActivity, storedActivity)) return false; // Different name, different activity, early return
-
 		HashSet<String> checkedAlready = new HashSet<String>();
 		// Check if current has at least one widget that stored ain't got
 		for (WidgetState field: currentActivity) {
 			int id = Integer.valueOf(field.getId());
-
 			if (matchClass(field.getSimpleType()) && (id>0) ) {
 				if (!lookFor(field, storedActivity)) return false;
 				checkedAlready.add(field.getId()); // store widgets checked in this step to skip them in the next step
 			}
 		}
-
 		// Check if stored has at least one widget that current ain't got. Skip if already checked.
 		for (WidgetState field: storedActivity) {
 			int id = Integer.valueOf(field.getId());
-
 			if ( matchClass(field.getSimpleType()) && (id>0) && (!checkedAlready.contains(field.getId())) ) {
 				if (!lookFor(field, currentActivity)) return false;
 			}

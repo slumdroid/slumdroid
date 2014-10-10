@@ -38,15 +38,12 @@ public class RandomEngine extends SystematicEngine {
 	public RandomEngine () {
 		super();
 		Log.i(TAG, "Starting Random Testing");
-
 		setMaxEventsSelector(0);
 		setMaxTasksInScheduler(2);
 		setOnlyFinalTransition(true);
 		setPauseTraces(0);
-
 		this.taskLottery = new SaveStateRandom(RANDOM_SEED);
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
-
 		this.first = true;
 	}
 
@@ -99,7 +96,6 @@ public class RandomEngine extends SystematicEngine {
 
 	@SuppressWarnings("serial")
 	class SaveStateRandom extends Random implements SaveStateListener {
-
 		public final static String ACTOR_NAME = "RandomEngine";
 		private final static String PARAM_NAME = "randomState";
 		int count;

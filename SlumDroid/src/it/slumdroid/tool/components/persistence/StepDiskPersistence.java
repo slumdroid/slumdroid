@@ -79,30 +79,24 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 
 	public String generateXML () {
 		String graph = super.generate();
-
 		// Session is smaller than the step: fall back to DiskPersistence behavior and save all
 		if (isFirst() && isLast()) {
 			return graph;
 		}
-
 		int bodyBegin = graph.indexOf(XML_BODY_BEGIN);
 		int bodyEnd = graph.lastIndexOf(XML_BODY_END) + XML_BODY_END.length();
-
 		// First step: return header and body, save the footer for the final step
 		if (isFirst()) {
 			this.footer = graph.substring(bodyEnd);
 			return graph.substring(0,bodyEnd);
 		}
-
 		// Final step: return the body (if any) and the footer
 		if (isLast()) {
 			return (bodyBegin == -1)?(this.footer):graph.substring(bodyBegin);
 		}
-
 		if ( (bodyBegin == -1) || (bodyEnd == -1) ) { // Empty body
 			return "";
 		}
-
 		// Return the body of the XML graph
 		return graph.substring(bodyBegin,bodyEnd);
 	}

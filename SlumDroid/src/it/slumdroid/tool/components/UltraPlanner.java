@@ -44,9 +44,7 @@ public class UltraPlanner implements Planner {
 		setIncludeAction(false);
 		setIncludeMenu(true);
 		setIncludeRotation(true);
-
 		for (WidgetState w: getEventFilter()) {
-
 			if (w.getSimpleType().equals(TOAST)
 					|| w.getSimpleType().equals(DIALOG_TITLE)
 					|| w.getSimpleType().equals(PREFERENCE_LIST)){
@@ -61,7 +59,6 @@ public class UltraPlanner implements Planner {
 					&& w.isAvailable()){
 				setIncludeAction(true);
 			}
-			
 			Collection<UserEvent> events = getUser().handleEvent(w);
 			for (UserEvent event: events) {                           
 				if (event == null) continue;
@@ -73,7 +70,6 @@ public class UltraPlanner implements Planner {
 	private void adjacentValues(Plan planner, ActivityState activityState, UserEvent event){
 		ArrayList<List<UserInput>> macroInputs = new ArrayList<List<UserInput>>();
 		int numWidgets = 0;
-
 		for(WidgetState formWidget: getInputFilter()){
 			List<UserInput> alternatives = getFormFiller().handleInput(formWidget);
 			if(alternatives.size()!=0){                                             
@@ -81,7 +77,6 @@ public class UltraPlanner implements Planner {
 				numWidgets++;
 			}                                               
 		}
-
 		Collection<UserInput> inputs = new ArrayList<UserInput>();
 		for(int widget = 0; widget < numWidgets; widget++){
 			UserInput input = macroInputs.get(widget).get(0);
@@ -89,7 +84,6 @@ public class UltraPlanner implements Planner {
 		}
 		Transition t = getAbstractor().createStep(activityState, inputs, event);                          
 		planner.addTask(t);
-
 		for(int widget = 0; widget < numWidgets; widget++){                                                                  
 			for(int inPut = 1; inPut <= macroInputs.get(widget).size()-1; inPut++){
 				Collection<UserInput> combinations = new ArrayList<UserInput>();
@@ -128,32 +122,26 @@ public class UltraPlanner implements Planner {
 	public Plan getPlanForActivity (ActivityState activityState) {
 		Plan planner = new Plan();
 		addPlanForActivityWidgets(planner, activityState);
-
 		UserEvent event;
 		Transition transition;
-
 		if (isIncludeMenu()) {
 			event = getAbstractor().createEvent(null, PRESS_MENU);
 			transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
-
 		if (isIncludeAction()) {
 			event = getAbstractor().createEvent(null, PRESS_ACTION);
 			transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
-
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
 			transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
-
 		event = getAbstractor().createEvent(null, PRESS_BACK);
 		transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
 		planner.addTask(transition);
-
 		return planner;
 	}
 

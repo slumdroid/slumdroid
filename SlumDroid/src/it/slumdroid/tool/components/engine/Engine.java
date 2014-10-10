@@ -128,17 +128,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		if (!(getPersistence() instanceof ResumingPersistence)) {
 			return false;
 		}
-
 		ResumingPersistence r = (ResumingPersistence)getPersistence();
 		if (!r.canHasResume()) return false;
-
 		importTaskList(r);		
 		importActivitiyList(r);
-
 		r.loadParameters();
 		r.setNotFirst();
 		r.saveStep();
-
 		return true;
 	}
 
@@ -174,10 +170,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			sandboxSession.parse(trace);
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			t = getAbstractor().importTask (e);
-			if (t.isFailed()) 
-				getSession().addCrashedTask(t);
-			else 
-				taskList.add(t);
+			if (t.isFailed()) getSession().addCrashedTask(t);
+			else taskList.add(t);
 		}
 		getScheduler().addTasks(taskList);
 	}

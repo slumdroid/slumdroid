@@ -21,22 +21,16 @@ import it.slumdroid.droidmodels.model.Task;
 public interface Strategy {
 
 	public void addState (ActivityState newActivity);
-
 	public Comparator getComparator ();
 	public void setComparator (Comparator c);
-
 	public boolean compareState (ActivityState theActivity);
-
 	public boolean checkForExploration ();
 	public boolean checkForTermination ();
 	public boolean checkForPause ();
-
 	public void setTask(Task theTask);
 	public Task getTask();
-
 	public ActivityState getStateBeforeEvent();
 	public ActivityState getStateAfterEvent ();
-
 	public void registerTerminationListener(TerminationListener theListener);
 
 }
