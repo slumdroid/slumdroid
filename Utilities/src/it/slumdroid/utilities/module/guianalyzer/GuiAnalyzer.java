@@ -93,12 +93,10 @@ public class GuiAnalyzer extends JFrame {
 	private Object[] colScreen;
 	private Object[] colInteraction;
 	private Object[] colSimpleType;
-
+	
 	public GuiAnalyzer () {
-
 		setResizable(false);
 		initComponents();
-
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
 				if (files.length==0) return;
@@ -107,15 +105,12 @@ public class GuiAnalyzer extends JFrame {
 				createLayout();
 			}
 		});
-
 	}
 
 	public GuiAnalyzer (String expPath) {
-
 		setFirstPath(expPath);
 		setResizable(false);
 		initComponents();
-
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
 				if (files.length==0) return;
@@ -124,11 +119,9 @@ public class GuiAnalyzer extends JFrame {
 				createLayout();
 			}
 		});
-
 	}
 
 	private void initComponents() {
-
 		jTabbedWidget = new JTabbedPane();
 		jPanelWidgets = new JPanel();
 		jPanelWidgets.setLayout(new BorderLayout());
@@ -136,12 +129,10 @@ public class GuiAnalyzer extends JFrame {
 		jMenuBar = new JMenuBar();
 		jMenuFile = new JMenu();
 		jMenuFile.setText("File");
-
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("GUI Analyzer");
 		setPreferredSize(new Dimension(960, 513));
 		getContentPane().setLayout(new GridLayout(1, 0));
-
 		jScrollPane = new JScrollPane();
 		jScrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 		jScrollPane.setViewportView(jTableInfo);
@@ -149,9 +140,7 @@ public class GuiAnalyzer extends JFrame {
 		jPanelImage = new ImagePanel("");
 		jPanelWidgets.add(jPanelImage, BorderLayout.LINE_END);
 		jTabbedWidget.addTab("Widgets", jPanelWidgets);
-
 		getContentPane().add(jTabbedWidget);
-
 		jMenuOpen = new javax.swing.JMenuItem();
 		jMenuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		jMenuOpen.setIcon(new ImageIcon(getClass().getResource("/open.png"))); 
@@ -162,7 +151,6 @@ public class GuiAnalyzer extends JFrame {
 			}
 		});
 		jMenuFile.add(jMenuOpen);
-
 		jMenuSave = new JMenuItem();
 		jMenuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		jMenuSave.setIcon(new ImageIcon(getClass().getResource("/save.png")));
@@ -174,7 +162,6 @@ public class GuiAnalyzer extends JFrame {
 			}
 		});
 		jMenuFile.add(jMenuSave);
-
 		jMenuExit = new JMenuItem();
 		jMenuExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
 		jMenuExit.setIcon(new ImageIcon(getClass().getResource("/exit.png")));
@@ -185,17 +172,14 @@ public class GuiAnalyzer extends JFrame {
 			}
 		});
 		jMenuFile.add(jMenuExit);
-
 		jMenuBar.add(jMenuFile);
 		setJMenuBar(jMenuBar);
 		pack();
 	}
 
 	private void createLayout() {
-
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		resetAll();
-
 		try {
 			pI = new ProcessGuiTree(theFile.toString());
 		} catch (Exception e) {
@@ -243,12 +227,10 @@ public class GuiAnalyzer extends JFrame {
 		jTableInfo.getColumnModel().getColumn(7).setCellRenderer(new ComboBoxRenderer(comboValues));
 
 		comboBox.addItemListener(new ItemListener() {
-
 			@Override
 			public void itemStateChanged (ItemEvent e) {
 				changeWidgetInfo();
 			}
-
 		});
 
 		jTableInfo.setRowHeight(20);
@@ -256,50 +238,39 @@ public class GuiAnalyzer extends JFrame {
 		jTableInfo.getColumnModel().getColumn(8).setMaxWidth(0);
 		jTableInfo.getColumnModel().getColumn(8).setWidth(0);
 		jTableInfo.addMouseListener(new MouseAdapter() {
-
 			@Override
 			public void mouseClicked (MouseEvent e) {
 				changeWidgetInfo();
 			}
-
 		});	
-
 	}
 
 	private void resetAll () {
-
 		tabelModel = (DefaultTableModel) jTableInfo.getModel();
 		tabelModel.setRowCount(0);
 		tabelModel.setColumnCount(0);
-
 	}
 
 	private void changeWidgetInfo () {
-
 		int row = jTableInfo.getSelectedRow();
 		Object value = ((JButton) jTableInfo.getValueAt(row, 8)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
-
 	}
 
 	private void addImage (String image) {
-
 		try{
 			jPanelWidgets.remove(jPanelImage);
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-
 		jPanelImage = new ImagePanel(image);
 		jPanelImage.setBackground(new Color(255, 255, 255));
 		jPanelImage.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 0)));
 		jPanelWidgets.add(jPanelImage, BorderLayout.LINE_END);
 		jPanelWidgets.revalidate();
-
 	}
 
 	private void open () {
-
 		JFileChooser toLoad = new JFileChooser();
 		toLoad.setFileFilter(new FileNameExtensionFilter("XML GUI Tree", "xml"));
 		toLoad.setCurrentDirectory(new File(System.getProperty("user.dir")));
@@ -309,11 +280,9 @@ public class GuiAnalyzer extends JFrame {
 			currentDirectory = toLoad.getCurrentDirectory().toString();
 			createLayout();
 		}
-
 	}
 
 	private boolean save(){
-
 		try {
 			String place = System.getProperty("user.dir");
 			createXml(place + preferencesPath);
@@ -322,11 +291,9 @@ public class GuiAnalyzer extends JFrame {
 			return false;
 		}
 		return true;
-
 	}
 
 	private void createXml(String preferencesFile) {
-
 		StringBuilder builder =  new StringBuilder();
 		String line = new String();
 		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
@@ -406,7 +373,6 @@ public class GuiAnalyzer extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public void setFirstPath(String s) {
