@@ -84,17 +84,14 @@ public class StartWindow {
 		initialize();
 		String path = getAndroidDir();
 		textFieldAndroidPath.setPath(path);
-
 		path = getJavaDir();
 		CommandLine.setJavaPath(path);
 		checkJavaVersion();
-
 		checkSdk();
 		comboBoxAVDs.loadDevices();
 	}
 
 	private void initialize() throws ParseException {
-
 		frmWizard = new JFrame();
 		frmWizard.setResizable(false);
 		frmWizard.setTitle("SlumDroid Wizard");
@@ -205,17 +202,13 @@ public class StartWindow {
 		btnGenerateReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cycles = (chckbxRandom.isSelected())?randomevents.getText():"0";
-
 				DownSide(false);
-
 				BackWorker bw = new BackWorker();
 				bw.setFile(getResultPath()+File.separator+"artifact.txt");
 				bw.execute();
 				String thePackage = textFieldAUTpackage.getText();
-
 				String commandLine = CommandLine.get(POST_PROCESS, CYCLES, cycles ,PACKAGE, thePackage);
 				ExternalProcess.executeCommand(commandLine);
-
 			}
 		});
 		btnGenerateReport.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -270,20 +263,16 @@ public class StartWindow {
 		btnDeploy.setEnabled(false);
 		btnDeploy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				String avd = comboBoxAVDs.getDevice();
 				String thePackage = textFieldAUTpackage.getText();
 				String theClass = textFieldAUTClass.getText();
 				String commandLine = CommandLine.get(DEPLOY, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);	
-
 				DownSide(false);
 				Upside(false);				
-
 				BackWorker bw = new BackWorker();
 				bw.setFile(getResultPath()+File.separator+"build.txt");
 				bw.execute();
 				ExternalProcess.executeCommand(commandLine);
-
 			}
 		});
 		btnDeploy.setBounds(160, 405, 170, 23);

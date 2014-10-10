@@ -29,6 +29,8 @@ import javax.swing.JOptionPane;
 import static it.slumdroid.wizard.CommandLine.LOAD_AVD;
 
 public class AvdComboBox extends JComboBox<Object> {
+	
+	private static final long serialVersionUID = 1L;
 
 	public void loadDevices() {
 		String CommandList = CommandLine.get(LOAD_AVD);
@@ -69,7 +71,5 @@ public class AvdComboBox extends JComboBox<Object> {
 	public String getDevice () {
 		return (String) getSelectedItem();
 	}
-
-	private static final long serialVersionUID = 1L;
 
 }

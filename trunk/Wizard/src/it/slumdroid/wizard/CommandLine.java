@@ -109,15 +109,11 @@ public class CommandLine {
 		dosCommands.put(JAVA_VERSION, path(JAVA_PATH, "\\bin\\java") + " -version");
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
 		dosCommands.put(LOAD_AVD, path(ANDROID_PATH, "\\tools\\android.bat") + " list avd");
-
 		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 0 " + arg(PACKAGE) + " " + arg(CLASS) );
 		dosCommands.put(FIRST_BOOT_RANDOM, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 1 " + arg(PACKAGE) + " " + arg(CLASS));
-		
 		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + arg(DEVICE) + " " + path(APP_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) + " " + path(RESULTS_PATH));
-
 		dosCommands.put(RANDOM_TEST, place + "\\batch\\Random.bat " + arg(DEVICE) + " " + arg(PACKAGE) + " " + path(RESULTS_PATH) + " 10 " + arg(CYCLES));
 		dosCommands.put(SYSTEMATIC_TEST, place + "\\batch\\Ripper.bat " + arg(DEVICE) + " " + arg(PACKAGE) + " " + path(RESULTS_PATH) + " 10");
-
 		dosCommands.put(POST_PROCESS, place + "\\batch\\PostProcess.bat " + path(RESULTS_PATH) + " " + path(APP_PATH) + " " + arg(PACKAGE));
 		dosCommands.put(CLOSE, place + "\\batch\\close.bat");
 	}

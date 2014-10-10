@@ -27,6 +27,9 @@ import static it.slumdroid.wizard.CommandLine.*;
 class AppData {
 	private String theClass;
 	private String thePackage;
+	
+	public final static String MANIFEST_XPATH = "//manifest[1]/@package";
+	public final static String CLASS_XPATH = "//activity[intent-filter/action/@name='android.intent.action.MAIN'][1]/@name";
 
 	public AppData () {}
 
@@ -60,7 +63,6 @@ class AppData {
 		String c = new String();
 		String p = new String();
 		String command = CommandLine.get (DUMP_APK, APP_PATH, apkPath);
-
 		try {
 			Process proc = Runtime.getRuntime().exec(command);
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
@@ -85,10 +87,8 @@ class AppData {
 	public static AppData getFromSource(String sourcePath) {
 		String path = sourcePath + File.separator + "AndroidManifest.xml";
 		SearchableManifest doc = new SearchableManifest (path);
-
 		String thePackage = doc.parseXpath(MANIFEST_XPATH);
 		String theClass = doc.parseXpath(CLASS_XPATH);
-
 		return new AppData (getClassFullName (theClass, thePackage), thePackage);
 	}
 
@@ -97,8 +97,5 @@ class AppData {
 		String dot = (p.endsWith(".") || c.startsWith("."))?"":".";
 		return p + dot + c;
 	}
-
-	public final static String MANIFEST_XPATH = "//manifest[1]/@package";
-	public final static String CLASS_XPATH = "//activity[intent-filter/action/@name='android.intent.action.MAIN'][1]/@name";
-
+	
 }
