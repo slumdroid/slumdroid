@@ -131,12 +131,8 @@ public class Xml2DotFrame extends JFrame  {
 			this.showGuiTreeDot();
 			this.showFsmDot();
 			this.showReport();
-		} catch (ParserConfigurationException e) {
+		} catch (ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();		
 		}
 	}
 

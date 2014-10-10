@@ -25,10 +25,4 @@ public class Resources {
 	public final static String TEST_REPORT = "Report";
 	public final static String GUI_TREE_FILE_TYPE = "XML Gui Tree";
 
-	public static void getTimestamp (String label) {
-		java.util.Date d = new java.util.Date();
-		java.sql.Timestamp t = new java.sql.Timestamp (d.getTime());
-		System.out.println(label + t.toString());
-	}
-
 }
