@@ -91,7 +91,6 @@ public class CustomStrategy implements Strategy {
 				}
 			}	
 		}
-
 		this.positiveComparation = false;
 		if (ENABLE_MODEL) {
 			if (!COMPARATOR_TYPE.equals(NULL_COMPARATOR)) Log.i(TAG, "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");

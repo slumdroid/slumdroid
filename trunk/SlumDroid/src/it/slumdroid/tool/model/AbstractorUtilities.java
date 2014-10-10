@@ -62,31 +62,26 @@ public class AbstractorUtilities {
 			w.setCount(((AdapterView<?>)v).getCount());
 			return;
 		}
-
 		// For Spinners, the count is set to the number of options
 		if (v instanceof AbsSpinner) {
 			w.setCount(((AbsSpinner)v).getCount());
 			return;
 		}
-
 		// For the tab layout host, the count is set to the number of tabs
 		if (v instanceof TabHost) {
 			w.setCount(((TabHost)v).getTabWidget().getTabCount());
 			return;
 		}
-
 		// For grids, the count is set to the number of icons, for RadioGroups it's set to the number of RadioButtons
 		if (v instanceof ViewGroup) {
 			w.setCount(((ViewGroup)v).getChildCount());
 			return;
 		}
-
 		// For progress bars, seek bars and rating bars, the count is set to the maximum value allowed
 		if (v instanceof ProgressBar) {
 			w.setCount(((ProgressBar)v).getMax());
 			return;
 		}
-
 	}
 
 	public static void setValue (View v, WidgetState w) {
@@ -96,19 +91,16 @@ public class AbstractorUtilities {
 			w.setValue(((Checkable) v).isChecked()?"true":"false");
 			return;
 		}
-
 		// TextView, EditText et al. -> the value is the displayed text
 		if (v instanceof TextView) {
 			w.setValue(((TextView) v).getText().toString());
 			return;
 		}
-
 		// ProgressBars, SeekBars and RatingBars -> the value is the current progress
 		if (v instanceof ProgressBar) {
 			w.setValue(String.valueOf(((ProgressBar) v).getProgress()));
 			return;
 		}
-
 	}
 
 	public static String getType (View v) {
@@ -118,7 +110,6 @@ public class AbstractorUtilities {
 	// Event description methods, used by Automation - the description property is only used in graphs	
 	public static boolean describeCurrentEvent (UserEvent e, View v) {
 		if (e == null) return false; // This is probably an input, not an event
-
 		// Get text from the target widget
 		if (v instanceof TextView) {
 			String s = ((TextView)v).getText().toString();

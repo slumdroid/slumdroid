@@ -26,19 +26,16 @@ public class SimpleTypeDetector implements TypeDetector {
 	@SuppressWarnings("deprecation")
 	public String getSimpleType(View view) {
 		String type = view.getClass().getName();
-
 		if (type.endsWith("TableRow")) return TABLE_ROW;
 		if (type.endsWith("TwoLineListItem")) return LIST_ITEM;
 		if (type.endsWith("DialogTitle")) return DIALOG_TITLE;
 		if (type.endsWith("NumberPickerButton")) return NUMBER_PICKER_BUTTON;
-
 		if (type.endsWith("Layout")){
 			if (type.endsWith("LinearLayout")) return LINEAR_LAYOUT;
 			if (type.endsWith("RelativeLayout")) return RELATIVE_LAYOUT;
 			if (type.endsWith("TableLayout")) return TABLE_LAYOUT;
 			return "layout";
 		}
-
 		if (type.endsWith("View")){
 			if (type.endsWith("ExpandedMenuView") || type.endsWith("RecycleListView")) return EXPAND_MENU;
 			if (type.endsWith("HomeView")) return ACTION_HOME;
@@ -59,7 +56,6 @@ public class SimpleTypeDetector implements TypeDetector {
 			if (view instanceof WebView || type.endsWith("WebView")) return WEB_VIEW;
 			return "view";
 		}
-
 		if (view instanceof TextView){
 			if (view instanceof EditText){
 				if (view instanceof AutoCompleteTextView){
@@ -87,7 +83,6 @@ public class SimpleTypeDetector implements TypeDetector {
 					|| ((Spinner)view).getOnItemSelectedListener()!= null) return SPINNER;
 			return SPINNER_INPUT;
 		}
-
 		if (type.endsWith("Picker")){
 			if (type.endsWith("DatePicker")) return DATE_PICKER;
 			if (type.endsWith("TimePicker")) return TIME_PICKER;
@@ -103,10 +98,8 @@ public class SimpleTypeDetector implements TypeDetector {
 			if (view instanceof SeekBar) return SEEK_BAR;
 			return PROGRESS_BAR;
 		}
-
 		if (view instanceof TabHost) return TAB_HOST;
 		if (view instanceof SlidingDrawer) return SLIDING_DRAWER; // Deprecated in API level 17
-
 		return "";
 	}
 

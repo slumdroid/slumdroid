@@ -74,11 +74,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			delete (getTaskListFileName());
 			return;
 		}
-
 		if (exists(getTaskListFileName())) {
 			backupFile (getTaskListFileName());
 		}
-
 		try {
 			openTaskFile();
 			for (Task task: this.taskList) {
@@ -102,14 +100,12 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		if (exists(backup(this.taskListFile))) {
 			delete (backup(this.taskListFile));
 		}
 		if (exists(backup(this.activityFile))) {
 			delete (backup(this.activityFile));
 		}
-
 	}
 
 	public boolean canHasResume () {
@@ -145,11 +141,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		parameters.clear();
 		FileOutputStream theFile = null;
 		ObjectOutputStream theStream = null;
-
 		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
 			parameters.put(listener.getKey(), listener.getValue().onSavingState());
 		}
-
 		try {
 			theFile = w.openFileOutput(getParametersFileName(), ContextWrapper.MODE_PRIVATE);
 			theStream = new ObjectOutputStream(theFile);
@@ -169,7 +163,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	public void loadParameters() {
 		FileInputStream theFile = null;
 		ObjectInputStream theStream = null;
-
 		try {
 			theFile = w.openFileInput(getParametersFileName());
 			theStream = new ObjectInputStream(theFile);
@@ -181,7 +174,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException ignore) {}
-
 		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
 			listener.getValue().onLoadingState(this.parameters.get(listener.getKey()));
 		}
@@ -229,7 +221,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-
 			return;
 		}
 	}

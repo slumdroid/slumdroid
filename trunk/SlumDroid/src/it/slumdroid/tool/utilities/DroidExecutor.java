@@ -90,7 +90,6 @@ public class DroidExecutor {
 		}
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		requestFocus(list);
-
 		solo.sendKey(Solo.DOWN);
 		final ListView theList = list;
 		final int n = Math.min(list.getCount(), Math.max(1,num))-1;
@@ -100,7 +99,6 @@ public class DroidExecutor {
 			}
 		});
 		sync();
-
 		if (n<list.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);

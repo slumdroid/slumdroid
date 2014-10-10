@@ -52,12 +52,10 @@ public class Prefs {
 	@SuppressLint("SdCardPath")
 	public static void loadMainNode (String node) {
 		String path = "/data/data/" + mainNode + "/files/preferences.xml";
-
 		if (!(new File(path).exists())) {
 			notFound = true;
 			return;
 		}
-
 		try {
 			InputStream is = new BufferedInputStream(new FileInputStream(path));
 			Preferences.importPreferences(is);
@@ -153,7 +151,6 @@ public class Prefs {
 
 	protected void updateValue (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		Class<?> type = parameter.getType();
-
 		if (type.equals(int.class)) {
 			parameter.setInt (parameter, getInt (parameter));
 		} else if (type.equals(long.class)) {
@@ -167,7 +164,6 @@ public class Prefs {
 		} else {
 			return;
 		}
-
 	}
 
 	public static void updateMainNode () {

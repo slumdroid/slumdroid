@@ -50,7 +50,6 @@ public class SystematicEngine extends Engine {
 		setExecutor (this.theAutomation);
 		setExtractor (this.theAutomation);
 		setImageCaptor(this.theAutomation);
-
 		try {
 			GuiTree.setValidation(false);
 			this.guiAbstractor = new GuiTreeAbstractor();
@@ -62,25 +61,19 @@ public class SystematicEngine extends Engine {
 		}
 		setAbstractor(this.guiAbstractor);
 		setSession (this.theGuiTree);
-
 		UltraPlanner planner = new UltraPlanner();
-
 		Filter inputFilter = new AllPassFilter();
 		planner.setInputFilter (inputFilter);
 		this.guiAbstractor.addFilter (inputFilter);
-
 		Filter eventFilter = new AllPassFilter();
 		planner.setEventFilter (eventFilter);
 		this.guiAbstractor.addFilter (eventFilter);
-
 		this.guiAbstractor.setTypeDetector(new SimpleTypeDetector());
-
 		this.user = UserFactory.getUser(this.guiAbstractor);
 		planner.setUser(user);
 		planner.setFormFiller(user);
 		planner.setAbstractor(this.guiAbstractor);
 		setPlanner (planner);		
-
 		this.theStrategyFactory = new StrategyFactory(COMPARATOR); 
 		this.thePersistenceFactory = new PersistenceFactory (this.theGuiTree, getScheduler());
 	}

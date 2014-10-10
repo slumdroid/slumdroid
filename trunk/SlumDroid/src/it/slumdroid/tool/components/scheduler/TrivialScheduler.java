@@ -43,7 +43,6 @@ class TrivialScheduler implements TaskScheduler {
 
 	public Task nextTask() {
 		if (!hasMore()) return null;
-
 		switch (algorithm) {
 		case DEPTH_FIRST: return lastTask();
 		case BREADTH_FIRST: 
