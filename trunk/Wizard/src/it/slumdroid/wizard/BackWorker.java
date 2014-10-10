@@ -16,6 +16,7 @@
 package it.slumdroid.wizard;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import javax.swing.JOptionPane;
@@ -78,7 +79,7 @@ public class BackWorker extends SwingWorker<Integer, String> {
 
 				fileNotFound=false;
 				b.close();
-
+			} catch (FileNotFoundException e) {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}   
