@@ -121,6 +121,8 @@ public class Tools {
 		Document doc = null;	
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			factory.setValidating(false);
+			factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
 			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
 			try {
 				doc = dombuilder.parse( new InputSource( new StringReader( builder.toString() ) ) );
