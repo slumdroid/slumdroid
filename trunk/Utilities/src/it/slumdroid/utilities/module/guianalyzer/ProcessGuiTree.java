@@ -39,7 +39,6 @@ public class ProcessGuiTree {
 	private GuiTree guiTree = null;
 
 	public ProcessGuiTree (String inputFileName) {
-
 		try {
 			File file = new File(inputFileName);
 			guiTree = GuiTree.fromXml(file);
@@ -47,14 +46,12 @@ public class ProcessGuiTree {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private void processFile () throws Exception {
 		Widgets = new HashMap<String, WidgetState>();
 		Screens = new HashMap<String, String>();
 		Interactions = new HashMap<String, String>();
-
 		try {
 			for (Task t: guiTree) {
 				for (Transition tr: t) {
@@ -67,7 +64,6 @@ public class ProcessGuiTree {
 							}
 						}
 					}
-
 					UserEvent event = tr.getEvent();
 					if (event.getType().equals(WRITE_TEXT)) {
 						if (!Screens.containsKey(event.getWidgetId())) {
@@ -79,7 +75,6 @@ public class ProcessGuiTree {
 							Interactions.put(event.getWidgetId(), "Input & Event");
 						}
 					}
-
 					if (event.getType().equals(ENTER_TEXT)) {
 						if (!Screens.containsKey(event.getWidgetId())) {
 							Widgets.put(event.getWidgetId(), event.getWidget());
@@ -87,15 +82,12 @@ public class ProcessGuiTree {
 							Interactions.put(event.getWidgetId(), "Event");
 						}
 					}
-
 				}
 			}
-
 		} catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 		numWidgets = Widgets.size();
-
 	}
 
 	public HashMap<String, WidgetState> getWidgets () {

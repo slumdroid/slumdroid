@@ -37,14 +37,11 @@ public class Perturbations {
 	private String type;
 
 	public Perturbations (Object colValue, Object colType) {
-
 		this.valueLowerCase = colType.toString().toLowerCase();
 		this.type = colValue.toString();
-
 	}
 
 	public String perturb(String type) {
-
 		String pertubedInputs =  new String();
 		// MO0 - Starter input && M03 - Empty Input for all
 		if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(valueLowerCase).concat(",");
@@ -58,7 +55,6 @@ public class Perturbations {
 		else if (type.equals("ISBN")) return pertubedInputs.concat(isbn());
 		else if (type.equals("Credit Card")) return pertubedInputs.concat(creditcard());
 		else return new String();
-
 	}
 	
 	public String standard () {

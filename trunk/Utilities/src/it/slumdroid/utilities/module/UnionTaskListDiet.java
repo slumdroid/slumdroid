@@ -234,7 +234,6 @@ public class UnionTaskListDiet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private static String getID(String line) throws Exception {

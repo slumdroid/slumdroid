@@ -42,7 +42,6 @@ public class DotUtilities {
 		}
 		String nodeDesc = special?type:(type + " '" + escapeDot(target) + "'");
 		return nodeDesc;
-
 	}
 
 	public static String escapeDot (String str) {
