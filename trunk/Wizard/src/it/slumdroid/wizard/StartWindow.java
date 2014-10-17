@@ -38,8 +38,6 @@ public class StartWindow {
 	private static JTextField randomevents;
 	private static JTextField textFieldAUTpackage;
 	private static JTextField textFieldAUTClass;
-
-	private static PathTextField textFieldAndroidPath;
 	private static PathTextField textFieldResults;
 
 	private static AppPathTextField textFieldAUTPath;
@@ -77,20 +75,17 @@ public class StartWindow {
 	}
 
 	public StartWindow() throws ParseException {
-		initialize();
-		String path = getAndroidDir();
-		textFieldAndroidPath.setPath(path);
 		checkJavaVersion();
 		checkSdk();
+		initialize();
 		comboBoxAVDs.loadDevices();
 	}
 
 	private void initialize() throws ParseException {
 		frmWizard = new JFrame();
-		frmWizard.setResizable(false);
 		frmWizard.setTitle("SlumDroid Wizard");
 		frmWizard.setFont(new Font("Arial", Font.PLAIN, 10));
-		frmWizard.setBounds(100, 100, 343, 496);
+		frmWizard.setBounds(100, 100, 343, 436);
 		frmWizard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWizard.getContentPane().setLayout(null);
 
@@ -108,88 +103,78 @@ public class StartWindow {
 				}
 			}
 		});
-		btnOpenResultsFolder.setBounds(240, 360, 90, 23);
+		btnOpenResultsFolder.setBounds(235, 270, 90, 23);
 		frmWizard.getContentPane().add(btnOpenResultsFolder);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 392, 321, 2);
+		separator.setBounds(10, 333, 307, 4);
 		frmWizard.getContentPane().add(separator);
 
 		randomevents = new JTextField();
-		randomevents.setBounds(176, 361, 54, 20);
+		randomevents.setBounds(176, 302, 54, 20);
 		randomevents.setVisible(true);
 		frmWizard.getContentPane().add(randomevents);
 
-		JLabel lblEmulatorPath = new JLabel("Android SDK Path");
-		lblEmulatorPath.setBounds(10, 26, 149, 14);
-		frmWizard.getContentPane().add(lblEmulatorPath);
-
 		JLabel lblAvdName = new JLabel("AVD Name");
-		lblAvdName.setBounds(10, 81, 62, 14);
+		lblAvdName.setBounds(10, 11, 62, 14);
 		frmWizard.getContentPane().add(lblAvdName);
 
 		JLabel lblAutPath = new JLabel("AUT Path");
-		lblAutPath.setBounds(10, 137, 62, 14);
+		lblAutPath.setBounds(10, 67, 62, 14);
 		frmWizard.getContentPane().add(lblAutPath);
 
 		JLabel lblAutPackage = new JLabel("AUT Package");
-		lblAutPackage.setBounds(10, 193, 97, 14);
+		lblAutPackage.setBounds(10, 123, 97, 14);
 		frmWizard.getContentPane().add(lblAutPackage);
 
 		JLabel lblAutClass = new JLabel("AUT Class");
-		lblAutClass.setBounds(10, 249, 72, 14);
+		lblAutClass.setBounds(10, 179, 72, 14);
 		frmWizard.getContentPane().add(lblAutClass);
 
 		textFieldAUTpackage = new JTextField();
 		textFieldAUTpackage.setEditable(false);
-		textFieldAUTpackage.setBounds(10, 218, 321, 20);
+		textFieldAUTpackage.setBounds(9, 148, 308, 20);
 		frmWizard.getContentPane().add(textFieldAUTpackage);
 		textFieldAUTpackage.setColumns(10);
 
 		textFieldAUTClass = new JTextField();
 		textFieldAUTClass.setEditable(false);
-		textFieldAUTClass.setBounds(10, 274, 321, 20);
+		textFieldAUTClass.setBounds(10, 204, 307, 20);
 		frmWizard.getContentPane().add(textFieldAUTClass);
 		textFieldAUTClass.setColumns(10);
 
-		textFieldAndroidPath = new AndroidPathTextField();
-		textFieldAndroidPath.setEditable(false);
-		textFieldAndroidPath.setBounds(10, 50, 321, 20);
-		frmWizard.getContentPane().add(textFieldAndroidPath);
-		textFieldAndroidPath.setColumns(10);
-
 		textFieldAUTPath = new AppPathTextField();
 		textFieldAUTPath.setEditable(false);
-		textFieldAUTPath.setBounds(10, 162, 220, 20);
+		textFieldAUTPath.setBounds(10, 92, 220, 20);
 		frmWizard.getContentPane().add(textFieldAUTPath);
 		textFieldAUTPath.setColumns(10);
 
 		comboBoxAVDs = new AvdComboBox();
-		comboBoxAVDs.setBounds(10, 106, 220, 20);
+		comboBoxAVDs.setBounds(10, 36, 220, 20);
 		frmWizard.getContentPane().add(comboBoxAVDs);
 
 		btnSelect_1 = textFieldAUTPath.getChangeButton();
-		btnSelect_1.setBounds(240, 161, 89, 23);
+		btnSelect_1.setBounds(235, 90, 90, 23);
 		frmWizard.getContentPane().add(btnSelect_1);
 		btnSelect_1.setFont(new Font("Tahoma", Font.BOLD, 9));
 
 		btnLoadAvds = comboBoxAVDs.getLoadButton();
-		btnLoadAvds.setBounds(240, 105, 89, 23);
+		btnLoadAvds.setBounds(235, 35, 90, 23);
 		frmWizard.getContentPane().add(btnLoadAvds);
 
 		textFieldResults = new ResultsPathTextField();
 		textFieldResults.setEditable(false);
 		textFieldResults.setColumns(10);
-		textFieldResults.setBounds(10, 330, 220, 20);
+		textFieldResults.setBounds(10, 271, 220, 20);
 		frmWizard.getContentPane().add(textFieldResults);
 
 		btnResults = textFieldResults.getChangeButton();
-		btnResults.setBounds(240, 329, 89, 23);
+		btnResults.setBounds(235, 300, 90, 23);
 		btnResults.setFont(new Font("Tahoma", Font.BOLD, 9));
 		frmWizard.getContentPane().add(btnResults);
 
 		JLabel label = new JLabel("Results Path");
-		label.setBounds(10, 305, 72, 14);
+		label.setBounds(10, 246, 72, 14);
 		frmWizard.getContentPane().add(label);
 
 		btnGenerateReport = new JButton("Generate Reports");
@@ -207,7 +192,7 @@ public class StartWindow {
 		});
 		btnGenerateReport.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnGenerateReport.setEnabled(false);
-		btnGenerateReport.setBounds(160, 433, 172, 23);
+		btnGenerateReport.setBounds(160, 365, 157, 23);
 		frmWizard.getContentPane().add(btnGenerateReport);
 
 		btnFirstBoot = new JButton("Start AVD");
@@ -249,7 +234,7 @@ public class StartWindow {
 		});
 		btnFirstBoot.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnFirstBoot.setEnabled(false);
-		btnFirstBoot.setBounds(10, 405, 149, 23);
+		btnFirstBoot.setBounds(10, 338, 140, 23);
 		frmWizard.getContentPane().add(btnFirstBoot);
 
 		btnDeploy = new JButton("Deploy");
@@ -269,7 +254,7 @@ public class StartWindow {
 				ExternalProcess.executeCommand(commandLine);
 			}
 		});
-		btnDeploy.setBounds(160, 405, 170, 23);
+		btnDeploy.setBounds(160, 338, 157, 23);
 		frmWizard.getContentPane().add(btnDeploy);
 
 		btnRunRipper = new JButton("Run SlumDroid");
@@ -307,32 +292,27 @@ public class StartWindow {
 		});
 		btnRunRipper.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnRunRipper.setEnabled(false);
-		btnRunRipper.setBounds(10, 433, 149, 23);
+		btnRunRipper.setBounds(10, 365, 140, 23);
 		frmWizard.getContentPane().add(btnRunRipper);
 
 		chckbxRandom = new JCheckBox("Random Ripper");
 		chckbxRandom.setFont(new Font("Tahoma", Font.BOLD, 9));
-		chckbxRandom.setBounds(10, 360, 110, 23);
+		chckbxRandom.setBounds(10, 298, 110, 23);
 		frmWizard.getContentPane().add(chckbxRandom);
 
 		lblCycles = new JLabel("# Events");
 		lblCycles.setFont(new Font("Tahoma", Font.BOLD, 9));
 		lblCycles.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCycles.setVisible(true);
-		lblCycles.setBounds(112, 364, 54, 14);
+		lblCycles.setBounds(114, 302, 54, 14);
 		frmWizard.getContentPane().add(lblCycles);
-	}
-
-	public static String getAndroidDir () {
-		String path = System.getenv("ANDROID_HOME");
-		return path;
 	}
 
 	public void checkSdk () {
 		boolean ret = false;
 		try{
-			ret = new File(CommandLine.get(SDK_CHECK)).exists();
-		} catch (Exception e){
+			ret = new File(System.getenv("ANDROID_HOME")).exists();
+		} catch (Exception e){			
 			e.printStackTrace();
 		}
 		if(!ret) {
