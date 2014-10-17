@@ -25,20 +25,12 @@ public class CommandLine {
 	private static Map<String, String> config = new HashMap<String, String>();
 	private static Map<String, String> commandMap = dosCommands;
 
-	public static void setAndroidPath (String path) {
-		config.put(ANDROID_PATH, path);
-	}
-
 	public static void setResultsPath (String path) {
 		config.put(RESULTS_PATH, path);
 	}
 
 	public static void setAppPath (String path) {
 		config.put(APP_PATH, path);
-	}
-
-	public static void setDos () {
-		commandMap = dosCommands;
 	}
 
 	public static String get (String command, String ... args) {
@@ -73,25 +65,19 @@ public class CommandLine {
 		return "\"" + arg (p1) + p2 + "\"";
 	}
 
-	// Config strings
-	public final static String ANDROID_PATH = "androidPath";
+	public final static String ANDROID_PATH = System.getenv("ANDROID_HOME");
 	public final static String RESULTS_PATH = "experimentPath";
 	public final static String APP_PATH = "appPath";
-
-	// Argument strings
 	public final static String DEVICE = "device";
 	public final static String CLASS = "class";
 	public final static String PACKAGE = "package";
 	public final static String CYCLES = "randomCycles";
-
-	// Command strings
 	public final static String DUMP_APK = "dump apk";
 	public final static String LOAD_AVD = "load avd";
 	public final static String DEPLOY = "deploy";
 	public final static String RANDOM_TEST = "test random";
 	public final static String SYSTEMATIC_TEST = "test systematic";
 	public final static String POST_PROCESS = "postproc";
-	public final static String SDK_CHECK = "sdk manager";
 	public final static String CLOSE = "close";
 	public final static String FIRST_BOOT = "first boot";
 	public final static String FIRST_BOOT_RANDOM = "first boot_random";
@@ -99,9 +85,8 @@ public class CommandLine {
 	// DOS commands
 	static String place = System.getProperty("user.dir");
 	static {
-		dosCommands.put(SDK_CHECK, arg(ANDROID_PATH) + "\\SDK Manager.exe");
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
-		dosCommands.put(LOAD_AVD, path(ANDROID_PATH, "\\tools\\android.bat") + " list avd");
+		dosCommands.put(LOAD_AVD, (System.getenv("ANDROID_HOME") + "\\tools\\android.bat list avd"));
 		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 0 " + arg(PACKAGE) + " " + arg(CLASS) );
 		dosCommands.put(FIRST_BOOT_RANDOM, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 1 " + arg(PACKAGE) + " " + arg(CLASS));
 		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + arg(DEVICE) + " " + path(APP_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) + " " + path(RESULTS_PATH));

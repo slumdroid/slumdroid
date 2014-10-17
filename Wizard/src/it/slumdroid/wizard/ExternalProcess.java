@@ -42,7 +42,7 @@ class ExternalProcess {
 			runningProcs.add(this.process);
 			StreamGobbler.fromProcess(this.process);
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
