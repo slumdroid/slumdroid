@@ -25,13 +25,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.ParseException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static it.slumdroid.wizard.CommandLine.*;
 
@@ -84,8 +80,6 @@ public class StartWindow {
 		initialize();
 		String path = getAndroidDir();
 		textFieldAndroidPath.setPath(path);
-		path = getJavaDir();
-		CommandLine.setJavaPath(path);
 		checkJavaVersion();
 		checkSdk();
 		comboBoxAVDs.loadDevices();
@@ -334,20 +328,18 @@ public class StartWindow {
 		return path;
 	}
 
-	public static String getJavaDir () {
-		String path = System.getenv("JAVA_HOME");
-		return path;
-	}
-
-	public boolean checkSdk () {
-		boolean ret = new File(CommandLine.get(SDK_CHECK)).exists();
+	public void checkSdk () {
+		boolean ret = false;
+		try{
+			ret = new File(CommandLine.get(SDK_CHECK)).exists();
+		} catch (Exception e){
+			e.printStackTrace();
+		}
 		if(!ret) {
 			JOptionPane.showMessageDialog(null, "Please, set the ANDROID_HOME environment variable!", "Android SDK Folder not found", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}
-		return ret;
 	}
-
 
 	public static boolean checkPackage () {
 		boolean ret = textFieldAUTpackage.getText().equals("");
@@ -374,32 +366,13 @@ public class StartWindow {
 		return !ret;
 	}
 
-	public boolean checkJavaVersion () {
-		String version = "";
-		try {
-			String CommandList = CommandLine.get(JAVA_VERSION);
-			Process proc = Runtime.getRuntime().exec(CommandList);
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
-			Pattern pattern = Pattern.compile("java version \"([^\"]+)\"");
-			String s;
-			while ((s = stdInput.readLine()) != null) {
-				Matcher matcher = pattern.matcher(s);
-				if (matcher.find()) {
-					version = matcher.group(1);
-					break;
-				}
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Error detecting installed Java version.");
-		}
-
-		boolean ret = version.startsWith("1.7");
+	public void checkJavaVersion () {
+		String version = System.getProperty("java.version");
+		boolean ret = version.startsWith("1.7") || version.startsWith("1.8");
 		if(!ret) {
-			JOptionPane.showMessageDialog(null, "Detected Java " + version + ". Please, set the JAVA_HOME environment variable with the path Java JDK 7!", "Warning", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Detected Java " + version + ". Please, set the JAVA_HOME environment variable with the path Java JDK!", "Warning", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
-		}
-
-		return ret;		
+		}	
 	}
 
 	public static int checkApp(){

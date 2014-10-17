@@ -25,10 +25,6 @@ public class CommandLine {
 	private static Map<String, String> config = new HashMap<String, String>();
 	private static Map<String, String> commandMap = dosCommands;
 
-	public static void setJavaPath (String path) {
-		config.put(JAVA_PATH, path);
-	}
-
 	public static void setAndroidPath (String path) {
 		config.put(ANDROID_PATH, path);
 	}
@@ -81,7 +77,6 @@ public class CommandLine {
 	public final static String ANDROID_PATH = "androidPath";
 	public final static String RESULTS_PATH = "experimentPath";
 	public final static String APP_PATH = "appPath";
-	public final static String JAVA_PATH = "javaPath";
 
 	// Argument strings
 	public final static String DEVICE = "device";
@@ -98,7 +93,6 @@ public class CommandLine {
 	public final static String POST_PROCESS = "postproc";
 	public final static String SDK_CHECK = "sdk manager";
 	public final static String CLOSE = "close";
-	public final static String JAVA_VERSION = "java version";
 	public final static String FIRST_BOOT = "first boot";
 	public final static String FIRST_BOOT_RANDOM = "first boot_random";
 
@@ -106,7 +100,6 @@ public class CommandLine {
 	static String place = System.getProperty("user.dir");
 	static {
 		dosCommands.put(SDK_CHECK, arg(ANDROID_PATH) + "\\SDK Manager.exe");
-		dosCommands.put(JAVA_VERSION, path(JAVA_PATH, "\\bin\\java") + " -version");
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
 		dosCommands.put(LOAD_AVD, path(ANDROID_PATH, "\\tools\\android.bat") + " list avd");
 		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 0 " + arg(PACKAGE) + " " + arg(CLASS) );
