@@ -70,7 +70,9 @@ public class UnionTaskListDiet {
 		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().loadNode(path);
 		String BREADTH = "BREADTH_FIRST";
-		return (prefs.get("SCHEDULER_ALGORITHM", BREADTH).equals(BREADTH));
+		if (prefs.get("SCHEDULER_ALGORITHM", BREADTH) != null) {
+			return (prefs.get("SCHEDULER_ALGORITHM", BREADTH).equals(BREADTH));
+		} else return true;		
 	}
 
 	private static void mergeTasklistsDepth() throws Exception {	
