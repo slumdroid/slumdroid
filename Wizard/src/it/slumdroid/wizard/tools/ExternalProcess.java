@@ -13,14 +13,14 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.wizard;
+package it.slumdroid.wizard.tools;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static it.slumdroid.wizard.CommandLine.CLOSE;
+import static it.slumdroid.wizard.tools.CommandLine.CLOSE;
 
-class ExternalProcess {
+public class ExternalProcess {
 
 	private Process process;
 	private String command;

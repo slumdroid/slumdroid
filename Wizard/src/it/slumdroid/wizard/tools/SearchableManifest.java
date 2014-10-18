@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.wizard;
+package it.slumdroid.wizard.tools;
 
 import java.io.File;
 import java.io.IOException;
