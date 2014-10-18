@@ -13,7 +13,9 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.wizard;
+package it.slumdroid.wizard.guielements;
+
+import it.slumdroid.wizard.tools.CommandLine;
 
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -26,7 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-import static it.slumdroid.wizard.CommandLine.LOAD_AVD;
+import static it.slumdroid.wizard.tools.CommandLine.LOAD_AVD;
 
 public class AvdComboBox extends JComboBox<Object> {
 	

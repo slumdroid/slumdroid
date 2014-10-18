@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.wizard;
+package it.slumdroid.wizard.tools;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -22,9 +22,9 @@ import java.io.InputStreamReader;
 
 import javax.swing.JOptionPane;
 
-import static it.slumdroid.wizard.CommandLine.*;
+import static it.slumdroid.wizard.tools.CommandLine.*;
 
-class AppData {
+public class AppData {
 	private String theClass;
 	private String thePackage;
 	

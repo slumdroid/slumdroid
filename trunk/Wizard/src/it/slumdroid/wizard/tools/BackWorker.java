@@ -13,7 +13,9 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.wizard;
+package it.slumdroid.wizard.tools;
+
+import it.slumdroid.wizard.Wizard;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -46,33 +48,33 @@ public class BackWorker extends SwingWorker<Integer, String> {
 				if (s.contentEquals("completed")) {
 
 					b.close();
-					StartWindow.postExec(true);
+					Wizard.postExec(true);
 					JOptionPane.showMessageDialog(null, "Deploy Completed Successfully.\n Define your state initial and close the AVD", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("failed")) {
 
 					b.close();
-					StartWindow.postExec(false);
+					Wizard.postExec(false);
 					JOptionPane.showMessageDialog(null, "Deploy Failed", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("done")) {
 
 					b.close();
-					StartWindow.postExec(false);
-					StartWindow.disableDeploy();
+					Wizard.postExec(false);
+					Wizard.disableDeploy();
 					JOptionPane.showMessageDialog(null, "Ripper Executed", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("artifactdone")) {
 
 					b.close();
-					StartWindow.DownSide(true);
-					StartWindow.Upside(true);
+					Wizard.DownSide(true);
+					Wizard.Upside(true);
 					JOptionPane.showMessageDialog(null, "Report Generated", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("firstboot")) {
 
 					b.close();
-					StartWindow.postFirstBoot();
+					Wizard.postFirstBoot();
 					JOptionPane.showMessageDialog(null, "Wait the Android OS Booting,\n then click on \"Deploy\"", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				}

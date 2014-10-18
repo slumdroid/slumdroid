@@ -13,7 +13,10 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.wizard;
+package it.slumdroid.wizard.guielements;
+
+import it.slumdroid.wizard.Wizard;
+import it.slumdroid.wizard.tools.CommandLine;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -21,52 +24,41 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
-public class AppPathTextField extends PathTextField {
+public class ResultsPathTextField extends PathTextField {
+	
+	private static final long serialVersionUID = 1L;
 
-	public AppPathTextField () {
+	public ResultsPathTextField () {
 		super();
 	}
 
 	@Override
 	public void onUpdate (String path) {
-		CommandLine.setAppPath(path);
-		if (StartWindow.checkApp()!=0) {
-			StartWindow.detect();
-			if (StartWindow.checkExp()!=0){
-				StartWindow.DownSide(false);
-				StartWindow.enableStart();
-				StartWindow.enableOpenResultFolder();
-				StartWindow.enableReporting();
-			}
-			else {
-				StartWindow.disableDeploy();
+		CommandLine.setResultsPath(path);
+		if (Wizard.checkExp()!=0) {
+			Wizard.enableOpenResultFolder();
+			if (Wizard.checkPkg()!=0) {
+				Wizard.enableStart();
+				Wizard.enableReporting();
 			}
 		}
 	}
 
 	public JButton getChangeButton() {
-		JButton btnSelect_1 = new JButton("Select...");
-		btnSelect_1.addMouseListener(new MouseAdapter() {
+		JButton button = new JButton("Select the Results Folder");
+		button.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				StartWindow.clearText();
+			public void mouseClicked(MouseEvent arg0) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
-				fileChooser.setDialogTitle("Select the A.U.T. Folder");
+				fileChooser.setDialogTitle("Select the Results Folder");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					setPath(fileChooser.getSelectedFile().toString());
-					if (StartWindow.ianpkg()==false) {
-						StartWindow.clearText();
-						StartWindow.DownSide(false);
-						if (StartWindow.checkExp()!=0) StartWindow.enableOpenResultFolder();
-					}
 				} 
 			}
 		});
-		return btnSelect_1;
+		return button;
 	}
-
-	private static final long serialVersionUID = 1L;
 
 }
