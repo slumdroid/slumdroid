@@ -19,16 +19,13 @@ import nl.flotsam.xeger.Xeger;
 
 /**
  * Perturbations on Text Input
- * 
- * Some valid rules:
- *
+ * Perturbations rules:
  * MO0: Starter input / Valid input
  * MO1: Remove the mandatory sets from a regular expression
  * MO2: Disorder the sequence of sets in a regular expression
  * MO3: Insert invalid and dangerous characters, such as an empty string,
  *      strings with starting period, and extremely long strings, into a regular
  *      expression
- * 
  */
 
 public class Perturbations {
@@ -73,11 +70,13 @@ public class Perturbations {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Input == 0
 		pertubedInputs = pertubedInputs.concat(",0");
-		// MO3 - Dangerous Inputs
-		if (type.contains("Decimal") && type.contains("Signed")) pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}"));
-		else if (type.contains("Decimal")) pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}"));
-		else if (type.contains("Signed")) pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{30,}"));
-		else pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}"));
+		if (type.contains("Decimal") && type.contains("Signed")) pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
+		else if (type.contains("Decimal")) {
+			pertubedInputs = pertubedInputs.concat(",."); // MO1 - Remove the Mandatory Sets
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
+		}
+		else if (type.contains("Signed")) pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{30,}")); // MO3 - Dangerous Inputs
+		else pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}")); // MO3 - Dangerous Inputs
 		return pertubedInputs;
 	}
 
