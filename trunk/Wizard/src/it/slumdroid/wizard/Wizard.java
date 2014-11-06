@@ -90,7 +90,7 @@ public class Wizard {
 		frmWizard = new JFrame();
 		frmWizard.setTitle("SlumDroid Wizard");
 		frmWizard.setFont(new Font("Arial", Font.PLAIN, 10));
-		frmWizard.setBounds(100, 100, 343, 346);
+		frmWizard.setBounds(100, 100, 343, 381);
 		frmWizard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWizard.getContentPane().setLayout(null);
 
@@ -194,7 +194,7 @@ public class Wizard {
 		});
 		btnGenerateReport.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnGenerateReport.setEnabled(false);
-		btnGenerateReport.setBounds(10, 278, 307, 20);
+		btnGenerateReport.setBounds(10, 304, 307, 28);
 		frmWizard.getContentPane().add(btnGenerateReport);
 
 		btnFirstBoot = new JButton("Start AVD");
@@ -236,7 +236,7 @@ public class Wizard {
 		});
 		btnFirstBoot.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnFirstBoot.setEnabled(false);
-		btnFirstBoot.setBounds(10, 215, 307, 20);
+		btnFirstBoot.setBounds(10, 215, 307, 28);
 		frmWizard.getContentPane().add(btnFirstBoot);
 
 		btnDeploy = new JButton("Deploy");
@@ -256,7 +256,7 @@ public class Wizard {
 				ExternalProcess.executeCommand(commandLine);
 			}
 		});
-		btnDeploy.setBounds(10, 236, 307, 20);
+		btnDeploy.setBounds(10, 245, 307, 28);
 		frmWizard.getContentPane().add(btnDeploy);
 
 		btnRunRipper = new JButton("Run SlumDroid");
@@ -294,7 +294,7 @@ public class Wizard {
 		});
 		btnRunRipper.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnRunRipper.setEnabled(false);
-		btnRunRipper.setBounds(10, 257, 307, 20);
+		btnRunRipper.setBounds(10, 275, 307, 28);
 		frmWizard.getContentPane().add(btnRunRipper);
 
 		chckbxRandom = new JCheckBox("Random Ripper                      # Events");
