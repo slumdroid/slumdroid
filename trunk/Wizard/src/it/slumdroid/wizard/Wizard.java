@@ -108,13 +108,13 @@ public class Wizard {
 				}
 			}
 		});
-		btnOpenResultsFolder.setBounds(227, 141, 90, 20);
+		btnOpenResultsFolder.setBounds(227, 142, 90, 20);
 		frmWizard.getContentPane().add(btnOpenResultsFolder);
 
 		randomevents = new JTextField();
 		randomevents.setHorizontalAlignment(SwingConstants.RIGHT);
 		randomevents.setBounds(227, 186, 90, 20);
-		randomevents.setVisible(true);
+		randomevents.setEnabled(false);
 		frmWizard.getContentPane().add(randomevents);
 
 		JLabel lblAvdName = new JLabel("AVD Name");
@@ -161,7 +161,7 @@ public class Wizard {
 		btnSelectAutPath.setFont(new Font("Tahoma", Font.BOLD, 9));
 
 		btnLoadAvds = comboBoxAVDs.getLoadButton();
-		btnLoadAvds.setBounds(227, 8, 93, 20);
+		btnLoadAvds.setBounds(227, 11, 90, 20);
 		frmWizard.getContentPane().add(btnLoadAvds);
 
 		textFieldResults = new ResultsPathTextField();
@@ -300,6 +300,11 @@ public class Wizard {
 		chckbxRandom = new JCheckBox("Random Ripper                      # Events");
 		chckbxRandom.setFont(new Font("Tahoma", Font.BOLD, 9));
 		chckbxRandom.setBounds(9, 186, 211, 20);
+		chckbxRandom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				randomevents.setEnabled(chckbxRandom.isSelected());
+			}
+		});
 		frmWizard.getContentPane().add(chckbxRandom);
 		
 		separator_1 = new JSeparator();
