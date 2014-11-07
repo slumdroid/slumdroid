@@ -20,6 +20,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
@@ -131,7 +132,8 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 		ArrayList<View> viewList = solo.getViews();
 		Log.i(TAG, "Retrieving widgets");
 		for (View w: viewList) {
-			Log.i(TAG, "Found widget: id=" + w.getId() + " ("+ w.toString() + ")");
+			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
+            Log.i(TAG, "Found widget: id=" + w.getId() + " ("+ w.toString().split("@")[0] + ")" + text);
 			allViews.add(w);
 			if (w.getId()>0) {
 				theViews.put(w.getId(), w); // Add only if the widget has a valid ID
