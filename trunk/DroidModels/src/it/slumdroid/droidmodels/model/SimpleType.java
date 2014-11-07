@@ -38,6 +38,8 @@ public interface SimpleType {
 	public final static String NUMBER_PICKER 	= "numberPicker";
 	public final static String NUMBER_PICKER_BUTTON = "numberPickerButton";
 	public final static String PREFERENCE_LIST 	= "preferenceList";
+	public final static String POPUP_MENU 		= "popUpMenu";
+	public final static String POPUP_WINDOW 	= "popUpWindow";
 	public final static String PROGRESS_BAR 	= "progressBar";
 	public final static String RADIO 			= "radio";
 	public final static String RADIO_GROUP 		= "radioGroup";
