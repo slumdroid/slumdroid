@@ -179,7 +179,7 @@ public class Resources {
 		} else {
 			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, LINEAR_LAYOUT);
 		}
-		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW, TEXT_VIEW);
+		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW);
 		UserFactory.addEvent(ENTER_TEXT, SEARCH_BAR);
 		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, PREFERENCE_LIST, EXPAND_MENU);
 		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
