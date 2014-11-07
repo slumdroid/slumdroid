@@ -68,7 +68,6 @@ public class CompositionalComparator implements Comparator {
 			}
 		}
 		return true; // All tests failed, can't found a difference between current and stored!
-
 	}
 
 	private boolean lookFor (WidgetState field, ActivityState activity) {
