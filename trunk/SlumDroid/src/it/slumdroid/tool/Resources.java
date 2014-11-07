@@ -115,6 +115,10 @@ public class Resources {
 		SPINNER, 
 		SPINNER_INPUT,
 
+		// POPUP
+		POPUP_MENU,
+		POPUP_WINDOW,
+		
 		// OTHER
 		RADIO_GROUP,
 		SLIDING_DRAWER, 
