@@ -194,7 +194,7 @@ public class Wizard {
 		});
 		btnGenerateReport.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnGenerateReport.setEnabled(false);
-		btnGenerateReport.setBounds(10, 304, 307, 28);
+		btnGenerateReport.setBounds(10, 305, 307, 28);
 		frmWizard.getContentPane().add(btnGenerateReport);
 
 		btnFirstBoot = new JButton("Start AVD");
