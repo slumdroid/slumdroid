@@ -17,8 +17,6 @@ package it.slumdroid.tool.components.comparator;
 
 import it.slumdroid.tool.model.Comparator;
 
-import java.util.HashSet;
-
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 
@@ -27,6 +25,23 @@ import static it.slumdroid.droidmodels.model.SimpleType.*;
 
 public class CompositionalComparator implements Comparator {
 
+	@Override
+	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
+		if (!compareNameTitle(currentActivity, storedActivity)) return false; 
+		for (WidgetState field: currentActivity) {
+			if (matchClass(field.getSimpleType())) {
+				if (!lookFor(field, storedActivity)) return false;
+			}
+		}
+		return true; 
+	}
+	
+	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity){
+		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) return false;
+		if (!currentActivity.getName().equals(storedActivity.getName())) return false;
+		return true;
+	}
+	
 	private boolean matchClass (String type) {
 		for (String storedType: WIDGET_TYPES) {
 			if (storedType.equals(type)) return true;
@@ -34,6 +49,15 @@ public class CompositionalComparator implements Comparator {
 		return false;
 	}
 
+	private boolean lookFor (WidgetState field, ActivityState activity) {
+		for (WidgetState otherField: activity) {
+			if (matchWidget (otherField, field)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private boolean matchWidget (WidgetState field, WidgetState otherField) {	
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());		
@@ -46,43 +70,6 @@ public class CompositionalComparator implements Comparator {
 			if (isMenu || (isList && COMPARE_LIST_COUNT)) return otherField.getCount() == field.getCount();
 		}
 		return compareWidget;
-	}
-
-	@Override
-	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
-		if (!compareNameTitle(currentActivity, storedActivity)) return false; // Different name, different activity, early return
-		HashSet<String> checkedAlready = new HashSet<String>();
-		// Check if current has at least one widget that stored ain't got
-		for (WidgetState field: currentActivity) {
-			int id = Integer.valueOf(field.getId());
-			if (matchClass(field.getSimpleType()) && (id>0) ) {
-				if (!lookFor(field, storedActivity)) return false;
-				checkedAlready.add(field.getId()); // store widgets checked in this step to skip them in the next step
-			}
-		}
-		// Check if stored has at least one widget that current ain't got. Skip if already checked.
-		for (WidgetState field: storedActivity) {
-			int id = Integer.valueOf(field.getId());
-			if ( matchClass(field.getSimpleType()) && (id>0) && (!checkedAlready.contains(field.getId())) ) {
-				if (!lookFor(field, currentActivity)) return false;
-			}
-		}
-		return true; // All tests failed, can't found a difference between current and stored!
-	}
-
-	private boolean lookFor (WidgetState field, ActivityState activity) {
-		for (WidgetState otherField: activity) {
-			if (matchWidget (otherField, field)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity){
-		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) return false;
-		if (!currentActivity.getName().equals(storedActivity.getName())) return false;
-		return true;
 	}
 
 }
