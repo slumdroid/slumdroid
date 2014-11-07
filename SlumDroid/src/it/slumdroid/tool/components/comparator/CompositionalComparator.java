@@ -62,9 +62,9 @@ public class CompositionalComparator implements Comparator {
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());		
 		boolean compareWidget = compareId && compareType;
-		if (compareWidget){ 
-			boolean isDialog = field.getSimpleType().equals(DIALOG_TITLE);
-			if (isDialog) return otherField.getName().equals(field.getName());
+		if (compareWidget){
+			if (field.getSimpleType().equals(TEXT_VIEW)) return field.getValue().isEmpty() == otherField.getValue().isEmpty();
+			if (field.getSimpleType().equals(DIALOG_TITLE)) return otherField.getName().equals(field.getName());
 			boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(PREFERENCE_LIST);	
 			boolean isMenu = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU);
 			if (isMenu || (isList && COMPARE_LIST_COUNT)) return otherField.getCount() == field.getCount();

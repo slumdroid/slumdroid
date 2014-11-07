@@ -130,15 +130,17 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 		DroidExecutor.home();
 		clearWidgetList();
 		ArrayList<View> viewList = solo.getViews();
-		Log.i(TAG, "Retrieving widgets");
-		Log.i(TAG, "Found widget:");
-		for (View w: viewList) {
-			allViews.add(w);
-			String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
-			Log.i(TAG, "id=" + w.getId() + " ("+ w.toString().split("@")[0] + ")" + text);
-			if (w.getId()>0) {
-				theViews.put(w.getId(), w); // Add only if the widget has a valid ID
-			}
+		if (viewList.size()!=0){
+			Log.d(TAG, "Retrieving widgets");
+			Log.d(TAG, "Found widget:");
+			for (View w: viewList) {
+				allViews.add(w);
+				String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
+				Log.d(TAG, "id=" + w.getId() + " ("+ w.toString().split("@")[0] + ")" + text);
+				if (w.getId()>0) {
+					theViews.put(w.getId(), w); // Add only if the widget has a valid ID
+				}
+			}	
 		}
 	}
 
