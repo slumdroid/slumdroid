@@ -90,9 +90,11 @@ public class SimpleTypeDetector implements TypeDetector {
 			return "Picker";
 		}
 		if (type.endsWith("Container")) return "Container";
-
+		if (type.endsWith("PopupMenu")) return POPUP_MENU;
+		if (type.endsWith("PopupWindow")) return POPUP_WINDOW;
+		
 		if (view instanceof RadioGroup) return RADIO_GROUP;
-
+		
 		if (view instanceof ProgressBar || type.endsWith("ProgressBar")) {
 			if (view instanceof RatingBar && (!((RatingBar)view).isIndicator())) return RATING_BAR;
 			if (view instanceof SeekBar) return SEEK_BAR;
