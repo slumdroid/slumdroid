@@ -40,11 +40,10 @@ public class Perturbations {
 
 	public String perturb(String type) {
 		String pertubedInputs =  new String();
-		// MO0 - Starter input && M03 - Empty Input for all
-		if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(valueLowerCase).concat(",");
-		else pertubedInputs = pertubedInputs.concat(valueLowerCase);
+		pertubedInputs = pertubedInputs.concat(valueLowerCase); // MO0 - Starter/Valid Inputs 
+		if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(","); // M03 - Empty Input for all Types
 
-		if (type.equals("Generic")) return pertubedInputs.concat(standard());
+		if (type.equals("Generic")) return pertubedInputs.concat(generic());
 		else if (type.equals("Number")) return pertubedInputs.concat(number());
 		else if (type.equals("Url")) return pertubedInputs.concat(url());
 		else if (type.equals("EMail")) return pertubedInputs.concat(email());
@@ -54,11 +53,13 @@ public class Perturbations {
 		else return new String();
 	}
 	
-	public String standard () {
+	// Generic Strings
+	public String generic () {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Inputs
-		pertubedInputs = pertubedInputs.concat(",SlumDroid's Test");
-		pertubedInputs = pertubedInputs.concat("," + createRegEx("[A-Za-z0-9]{20}"));
+		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
+		pertubedInputs = pertubedInputs.concat(",SlumDroid's Test"); // Single Quote
+		pertubedInputs = pertubedInputs.concat("," + createRegEx("[A-Za-z0-9]{20}")); // Long Random String
 		return pertubedInputs;
 	}
 
@@ -70,7 +71,9 @@ public class Perturbations {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Input == 0
 		pertubedInputs = pertubedInputs.concat(",0");
-		if (type.contains("Decimal") && type.contains("Signed")) pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
+		if (type.contains("Decimal") && type.contains("Signed")) {
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
+		}
 		else if (type.contains("Decimal")) {
 			pertubedInputs = pertubedInputs.concat(",."); // MO1 - Remove the Mandatory Sets
 			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
@@ -87,6 +90,7 @@ public class Perturbations {
 		String withoutHTTP = valueLowerCase.replace("http", "");
 		pertubedInputs = pertubedInputs.concat("," + withoutHTTP);
 		// MO3 - Dangerous Inputs
+		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
 		pertubedInputs = pertubedInputs.concat("," + valueLowerCase + "%");
 		pertubedInputs = pertubedInputs.concat("," + valueLowerCase + "[");
 		pertubedInputs = pertubedInputs.concat("," + valueLowerCase + "]");
@@ -102,6 +106,7 @@ public class Perturbations {
 		String withoutET = valueLowerCase.replace("@", "");
 		pertubedInputs = pertubedInputs.concat("," + withoutET);
 		// MO3 - Dangerous Inputs
+		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
 		pertubedInputs = pertubedInputs.concat("," + "$" + valueLowerCase);
 		pertubedInputs = pertubedInputs.concat("," + "=" + valueLowerCase);
 		pertubedInputs = pertubedInputs.concat("," + "&" + valueLowerCase);
@@ -119,6 +124,7 @@ public class Perturbations {
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[-]{1}[0-9]{5}([0-9]{4})?}"));
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{6}([-]{2}[0-9]{5})+"));
 		// MO3 - Dangerous Input
+		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[A-Za-z]{5}[-]{1}[A-Za-z]{4}"));
 		return pertubedInputs;
 	}
@@ -133,6 +139,7 @@ public class Perturbations {
 		// MO2 - Disorder Sets 
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[xX0-9][0-9]+[- ][0-9]+[- ][0-9]+[- ][0-9]*[- ]*"));
 		// MO3 - Dangerous Inputs
+		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]+[- ][0-9]+[- ][0-9]+[- ][0-9]+[- ]+[xX0-9]+"));
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[A-Za-z]+[\\.\\@&~][A-Za-z]+[\\.\\@&~][A-Za-z]+[\\.\\@&~][A-Za-z]*[\\.\\@&~]*[xX0-9]"));
 		return pertubedInputs;	
@@ -146,6 +153,7 @@ public class Perturbations {
 		// MO1 - Remove the Mandatory Sets
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("(([0-9]{3})|([1-5][0-9]{2})|([0-9]{1})|([0-9]{1}))-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}|3[4,7][0-9-]{15}"));
 		// MO3 - Dangerous Inputs
+		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("((4[0-9]{4})|(5[1-5][0-9]{3})|(6011)|(34[0-9]{2})|(37[0-9]{3}))-?[0-9]{6}-?[0-9]{7}-?[0-9]{6}|3[4,7][0-9-]{20}"));		
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("((4[A-Za-z]{3})|(5[1-5][A-Za-z]{2})|(6011)|(34[A-Za-z]{1})|(37[A-Za-z]{1}))-?[A-Za-z]{4}-?[A-Za-z]{4}-?[A-Za-z]{4}|3[4,7][A-Za-z ]{15}"));
 		return pertubedInputs;		
