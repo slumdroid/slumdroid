@@ -190,7 +190,7 @@ public class Resources {
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
 			for (String s: EXTRA_EVENTS) {
-				String[] widgets = s.split("( )?,( )?");
+				String[] widgets = s.split(",");
 				if (widgets[0].equals(WRITE_TEXT)){
 					SimpleInteractorAdapter interactor = new AdditionalWriteEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
 					ADDITIONAL_EVENTS.add(interactor);
@@ -222,7 +222,7 @@ public class Resources {
 		if (EXTRA_INPUTS != null) {
 			ADDITIONAL_INPUTS.clear();
 			for (String s: EXTRA_INPUTS) {
-				String[] widgets = s.split("( )?,( )?");
+				String[] widgets = s.split(",");
 				if (widgets[0].equals(WRITE_TEXT)){
 					SimpleInteractorAdapter interactor = new AdditionalWriteEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
 					ADDITIONAL_INPUTS.add(interactor);
