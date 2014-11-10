@@ -15,14 +15,14 @@
 
 package it.slumdroid.tool.components.engine;
 
-import it.slumdroid.tool.components.Automation;
 import it.slumdroid.tool.components.GuiTreeAbstractor;
 import it.slumdroid.tool.components.UltraPlanner;
+import it.slumdroid.tool.components.automation.Automation;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
+import it.slumdroid.tool.components.strategy.*;
 import it.slumdroid.tool.model.*;
 import it.slumdroid.tool.utilities.*;
-import it.slumdroid.tool.utilities.strategy.*;
 
 import java.util.GregorianCalendar;
 

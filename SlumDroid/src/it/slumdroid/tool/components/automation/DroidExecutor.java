@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities;
+package it.slumdroid.tool.components.automation;
 
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;

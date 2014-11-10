@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities.strategy;
+package it.slumdroid.tool.components.strategy;
 
 import static it.slumdroid.tool.Resources.TAG;
 import static it.slumdroid.tool.Resources.ENABLE_MODEL;

@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities.strategy.criteria;
+package it.slumdroid.tool.components.strategy.criteria;
 
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.model.SaveStateListener;

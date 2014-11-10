@@ -17,10 +17,10 @@ package it.slumdroid.tool.components.engine;
 
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
+import it.slumdroid.tool.components.strategy.criteria.OnExitPause;
 import it.slumdroid.tool.model.Plan;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.SessionParams;
-import it.slumdroid.tool.utilities.strategy.criteria.OnExitPause;
 
 import java.util.Random;
 
