@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities;
+package it.slumdroid.tool.components.automation;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -32,7 +32,7 @@ import it.slumdroid.tool.model.Extractor;
 import it.slumdroid.tool.model.ExtractorUtilities;
 import it.slumdroid.tool.model.ImageCaptor;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.utilities.DroidExecutor.*;
+import static it.slumdroid.tool.components.automation.DroidExecutor.*;
 
 public class TrivialExtractor implements Extractor, ImageCaptor {
 	

@@ -13,15 +13,15 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities.strategy;
+package it.slumdroid.tool.components.strategy;
 
 import java.util.ArrayList;
 
+import it.slumdroid.tool.components.strategy.criteria.MaxStepsPause;
+import it.slumdroid.tool.components.strategy.criteria.MaxStepsTermination;
 import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.model.StrategyCriteria;
-import it.slumdroid.tool.utilities.strategy.criteria.MaxStepsPause;
-import it.slumdroid.tool.utilities.strategy.criteria.MaxStepsTermination;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS;
 import static it.slumdroid.tool.Resources.PAUSE_AFTER_TRACES;
 

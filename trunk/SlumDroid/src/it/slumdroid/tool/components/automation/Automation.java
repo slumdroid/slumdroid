@@ -13,16 +13,13 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.components;
+package it.slumdroid.tool.components.automation;
 
 import static it.slumdroid.droidmodels.model.InteractionType.*;
 import static it.slumdroid.droidmodels.model.SimpleType.*;
 import static it.slumdroid.tool.Resources.*;
-import static it.slumdroid.tool.utilities.DroidExecutor.*;
-
+import static it.slumdroid.tool.components.automation.DroidExecutor.*;
 import it.slumdroid.tool.model.*;
-import it.slumdroid.tool.utilities.DroidExecutor;
-import it.slumdroid.tool.utilities.TrivialExtractor;
 
 import java.util.ArrayList;
 

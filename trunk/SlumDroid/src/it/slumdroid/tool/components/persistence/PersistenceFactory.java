@@ -16,12 +16,12 @@
 package it.slumdroid.tool.components.persistence;
 
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
+import it.slumdroid.tool.components.strategy.CustomStrategy;
 import it.slumdroid.tool.model.ImageStorage;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.utilities.ScreenshotFactory;
-import it.slumdroid.tool.utilities.strategy.CustomStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
