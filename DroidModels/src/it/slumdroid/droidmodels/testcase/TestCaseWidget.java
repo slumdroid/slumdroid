@@ -170,8 +170,11 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	public boolean equals(Object o) {
 		if (!(o instanceof WidgetState)) return false;
 		WidgetState that = (WidgetState)o;
-		return ( (this.getId()==that.getId()) && (this.getName()==that.getName()) && (this.getType()==that.getType()) && 
-				(this.getTextType()==that.getTextType()) && (this.getCount()==that.getCount()) );
+		return ( (this.getId()==that.getId()) && 
+				 (this.getName()==that.getName()) && 
+				 (this.getType()==that.getType()) && 
+				 (this.getTextType()==that.getTextType()) && 
+				 (this.getCount()==that.getCount()) );
 	}
 
 	protected String getAvailable () {
@@ -187,24 +190,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	}
 
 	public String getSimpleType() {
-		return (hasAttribute("simple_type"))?getAttribute("simple_type"):guessSimpleType();
-	}
-
-	public String guessSimpleType() {
-		String type = getType(); 
-		if (type.endsWith("null"))
-			return "null";
-		if (type.endsWith("RadioButton"))
-			return "radio";
-		if (type.endsWith("CheckBox"))
-			return "check";
-		if (type.endsWith("Button"))
-			return "button";
-		if (type.endsWith("EditText"))
-			return "editText";
-		if (type.endsWith("TabHost"))
-			return "tabHost";
-		return "";
+		return getAttribute("simple_type");
 	}
 
 }
