@@ -72,7 +72,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	public void process (Task t) {
 		afterRestart();
 		if (!ONLY_FINAL_TRANSITION) Log.i (TAG, "Playing Trace " + t.getId());
-		// extractState();
 		for (Transition step: t) {
 			process (step);
 		}
