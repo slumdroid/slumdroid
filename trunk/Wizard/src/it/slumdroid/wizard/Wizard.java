@@ -56,7 +56,7 @@ public class Wizard {
 	private static JButton btnOpenResultsFolder;
 	private static JButton btnResults;
 	private static JButton btnRunSlumDroid;
-	private static JButton btnSelectAutPath;
+	private static JButton btnSelectAAutPath;
 	private static JButton btnFirstBoot;
 	private JSeparator separator_1;
 
@@ -155,10 +155,10 @@ public class Wizard {
 		comboBoxAVDs.setBounds(104, 11, 116, 20);
 		frmWizard.getContentPane().add(comboBoxAVDs);
 
-		btnSelectAutPath = textFieldAAuTPath.getChangeButton();
-		btnSelectAutPath.setBounds(227, 40, 90, 20);
-		frmWizard.getContentPane().add(btnSelectAutPath);
-		btnSelectAutPath.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnSelectAAutPath = textFieldAAuTPath.getChangeButton();
+		btnSelectAAutPath.setBounds(227, 40, 90, 20);
+		btnSelectAAutPath.setFont(new Font("Tahoma", Font.BOLD, 9));
+		frmWizard.getContentPane().add(btnSelectAAutPath);
 
 		btnLoadAvds = comboBoxAVDs.getLoadButton();
 		btnLoadAvds.setBounds(227, 11, 90, 20);
@@ -414,7 +414,7 @@ public class Wizard {
 	public static void Upside(boolean b){
 		btnLoadAvds.setEnabled(b);
 		btnResults.setEnabled(b);
-		btnSelectAutPath.setEnabled(b);
+		btnSelectAAutPath.setEnabled(b);
 		chckbxRandom.setEnabled(b);
 		comboBoxAVDs.setEnabled(b);
 		randomevents.setEnabled(b);

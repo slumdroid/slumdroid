@@ -48,7 +48,7 @@ public class AppPathTextField extends PathTextField {
 	}
 
 	public JButton getChangeButton() {
-		JButton btnSelect_1 = new JButton("Select AAuT");
+		JButton btnSelect_1 = new JButton("Select AuT");
 		btnSelect_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
