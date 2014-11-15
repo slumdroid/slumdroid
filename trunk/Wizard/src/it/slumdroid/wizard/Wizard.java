@@ -200,37 +200,42 @@ public class Wizard {
 		btnFirstBoot = new JButton("Start AVD");
 		btnFirstBoot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				boolean success = true;
-				try{
-					if (!chckbxRandom.isSelected()) success = true;
-					else{
-						int number = Integer.parseInt(randomevents.getText());
-						if (number<1) success=false;
-					}
-				}catch (NumberFormatException ex){
-					success = false;
-				}
-				if (success==true){
-					String command = (chckbxRandom.isSelected())?FIRST_BOOT_RANDOM:FIRST_BOOT;
-					String avd = comboBoxAVDs.getDevice();
-					String thePackage = textFieldAUTpackage.getText();
-					String theClass = textFieldAUTClass.getText();
+				if (getResultPath().equals(textFieldAUTPath.getPath())){
+					JOptionPane.showMessageDialog(null, "AUT Path and Results Path must be different", "Information", JOptionPane.INFORMATION_MESSAGE);
+				}else{
+					boolean success = true;
 					try{
-						String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
-						DownSide(false);
-						Upside(false);				
-
-						BackWorker bw = new BackWorker();
-						bw.setFile(getResultPath()+File.separator+"firstboot.txt");
-						bw.execute();
-						ExternalProcess.executeCommand(commandLine);	
-					}catch (Exception e){
-						e.printStackTrace();
-						JOptionPane.showMessageDialog(null, "AVD List doesn't loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
+						if (!chckbxRandom.isSelected()) success = true;
+						else{
+							int number = Integer.parseInt(randomevents.getText());
+							if (number<1) success=false;
+						}
+					}catch (NumberFormatException ex){
+						success = false;
 					}
-				}
-				else {
-					JOptionPane.showMessageDialog(null, "#Events must be a number greater than zero", "Information", JOptionPane.INFORMATION_MESSAGE);
+					if (success==true){
+						String command = (chckbxRandom.isSelected())?FIRST_BOOT_RANDOM:FIRST_BOOT;
+						String avd = comboBoxAVDs.getDevice();
+						String thePackage = textFieldAUTpackage.getText();
+						String theClass = textFieldAUTClass.getText();
+						
+							try{
+								String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
+								DownSide(false);
+								Upside(false);				
+
+								BackWorker bw = new BackWorker();
+								bw.setFile(getResultPath()+File.separator+"firstboot.txt");
+								bw.execute();
+								ExternalProcess.executeCommand(commandLine);	
+							}catch (Exception e){
+								e.printStackTrace();
+								JOptionPane.showMessageDialog(null, "AVD List doesn't loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
+							}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "#Events must be a number greater than zero", "Information", JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			}
 		});
