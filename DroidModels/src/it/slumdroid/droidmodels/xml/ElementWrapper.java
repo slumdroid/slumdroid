@@ -65,7 +65,11 @@ public abstract class ElementWrapper implements WrapperInterface {
 	}
 
 	public String getAttribute (String name) {
-		return getElement().getAttribute(name);
+		try{
+			return getElement().getAttribute(name);
+		}catch (Exception e){
+			return new String();
+		}
 	}
 
 	public boolean hasAttribute (String name) {
