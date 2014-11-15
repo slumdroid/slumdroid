@@ -42,20 +42,20 @@ public class Wizard {
 	private JFrame frmWizard;
 
 	private static JTextField randomevents;
-	private static JTextField textFieldAUTpackage;
-	private static JTextField textFieldAUTClass;
+	private static JTextField textFieldAAuTpackage;
+	private static JTextField textFieldAAuTClass;
 	private static PathTextField textFieldResults;
 
-	private static AppPathTextField textFieldAUTPath;
+	private static AppPathTextField textFieldAAuTPath;
 	private static AvdComboBox comboBoxAVDs;
 
 	private static JCheckBox chckbxRandom;
 	private static JButton btnDeploy;
-	private static JButton btnGenerateReport;
+	private static JButton btnGenerateReports;
 	private static JButton btnLoadAvds;
 	private static JButton btnOpenResultsFolder;
 	private static JButton btnResults;
-	private static JButton btnRunRipper;
+	private static JButton btnRunSlumDroid;
 	private static JButton btnSelectAutPath;
 	private static JButton btnFirstBoot;
 	private JSeparator separator_1;
@@ -121,41 +121,41 @@ public class Wizard {
 		lblAvdName.setBounds(10, 11, 62, 20);
 		frmWizard.getContentPane().add(lblAvdName);
 
-		JLabel lblAutPath = new JLabel("AUT Path");
+		JLabel lblAutPath = new JLabel("AAuT Path");
 		lblAutPath.setBounds(10, 40, 62, 20);
 		frmWizard.getContentPane().add(lblAutPath);
 
-		JLabel lblAutPackage = new JLabel("AUT Package");
+		JLabel lblAutPackage = new JLabel("AAuT Package");
 		lblAutPackage.setBounds(10, 64, 90, 20);
 		frmWizard.getContentPane().add(lblAutPackage);
 
-		JLabel lblAutClass = new JLabel("AUT Class");
+		JLabel lblAutClass = new JLabel("AAuT Class");
 		lblAutClass.setBounds(10, 89, 90, 20);
 		frmWizard.getContentPane().add(lblAutClass);
 
-		textFieldAUTpackage = new JTextField();
-		textFieldAUTpackage.setEditable(false);
-		textFieldAUTpackage.setBounds(104, 64, 213, 20);
-		frmWizard.getContentPane().add(textFieldAUTpackage);
-		textFieldAUTpackage.setColumns(10);
+		textFieldAAuTpackage = new JTextField();
+		textFieldAAuTpackage.setEditable(false);
+		textFieldAAuTpackage.setBounds(104, 64, 213, 20);
+		frmWizard.getContentPane().add(textFieldAAuTpackage);
+		textFieldAAuTpackage.setColumns(10);
 
-		textFieldAUTClass = new JTextField();
-		textFieldAUTClass.setEditable(false);
-		textFieldAUTClass.setBounds(104, 89, 213, 20);
-		frmWizard.getContentPane().add(textFieldAUTClass);
-		textFieldAUTClass.setColumns(10);
+		textFieldAAuTClass = new JTextField();
+		textFieldAAuTClass.setEditable(false);
+		textFieldAAuTClass.setBounds(104, 89, 213, 20);
+		frmWizard.getContentPane().add(textFieldAAuTClass);
+		textFieldAAuTClass.setColumns(10);
 
-		textFieldAUTPath = new AppPathTextField();
-		textFieldAUTPath.setEditable(false);
-		textFieldAUTPath.setBounds(104, 40, 116, 20);
-		frmWizard.getContentPane().add(textFieldAUTPath);
-		textFieldAUTPath.setColumns(10);
+		textFieldAAuTPath = new AppPathTextField();
+		textFieldAAuTPath.setEditable(false);
+		textFieldAAuTPath.setBounds(104, 40, 116, 20);
+		frmWizard.getContentPane().add(textFieldAAuTPath);
+		textFieldAAuTPath.setColumns(10);
 
 		comboBoxAVDs = new AvdComboBox();
 		comboBoxAVDs.setBounds(104, 11, 116, 20);
 		frmWizard.getContentPane().add(comboBoxAVDs);
 
-		btnSelectAutPath = textFieldAUTPath.getChangeButton();
+		btnSelectAutPath = textFieldAAuTPath.getChangeButton();
 		btnSelectAutPath.setBounds(227, 40, 90, 20);
 		frmWizard.getContentPane().add(btnSelectAutPath);
 		btnSelectAutPath.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -179,29 +179,29 @@ public class Wizard {
 		label.setBounds(10, 117, 72, 14);
 		frmWizard.getContentPane().add(label);
 
-		btnGenerateReport = new JButton("Generate Reports");
-		btnGenerateReport.addActionListener(new ActionListener() {
+		btnGenerateReports = new JButton("Generate Reports");
+		btnGenerateReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cycles = (chckbxRandom.isSelected())?randomevents.getText():"0";
 				DownSide(false);
 				BackWorker bw = new BackWorker();
 				bw.setFile(getResultPath()+File.separator+"artifact.txt");
 				bw.execute();
-				String thePackage = textFieldAUTpackage.getText();
+				String thePackage = textFieldAAuTpackage.getText();
 				String commandLine = CommandLine.get(POST_PROCESS, CYCLES, cycles ,PACKAGE, thePackage);
 				ExternalProcess.executeCommand(commandLine);
 			}
 		});
-		btnGenerateReport.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnGenerateReport.setEnabled(false);
-		btnGenerateReport.setBounds(10, 305, 307, 28);
-		frmWizard.getContentPane().add(btnGenerateReport);
+		btnGenerateReports.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnGenerateReports.setEnabled(false);
+		btnGenerateReports.setBounds(10, 305, 307, 28);
+		frmWizard.getContentPane().add(btnGenerateReports);
 
 		btnFirstBoot = new JButton("Start AVD");
 		btnFirstBoot.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (getResultPath().equals(textFieldAUTPath.getPath())){
-					JOptionPane.showMessageDialog(null, "AUT Path and Results Path must be different", "Information", JOptionPane.INFORMATION_MESSAGE);
+				if (getResultPath().equals(textFieldAAuTPath.getPath())){
+					JOptionPane.showMessageDialog(null, "AAuT Path and Results Path must be different", "Information", JOptionPane.INFORMATION_MESSAGE);
 				}else{
 					boolean success = true;
 					try{
@@ -216,8 +216,8 @@ public class Wizard {
 					if (success==true){
 						String command = (chckbxRandom.isSelected())?FIRST_BOOT_RANDOM:FIRST_BOOT;
 						String avd = comboBoxAVDs.getDevice();
-						String thePackage = textFieldAUTpackage.getText();
-						String theClass = textFieldAUTClass.getText();
+						String thePackage = textFieldAAuTpackage.getText();
+						String theClass = textFieldAAuTClass.getText();
 						
 							try{
 								String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
@@ -250,8 +250,8 @@ public class Wizard {
 		btnDeploy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String avd = comboBoxAVDs.getDevice();
-				String thePackage = textFieldAUTpackage.getText();
-				String theClass = textFieldAUTClass.getText();
+				String thePackage = textFieldAAuTpackage.getText();
+				String theClass = textFieldAAuTClass.getText();
 				String commandLine = CommandLine.get(DEPLOY, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);	
 				DownSide(false);
 				Upside(false);				
@@ -264,11 +264,11 @@ public class Wizard {
 		btnDeploy.setBounds(10, 245, 307, 28);
 		frmWizard.getContentPane().add(btnDeploy);
 
-		btnRunRipper = new JButton("Run SlumDroid");
-		btnRunRipper.addActionListener(new ActionListener() {
+		btnRunSlumDroid = new JButton("Run SlumDroid");
+		btnRunSlumDroid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String command = (chckbxRandom.isSelected())?RANDOM_TEST:SYSTEMATIC_TEST;
-				String thePackage = textFieldAUTpackage.getText();
+				String thePackage = textFieldAAuTpackage.getText();
 				String cycles = (chckbxRandom.isSelected())?randomevents.getText():"0";
 				boolean success = true;
 				try{
@@ -297,10 +297,10 @@ public class Wizard {
 				}
 			}
 		});
-		btnRunRipper.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnRunRipper.setEnabled(false);
-		btnRunRipper.setBounds(10, 275, 307, 28);
-		frmWizard.getContentPane().add(btnRunRipper);
+		btnRunSlumDroid.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnRunSlumDroid.setEnabled(false);
+		btnRunSlumDroid.setBounds(10, 275, 307, 28);
+		frmWizard.getContentPane().add(btnRunSlumDroid);
 
 		chckbxRandom = new JCheckBox("Random Ripper                      # Events");
 		chckbxRandom.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -331,7 +331,7 @@ public class Wizard {
 	}
 
 	public static boolean checkPackage () {
-		boolean ret = textFieldAUTpackage.getText().equals("");
+		boolean ret = textFieldAAuTpackage.getText().equals("");
 		if(ret) {
 			JOptionPane.showMessageDialog(null, "Please, make sure that you're selecting a proper Android application.", "Application not found", JOptionPane.ERROR_MESSAGE);
 			disableDeploy();
@@ -340,14 +340,14 @@ public class Wizard {
 	}
 
 	public static boolean ianpkg(){
-		boolean ret = textFieldAUTpackage.getText().equals("");
+		boolean ret = textFieldAAuTpackage.getText().equals("");
 		if (ret) return !ret;
-		else ret = textFieldAUTClass.getText().equals("");
+		else ret = textFieldAAuTClass.getText().equals("");
 		return !ret;
 	}
 
 	public static boolean checkClass () {
-		boolean ret = textFieldAUTClass.getText().equals("");
+		boolean ret = textFieldAAuTClass.getText().equals("");
 		if(ret) {
 			JOptionPane.showMessageDialog(null, "Please, make sure that you're selecting a proper Android application," + System.getProperty("line.separator") + "with at least one activity! (Perhaps it's a test project?)", "Main Activity not found", JOptionPane.ERROR_MESSAGE);
 			disableDeploy();
@@ -365,11 +365,11 @@ public class Wizard {
 	}
 
 	public static int checkApp(){
-		return textFieldAUTPath.getText().length();
+		return textFieldAAuTPath.getText().length();
 	}
 
 	public static int checkPkg(){
-		return textFieldAUTpackage.getText().length();
+		return textFieldAAuTpackage.getText().length();
 	}
 
 	public static int checkExp(){
@@ -377,11 +377,11 @@ public class Wizard {
 	}
 
 	public static void detect() {
-		String path = textFieldAUTPath.getPath();
+		String path = textFieldAAuTPath.getPath();
 		AppData app = AppData.getFromSource(path);
-		textFieldAUTpackage.setText(app.getPackage());
+		textFieldAAuTpackage.setText(app.getPackage());
 		if (checkPackage()) {
-			textFieldAUTClass.setText(app.getClassName());
+			textFieldAAuTClass.setText(app.getClassName());
 			checkClass();
 		}
 		else clearText();
@@ -400,7 +400,7 @@ public class Wizard {
 	}
 
 	public static void enableReporting() {
-		btnGenerateReport.setEnabled(true);
+		btnGenerateReports.setEnabled(true);
 	}
 
 	public static void enableOpenResultFolder() {
@@ -423,23 +423,23 @@ public class Wizard {
 	public static void DownSide(boolean b){
 		btnFirstBoot.setEnabled(b);
 		btnDeploy.setEnabled(b);
-		btnGenerateReport.setEnabled(b);
+		btnGenerateReports.setEnabled(b);
 		btnOpenResultsFolder.setEnabled(b);
-		btnRunRipper.setEnabled(b);
+		btnRunSlumDroid.setEnabled(b);
 	}
 
 	public static void postExec(boolean b){
 		btnDeploy.setEnabled(!b);
-		btnRunRipper.setEnabled(b);
-		btnGenerateReport.setEnabled(!b);
+		btnRunSlumDroid.setEnabled(b);
+		btnGenerateReports.setEnabled(!b);
 		btnOpenResultsFolder.setEnabled(!b);
 	}
 
 	public static void clearText(){
 		try{
-			textFieldAUTPath.setText("");
-			textFieldAUTpackage.setText("");
-			textFieldAUTClass.setText("");
+			textFieldAAuTPath.setText("");
+			textFieldAAuTpackage.setText("");
+			textFieldAAuTClass.setText("");
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}
