@@ -23,7 +23,7 @@ import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.model.StrategyCriteria;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS;
-import static it.slumdroid.tool.Resources.PAUSE_AFTER_TRACES;
+import static it.slumdroid.tool.Resources.PAUSE_AFTER_TASKS;
 
 public class StrategyFactory {
 
@@ -49,7 +49,7 @@ public class StrategyFactory {
 		StrategyCriteria[] c = new StrategyCriteria[this.otherCriterias.size()];
 		CustomStrategy s = new CustomStrategy(this.comparator, this.otherCriterias.toArray(c));
 		if (MAX_NUM_EVENTS > 0) s.addCriteria(new MaxStepsTermination(MAX_NUM_EVENTS));	
-		if (PAUSE_AFTER_TRACES > 0) s.addCriteria(new MaxStepsPause(PAUSE_AFTER_TRACES));
+		if (PAUSE_AFTER_TASKS > 0) s.addCriteria(new MaxStepsPause(PAUSE_AFTER_TASKS));
 		return s;
 	}
 
