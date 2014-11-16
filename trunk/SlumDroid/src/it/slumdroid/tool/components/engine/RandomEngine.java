@@ -39,7 +39,7 @@ public class RandomEngine extends SystematicEngine {
 		setMaxEventsSelector(0);
 		setMaxTasksInScheduler(2);
 		setOnlyFinalTransition(true);
-		setPauseTraces(0);
+		setPauseTasks(0);
 		this.taskLottery = new SaveStateRandom(RANDOM_SEED);
 		this.theStrategyFactory.setMoreCriterias(new OnExitPause());
 		this.first = true;

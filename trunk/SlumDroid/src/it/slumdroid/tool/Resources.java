@@ -48,9 +48,9 @@ public class Resources {
 	public static void setMaxEventsSelector(int maxSelector) {
 		MAX_NUM_EVENTS_PER_SELECTOR = maxSelector;		
 	}
-	public static int PAUSE_AFTER_TRACES = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
-	public static void setPauseTraces(int pauseAfterTraces) {
-		PAUSE_AFTER_TRACES = pauseAfterTraces;		
+	public static int PAUSE_AFTER_TASKS = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
+	public static void setPauseTasks(int pauseAfterTraces) {
+		PAUSE_AFTER_TASKS = pauseAfterTraces;		
 	}
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 
@@ -61,8 +61,8 @@ public class Resources {
 	public static int SLEEP_ON_THROBBER = 1000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 
 	// Comparator Parameters
-	public static Comparator COMPARATOR = new NullComparator();
-	public static String COMPARATOR_TYPE = new String(NULL_COMPARATOR);
+	public static Comparator COMPARATOR = new CompositionalComparator();
+	public static String COMPARATOR_TYPE = new String(COMPOSITIONAL_COMPARATOR);
 	public static String[] WIDGET_TYPES  = {
 		// TEXT
 		AUTOC_TEXT,
@@ -124,48 +124,20 @@ public class Resources {
 		SLIDING_DRAWER, 
 		TAB_HOST
 	};
-
 	public static boolean COMPARE_LIST_COUNT = false;
+	
 	public static void getComparator() {
-		if (COMPARATOR_TYPE.equals(COMPOSITIONAL_COMPARATOR)) {
-			COMPARATOR = new CompositionalComparator();
+		if (COMPARATOR_TYPE.equals(NULL_COMPARATOR)) {
+			COMPARATOR = new NullComparator();
 		}    
 	}
 
 	// Interactions Parameters
 	public static String EVENTS[];
-	public static String INPUTS[];
 	public static String EXTRA_EVENTS[];
-	public static String EXTRA_INPUTS[];
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<SimpleInteractorAdapter>();
-	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<SimpleInteractorAdapter>();
 
-	// Persistence Parameters
-	public static boolean ONLY_FINAL_TRANSITION = false;
-	public static void setOnlyFinalTransition(boolean value){
-		ONLY_FINAL_TRANSITION = value;
-	}
-
-	// Scheduler Parameters
-	public static int MAX_TASKS_IN_SCHEDULER = 0;
-	public static void setMaxTasksInScheduler(int value){
-		MAX_TASKS_IN_SCHEDULER = value;
-	}
-
-	public static Class<?> theClass;
-
-	static {
-
-		Prefs.updateMainNode();
-		Prefs.updateNode("automation", Resources.class);
-		Prefs.updateNode("comparator", Resources.class);
-		Prefs.updateNode("interactions", Resources.class);
-		try {
-			theClass = Class.forName(CLASS_NAME);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-		getComparator();
+	public static void checkEvents(){
 		if (EVENTS != null) {
 			boolean isClick = false;
 			for (String s: EVENTS) {
@@ -187,6 +159,7 @@ public class Resources {
 		UserFactory.addEvent(SPINNER_SELECT, SPINNER);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		UserFactory.addEvent(DRAG, SLIDING_DRAWER);
+
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
 			for (String s: EXTRA_EVENTS) {
@@ -202,6 +175,13 @@ public class Resources {
 				}	
 			}
 		}
+	}
+
+	public static String INPUTS[];
+	public static String EXTRA_INPUTS[];
+	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<SimpleInteractorAdapter>();
+
+	public static void checkInputs(){
 		if (INPUTS != null) {
 			boolean isClick = false;
 			for (String s: INPUTS) {		
@@ -215,9 +195,8 @@ public class Resources {
 		} else {
 			UserFactory.addInput(CLICK, RADIO, CHECKBOX, CHECKTEXT, TOGGLE_BUTTON, NUMBER_PICKER_BUTTON);
 		}
-
 		UserFactory.addInput(SPINNER_SELECT, SPINNER_INPUT);
-		UserFactory.addInput(SET_BAR, SEEK_BAR, RATING_BAR);				
+		UserFactory.addInput(SET_BAR, SEEK_BAR, RATING_BAR);
 
 		if (EXTRA_INPUTS != null) {
 			ADDITIONAL_INPUTS.clear();
@@ -230,4 +209,34 @@ public class Resources {
 			}
 		}
 	}
+
+	// Persistence Parameters
+	public static boolean ONLY_FINAL_TRANSITION = false;
+	public static void setOnlyFinalTransition(boolean value){
+		ONLY_FINAL_TRANSITION = value;
+	}
+
+	// Scheduler Parameters
+	public static int MAX_TASKS_IN_SCHEDULER = 0;
+	public static void setMaxTasksInScheduler(int value){
+		MAX_TASKS_IN_SCHEDULER = value;
+	}
+
+	public static Class<?> theClass;
+
+	static {
+		Prefs.updateMainNode();
+		Prefs.updateNode("automation", Resources.class);
+		Prefs.updateNode("comparator", Resources.class);
+		Prefs.updateNode("interactions", Resources.class);
+		try {
+			theClass = Class.forName(CLASS_NAME);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		getComparator();
+		checkEvents();		
+		checkInputs();			
+	}
+	
 }
