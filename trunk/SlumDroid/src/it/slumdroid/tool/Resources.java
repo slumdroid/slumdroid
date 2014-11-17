@@ -34,25 +34,49 @@ public class Resources {
 	public final static String COMPOSITIONAL_COMPARATOR = "CompositionalComparator";
 	public final static String NULL_COMPARATOR = "NullComparator";
 	public final static String TAG = "slumdroid";
+	
+	public static enum SchedulerAlgorithm {
+		BREADTH_FIRST, DEPTH_FIRST
+	}
+	
+	public static String[] WIDGET_TYPES  = {
+		AUTOC_TEXT, CHECKTEXT, EDIT_TEXT, NOEDITABLE_TEXT, 					// TEXT 
+		BUTTON, CHECKBOX, NUMBER_PICKER_BUTTON,	RADIO, TOGGLE_BUTTON, 		// BUTTON
+		ACTION_HOME, DIALOG_TITLE, EXPAND_MENU, MENU_ITEM, TOAST, 			// BASIC
+		DATE_PICKER, NUMBER_PICKER, TIME_PICKER, 							// PICKER
+		EMPTY_LIST, LIST_VIEW, PREFERENCE_LIST,								// LIST
+		LINEAR_LAYOUT, RELATIVE_LAYOUT,										// LAYOUT
+		IMAGE_VIEW, MENU_VIEW, TEXT_VIEW, WEB_VIEW,							// VIEW
+		PROGRESS_BAR, RATING_BAR, SEARCH_BAR, SEEK_BAR,						// BAR
+		EMPTY_SPINNER, SPINNER, SPINNER_INPUT,								// SPINNER
+		POPUP_MENU, POPUP_WINDOW,											// POPUP
+		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
+	};
 
 	// Main Parameters
 	public static String PACKAGE_NAME = "app.package";
 	public static String CLASS_NAME = "app.package.class";
-	public static long RANDOM_SEED = 93874383493L; 
+	
 	public static boolean ENABLE_MODEL = true;
+	public static long RANDOM_SEED = 93874383493L; 
 	public static boolean SCREENSHOT_ENABLED = true; // Performs an image capture of the screen after processing a task
+	
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
 	public static boolean HASH_VALUES = true;
+	
+	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
+	
 	public static int MAX_NUM_EVENTS = 0; // After performing this amount of traces, the tool exits (0 = no length limit)
+	
 	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
 	public static void setMaxEventsSelector(int maxSelector) {
 		MAX_NUM_EVENTS_PER_SELECTOR = maxSelector;		
 	}
+	
 	public static int PAUSE_AFTER_TASKS = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
-	public static void setPauseTasks(int pauseAfterTraces) {
-		PAUSE_AFTER_TASKS = pauseAfterTraces;		
+	public static void setPauseTasks(int pauseAfterTasks) {
+		PAUSE_AFTER_TASKS = pauseAfterTasks;		
 	}
-	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 
 	// Automation Parameters
 	public static int SLEEP_AFTER_EVENT = 1000;
@@ -63,75 +87,14 @@ public class Resources {
 	// Comparator Parameters
 	public static Comparator COMPARATOR = new CompositionalComparator();
 	public static String COMPARATOR_TYPE = new String(COMPOSITIONAL_COMPARATOR);
-	public static String[] WIDGET_TYPES  = {
-		// TEXT
-		AUTOC_TEXT,
-		CHECKTEXT,
-		EDIT_TEXT, 
-		NOEDITABLE_TEXT, 
-		
-		// BUTTON
-		BUTTON, 
-		CHECKBOX, 
-		NUMBER_PICKER_BUTTON, 
-		RADIO, 
-		TOGGLE_BUTTON,
-
-		// BASIC
-		ACTION_HOME,
-		DIALOG_TITLE,
-		EXPAND_MENU,
-		MENU_ITEM, 
-		TOAST, 
-
-		// PICKER
-		DATE_PICKER, 
-		NUMBER_PICKER,
-		TIME_PICKER, 
-
-		// LIST
-		EMPTY_LIST, 
-		LIST_VIEW, 
-		PREFERENCE_LIST,
-
-		// LAYOUT
-		LINEAR_LAYOUT, 
-		RELATIVE_LAYOUT,
-
-		// VIEW
-		IMAGE_VIEW, 
-		MENU_VIEW, 
-		TEXT_VIEW, 
-		WEB_VIEW,
-
-		// BAR
-		PROGRESS_BAR, 
-		RATING_BAR, 
-		SEARCH_BAR, 
-		SEEK_BAR,
-
-		// SPINNER
-		EMPTY_SPINNER, 
-		SPINNER, 
-		SPINNER_INPUT,
-
-		// POPUP
-		POPUP_MENU,
-		POPUP_WINDOW,
-		
-		// OTHER
-		RADIO_GROUP,
-		SLIDING_DRAWER, 
-		TAB_HOST
-	};
-	public static boolean COMPARE_LIST_COUNT = false;
-	
-	public static void getComparator() {
+	private static void getComparator() {
 		if (COMPARATOR_TYPE.equals(NULL_COMPARATOR)) {
 			COMPARATOR = new NullComparator();
 		}    
 	}
-
+	
+	public static boolean COMPARE_LIST_COUNT = false;
+	
 	// Interactions Parameters
 	public static String EVENTS[];
 	public static String EXTRA_EVENTS[];
@@ -224,11 +187,15 @@ public class Resources {
 
 	public static Class<?> theClass;
 
+	private static void update () {	
+		Prefs.updateNode(""); 				// Main Node
+		Prefs.updateNode("automation");		// Automation Node
+		Prefs.updateNode("comparator");		// Comparator Node
+		Prefs.updateNode("interactions");	// Interactions Node
+	}
+
 	static {
-		Prefs.updateMainNode();
-		Prefs.updateNode("automation", Resources.class);
-		Prefs.updateNode("comparator", Resources.class);
-		Prefs.updateNode("interactions", Resources.class);
+		update();
 		try {
 			theClass = Class.forName(CLASS_NAME);
 		} catch (ClassNotFoundException e) {
@@ -238,5 +205,5 @@ public class Resources {
 		checkEvents();		
 		checkInputs();			
 	}
-	
+
 }

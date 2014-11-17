@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 
 import static it.slumdroid.tool.Resources.SCHEDULER_ALGORITHM;
 
@@ -31,9 +32,6 @@ public class TraceDispatcher implements Iterable<Task> {
 
 	private TaskScheduler scheduler;
 	List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
-	public static enum SchedulerAlgorithm {
-		BREADTH_FIRST, DEPTH_FIRST
-	}
 
 	public TraceDispatcher () {
 		this (SchedulerAlgorithm.valueOf(SCHEDULER_ALGORITHM));

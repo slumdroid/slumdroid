@@ -26,7 +26,7 @@ import android.util.Log;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import static it.slumdroid.tool.Resources.*;
-import static it.slumdroid.tool.components.scheduler.TraceDispatcher.SchedulerAlgorithm.DEPTH_FIRST;
+import static it.slumdroid.tool.Resources.SchedulerAlgorithm.DEPTH_FIRST;
 
 public class RandomEngine extends SystematicEngine {
 

@@ -35,8 +35,6 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.robotium.solo.Solo;
-
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
@@ -245,7 +243,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public void afterRestart() {
-		trivialExtractor.solo.setActivityOrientation(Solo.PORTRAIT);
 		wait(SLEEP_AFTER_RESTART);
 		waitOnThrobber();
 	}

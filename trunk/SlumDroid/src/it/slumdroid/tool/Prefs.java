@@ -32,9 +32,9 @@ public class Prefs {
 	private Class<?> resources;
 	private static String mainNode = Prefs.class.getPackage().getName();
 
-	public Prefs (String node, Class<? extends Resources> resources) {
+	public Prefs (String node) {
 		this.localPrefs = loadNode(node);
-		this.resources = resources;
+		this.resources = Resources.class;
 	}	
 
 	public static Preferences getMainNode () {
@@ -166,12 +166,8 @@ public class Prefs {
 		}
 	}
 
-	public static void updateMainNode () {
-		updateNode("", Resources.class);
-	}
-
-	public static void updateNode (String node, Class<? extends Resources> resources) {
-		Prefs p = new Prefs (node, resources);
+	public static void updateNode (String node) {
+		Prefs p = new Prefs (node);
 		p.updateResources();
 	}
 
