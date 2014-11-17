@@ -16,7 +16,7 @@
 package it.slumdroid.tool.components.scheduler;
 
 import static it.slumdroid.tool.Resources.MAX_TASKS_IN_SCHEDULER;
-import it.slumdroid.tool.components.scheduler.TraceDispatcher.SchedulerAlgorithm;
+import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.TaskScheduler;
 
