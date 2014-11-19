@@ -88,6 +88,7 @@ public class Wizard {
 
 	private void initialize() throws ParseException {
 		frmWizard = new JFrame();
+		frmWizard.setResizable(false);
 		frmWizard.setTitle("SlumDroid Wizard");
 		frmWizard.setFont(new Font("Arial", Font.PLAIN, 10));
 		frmWizard.setBounds(100, 100, 343, 381);
