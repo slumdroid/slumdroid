@@ -233,14 +233,14 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	public void onTerminate() {
 		this.taskList.clear();
 	}
-
-	public List<String> readTaskFile () {
+	
+	private List<String> readFile (String input) {
 		FileInputStream theFile;
 		BufferedReader theStream = null;
 		String line;
 		List<String> output = new ArrayList<String>();
 		try{
-			theFile = w.openFileInput (getTaskListFileName());
+			theFile = w.openFileInput (input);
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
 			while ( (line = theStream.readLine()) != null) {
 				output.add(line);
@@ -251,25 +251,14 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			e.printStackTrace();
 		}
 		return output;
+	} 
+
+	public List<String> readTaskFile () {
+		return readFile(getTaskListFileName());
 	}
 
 	public List<String> readStateFile () {
-		FileInputStream theFile;
-		BufferedReader theStream = null;
-		String line;
-		List<String> output = new ArrayList<String>();
-		try{
-			theFile = w.openFileInput (getActivityFileName());
-			theStream = new BufferedReader (new FileReader (theFile.getFD()));
-			while ( (line = theStream.readLine()) != null) {
-				output.add(line);
-			}
-			theFile.close();
-			theStream.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return output;
+		return readFile(getActivityFileName());
 	}
 
 	public void openTaskFile () {
