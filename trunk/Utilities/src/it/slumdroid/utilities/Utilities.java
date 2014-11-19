@@ -79,11 +79,6 @@ public class Utilities {
 			}
 			else if (args[0].equals("traslate")) new Tools().traslate(args[1], args[2]);
 		}
-		else{
-			System.out.println("GUI Utilization:");
-			System.out.println("- AndroidTest   java -jar androidTest");
-			System.out.println("- GUIAnalyzer   java -jar guiAnalyzer");
-		}
 	}
 
 }
