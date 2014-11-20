@@ -54,7 +54,7 @@ public class Perturbations {
 	}
 	
 	// Generic Strings
-	public String generic () {
+	private String generic () {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Inputs
 		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
@@ -67,7 +67,7 @@ public class Perturbations {
 	// Decimal: [0-9]+\\.[0-9]+
 	// Signed: (\\-|+)[0-9]+
 	// Number: [0-9]+
-	public String number () {
+	private String number () {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Input == 0
 		pertubedInputs = pertubedInputs.concat(",0");
@@ -84,7 +84,7 @@ public class Perturbations {
 	}
 
 	// URL: https?://[\\-a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)+(:[0-9]+){1}(/[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)+)+\\?[0-9A-Za-z]+=[0-9A-Za-z+&\\@\\#/%=~_\\(\\)|]+
-	public String url () {
+	private String url () {
 		String pertubedInputs =  new String();
 		// MO1 - Remove the Mandatory Sets
 		String withoutHTTP = valueLowerCase.replace("http", "");
@@ -100,7 +100,7 @@ public class Perturbations {
 	}
 
 	// Email: [0-9A-Za-z-\\.]+\\@([0-9A-Za-z-]+\\.)+[A-Za-z-]{2,4}
-	public String email () {
+	private String email () {
 		String pertubedInputs =  new String();	
 		// MO1 - Remove the Mandatory Sets
 		String withoutET = valueLowerCase.replace("@", "");
@@ -115,7 +115,7 @@ public class Perturbations {
 	}
 
 	// ZIP: [0-9]{5}([-]{1}[0-9]{4})?
-	public String zip () {
+	private String zip () {
 		String pertubedInputs =  new String();	
 		// MO0 - Valid Input
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{5}([-]{1}[0-9]{4})?"));
@@ -130,7 +130,7 @@ public class Perturbations {
 	}
 
 	// ISBN: [0-9]+[- ][0-9]+[- ][0-9]+[- ][0-9]*[- ]*[xX0-9]
-	public String isbn () {
+	private String isbn () {
 		String pertubedInputs =  new String();
 		// MO0 - Valid input
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]+[- ][0-9]+[- ][0-9]+[- ][0-9]*[- ]*[xX0-9]"));
@@ -146,7 +146,7 @@ public class Perturbations {
 	}
 
 	// Credit card: ((4[0-9]{3})|(5[1-5][0-9]{2})|(6011)|(34[0-9]{1})|(37[0-9]{1}))-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}|3[4,7][0-9-]{15}
-	public String creditcard () {
+	private String creditcard () {
 		String pertubedInputs =  new String();	
 		// MO0 - Valid Input
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("((4[0-9]{3})|(5[1-5][0-9]{2})|(6011)|(34[0-9]{1})|(37[0-9]{1}))-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}|3[4,7][0-9-]{15}"));
@@ -159,7 +159,7 @@ public class Perturbations {
 		return pertubedInputs;		
 	}
 	
-	public String createRegEx (String regex) {
+	private String createRegEx (String regex) {
 		return new Xeger(regex).generate();
 	}
 		

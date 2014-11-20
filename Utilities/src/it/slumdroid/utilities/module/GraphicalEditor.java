@@ -555,4 +555,5 @@ public class GraphicalEditor extends JFrame {
 	public static void setAppPackageClass(String value) {
 		appPackageClass = value;
 	}
+	
 }

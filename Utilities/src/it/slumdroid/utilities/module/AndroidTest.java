@@ -41,9 +41,10 @@ public class AndroidTest  {
 		this.reportFileName = inputPath + "\\output\\report.txt";
 		this.dotFileName = inputPath + "\\output\\guitree.dot";
 		this.fsmFileName = inputPath + "\\output\\fsm.dot";
+		processFile();
 	}
 
-	public void processFile() {
+	private void processFile() {
 		try {
 			this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
 		} catch (ParserConfigurationException | SAXException | IOException e) {
@@ -64,19 +65,19 @@ public class AndroidTest  {
 		}
 	}
 
-	public String getInputFileName() {
+	private String getInputFileName() {
 		return inputFileName;
 	}
 
-	public String getReportFileName() {
+	private String getReportFileName() {
 		return reportFileName;
 	}
 
-	public String getDotFileName() {
+	private String getDotFileName() {
 		return dotFileName;
 	}
 
-	public String getFsmFileName() {
+	private String getFsmFileName() {
 		return fsmFileName;
 	}
 
