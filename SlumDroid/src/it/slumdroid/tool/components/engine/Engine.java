@@ -312,6 +312,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		if (ScreenshotFactory.saveScreenshot(fileName)) {
 			theActivity.setScreenshot(fileName);
 			Log.i(TAG,"Saved image on disk: " + fileName);
+		} else{
+			Log.i(TAG,"Image is not saved on disk: " + fileName);
 		}
 	}
 
