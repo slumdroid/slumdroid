@@ -311,6 +311,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		String fileName = screenshotName(theActivity.getUniqueId());
 		if (ScreenshotFactory.saveScreenshot(fileName)) {
 			theActivity.setScreenshot(fileName);
+			Log.i(TAG,"Saved image on disk: " + fileName);
 		}
 	}
 
