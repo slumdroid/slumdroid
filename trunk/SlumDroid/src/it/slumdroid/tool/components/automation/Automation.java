@@ -313,7 +313,11 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public Bitmap captureImage() {
-		return this.imageCaptor.captureImage();
+		try{
+			return this.imageCaptor.captureImage();	
+		}catch (Exception e){
+			return null;
+		}
 	}
 
 	// This methods call the Abstractor Utility methods to describe the current event

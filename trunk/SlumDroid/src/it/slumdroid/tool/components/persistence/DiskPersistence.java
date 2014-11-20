@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.components.persistence;
 
-import static it.slumdroid.tool.Resources.TAG;
 import it.slumdroid.tool.model.ImageStorage;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
@@ -28,7 +27,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import android.app.Activity;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
@@ -195,10 +193,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			streamWriter = new OutputStreamWriter(fileOutput);
 			if (fileOutput != null) {
 				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);
-				Log.i(TAG,"Saved image on disk: " + name);
 			}
-		} catch (FileNotFoundException e) {
-			Log.i(TAG,"Image is not on disk: " + name);
 		} finally {
 			if (fileOutput != null) {
 				streamWriter.close();

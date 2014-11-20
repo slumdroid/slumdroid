@@ -15,9 +15,11 @@
 
 package it.slumdroid.tool.utilities;
 
+import static it.slumdroid.tool.Resources.TAG;
 import it.slumdroid.tool.model.ImageCaptor;
 import it.slumdroid.tool.model.ImageStorage;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 public class ScreenshotFactory {
 
@@ -41,11 +43,12 @@ public class ScreenshotFactory {
 	}
 
 	public static boolean saveScreenshot(String id) {
-		Bitmap b = theImageCaptor.captureImage();
-		if (b == null) return false;
 		try {
+			Bitmap b = theImageCaptor.captureImage();
+			if (b == null) return false;
 			theImageStorage.saveImage(b, id);
 		} catch (Exception e) {
+			Log.i(TAG,"Image is not saved on disk: " + id);
 			return false;
 		}
 		return true;		
