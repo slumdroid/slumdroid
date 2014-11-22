@@ -16,7 +16,6 @@
 package it.slumdroid.tool.components.persistence;
 
 import it.slumdroid.tool.model.*;
-import static it.slumdroid.tool.Resources.ONLY_FINAL_TRANSITION;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ import it.slumdroid.droidmodels.guitree.FinalActivity;
 import it.slumdroid.droidmodels.model.*;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
 
-public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener, TerminationListener {
+public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener {
 
 	private List<Task> taskList;
 	private String activityFile;
@@ -80,16 +79,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		try {
 			openTaskFile();
 			for (Task task: this.taskList) {
-				String xml = new String();
-				if (ONLY_FINAL_TRANSITION){
-					try{
-						Transition support = task.getFinalTransition();
-						xml = ((ElementWrapper)support).toXml() + System.getProperty("line.separator");
-					}catch (Exception e){
-						xml = ((ElementWrapper)task).toXml() + System.getProperty("line.separator");
-					}
-				}
-				else xml = ((ElementWrapper)task).toXml() + System.getProperty("line.separator");
+				String xml = ((ElementWrapper)task).toXml() + System.getProperty("line.separator");
 				writeOnTaskFile(xml);
 			}
 			closeTaskFile();

@@ -21,8 +21,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import it.slumdroid.tool.components.comparator.*;
-import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.utilities.UserFactory;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.tool.utilities.interactors.editor.AdditionalEnterEditor;
@@ -31,33 +29,15 @@ import it.slumdroid.tool.utilities.interactors.editor.AdditionalWriteEditor;
 public class Resources {
 
 	// Support Variables
-	public final static String COMPOSITIONAL_COMPARATOR = "CompositionalComparator";
-	public final static String NULL_COMPARATOR = "NullComparator";
-	public final static String TAG = "slumdroid";
-	
+	public final static String TAG = "slumdroid";	
 	public static enum SchedulerAlgorithm {
 		BREADTH_FIRST, DEPTH_FIRST
 	}
 	
-	public static String[] WIDGET_TYPES  = {
-		AUTOC_TEXT, CHECKTEXT, EDIT_TEXT, NOEDITABLE_TEXT, 					// TEXT 
-		BUTTON, CHECKBOX, NUMBER_PICKER_BUTTON,	RADIO, TOGGLE_BUTTON, 		// BUTTON
-		ACTION_HOME, DIALOG_TITLE, EXPAND_MENU, MENU_ITEM, TOAST, 			// BASIC
-		DATE_PICKER, NUMBER_PICKER, TIME_PICKER, 							// PICKER
-		EMPTY_LIST, LIST_VIEW, PREFERENCE_LIST,								// LIST
-		LINEAR_LAYOUT, RELATIVE_LAYOUT,										// LAYOUT
-		IMAGE_VIEW, MENU_VIEW, TEXT_VIEW, WEB_VIEW,							// VIEW
-		PROGRESS_BAR, RATING_BAR, SEARCH_BAR, SEEK_BAR,						// BAR
-		EMPTY_SPINNER, SPINNER, SPINNER_INPUT,								// SPINNER
-		POPUP_MENU, POPUP_WINDOW,											// POPUP
-		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
-	};
-
 	// Main Parameters
 	public static String PACKAGE_NAME = "app.package";
 	public static String CLASS_NAME = "app.package.class";
 	
-	public static boolean ENABLE_MODEL = true;
 	public static long RANDOM_SEED = 93874383493L; 
 	public static boolean SCREENSHOT_ENABLED = true; // Performs an image capture of the screen after processing a task
 	
@@ -66,19 +46,6 @@ public class Resources {
 	
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 	
-	public static int MAX_NUM_EVENTS = 0; // After performing this amount of traces, the tool exits (0 = no length limit)
-	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
-	
-	public static void setMaxEventsSelector(int value) {
-		MAX_NUM_EVENTS_PER_SELECTOR = value;		
-	}
-	
-	public static int PAUSE_AFTER_TASKS = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
-	
-	public static void setPauseTasks(int value) {
-		PAUSE_AFTER_TASKS = value;		
-	}
-
 	// Automation Parameters
 	public static int SLEEP_AFTER_EVENT = 1000;
 	public static int SLEEP_AFTER_RESTART = 0;
@@ -86,15 +53,6 @@ public class Resources {
 	public static int SLEEP_ON_THROBBER = 1000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
 
 	// Comparator Parameters
-	public static Comparator COMPARATOR = new CompositionalComparator();
-	public static String COMPARATOR_TYPE = new String(COMPOSITIONAL_COMPARATOR);
-	
-	private static void getComparator() {
-		if (COMPARATOR_TYPE.equals(NULL_COMPARATOR)) {
-			COMPARATOR = new NullComparator();
-		}    
-	}
-	
 	public static boolean COMPARE_LIST_COUNT = false;
 	
 	// Interactions Parameters
@@ -144,6 +102,8 @@ public class Resources {
 		}
 		return isClick;
 	}
+	
+	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
 
 	public static String INPUTS[];
 	public static String EXTRA_INPUTS[];
@@ -181,20 +141,9 @@ public class Resources {
 		return isClick;
 	}
 
-	// Persistence Parameters
-	public static boolean ONLY_FINAL_TRANSITION = false;
-	
-	public static void setOnlyFinalTransition(boolean value){
-		ONLY_FINAL_TRANSITION = value;
-	}
-
 	// Scheduler Parameters
 	public static int MAX_TASKS_IN_SCHEDULER = 0;
 	
-	public static void setMaxTasksInScheduler(int value){
-		MAX_TASKS_IN_SCHEDULER = value;
-	}
-
 	public static Class<?> theClass;
 
 	private static void update () {	
@@ -206,7 +155,6 @@ public class Resources {
 
 	static {
 		update();
-		getComparator();
 		checkEvents();		
 		checkInputs();
 		try {

@@ -15,42 +15,23 @@
 
 package it.slumdroid.tool.components.strategy;
 
-import java.util.ArrayList;
-
 import it.slumdroid.tool.components.strategy.criteria.MaxStepsPause;
-import it.slumdroid.tool.components.strategy.criteria.MaxStepsTermination;
 import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.Strategy;
-import it.slumdroid.tool.model.StrategyCriteria;
-import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS;
-import static it.slumdroid.tool.Resources.PAUSE_AFTER_TASKS;
 
 public class StrategyFactory {
 
 	private Comparator comparator;
-	private ArrayList<StrategyCriteria> otherCriterias = new ArrayList<StrategyCriteria>();
+	private int PAUSE_AFTER_TASKS = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
 
 	public StrategyFactory (Comparator c) {
 		this.comparator = c;
 	}
 
-	public StrategyFactory (Comparator c, StrategyCriteria ... criterias) {
-		this (c);
-		setMoreCriterias(criterias);
-	}
-
-	public void setMoreCriterias (StrategyCriteria ... s) {
-		for (StrategyCriteria sc: s) {
-			this.otherCriterias.add(sc);
-		}
-	}
-
 	public Strategy getStrategy () {
-		StrategyCriteria[] c = new StrategyCriteria[this.otherCriterias.size()];
-		CustomStrategy s = new CustomStrategy(this.comparator, this.otherCriterias.toArray(c));
-		if (MAX_NUM_EVENTS > 0) s.addCriteria(new MaxStepsTermination(MAX_NUM_EVENTS));	
-		if (PAUSE_AFTER_TASKS > 0) s.addCriteria(new MaxStepsPause(PAUSE_AFTER_TASKS));
+		CustomStrategy s = new CustomStrategy(this.comparator);
+		s.addCriteria(new MaxStepsPause(PAUSE_AFTER_TASKS));
 		return s;
 	}
-
+	
 }

@@ -77,10 +77,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 
 	protected void setupFirstStart() {
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
-		if (ENABLE_MODEL) {
-			getStrategy().addState(baseActivity);
-			Log.i(TAG, "Start Activity saved");
-		}
+		getStrategy().addState(baseActivity);
+		Log.i(TAG, "Start Activity saved");
 		if (screenshotEnabled()) takeScreenshot (baseActivity);
 		planFirstTests(baseActivity);
 	}
@@ -102,7 +100,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			getPersistence().addTask(theTask);
 			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
 			else doNotPlanTests();
-			if ( (getStrategy().checkForTermination()) || (getStrategy().checkForPause()) ) break;
+			if (getStrategy().checkForPause()) break;
 		}
 	}
 
@@ -139,9 +137,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	public void importActivitiyList(ResumingPersistence r) {
-		if (getStrategy().getComparator() instanceof StatelessComparator) {
-			return;
-		}
 		List<String> entries;
 		Session sandboxSession = getNewSession();
 		Element e;

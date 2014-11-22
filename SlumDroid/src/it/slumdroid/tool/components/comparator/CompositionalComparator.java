@@ -16,15 +16,28 @@
 package it.slumdroid.tool.components.comparator;
 
 import it.slumdroid.tool.model.Comparator;
-
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
 import static it.slumdroid.droidmodels.model.SimpleType.*;
 
 public class CompositionalComparator implements Comparator {
 
+	private static String[] WIDGET_TYPES  = {
+		AUTOC_TEXT, CHECKTEXT, EDIT_TEXT, NOEDITABLE_TEXT, 					// TEXT 
+		BUTTON, CHECKBOX, NUMBER_PICKER_BUTTON,	RADIO, TOGGLE_BUTTON, 		// BUTTON
+		ACTION_HOME, DIALOG_TITLE, EXPAND_MENU, MENU_ITEM, TOAST, 			// BASIC
+		DATE_PICKER, NUMBER_PICKER, TIME_PICKER, 							// PICKER
+		EMPTY_LIST, LIST_VIEW, PREFERENCE_LIST,								// LIST
+		LINEAR_LAYOUT, RELATIVE_LAYOUT,										// LAYOUT
+		IMAGE_VIEW, MENU_VIEW, TEXT_VIEW, WEB_VIEW,							// VIEW
+		PROGRESS_BAR, RATING_BAR, SEARCH_BAR, SEEK_BAR,						// BAR
+		EMPTY_SPINNER, SPINNER, SPINNER_INPUT,								// SPINNER
+		POPUP_MENU, POPUP_WINDOW,											// POPUP
+		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
+	};
+	
 	@Override
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
 		if (!compareNameTitle(currentActivity, storedActivity)) return false; 
