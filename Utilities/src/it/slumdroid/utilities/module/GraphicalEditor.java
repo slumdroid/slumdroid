@@ -76,13 +76,14 @@ public class GraphicalEditor extends JFrame {
 	
 	@SuppressWarnings("unchecked")
 	public GraphicalEditor(final String expPath, String appPack, String appClass) {
+		setResizable(false);
 		setTitle("Preference Editor");
 
 		setAppPackage(appPack);
 		setAppPackageClass(appClass);
 		setFirstPath(expPath);
 
-		setBounds(100, 100, 511, 327);
+		setBounds(100, 100, 511, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -154,27 +155,27 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
 		lblInteractionParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblInteractionParameters.setBounds(255, 54, 231, 25);
+		lblInteractionParameters.setBounds(255, 79, 231, 25);
 		contentPane.add(lblInteractionParameters);
 
 		JLabel lblEdittextInteractions = new JLabel("EditText Interactions");
-		lblEdittextInteractions.setBounds(255, 86, 132, 14);
+		lblEdittextInteractions.setBounds(255, 113, 132, 14);
 		contentPane.add(lblEdittextInteractions);
 
 		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete Interactions");
-		lblAutocompleteInteractions.setBounds(255, 117, 147, 14);
+		lblAutocompleteInteractions.setBounds(255, 136, 132, 14);
 		contentPane.add(lblAutocompleteInteractions);
 
 		JLabel lblCheckboxInteractions = new JLabel("CheckBox Interactions");
-		lblCheckboxInteractions.setBounds(255, 166, 132, 14);
+		lblCheckboxInteractions.setBounds(255, 186, 132, 14);
 		contentPane.add(lblCheckboxInteractions);
 
 		JLabel lblToggleInteractions = new JLabel("Toggle Interactions");
-		lblToggleInteractions.setBounds(255, 189, 132, 14);
+		lblToggleInteractions.setBounds(255, 211, 132, 14);
 		contentPane.add(lblToggleInteractions);
 
 		JLabel lblTextInputs = new JLabel("Text Inputs");
-		lblTextInputs.setBounds(255, 142, 132, 14);
+		lblTextInputs.setBounds(255, 161, 132, 14);
 		contentPane.add(lblTextInputs);
 
 		// FormattedTextField
@@ -218,27 +219,27 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(tabBox);
 
 		editTextBox = new JComboBox(interactions);
-		editTextBox.setBounds(397, 83, 89, 20);
+		editTextBox.setBounds(397, 110, 89, 20);
 		editTextBox.setSelectedIndex(1);
 		contentPane.add(editTextBox);
 
 		autoCompleteBox = new JComboBox(interactions);
-		autoCompleteBox.setBounds(397, 114, 89, 20);
+		autoCompleteBox.setBounds(397, 133, 89, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
 
 		checkBox = new JComboBox(interactions);
-		checkBox.setBounds(397, 163, 89, 20);
+		checkBox.setBounds(397, 183, 89, 20);
 		checkBox.setSelectedIndex(1);
 		contentPane.add(checkBox);
 
 		toggleBox = new JComboBox(interactions);
-		toggleBox.setBounds(397, 186, 89, 20);
+		toggleBox.setBounds(397, 208, 89, 20);
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 
 		inputTextBox = new JComboBox(inputs);
-		inputTextBox.setBounds(397, 142, 89, 20);
+		inputTextBox.setBounds(397, 158, 89, 20);
 		contentPane.add(inputTextBox);
 
 		schedulerBox = new JComboBox(algorithm);
@@ -248,7 +249,7 @@ public class GraphicalEditor extends JFrame {
 		
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation Testing");
-		chckbxInputPertubation.setBounds(255, 207, 229, 23);
+		chckbxInputPertubation.setBounds(10, 237, 229, 23);
 		contentPane.add(chckbxInputPertubation);
 
 		// Button
@@ -259,7 +260,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 235, 150, 43);
+		btnDefaultValues.setBounds(245, 235, 150, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
@@ -269,7 +270,7 @@ public class GraphicalEditor extends JFrame {
 				saveXML(expPath); 
 			}
 		});
-		btnSave.setBounds(397, 235, 89, 43);
+		btnSave.setBounds(397, 235, 89, 27);
 		contentPane.add(btnSave);
 		
 		resetDefaultValues();
