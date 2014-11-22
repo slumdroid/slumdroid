@@ -36,15 +36,14 @@ public class Utilities {
 					else if (args[0].equals("coverageI")) new Tools().covGenerator(INCREMENTAL_COV);
 					else if (args[0].equals("coverageText")) new Tools().covTextParsing(args[1]); 
 				} 	
-				else if (args[0].equals("graphicalEditor")) {
-					final boolean random = args[1].equals("1"); 
-					final String path = args[2];
-					final String appPackage = args[3];
-					final String appClass = args[4];
+				else if (args[0].equals("graphicalEditor")) { 
+					final String expPath = args[1];
+					final String appPackage = args[2];
+					final String appClass = args[3];
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								GraphicalEditor frame = new GraphicalEditor(random, path, appPackage, appClass);
+								GraphicalEditor frame = new GraphicalEditor(expPath, appPackage, appClass);
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
