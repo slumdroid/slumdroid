@@ -76,14 +76,13 @@ public class GraphicalEditor extends JFrame {
 	
 	@SuppressWarnings("unchecked")
 	public GraphicalEditor(final String expPath, String appPack, String appClass) {
-		setResizable(false);
 		setTitle("Preference Editor");
 
 		setAppPackage(appPack);
 		setAppPackageClass(appClass);
 		setFirstPath(expPath);
 
-		setBounds(100, 100, 511, 300);
+		setBounds(100, 100, 530, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -146,7 +145,7 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblComparatorParameters = new JLabel("Comparator Parameters");
 		lblComparatorParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblComparatorParameters.setBounds(255, 5, 231, 27);
+		lblComparatorParameters.setBounds(255, 5, 249, 27);
 		contentPane.add(lblComparatorParameters);
 
 		JLabel lblCompareListCount = new JLabel("Compare List Count");
@@ -155,7 +154,7 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
 		lblInteractionParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblInteractionParameters.setBounds(255, 79, 231, 25);
+		lblInteractionParameters.setBounds(255, 79, 249, 25);
 		contentPane.add(lblInteractionParameters);
 
 		JLabel lblEdittextInteractions = new JLabel("EditText Interactions");
@@ -204,47 +203,47 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(waitingThrobberField);
 
 		screenshotBox = new JComboBox(bool);
-		screenshotBox.setBounds(128, 33, 107, 20);
+		screenshotBox.setBounds(138, 33, 107, 20);
 		screenshotBox.setSelectedIndex(0);
 		contentPane.add(screenshotBox);
 
 		listComparatorBox = new JComboBox(bool);
 		listComparatorBox.setSelectedIndex(1);
-		listComparatorBox.setBounds(368, 33, 118, 20);
+		listComparatorBox.setBounds(386, 33, 118, 20);
 		contentPane.add(listComparatorBox);
 
 		tabBox = new JComboBox(bool);
-		tabBox.setBounds(128, 83, 107, 20);
+		tabBox.setBounds(138, 83, 107, 20);
 		tabBox.setSelectedIndex(1);
 		contentPane.add(tabBox);
 
 		editTextBox = new JComboBox(interactions);
-		editTextBox.setBounds(397, 110, 89, 20);
+		editTextBox.setBounds(415, 110, 89, 20);
 		editTextBox.setSelectedIndex(1);
 		contentPane.add(editTextBox);
 
 		autoCompleteBox = new JComboBox(interactions);
-		autoCompleteBox.setBounds(397, 133, 89, 20);
+		autoCompleteBox.setBounds(415, 133, 89, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
 
 		checkBox = new JComboBox(interactions);
-		checkBox.setBounds(397, 183, 89, 20);
+		checkBox.setBounds(415, 183, 89, 20);
 		checkBox.setSelectedIndex(1);
 		contentPane.add(checkBox);
 
 		toggleBox = new JComboBox(interactions);
-		toggleBox.setBounds(397, 208, 89, 20);
+		toggleBox.setBounds(415, 208, 89, 20);
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 
 		inputTextBox = new JComboBox(inputs);
-		inputTextBox.setBounds(397, 158, 89, 20);
+		inputTextBox.setBounds(415, 158, 89, 20);
 		contentPane.add(inputTextBox);
 
 		schedulerBox = new JComboBox(algorithm);
 		schedulerBox.setSelectedIndex(1);
-		schedulerBox.setBounds(128, 59, 107, 20);
+		schedulerBox.setBounds(138, 58, 107, 20);
 		contentPane.add(schedulerBox);
 		
 		// CheckBox
@@ -260,7 +259,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 235, 150, 27);
+		btnDefaultValues.setBounds(255, 235, 150, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
@@ -270,7 +269,7 @@ public class GraphicalEditor extends JFrame {
 				saveXML(expPath); 
 			}
 		});
-		btnSave.setBounds(397, 235, 89, 27);
+		btnSave.setBounds(415, 235, 89, 27);
 		contentPane.add(btnSave);
 		
 		resetDefaultValues();
