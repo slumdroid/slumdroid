@@ -22,8 +22,6 @@ import android.content.ContextWrapper;
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
 
-import static it.slumdroid.tool.Resources.ENABLE_MODEL;
-
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
 
 	private int step = 1;
@@ -102,7 +100,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 
 	public void saveStep () {
-		if (ENABLE_MODEL) save(isLast());
+		save(isLast());
 		for (Task t: getSession()) {
 			getSession().removeTask(t);
 		}
@@ -117,7 +115,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	public void save (boolean last) {
 		if (!isFirst()) this.mode = ContextWrapper.MODE_APPEND;
 		if (last) setLast();		
-		if (ENABLE_MODEL) super.save();
+		super.save();
 	}
 
 	public boolean isFirst () {

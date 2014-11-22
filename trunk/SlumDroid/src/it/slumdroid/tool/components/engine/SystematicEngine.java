@@ -18,6 +18,7 @@ package it.slumdroid.tool.components.engine;
 import it.slumdroid.tool.components.GuiTreeAbstractor;
 import it.slumdroid.tool.components.UltraPlanner;
 import it.slumdroid.tool.components.automation.Automation;
+import it.slumdroid.tool.components.comparator.CompositionalComparator;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
 import it.slumdroid.tool.components.strategy.*;
@@ -30,7 +31,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.Session;
-import static it.slumdroid.tool.Resources.*;
 
 public class SystematicEngine extends Engine {
 
@@ -74,7 +74,7 @@ public class SystematicEngine extends Engine {
 		planner.setFormFiller(user);
 		planner.setAbstractor(this.guiAbstractor);
 		setPlanner (planner);		
-		this.theStrategyFactory = new StrategyFactory(COMPARATOR); 
+		this.theStrategyFactory = new StrategyFactory(new CompositionalComparator()); 
 		this.thePersistenceFactory = new PersistenceFactory (this.theGuiTree, getScheduler());
 	}
 

@@ -61,7 +61,6 @@ public class PersistenceFactory {
 		resumer.setTaskListFile(TASK_LIST_FILE_NAME);
 		resumer.setActivityFile(ACTIVITY_LIST_FILE_NAME);
 		resumer.setParametersFile(PARAMETERS_FILE_NAME);
-		getStrategy().registerTerminationListener(resumer);
 		for (SaveStateListener saver: stateSavers) {
 			resumer.registerListener(saver);
 		}

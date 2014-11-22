@@ -16,16 +16,12 @@
 package it.slumdroid.tool.components.strategy;
 
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.Resources.ENABLE_MODEL;
-import static it.slumdroid.tool.Resources.COMPARATOR_TYPE;
-import static it.slumdroid.tool.Resources.NULL_COMPARATOR;
+
 import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.PauseCriteria;
 import it.slumdroid.tool.model.StateDiscoveryListener;
 import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.model.StrategyCriteria;
-import it.slumdroid.tool.model.TerminationCriteria;
-import it.slumdroid.tool.model.TerminationListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,28 +36,20 @@ public class CustomStrategy implements Strategy {
 
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
 	private Comparator c;
-	protected Collection<TerminationCriteria> terminators = new ArrayList<TerminationCriteria>();
 	protected Collection<PauseCriteria> pausers = new ArrayList<PauseCriteria>();
 	protected boolean positiveComparation = true;
 	private Task theTask;
 	private ActivityState beforeEvent;
 	private ActivityState afterEvent;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
-	private List<TerminationListener> endListeners = new ArrayList<TerminationListener>();
 	
-	public CustomStrategy (Comparator c, StrategyCriteria ... criterias) {
+	public CustomStrategy (Comparator c) {
 		super();
 		setComparator(c);
-		for (StrategyCriteria s: criterias) {
-			if (s==null) continue;
-			addCriteria(s);
-		}
 	}
 	
 	public void addCriteria (StrategyCriteria criteria) {
-		if (criteria instanceof TerminationCriteria) {
-			addTerminationCriteria((TerminationCriteria)criteria);
-		} else if (criteria instanceof PauseCriteria) {
+		if (criteria instanceof PauseCriteria) {
 			addPauseCriteria((PauseCriteria)criteria);
 		}
 	}
@@ -82,20 +70,17 @@ public class CustomStrategy implements Strategy {
 			return false;
 		}
 
-		if (!COMPARATOR_TYPE.equals(NULL_COMPARATOR)){
-			for (ActivityState stored: guiNodes) {
-				if (getComparator().compare(theActivity, stored)) {
-					theActivity.setId(stored.getId());
-					Log.i(TAG, "This activity state is equivalent to " + stored.getId());
-					return true;
-				}
-			}	
-		}
+		for (ActivityState stored: guiNodes) {
+			if (getComparator().compare(theActivity, stored)) {
+				theActivity.setId(stored.getId());
+				Log.i(TAG, "This activity state is equivalent to " + stored.getId());
+				return true;
+			}
+		}	
+		
 		this.positiveComparation = false;
-		if (ENABLE_MODEL) {
-			if (!COMPARATOR_TYPE.equals(NULL_COMPARATOR)) Log.i(TAG, "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
-			addState (theActivity);
-		}
+		Log.i(TAG, "Registering activity " + name + " (id: " + theActivity.getId() + ") as a new found state");
+		addState (theActivity);
 		return false;
 	}
 	
@@ -103,28 +88,11 @@ public class CustomStrategy implements Strategy {
 		return !this.positiveComparation;		
 	}
 
-	public boolean checkForTermination () { // Logic OR of the criteria
-		for (TerminationCriteria t: this.terminators) {
-			if (t.termination()) {
-				for (TerminationListener tl: getEndListeners()) {
-					tl.onTerminate();
-				}
-				return true;
-			}
-		}
-		return false;
-	}
-
 	public boolean checkForPause () { // Logic OR of the criteria
 		for (PauseCriteria p: this.pausers) {
 			if (p.pause()) return true;
 		}
 		return false;
-	}
-
-	public void addTerminationCriteria (TerminationCriteria t) {
-		t.setStrategy(this);
-		this.terminators.add(t);
 	}
 
 	public void addPauseCriteria (PauseCriteria p) {
@@ -161,16 +129,8 @@ public class CustomStrategy implements Strategy {
 		return this.theListeners;
 	}
 
-	public List<TerminationListener> getEndListeners() {
-		return this.endListeners;
-	}
-
 	public void registerStateListener(StateDiscoveryListener theListener) {
 		this.theListeners.add(theListener);
-	}
-
-	public void registerTerminationListener(TerminationListener theListener) {
-		this.endListeners.add(theListener);
 	}
 
 }
