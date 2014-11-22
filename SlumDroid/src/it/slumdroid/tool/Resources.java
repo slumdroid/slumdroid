@@ -140,9 +140,6 @@ public class Resources {
 		}
 		return isClick;
 	}
-
-	// Scheduler Parameters
-	public static int MAX_TASKS_IN_SCHEDULER = 0;
 	
 	public static Class<?> theClass;
 
