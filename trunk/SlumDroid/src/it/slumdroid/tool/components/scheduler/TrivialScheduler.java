@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.components.scheduler;
 
-import static it.slumdroid.tool.Resources.MAX_TASKS_IN_SCHEDULER;
 import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.TaskScheduler;
@@ -87,23 +86,7 @@ class TrivialScheduler implements TaskScheduler {
 	}
 
 	public void addTasks(Task t) {
-		discardTasks();
 		this.tasks.add(t);
-	}
-
-	private void discardTasks() {
-		if (MAX_TASKS_IN_SCHEDULER==0) return;
-		while (this.tasks.size()>=MAX_TASKS_IN_SCHEDULER) {
-			switch (algorithm) {
-			case DEPTH_FIRST: 
-				remove (firstTask());
-				break;
-			case BREADTH_FIRST: 
-			default: 
-				remove (lastTask());
-				break;
-			}
-		}
 	}
 
 	public Task firstTask() {
