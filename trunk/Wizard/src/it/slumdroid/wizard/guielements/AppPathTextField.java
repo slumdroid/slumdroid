@@ -55,7 +55,7 @@ public class AppPathTextField extends PathTextField {
 				Wizard.clearText();
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
-				fileChooser.setDialogTitle("Select the AAuT Folder");
+				fileChooser.setDialogTitle("Select the AuT Folder");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					setPath(fileChooser.getSelectedFile().toString());

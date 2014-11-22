@@ -40,16 +40,12 @@ import static it.slumdroid.wizard.tools.CommandLine.*;
 public class Wizard {
 
 	private JFrame frmWizard;
-
-	private static JTextField randomevents;
 	private static JTextField textFieldAAuTpackage;
 	private static JTextField textFieldAAuTClass;
 	private static PathTextField textFieldResults;
 
 	private static AppPathTextField textFieldAAuTPath;
 	private static AvdComboBox comboBoxAVDs;
-
-	private static JCheckBox chckbxRandom;
 	private static JButton btnDeploy;
 	private static JButton btnGenerateReports;
 	private static JButton btnLoadAvds;
@@ -91,7 +87,7 @@ public class Wizard {
 		frmWizard.setResizable(false);
 		frmWizard.setTitle("SlumDroid Wizard");
 		frmWizard.setFont(new Font("Arial", Font.PLAIN, 10));
-		frmWizard.setBounds(100, 100, 343, 381);
+		frmWizard.setBounds(100, 100, 343, 348);
 		frmWizard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWizard.getContentPane().setLayout(null);
 
@@ -112,25 +108,19 @@ public class Wizard {
 		btnOpenResultsFolder.setBounds(227, 142, 90, 20);
 		frmWizard.getContentPane().add(btnOpenResultsFolder);
 
-		randomevents = new JTextField();
-		randomevents.setHorizontalAlignment(SwingConstants.RIGHT);
-		randomevents.setBounds(227, 186, 90, 20);
-		randomevents.setEnabled(false);
-		frmWizard.getContentPane().add(randomevents);
-
 		JLabel lblAvdName = new JLabel("AVD Name");
 		lblAvdName.setBounds(10, 11, 62, 20);
 		frmWizard.getContentPane().add(lblAvdName);
 
-		JLabel lblAutPath = new JLabel("AAuT Path");
+		JLabel lblAutPath = new JLabel("AuT Path");
 		lblAutPath.setBounds(10, 40, 62, 20);
 		frmWizard.getContentPane().add(lblAutPath);
 
-		JLabel lblAutPackage = new JLabel("AAuT Package");
+		JLabel lblAutPackage = new JLabel("AuT Package");
 		lblAutPackage.setBounds(10, 64, 90, 20);
 		frmWizard.getContentPane().add(lblAutPackage);
 
-		JLabel lblAutClass = new JLabel("AAuT Class");
+		JLabel lblAutClass = new JLabel("AuT Class");
 		lblAutClass.setBounds(10, 89, 90, 20);
 		frmWizard.getContentPane().add(lblAutClass);
 
@@ -183,19 +173,18 @@ public class Wizard {
 		btnGenerateReports = new JButton("Generate Reports");
 		btnGenerateReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cycles = (chckbxRandom.isSelected())?randomevents.getText():"0";
 				DownSide(false);
 				BackWorker bw = new BackWorker();
 				bw.setFile(getResultPath()+File.separator+"artifact.txt");
 				bw.execute();
 				String thePackage = textFieldAAuTpackage.getText();
-				String commandLine = CommandLine.get(POST_PROCESS, CYCLES, cycles ,PACKAGE, thePackage);
+				String commandLine = CommandLine.get(POST_PROCESS, PACKAGE, thePackage);
 				ExternalProcess.executeCommand(commandLine);
 			}
 		});
 		btnGenerateReports.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnGenerateReports.setEnabled(false);
-		btnGenerateReports.setBounds(10, 305, 307, 28);
+		btnGenerateReports.setBounds(10, 276, 307, 28);
 		frmWizard.getContentPane().add(btnGenerateReports);
 
 		btnFirstBoot = new JButton("Start AVD");
@@ -204,45 +193,31 @@ public class Wizard {
 				if (getResultPath().equals(textFieldAAuTPath.getPath())){
 					JOptionPane.showMessageDialog(null, "AAuT Path and Results Path must be different", "Information", JOptionPane.INFORMATION_MESSAGE);
 				}else{
-					boolean success = true;
-					try{
-						if (!chckbxRandom.isSelected()) success = true;
-						else{
-							int number = Integer.parseInt(randomevents.getText());
-							if (number<1) success=false;
-						}
-					}catch (NumberFormatException ex){
-						success = false;
-					}
-					if (success==true){
-						String command = (chckbxRandom.isSelected())?FIRST_BOOT_RANDOM:FIRST_BOOT;
-						String avd = comboBoxAVDs.getDevice();
-						String thePackage = textFieldAAuTpackage.getText();
-						String theClass = textFieldAAuTClass.getText();
-						
-							try{
-								String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
-								DownSide(false);
-								Upside(false);				
 
-								BackWorker bw = new BackWorker();
-								bw.setFile(getResultPath()+File.separator+"firstboot.txt");
-								bw.execute();
-								ExternalProcess.executeCommand(commandLine);	
-							}catch (Exception e){
-								e.printStackTrace();
-								JOptionPane.showMessageDialog(null, "AVD List doesn't loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
-							}
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "#Events must be a number greater than zero", "Information", JOptionPane.INFORMATION_MESSAGE);
+					String command = FIRST_BOOT;
+					String avd = comboBoxAVDs.getDevice();
+					String thePackage = textFieldAAuTpackage.getText();
+					String theClass = textFieldAAuTClass.getText();
+
+					try{
+						String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
+						DownSide(false);
+						Upside(false);				
+
+						BackWorker bw = new BackWorker();
+						bw.setFile(getResultPath()+File.separator+"firstboot.txt");
+						bw.execute();
+						ExternalProcess.executeCommand(commandLine);	
+					}catch (Exception e){
+						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, "AVD List doesn't loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
 		});
 		btnFirstBoot.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnFirstBoot.setEnabled(false);
-		btnFirstBoot.setBounds(10, 215, 307, 28);
+		btnFirstBoot.setBounds(10, 185, 307, 28);
 		frmWizard.getContentPane().add(btnFirstBoot);
 
 		btnDeploy = new JButton("Deploy");
@@ -262,56 +237,28 @@ public class Wizard {
 				ExternalProcess.executeCommand(commandLine);
 			}
 		});
-		btnDeploy.setBounds(10, 245, 307, 28);
+		btnDeploy.setBounds(10, 216, 307, 28);
 		frmWizard.getContentPane().add(btnDeploy);
 
 		btnRunSlumDroid = new JButton("Run SlumDroid");
 		btnRunSlumDroid.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String command = (chckbxRandom.isSelected())?RANDOM_TEST:SYSTEMATIC_TEST;
+				String command = SYSTEMATIC_TEST;
 				String thePackage = textFieldAAuTpackage.getText();
-				String cycles = (chckbxRandom.isSelected())?randomevents.getText():"0";
-				boolean success = true;
-				try{
-					if (!chckbxRandom.isSelected()) success = true;
-					else{
-						int number = Integer.parseInt(randomevents.getText());
-						if (number<1) success=false;
-					}
-				}catch (NumberFormatException ex){
-					success = false;
-				}
-				if (success==true){
-					String commandLine = CommandLine.get(command, DEVICE, comboBoxAVDs.getDevice(), PACKAGE, thePackage, CYCLES, cycles);	
+				String commandLine = CommandLine.get(command, DEVICE, comboBoxAVDs.getDevice(), PACKAGE, thePackage);	
+				DownSide(false);
+				Upside(false);
+				BackWorker bw = new BackWorker();
+				bw.setFile(getResultPath()+File.separator+"ripper.txt");
+				bw.execute();
+				ExternalProcess.executeCommand(commandLine);
 
-					DownSide(false);
-					Upside(false);
-
-					BackWorker bw = new BackWorker();
-					bw.setFile(getResultPath()+File.separator+"ripper.txt");
-					bw.execute();
-
-					ExternalProcess.executeCommand(commandLine);
-				}
-				else{
-					JOptionPane.showMessageDialog(null, "#Cycles must be a number greater than zero", "Information", JOptionPane.INFORMATION_MESSAGE);
-				}
 			}
 		});
 		btnRunSlumDroid.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnRunSlumDroid.setEnabled(false);
-		btnRunSlumDroid.setBounds(10, 275, 307, 28);
+		btnRunSlumDroid.setBounds(10, 246, 307, 28);
 		frmWizard.getContentPane().add(btnRunSlumDroid);
-
-		chckbxRandom = new JCheckBox("Random Ripper                      # Events");
-		chckbxRandom.setFont(new Font("Tahoma", Font.BOLD, 9));
-		chckbxRandom.setBounds(9, 186, 211, 20);
-		chckbxRandom.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				randomevents.setEnabled(chckbxRandom.isSelected());
-			}
-		});
-		frmWizard.getContentPane().add(chckbxRandom);
 		
 		separator_1 = new JSeparator();
 		separator_1.setBounds(10, 173, 307, 4);
@@ -416,9 +363,7 @@ public class Wizard {
 		btnLoadAvds.setEnabled(b);
 		btnResults.setEnabled(b);
 		btnSelectAAutPath.setEnabled(b);
-		chckbxRandom.setEnabled(b);
 		comboBoxAVDs.setEnabled(b);
-		randomevents.setEnabled(b);
 	}
 
 	public static void DownSide(boolean b){
