@@ -71,26 +71,21 @@ public class CommandLine {
 	public final static String DEVICE = "device";
 	public final static String CLASS = "class";
 	public final static String PACKAGE = "package";
-	public final static String CYCLES = "randomCycles";
 	public final static String DUMP_APK = "dump apk";
 	public final static String LOAD_AVD = "load avd";
 	public final static String DEPLOY = "deploy";
-	public final static String RANDOM_TEST = "test random";
 	public final static String SYSTEMATIC_TEST = "test systematic";
 	public final static String POST_PROCESS = "postproc";
 	public final static String CLOSE = "close";
 	public final static String FIRST_BOOT = "first boot";
-	public final static String FIRST_BOOT_RANDOM = "first boot_random";
 
 	// DOS commands
 	static String place = System.getProperty("user.dir");
 	static {
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
 		dosCommands.put(LOAD_AVD, (System.getenv("ANDROID_HOME") + "\\tools\\android.bat list avd"));
-		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 0 " + arg(PACKAGE) + " " + arg(CLASS) );
-		dosCommands.put(FIRST_BOOT_RANDOM, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " 1 " + arg(PACKAGE) + " " + arg(CLASS));
+		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) );
 		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + arg(DEVICE) + " " + path(APP_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) + " " + path(RESULTS_PATH));
-		dosCommands.put(RANDOM_TEST, place + "\\batch\\Random.bat " + arg(DEVICE) + " " + arg(PACKAGE) + " " + path(RESULTS_PATH) + " 10 " + arg(CYCLES));
 		dosCommands.put(SYSTEMATIC_TEST, place + "\\batch\\Ripper.bat " + arg(DEVICE) + " " + arg(PACKAGE) + " " + path(RESULTS_PATH) + " 10");
 		dosCommands.put(POST_PROCESS, place + "\\batch\\PostProcess.bat " + path(RESULTS_PATH) + " " + path(APP_PATH) + " " + arg(PACKAGE));
 		dosCommands.put(CLOSE, place + "\\batch\\close.bat");
