@@ -44,7 +44,8 @@ class TrivialScheduler implements TaskScheduler {
 		if (!hasMore()) return null;
 		switch (algorithm) {
 		case DEPTH_FIRST: return lastTask();
-		case BREADTH_FIRST: 
+		case BREADTH_FIRST:
+		case RANDOM:
 		default: return firstTask();
 		}
 	}
@@ -62,9 +63,8 @@ class TrivialScheduler implements TaskScheduler {
 		switch (algorithm) {
 		case DEPTH_FIRST:
 			Collections.reverse(newTasks);
-			addTasks(newTasks);
-			break;
-		case BREADTH_FIRST: 
+		case BREADTH_FIRST:
+		case RANDOM:
 		default: addTasks(newTasks);
 		}
 	}
