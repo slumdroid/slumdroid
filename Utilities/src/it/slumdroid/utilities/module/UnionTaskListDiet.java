@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.prefs.Preferences;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -42,66 +43,60 @@ public class UnionTaskListDiet {
 	static Preferences prefs;
 
 	static final String FAKE_TASK_IDENTIFIER = "!_FAKE_TASK_!";
-	static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\""+FAKE_TASK_IDENTIFIER+"\" id=\"_ID_\"/>";
+	static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\"" + FAKE_TASK_IDENTIFIER + "\" id=\"_ID_\"/>";
 	static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
 	static String TASKLIST_XML = new String();
 
 	public void tasklistDiet(String filePath, String preferencesPath){
 		TASKLIST_XML = filePath + "/tasklist.xml";
-		if (!loadPreferences(preferencesPath)) {
-			try {
+		if (returnAlgorithm(preferencesPath) == null 
+				|| returnAlgorithm(preferencesPath).equals("BREADTH_FIRST")){
+			mergeTasklistsBreadth();
+		} else {
+			if (returnAlgorithm(preferencesPath).equals("DEPTH_FIRST")){
 				mergeTasklistsDepth();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else{
-			try {
-				mergeTasklistsBreadth();
-			} catch (Exception e) {
-				e.printStackTrace();
+			} else{ // RANDOM
+				extractRandomTask();
 			}
 		}
 	}
-
-	private static boolean loadPreferences (String path) {
+	
+	private static String returnAlgorithm (String path) {
 		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
 		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().loadNode(path);
 		String BREADTH = "BREADTH_FIRST";
-		if (prefs.get("SCHEDULER_ALGORITHM", BREADTH) != null) {
-			return (prefs.get("SCHEDULER_ALGORITHM", BREADTH).equals(BREADTH));
-		} else return true;		
+		return prefs.get("SCHEDULER_ALGORITHM", BREADTH);
 	}
 
-	private static void mergeTasklistsDepth() throws Exception {	
-		ArrayList<String> tasklist_diet = readAndDeleteTasklistDietFile();        
-		if (tasklist_diet == null) tasklist_diet = new ArrayList<String>();
+	private static void mergeTasklistsDepth() {
+		try {
+			ArrayList<String> tasklist_diet = readAndDeleteTasklistDietFile();        
+			if (tasklist_diet == null) tasklist_diet = new ArrayList<String>();
 
-		ArrayList<String> tasklist_xml = readAndDeleteTasklistFile();
-		if (tasklist_xml == null) tasklist_xml = new ArrayList<String>();
+			ArrayList<String> tasklist_xml = readAndDeleteTasklistFile();
+			if (tasklist_xml == null) tasklist_xml = new ArrayList<String>();
 
-		ArrayList<String> tasklist_out = null;
-		tasklist_out = handleDepht(tasklist_diet, tasklist_xml);
-
-		if (tasklist_out.size() > 0) {
-			FileWriter outFile = new FileWriter(TASKLIST_XML, false);
-			PrintWriter out = new PrintWriter(outFile);
-
-			handleDepthOutTasklist(out, tasklist_out);
-
-			out.close();
+			ArrayList<String> tasklist_out = null;
+			tasklist_out = handleDepht(tasklist_diet, tasklist_xml);
 
 			if (tasklist_out.size() > 0) {
-				outFile = new FileWriter(TASKLIST_DIET_XML, false);
-				out = new PrintWriter(outFile);
-
-				for ( String s: tasklist_out )
-					out.println(s);            
-
+				FileWriter outFile = new FileWriter(TASKLIST_XML, false);
+				PrintWriter out = new PrintWriter(outFile);
+				handleDepthOutTasklist(out, tasklist_out);
 				out.close();
-			}
+				if (tasklist_out.size() > 0) {
+					outFile = new FileWriter(TASKLIST_DIET_XML, false);
+					out = new PrintWriter(outFile);
+					for ( String s: tasklist_out ){
+						out.println(s);
+					}
+					out.close();
+				}
+			}	
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -128,25 +123,25 @@ public class UnionTaskListDiet {
 			FileInputStream fstream = new FileInputStream(TASKLIST_XML);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
 			String strLine;
-			while ((strLine = br.readLine()) != null)
-				if (strLine.length() > 1)
+			while ((strLine = br.readLine()) != null){
+				if (strLine.length() > 1) {
 					tasklist_xml.add(strLine);
-
+				}	
+			}
 			in.close();
 			new File(TASKLIST_XML).delete();
-
 			return tasklist_xml;
 		}
 		else return null;
-
 	}
 
 	private static int getFakeTracePosition(ArrayList<String> tasklist) {
-		for (int i = 0; i < tasklist.size(); i++)
-			if (tasklist.get(i).contains(FAKE_TASK_IDENTIFIER))
+		for (int i = 0; i < tasklist.size(); i++){
+			if (tasklist.get(i).contains(FAKE_TASK_IDENTIFIER)){
 				return i;
+			}
+		}
 		return -1;
 	}
 
@@ -161,17 +156,15 @@ public class UnionTaskListDiet {
 		try {
 			if (new File(TASKLIST_DIET_XML).exists()) {
 				tasklist_diet_xml_found = true;
-
 				FileInputStream fstream = new FileInputStream(TASKLIST_DIET_XML);
 				DataInputStream in = new DataInputStream(fstream);
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
-					if (strLine.equals("") == false )
+					if (strLine.equals("") == false ){
 						tasklist_diet.add(strLine);
+					}
 				}
-
 				in.close();
 				new File(TASKLIST_DIET_XML).delete();
 				lastID = Integer.valueOf( getID( tasklist_diet.get(tasklist_diet.size() - 1) ) ) + 1;                
@@ -181,7 +174,6 @@ public class UnionTaskListDiet {
 				FileInputStream fstream = new FileInputStream(TASKLIST_XML);
 				DataInputStream in = new DataInputStream(fstream);
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
 					if (strLine.length() > 1) {
@@ -197,10 +189,8 @@ public class UnionTaskListDiet {
 						}
 					}		
 				}   
-
 				in.close();
 				new File(TASKLIST_XML).delete();
-
 				for (String task : tasklist_xml) {
 					if (tasklist_diet_xml_found) {
 						tasklist_diet.add( new String( setID(task, lastID++) ) );
@@ -210,11 +200,9 @@ public class UnionTaskListDiet {
 					}
 				}
 			}
-
 			if (tasklist_diet.size() > 0) {
 				FileWriter outFile = new FileWriter(TASKLIST_XML, false);
 				PrintWriter out = new PrintWriter(outFile);
-
 				int num = 0;
 				String lastString = tasklist_diet.remove(num);
 				out.println(lastString);
@@ -222,14 +210,93 @@ public class UnionTaskListDiet {
 				Integer id_fake = Integer.parseInt( getID( lastString ) ) + 1;
 				out.println(FAKE_TASK.replace("_ID_", id_fake.toString()));
 				out.close();
-
 				if (tasklist_diet.size() > 0) {
 					outFile = new FileWriter(TASKLIST_DIET_XML, false);
 					out = new PrintWriter(outFile);
+					for ( String s: tasklist_diet ){
+						out.println(s);
+					}
+					out.close();
+				}
+			}           
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void extractRandomTask() {
+		boolean tasklist_diet_xml_found = false;
+		boolean previous_track_found = false;
 
-					for ( String s: tasklist_diet )
-						out.println(s);            
+		int lastID = 0;
+		ArrayList<String> tasklist_diet = new ArrayList<String>();
+		ArrayList<String> tasklist_xml = new ArrayList<String>();
 
+		try {
+			if (new File(TASKLIST_DIET_XML).exists()) {
+				tasklist_diet_xml_found = true;
+				FileInputStream fstream = new FileInputStream(TASKLIST_DIET_XML);
+				DataInputStream in = new DataInputStream(fstream);
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				String strLine;
+				while ((strLine = br.readLine()) != null) {
+					if (strLine.equals("") == false )
+						tasklist_diet.add(strLine);
+				}
+				in.close();
+				new File(TASKLIST_DIET_XML).delete();
+				lastID = Integer.valueOf( getID( tasklist_diet.get(tasklist_diet.size() - 1) ) ) + 1;                
+			}
+			if (new File(TASKLIST_XML).exists()) {            
+				FileInputStream fstream = new FileInputStream(TASKLIST_XML);
+				DataInputStream in = new DataInputStream(fstream);
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				String strLine;
+				while ((strLine = br.readLine()) != null) {
+					if (strLine.length() > 1) {
+						if (strLine.contains(FAKE_TASK_IDENTIFIER) == false) {
+							tasklist_xml.add(strLine);
+						}
+						else {
+							if (tasklist_xml.size() > 0) {
+								previous_track_found = true;
+								tasklist_diet.addAll(0, tasklist_xml);
+								tasklist_xml.clear();
+							}
+						}
+					}		
+				}   
+				in.close();
+				new File(TASKLIST_XML).delete();
+				for (String task : tasklist_xml) {
+					if (tasklist_diet_xml_found) {
+						tasklist_diet.add(new String(setID(task, lastID++)));
+					}
+					else {
+						tasklist_diet.add(task);
+					}
+				}
+			}
+			if (tasklist_diet.size() > 0) {
+				FileWriter outFile = new FileWriter(TASKLIST_XML, false);
+				PrintWriter out = new PrintWriter(outFile);
+
+				int max = tasklist_diet.size() - 1;
+				int min = 0;
+				int num = new Random(System.currentTimeMillis()).nextInt((max - min) + 1) + min;
+				
+				String lastString = tasklist_diet.remove(num);
+				out.println(lastString);
+				if (previous_track_found) out.println(tasklist_diet.remove(num));
+				Integer id_fake = Integer.parseInt(getID(lastString)) + 1;
+				out.println(FAKE_TASK.replace("_ID_", id_fake.toString()));
+				out.close();
+				if (tasklist_diet.size() > 0) {
+					outFile = new FileWriter(TASKLIST_DIET_XML, false);
+					out = new PrintWriter(outFile);
+					for ( String s: tasklist_diet ){
+						out.println(s);
+					}
 					out.close();
 				}
 			}           
@@ -243,20 +310,15 @@ public class UnionTaskListDiet {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
 				InputSource is = new InputSource();
 				is.setCharacterStream(new StringReader(line));
-
 				Document doc = dBuilder.parse(is);
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
-
 				NodeList nList = doc.getElementsByTagName("TASK");
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
-
 				return firstNodeElement.getAttribute("id");
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -269,22 +331,16 @@ public class UnionTaskListDiet {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
 				InputSource is = new InputSource();
 				is.setCharacterStream(new StringReader(line));
-
 				Document doc = dBuilder.parse(is);
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
-
 				NodeList nList = doc.getElementsByTagName("TASK");
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
-
 				firstNodeElement.setAttribute("id", Integer.toString(newID));
-
 				return new Tools().xmlToString(doc);
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -294,21 +350,17 @@ public class UnionTaskListDiet {
 
 	private static ArrayList<String> readAndDeleteTasklistDietFile() throws Exception {
 		ArrayList<String> ret = new ArrayList<String>();
-
 		if (new File(TASKLIST_DIET_XML).exists()) {
 			FileInputStream fstream = new FileInputStream(TASKLIST_DIET_XML);
 			DataInputStream in = new DataInputStream(fstream);
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
 				if (strLine.equals("") == false )
 					ret.add(strLine);
 			}
-
 			in.close();
 			new File(TASKLIST_DIET_XML).delete();
-
 			return ret;
 		}
 		else return null;

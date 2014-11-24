@@ -45,7 +45,6 @@ public class GraphicalEditor extends JFrame {
 	private static String path = System.getProperty("user.dir") + "/../data/preferences.xml";
 	private static String appPackage = new String();
 	private static String appPackageClass = new String();
-	private static int automation = 0;
 	private static JComboBox screenshotBox;
 	private static JComboBox tabBox;
 	private static JComboBox schedulerBox;
@@ -67,13 +66,13 @@ public class GraphicalEditor extends JFrame {
 	private static JButton btnDefaultValues;
 	private static JButton btnSave;
 
-	private static String[] algorithm = {"Breadth (BFS)","Depth (DFS)"};
+	private static String[] algorithm = {"Breadth (BFS)","Depth (DFS)", "Random"};
 	private static String[] bool = {"true", "false"};
 	private static String[] inputs = {"hash values", "random values"};
 	private static String[] interactions = {"event", "input", "both", "none"};
 	private static String firstPath = new String();
 	private static StringBuilder builder = new StringBuilder();
-	
+
 	@SuppressWarnings("unchecked")
 	public GraphicalEditor(final String expPath, String appPack, String appClass) {
 		setResizable(false);
@@ -246,7 +245,7 @@ public class GraphicalEditor extends JFrame {
 		schedulerBox.setSelectedIndex(1);
 		schedulerBox.setBounds(138, 58, 107, 20);
 		contentPane.add(schedulerBox);
-		
+
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation Testing");
 		chckbxInputPertubation.setBounds(10, 237, 229, 23);
@@ -272,7 +271,7 @@ public class GraphicalEditor extends JFrame {
 		});
 		btnSave.setBounds(415, 235, 89, 27);
 		contentPane.add(btnSave);
-		
+
 		resetDefaultValues();
 	}
 
@@ -302,9 +301,20 @@ public class GraphicalEditor extends JFrame {
 		if (screenshotBox.getSelectedIndex()!=0){
 			builder.append("<entry key=\"SCREENSHOT_ENABLED\" value=\"false\"/>");
 		}
-		if (schedulerBox.getSelectedIndex()!=0){
-			builder.append("<entry key=\"SCHEDULER_ALGORITHM\" value=\"DEPTH_FIRST\"/>");
+		String scheduler_algorithm= new String();
+		switch (schedulerBox.getSelectedIndex()) {
+		case 0:
+			scheduler_algorithm = "BREADTH_FIRST";
+			break;
+		case 1: 
+			scheduler_algorithm = "DEPTH_FIRST";
+			break;
+		case 2:
+			scheduler_algorithm = "RANDOM";
+			break;
 		}
+		if (schedulerBox.getSelectedIndex()!=0) builder.append("<entry key=\"SCHEDULER_ALGORITHM\" value=\"" + scheduler_algorithm + "\"/>");
+
 		if (tabBox.getSelectedIndex()!=1){
 			builder.append("<entry key=\"TAB_EVENTS_START_ONLY\" value=\"true\"/>");
 		}
@@ -315,30 +325,31 @@ public class GraphicalEditor extends JFrame {
 	}
 
 	private void createAutomationParameters() {
+		int automation = 0;
 		if (waitingEventField.getText().equals("1000")) automation++;
 		if (waitingRestartField.getText().equals("0")) automation++;
 		if (waitingTaskField.getText().equals("0")) automation++;
 		if (waitingThrobberField.getText().equals("1000")) automation++;
-		if (automation==4) return;
+		if (automation!=4) {
+			builder.append("<node name=\"automation\">");
+			builder.append("<map>");
 
-		builder.append("<node name=\"automation\">");
-		builder.append("<map>");
+			if (!waitingEventField.getText().equals("1000")){
+				builder.append("<entry key=\"SLEEP_AFTER_EVENT\" value=\""+ Integer.valueOf(waitingEventField.getText()) +"\"/>");
+			}
+			if (!waitingRestartField.getText().equals("0")){
+				builder.append("<entry key=\"SLEEP_AFTER_RESTART\" value=\""+ Integer.valueOf(waitingRestartField.getText()) +"\"/>");
+			}
+			if (!waitingTaskField.getText().equals("0")){
+				builder.append("<entry key=\"SLEEP_AFTER_TASK\" value=\""+ Integer.valueOf(waitingTaskField.getText()) +"\"/>");
+			}
+			if (!waitingThrobberField.getText().equals("1000")){
+				builder.append("<entry key=\"SLEEP_ON_THROBBER\" value=\""+ Integer.valueOf(waitingThrobberField.getText()) +"\"/>");
+			}
 
-		if (!waitingEventField.getText().equals("1000")){
-			builder.append("<entry key=\"SLEEP_AFTER_EVENT\" value=\""+ Integer.valueOf(waitingEventField.getText()) +"\"/>");
+			builder.append("</map>");
+			builder.append("</node>");	
 		}
-		if (!waitingRestartField.getText().equals("0")){
-			builder.append("<entry key=\"SLEEP_AFTER_RESTART\" value=\""+ Integer.valueOf(waitingRestartField.getText()) +"\"/>");
-		}
-		if (!waitingTaskField.getText().equals("0")){
-			builder.append("<entry key=\"SLEEP_AFTER_TASK\" value=\""+ Integer.valueOf(waitingTaskField.getText()) +"\"/>");
-		}
-		if (!waitingThrobberField.getText().equals("1000")){
-			builder.append("<entry key=\"SLEEP_ON_THROBBER\" value=\""+ Integer.valueOf(waitingThrobberField.getText()) +"\"/>");
-		}
-
-		builder.append("</map>");
-		builder.append("</node>");
 	}
 
 	private void createComparatorParameters() {
@@ -352,13 +363,13 @@ public class GraphicalEditor extends JFrame {
 	}
 
 	private void createInteractionsParameters() {
-		builder.append("<node name=\"interactions\">");
-		builder.append("<map>");
-
 		String events = new String();
 		String inputs = new String();
 		int countEvent = 0;
 		int countInput = 0;
+		
+		builder.append("<node name=\"interactions\">");
+		builder.append("<map>");
 
 		if (editTextBox.getSelectedIndex() == 0 || editTextBox.getSelectedIndex() == 2){
 			events = events.concat(", editText");
@@ -402,15 +413,17 @@ public class GraphicalEditor extends JFrame {
 			inputs = inputs.concat(", toggle");
 			countButton++;
 		}
-
+		
 		if (!events.equals("")){
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, image, linearLayout" + events + "\"/>");
 		}
 		if (!inputs.equals("")){
 			if (countButton!=2)	builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"click, numberPickerButton" + inputs + "\"/>");
 		}
+
 		builder.append("</map>");
 		builder.append("</node>");
+		
 	}
 
 	private boolean finalizeXml() {
@@ -507,5 +520,5 @@ public class GraphicalEditor extends JFrame {
 	public static void setAppPackageClass(String value) {
 		appPackageClass = value;
 	}
-	
+
 }
