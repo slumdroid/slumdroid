@@ -25,7 +25,6 @@ import java.util.List;
 import it.slumdroid.droidmodels.model.*;
 import it.slumdroid.droidmodels.testcase.TestCaseEvent;
 import it.slumdroid.droidmodels.testcase.TestCaseInput;
-
 import static it.slumdroid.droidmodels.model.InteractionType.*;
 import static it.slumdroid.droidmodels.model.SimpleType.*;
 import static it.slumdroid.tool.Resources.*;
@@ -43,7 +42,7 @@ public class UltraPlanner implements Planner {
 	private void addPlanForActivityWidgets (Plan planner, ActivityState activityState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
-		setIncludeRotation(true);
+		setIncludeRotation(ExtractorUtilities.getActivity().getResources().getConfiguration().orientation != 0);
 		for (WidgetState w: getEventFilter()) {
 			if (w.getSimpleType().equals(TOAST)
 					|| w.getSimpleType().equals(DIALOG_TITLE)
