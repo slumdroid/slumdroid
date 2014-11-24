@@ -26,7 +26,11 @@ import it.slumdroid.tool.utilities.interactors.selector.*;
 import java.util.*;
 
 import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.RANDOM_SEED;
+import static it.slumdroid.tool.Resources.ADDITIONAL_EVENTS;
+import static it.slumdroid.tool.Resources.ADDITIONAL_INPUTS;
+import static it.slumdroid.tool.Resources.HASH_VALUES;
+import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 
 public class UserFactory {
 

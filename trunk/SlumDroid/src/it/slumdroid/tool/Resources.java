@@ -31,14 +31,14 @@ public class Resources {
 	// Support Variables
 	public final static String TAG = "slumdroid";	
 	public static enum SchedulerAlgorithm {
-		BREADTH_FIRST, DEPTH_FIRST
+		BREADTH_FIRST, DEPTH_FIRST, RANDOM
 	}
 	
 	// Main Parameters
 	public static String PACKAGE_NAME = "app.package";
 	public static String CLASS_NAME = "app.package.class";
 	
-	public static long RANDOM_SEED = 93874383493L; 
+	public static long RANDOM_SEED = System.currentTimeMillis(); 
 	public static boolean SCREENSHOT_ENABLED = true; // Performs an image capture of the screen after processing a task
 	
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
@@ -63,10 +63,10 @@ public class Resources {
 	private static void checkEvents(){
 		if (EVENTS != null) {
 			if (!events()) {
-				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, LINEAR_LAYOUT);
+				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW, LINEAR_LAYOUT);
 			}
 		} else {
-			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, LINEAR_LAYOUT);
+			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW, LINEAR_LAYOUT);
 		}
 		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW);
 		UserFactory.addEvent(ENTER_TEXT, SEARCH_BAR);

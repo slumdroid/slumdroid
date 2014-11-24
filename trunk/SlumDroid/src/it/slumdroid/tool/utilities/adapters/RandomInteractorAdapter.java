@@ -21,10 +21,11 @@ import java.util.List;
 import java.util.Random;
 
 import it.slumdroid.droidmodels.model.*;
+import static it.slumdroid.tool.Resources.RANDOM_SEED;
 
 public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter implements RandomInteractor {
 
-	private Random random = new Random();
+	private Random random = new Random(RANDOM_SEED);
 	private int min=0;
 	private int max=99;
 

@@ -197,7 +197,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			delete (backup(getParametersFileName()));
 			delete (getTaskListFileName());
 			delete (backup(getTaskListFileName()));
-			return;
 		}
 	}
 
