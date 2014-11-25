@@ -15,9 +15,15 @@
 
 package it.slumdroid.tool.components.persistence;
 
-import it.slumdroid.tool.model.*;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -28,10 +34,15 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import android.content.ContextWrapper;
-
 import it.slumdroid.droidmodels.guitree.FinalActivity;
-import it.slumdroid.droidmodels.model.*;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
+import it.slumdroid.tool.model.DispatchListener;
+import it.slumdroid.tool.model.SaveStateListener;
+import it.slumdroid.tool.model.SessionParams;
+import it.slumdroid.tool.model.StateDiscoveryListener;
 
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener {
 

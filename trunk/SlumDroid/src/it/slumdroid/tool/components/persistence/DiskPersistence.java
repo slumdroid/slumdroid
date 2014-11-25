@@ -15,11 +15,16 @@
 
 package it.slumdroid.tool.components.persistence;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+
 import it.slumdroid.tool.model.ImageStorage;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
-
-import java.io.*;
 
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -27,7 +32,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import android.app.Activity;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
-
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.XmlGraph;

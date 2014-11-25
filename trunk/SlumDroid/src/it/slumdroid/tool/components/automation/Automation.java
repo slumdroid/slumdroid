@@ -17,7 +17,10 @@ package it.slumdroid.tool.components.automation;
 
 import static it.slumdroid.droidmodels.model.InteractionType.*;
 import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
+import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
 import static it.slumdroid.tool.components.automation.DroidExecutor.*;
 import it.slumdroid.tool.model.*;
 
@@ -165,7 +168,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 
 	private void fireEventOnView (View view, String eventType, String value) {
 		injectInteraction(view, eventType, value);
-		wait(SLEEP_AFTER_EVENT);
+		if (SLEEP_AFTER_EVENT!=0) wait(SLEEP_AFTER_EVENT);
 		waitOnThrobber();
 		refreshCurrentActivity();
 		extractState();
@@ -243,8 +246,8 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public void afterRestart() {
-		wait(SLEEP_AFTER_RESTART);
-		waitOnThrobber();
+		if (SLEEP_AFTER_RESTART != 0) wait(SLEEP_AFTER_RESTART);
+		if (SLEEP_ON_THROBBER != 0) waitOnThrobber();
 	}
 
 	public void waitOnThrobber() {

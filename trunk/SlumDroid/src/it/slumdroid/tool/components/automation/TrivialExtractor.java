@@ -32,7 +32,7 @@ import it.slumdroid.tool.model.Extractor;
 import it.slumdroid.tool.model.ExtractorUtilities;
 import it.slumdroid.tool.model.ImageCaptor;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.components.automation.DroidExecutor.*;
+import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
 
 public class TrivialExtractor implements Extractor, ImageCaptor {
 	
