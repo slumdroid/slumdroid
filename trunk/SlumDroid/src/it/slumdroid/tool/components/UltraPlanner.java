@@ -42,7 +42,7 @@ public class UltraPlanner implements Planner {
 	private void addPlanForActivityWidgets (Plan planner, ActivityState activityState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
-		setIncludeRotation(ExtractorUtilities.getActivity().getResources().getConfiguration().orientation != 0);
+		setIncludeRotation(ExtractorUtilities.getActivity().getResources().getConfiguration().orientation == 0);
 		for (WidgetState w: getEventFilter()) {
 			if (w.getSimpleType().equals(TOAST)
 					|| w.getSimpleType().equals(DIALOG_TITLE)
