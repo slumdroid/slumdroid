@@ -380,6 +380,10 @@ public class Wizard {
 		btnGenerateReports.setEnabled(!b);
 		btnOpenResultsFolder.setEnabled(!b);
 	}
+	
+	public static void postGenerate(){
+		btnDeploy.setEnabled(false);
+	}
 
 	public static void clearText(){
 		try{

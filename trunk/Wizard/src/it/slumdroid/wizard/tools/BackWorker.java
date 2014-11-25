@@ -18,7 +18,6 @@ package it.slumdroid.wizard.tools;
 import it.slumdroid.wizard.Wizard;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import javax.swing.JOptionPane;
@@ -62,14 +61,15 @@ public class BackWorker extends SwingWorker<Integer, String> {
 					b.close();
 					Wizard.postExec(false);
 					Wizard.disableDeploy();
-					JOptionPane.showMessageDialog(null, "Ripper Executed", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ripping Test Executed", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("artifactdone")) {
 
 					b.close();
 					Wizard.DownSide(true);
 					Wizard.Upside(true);
-					JOptionPane.showMessageDialog(null, "Report Generated", "Information", JOptionPane.INFORMATION_MESSAGE);
+					Wizard.postGenerate();
+					JOptionPane.showMessageDialog(null, "Reports Generated", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("firstboot")) {
 
@@ -81,7 +81,6 @@ public class BackWorker extends SwingWorker<Integer, String> {
 
 				fileNotFound=false;
 				b.close();
-			} catch (FileNotFoundException e) {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}   
