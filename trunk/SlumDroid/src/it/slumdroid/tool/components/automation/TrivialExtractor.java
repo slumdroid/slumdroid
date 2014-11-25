@@ -15,6 +15,16 @@
 
 package it.slumdroid.tool.components.automation;
 
+import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
+import it.slumdroid.tool.model.ActivityDescription;
+import it.slumdroid.tool.model.Extractor;
+import it.slumdroid.tool.model.ExtractorUtilities;
+import it.slumdroid.tool.model.ImageCaptor;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -23,16 +33,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.robotium.solo.Solo;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import it.slumdroid.tool.model.ActivityDescription;
-import it.slumdroid.tool.model.Extractor;
-import it.slumdroid.tool.model.ExtractorUtilities;
-import it.slumdroid.tool.model.ImageCaptor;
-import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
 
 public class TrivialExtractor implements Extractor, ImageCaptor {
 	
@@ -107,9 +107,9 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 				return b;
 			}
 		}catch (Exception e){
-			b.recycle();
-			return null;
+			e.printStackTrace();
 		}
+		b.recycle();
 		return null;
 	}
 	

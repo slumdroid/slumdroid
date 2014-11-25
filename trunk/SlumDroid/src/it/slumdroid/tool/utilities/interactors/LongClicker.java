@@ -16,8 +16,8 @@
 package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
 public class LongClicker extends SimpleInteractorAdapter {
 
@@ -26,7 +26,7 @@ public class LongClicker extends SimpleInteractorAdapter {
 	}
 
 	public boolean canUseWidget (WidgetState w) {
-		return (w.isLongClickable() && super.canUseWidget(w));
+		return w.isLongClickable() && super.canUseWidget(w);
 	}
 
 	public String getInteractionType () {

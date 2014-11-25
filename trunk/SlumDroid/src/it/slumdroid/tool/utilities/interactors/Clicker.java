@@ -16,8 +16,8 @@
 package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
 public class Clicker extends SimpleInteractorAdapter {
 
@@ -26,7 +26,7 @@ public class Clicker extends SimpleInteractorAdapter {
 	}
 
 	public boolean canUseWidget (WidgetState w) {
-		return (w.isClickable() && super.canUseWidget(w));
+		return w.isClickable() && super.canUseWidget(w);
 	}
 
 	public String getInteractionType () {

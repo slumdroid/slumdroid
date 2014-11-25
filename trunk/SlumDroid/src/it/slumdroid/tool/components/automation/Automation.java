@@ -15,14 +15,53 @@
 
 package it.slumdroid.tool.components.automation;
 
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
+import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_BACK;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
+import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
+import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
-import static it.slumdroid.tool.components.automation.DroidExecutor.*;
-import it.slumdroid.tool.model.*;
+import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.components.automation.DroidExecutor.actionBarHome;
+import static it.slumdroid.tool.components.automation.DroidExecutor.changeOrientation;
+import static it.slumdroid.tool.components.automation.DroidExecutor.click;
+import static it.slumdroid.tool.components.automation.DroidExecutor.drag;
+import static it.slumdroid.tool.components.automation.DroidExecutor.enterText;
+import static it.slumdroid.tool.components.automation.DroidExecutor.goBack;
+import static it.slumdroid.tool.components.automation.DroidExecutor.longClick;
+import static it.slumdroid.tool.components.automation.DroidExecutor.openMenu;
+import static it.slumdroid.tool.components.automation.DroidExecutor.selectListItem;
+import static it.slumdroid.tool.components.automation.DroidExecutor.selectRadioItem;
+import static it.slumdroid.tool.components.automation.DroidExecutor.selectSpinnerItem;
+import static it.slumdroid.tool.components.automation.DroidExecutor.setProgressBar;
+import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
+import static it.slumdroid.tool.components.automation.DroidExecutor.writeText;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.tool.model.AbstractorUtilities;
+import it.slumdroid.tool.model.ActivityDescription;
+import it.slumdroid.tool.model.EventFiredListener;
+import it.slumdroid.tool.model.Executor;
+import it.slumdroid.tool.model.Extractor;
+import it.slumdroid.tool.model.ExtractorUtilities;
+import it.slumdroid.tool.model.ImageCaptor;
+import it.slumdroid.tool.model.TaskProcessor;
 
 import java.util.ArrayList;
 
@@ -37,11 +76,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.model.Transition;
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
 
 public class Automation implements Executor, Extractor, TaskProcessor, ImageCaptor, EventFiredListener {
  
@@ -294,7 +328,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		String testeeType = AbstractorUtilities.getType(testee); 
 		if ( !(theType.equals(testeeType)) ) return false;
 		String testeeName = AbstractorUtilities.detectName(testee);
-		return ( (theName.equals(testeeName)) && (theId == testee.getId()) );
+		return theName.equals(testeeName) && theId == testee.getId();
 	}
 
 	public ArrayList<View> getWidgetsById (int id) {
@@ -319,8 +353,9 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		try{
 			return this.imageCaptor.captureImage();	
 		}catch (Exception e){
-			return null;
+			e.printStackTrace();
 		}
+		return null;
 	}
 
 	// This methods call the Abstractor Utility methods to describe the current event

@@ -15,16 +15,16 @@
 
 package it.slumdroid.tool.model;
 
-import java.util.Collection;
-
-import org.w3c.dom.Element;
-
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
+
+import java.util.Collection;
+
+import org.w3c.dom.Element;
 
 public interface Abstractor {
 

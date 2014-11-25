@@ -18,8 +18,8 @@ package it.slumdroid.tool.utilities.interactors.selector;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
-import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
 public class ListSelector extends IterativeInteractorAdapter {
 
@@ -36,7 +36,7 @@ public class ListSelector extends IterativeInteractorAdapter {
 	}
 
 	public boolean canUseWidget (WidgetState w) {
-		return (w.isClickable() && super.canUseWidget(w));
+		return w.isClickable() && super.canUseWidget(w);
 	}
 
 	public String getInteractionType () {

@@ -15,6 +15,16 @@
 
 package it.slumdroid.tool.components.persistence;
 
+import it.slumdroid.droidmodels.guitree.FinalActivity;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.xml.ElementWrapper;
+import it.slumdroid.tool.model.DispatchListener;
+import it.slumdroid.tool.model.SaveStateListener;
+import it.slumdroid.tool.model.SessionParams;
+import it.slumdroid.tool.model.StateDiscoveryListener;
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,19 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
-
 import android.content.ContextWrapper;
-import it.slumdroid.droidmodels.guitree.FinalActivity;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Session;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.xml.ElementWrapper;
-import it.slumdroid.tool.model.DispatchListener;
-import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.SessionParams;
-import it.slumdroid.tool.model.StateDiscoveryListener;
 
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener {
 
@@ -94,11 +92,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 				writeOnTaskFile(xml);
 			}
 			closeTaskFile();
-		} catch (TransformerFactoryConfigurationError e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (exists(backup(this.taskListFile))) {
@@ -174,7 +168,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException ignore) {}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
 			listener.getValue().onLoadingState(this.parameters.get(listener.getKey()));
 		}
@@ -189,11 +185,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			String xml = ((ElementWrapper)newState).toXml() + System.getProperty("line.separator");
 			writeOnStateFile(xml);
 			closeStateFile();
-		} catch (TransformerFactoryConfigurationError e) {
-			e.printStackTrace();
-		} catch (TransformerException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -213,7 +205,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	@Override
 	public boolean isLast() {
-		return ( (super.isLast()) && noTasks() );
+		return super.isLast() && noTasks();
 	}
 
 	public void onTerminate() {
@@ -288,7 +280,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 
 	public boolean noTasks() {
-		return (this.taskList.size()==0);
+		return this.taskList.size()==0;
 	}
 
 	public void setTaskList(List<Task> taskList) {

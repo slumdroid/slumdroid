@@ -15,11 +15,17 @@
 
 package it.slumdroid.tool.components;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-
+import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_BACK;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
+import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
+import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
+import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
+import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
@@ -33,9 +39,11 @@ import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.InputHandler;
 import it.slumdroid.tool.model.Plan;
 import it.slumdroid.tool.model.Planner;
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 
 public class UltraPlanner implements Planner {
 
@@ -113,8 +121,9 @@ public class UltraPlanner implements Planner {
 		if (event.getType().equals(WRITE_TEXT) && EXTRA_INPUTS != null) {
 			for (String s: EXTRA_INPUTS) {
 				String[] widgets = s.split("( )?,( )?");
-				if (widgets[1].equals(event.getWidget().getId())) 
-					return false;
+				if (widgets[1].equals(event.getWidget().getId())) {
+					return false;					
+				}
 			}
 		}
 		return true;

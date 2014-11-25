@@ -15,6 +15,7 @@
 
 package it.slumdroid.tool.components.scheduler;
 
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.TaskScheduler;
@@ -22,8 +23,6 @@ import it.slumdroid.tool.model.TaskScheduler;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import it.slumdroid.droidmodels.model.Task;
 
 class TrivialScheduler implements TaskScheduler {
 
@@ -78,7 +77,7 @@ class TrivialScheduler implements TaskScheduler {
 	}
 
 	public boolean hasMore() {
-		return (!tasks.isEmpty());
+		return !tasks.isEmpty();
 	}
 
 	public void remove(Task t) {

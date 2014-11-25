@@ -15,13 +15,13 @@
 
 package it.slumdroid.tool.utilities.interactors.editor;
 
-import java.util.List;
-
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
-import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+
+import java.util.List;
 
 public class HashWriteEditor extends SimpleInteractorAdapter {
 

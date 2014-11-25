@@ -15,6 +15,7 @@
 
 package it.slumdroid.tool.utilities.adapters;
 
+import static it.slumdroid.tool.Resources.RANDOM_SEED;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
@@ -22,8 +23,6 @@ import it.slumdroid.tool.model.RandomInteractor;
 
 import java.util.List;
 import java.util.Random;
-
-import static it.slumdroid.tool.Resources.RANDOM_SEED;
 
 public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter implements RandomInteractor {
 

@@ -15,16 +15,45 @@
 
 package it.slumdroid.tool;
 
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.droidmodels.model.SimpleType.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
+import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
+import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
+import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
+import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
+import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
+import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
+import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
+import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
+import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
+import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
+import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
+import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
+import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
+import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
+import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import it.slumdroid.tool.utilities.UserFactory;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.tool.utilities.interactors.editor.AdditionalEnterEditor;
 import it.slumdroid.tool.utilities.interactors.editor.AdditionalWriteEditor;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Resources {
 

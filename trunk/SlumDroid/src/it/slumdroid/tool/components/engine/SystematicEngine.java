@@ -15,6 +15,8 @@
 
 package it.slumdroid.tool.components.engine;
 
+import it.slumdroid.droidmodels.guitree.GuiTree;
+import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.tool.components.GuiTreeAbstractor;
 import it.slumdroid.tool.components.UltraPlanner;
 import it.slumdroid.tool.components.automation.Automation;
@@ -33,9 +35,6 @@ import it.slumdroid.tool.utilities.UserFactory;
 import java.util.GregorianCalendar;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.Session;
 
 public class SystematicEngine extends Engine {
 
@@ -94,12 +93,7 @@ public class SystematicEngine extends Engine {
 			e.printStackTrace();
 		}
 		theRestarter.setRestartPoint(theAutomation.getActivity());
-	}
-
-	@Override
-	protected void tearDown() throws Exception{
-		super.tearDown();
-	}		
+	}	
 
 	public Session getNewSession() {
 		try {

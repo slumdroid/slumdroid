@@ -31,10 +31,18 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
+import android.widget.SlidingDrawer;
+import android.widget.Spinner;
+import android.widget.TabHost;
 
 import com.robotium.solo.Solo;
 
+@SuppressWarnings("deprecation")
 public class DroidExecutor {
 
 	static private Solo solo;
@@ -151,7 +159,6 @@ public class DroidExecutor {
 	}
 
 	//SlidingDrawer Interactions
-	@SuppressWarnings("deprecation")
 	public static void drag (View view){
 		if (view.isShown()) solo.setSlidingDrawer((SlidingDrawer) view, Solo.CLOSED);
 		else solo.setSlidingDrawer((SlidingDrawer) view, Solo.OPENED);

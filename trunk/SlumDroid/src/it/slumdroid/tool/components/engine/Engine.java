@@ -15,6 +15,15 @@
 
 package it.slumdroid.tool.components.engine;
 
+import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
+import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.Resources.theClass;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.persistence.ResumingPersistence;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
@@ -36,15 +45,9 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import it.slumdroid.droidmodels.model.*;
-import it.slumdroid.droidmodels.xml.XmlGraph;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
-import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
-import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.Resources.theClass;
 
 @SuppressWarnings("rawtypes")
 public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
@@ -122,7 +125,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	protected boolean canPlanTests (ActivityState theActivity){
-		return (!(theActivity.isExit()) && getStrategy().checkForExploration());
+		return !(theActivity.isExit()) && getStrategy().checkForExploration();
 	}
 
 	@Override
