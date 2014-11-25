@@ -15,22 +15,46 @@
 
 package it.slumdroid.tool.utilities;
 
-import it.slumdroid.tool.model.Abstractor;
-import it.slumdroid.tool.model.UserAdapter;
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
-import it.slumdroid.tool.utilities.adapters.SimpleUserAdapter;
-import it.slumdroid.tool.utilities.interactors.*;
-import it.slumdroid.tool.utilities.interactors.editor.*;
-import it.slumdroid.tool.utilities.interactors.selector.*;
-
-import java.util.*;
-
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.tool.Resources.RANDOM_SEED;
+import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
+import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.tool.Resources.ADDITIONAL_EVENTS;
 import static it.slumdroid.tool.Resources.ADDITIONAL_INPUTS;
 import static it.slumdroid.tool.Resources.HASH_VALUES;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
+import static it.slumdroid.tool.Resources.RANDOM_SEED;
+import it.slumdroid.tool.model.Abstractor;
+import it.slumdroid.tool.model.UserAdapter;
+import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
+import it.slumdroid.tool.utilities.adapters.SimpleUserAdapter;
+import it.slumdroid.tool.utilities.interactors.BarSlider;
+import it.slumdroid.tool.utilities.interactors.Clicker;
+import it.slumdroid.tool.utilities.interactors.Drager;
+import it.slumdroid.tool.utilities.interactors.LongClicker;
+import it.slumdroid.tool.utilities.interactors.TabSwapper;
+import it.slumdroid.tool.utilities.interactors.editor.HashEnterEditor;
+import it.slumdroid.tool.utilities.interactors.editor.HashWriteEditor;
+import it.slumdroid.tool.utilities.interactors.editor.RandomEnterEditor;
+import it.slumdroid.tool.utilities.interactors.editor.RandomWriteEditor;
+import it.slumdroid.tool.utilities.interactors.selector.ListLongSelector;
+import it.slumdroid.tool.utilities.interactors.selector.ListSelector;
+import it.slumdroid.tool.utilities.interactors.selector.RadioSelector;
+import it.slumdroid.tool.utilities.interactors.selector.RandomSpinnerSelector;
+import it.slumdroid.tool.utilities.interactors.selector.SpinnerSelector;
+
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class UserFactory {
 

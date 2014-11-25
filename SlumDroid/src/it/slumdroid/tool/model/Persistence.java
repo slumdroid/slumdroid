@@ -15,10 +15,9 @@
 
 package it.slumdroid.tool.model;
 
-import android.app.Activity;
-
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
+import android.app.Activity;
 
 public interface Persistence {
 

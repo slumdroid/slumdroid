@@ -15,16 +15,15 @@
 
 package it.slumdroid.tool.utilities.adapters;
 
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.Interactor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.droidmodels.model.WidgetState;
 
 public abstract class SimpleInteractorAdapter implements Interactor {
 
@@ -38,7 +37,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	}
 
 	public boolean canUseWidget (WidgetState w) {
-		return (w.isAvailable() && matchClass(w.getSimpleType()));
+		return w.isAvailable() && matchClass(w.getSimpleType());
 	}
 
 	public List<UserEvent> getEvents (WidgetState w) {

@@ -15,10 +15,10 @@
 
 package it.slumdroid.tool.model;
 
-import java.util.List;
-
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
+
+import java.util.List;
 
 public interface InputHandler {
 

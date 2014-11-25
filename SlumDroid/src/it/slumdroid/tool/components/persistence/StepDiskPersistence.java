@@ -15,12 +15,11 @@
 
 package it.slumdroid.tool.components.persistence;
 
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.SessionParams;
 import android.content.ContextWrapper;
-
-import it.slumdroid.droidmodels.model.Session;
-import it.slumdroid.droidmodels.model.Task;
 
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
 

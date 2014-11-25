@@ -15,12 +15,11 @@
 
 package it.slumdroid.tool.utilities;
 
+import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.model.Filter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import it.slumdroid.droidmodels.model.WidgetState;
 
 public class AllPassFilter implements Filter {
 

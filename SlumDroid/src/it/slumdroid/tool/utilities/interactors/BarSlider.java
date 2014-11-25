@@ -16,8 +16,8 @@
 package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
-import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
 public class BarSlider extends RandomInteractorAdapter {
 

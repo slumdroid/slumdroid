@@ -15,13 +15,11 @@
 
 package it.slumdroid.tool.utilities.adapters;
 
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.WidgetState;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.WidgetState;
 
 public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter {
 

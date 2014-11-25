@@ -15,12 +15,11 @@
 
 package it.slumdroid.tool.model;
 
-import android.test.ActivityInstrumentationTestCase2;
-
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
+import android.test.ActivityInstrumentationTestCase2;
 
 public interface Executor {
 

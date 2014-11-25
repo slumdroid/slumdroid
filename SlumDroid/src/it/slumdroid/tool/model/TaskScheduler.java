@@ -15,10 +15,10 @@
 
 package it.slumdroid.tool.model;
 
+import it.slumdroid.droidmodels.model.Task;
+
 import java.util.Collection;
 import java.util.List;
-
-import it.slumdroid.droidmodels.model.Task;
 
 public interface TaskScheduler {
 

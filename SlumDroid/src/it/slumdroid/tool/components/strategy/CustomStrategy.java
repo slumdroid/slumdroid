@@ -16,7 +16,8 @@
 package it.slumdroid.tool.components.strategy;
 
 import static it.slumdroid.tool.Resources.TAG;
-
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.PauseCriteria;
 import it.slumdroid.tool.model.StateDiscoveryListener;
@@ -29,8 +30,6 @@ import java.util.HashSet;
 import java.util.List;
 
 import android.util.Log;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Task;
 
 public class CustomStrategy implements Strategy {
 

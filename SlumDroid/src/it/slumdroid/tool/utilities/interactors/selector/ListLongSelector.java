@@ -16,7 +16,6 @@
 package it.slumdroid.tool.utilities.interactors.selector;
 
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
-
 import it.slumdroid.droidmodels.model.WidgetState;
 
 public class ListLongSelector extends ListSelector {
@@ -26,7 +25,7 @@ public class ListLongSelector extends ListSelector {
 	}
 
 	public boolean canUseWidget (WidgetState w) {
-		return (w.isLongClickable() && super.canUseWidget(w));
+		return w.isLongClickable() && super.canUseWidget(w);
 	}
 
 	public String getInteractionType () {

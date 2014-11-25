@@ -15,6 +15,9 @@
 
 package it.slumdroid.tool.components.scheduler;
 
+import static it.slumdroid.tool.Resources.SCHEDULER_ALGORITHM;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.TaskScheduler;
 
@@ -22,11 +25,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.tool.Resources.SchedulerAlgorithm;
-
-import static it.slumdroid.tool.Resources.SCHEDULER_ALGORITHM;
 
 public class TraceDispatcher implements Iterable<Task> {
 

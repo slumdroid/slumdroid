@@ -45,10 +45,11 @@ public class ScreenshotFactory {
 			Bitmap b = theImageCaptor.captureImage();
 			if (b == null) return false;
 			theImageStorage.saveImage(b, id);
+			return true;
 		} catch (Exception e) {
-			return false;
+			e.printStackTrace();
 		}
-		return true;		
+		return false;	
 	}
 
 	public static String getFileExtension() {

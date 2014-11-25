@@ -17,7 +17,6 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.WidgetState;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsSpinner;

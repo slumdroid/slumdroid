@@ -109,7 +109,7 @@ public class Prefs {
 		return parameter.getName() + "[" + index + "]";
 	}
 
-	public String[] getStringArray (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	public String[] getStringArray (Field parameter) throws IllegalArgumentException {
 		List<String> theList = new ArrayList<String>();
 		int index = 0;
 		String value;
@@ -123,7 +123,7 @@ public class Prefs {
 		return (found)?theList.toArray(tmp):null;
 	}
 
-	public int[] getIntArray (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	public int[] getIntArray (Field parameter) throws IllegalArgumentException {
 		String[] value = getStringArray (parameter);
 		if (value == null) return null;
 		int[] ret = new int[value.length];
@@ -170,8 +170,7 @@ public class Prefs {
 	}
 
 	public static void updateNode (String node) {
-		Prefs p = new Prefs (node);
-		p.updateResources();
+		new Prefs (node).updateResources();
 	}
 
 }

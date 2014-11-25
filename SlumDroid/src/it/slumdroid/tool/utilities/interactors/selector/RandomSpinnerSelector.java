@@ -16,8 +16,8 @@
 package it.slumdroid.tool.utilities.interactors.selector;
 
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
-import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
 public class RandomSpinnerSelector extends RandomInteractorAdapter {
 

@@ -15,10 +15,11 @@
 
 package it.slumdroid.tool.model;
 
+import it.slumdroid.droidmodels.model.Transition;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import it.slumdroid.droidmodels.model.Transition;
 
 public class Plan implements Iterable<Transition> {
 
@@ -45,7 +46,7 @@ public class Plan implements Iterable<Transition> {
 	}
 
 	public boolean isEmpty () {
-		return (size()==0);
+		return size()==0;
 	}
 
 }
