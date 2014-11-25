@@ -16,7 +16,14 @@
 package it.slumdroid.tool.components;
 
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
-import it.slumdroid.tool.model.*;
+import it.slumdroid.tool.model.Abstractor;
+import it.slumdroid.tool.model.AbstractorListener;
+import it.slumdroid.tool.model.ActivityDescription;
+import it.slumdroid.tool.model.Filter;
+import it.slumdroid.tool.model.FilterHandler;
+import it.slumdroid.tool.model.SaveStateListener;
+import it.slumdroid.tool.model.SessionParams;
+import it.slumdroid.tool.model.TypeDetector;
 
 import java.util.ArrayList;
 import java.util.Collection;

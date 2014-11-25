@@ -15,19 +15,27 @@
 
 package it.slumdroid.tool.components;
 
-import it.slumdroid.tool.model.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import it.slumdroid.droidmodels.model.*;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.droidmodels.testcase.TestCaseEvent;
 import it.slumdroid.droidmodels.testcase.TestCaseInput;
+import it.slumdroid.tool.model.Abstractor;
+import it.slumdroid.tool.model.EventHandler;
+import it.slumdroid.tool.model.Filter;
+import it.slumdroid.tool.model.InputHandler;
+import it.slumdroid.tool.model.Plan;
+import it.slumdroid.tool.model.Planner;
 import static it.slumdroid.droidmodels.model.InteractionType.*;
 import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
 
 public class UltraPlanner implements Planner {
 
@@ -42,7 +50,7 @@ public class UltraPlanner implements Planner {
 	private void addPlanForActivityWidgets (Plan planner, ActivityState activityState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
-		setIncludeRotation(ExtractorUtilities.getActivity().getResources().getConfiguration().orientation == 0);
+		setIncludeRotation(true);
 		for (WidgetState w: getEventFilter()) {
 			if (w.getSimpleType().equals(TOAST)
 					|| w.getSimpleType().equals(DIALOG_TITLE)

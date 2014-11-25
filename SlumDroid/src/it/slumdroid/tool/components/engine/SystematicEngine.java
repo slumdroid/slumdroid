@@ -21,9 +21,14 @@ import it.slumdroid.tool.components.automation.Automation;
 import it.slumdroid.tool.components.comparator.CompositionalComparator;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
-import it.slumdroid.tool.components.strategy.*;
-import it.slumdroid.tool.model.*;
-import it.slumdroid.tool.utilities.*;
+import it.slumdroid.tool.components.strategy.StrategyFactory;
+import it.slumdroid.tool.model.Filter;
+import it.slumdroid.tool.model.Strategy;
+import it.slumdroid.tool.model.UserAdapter;
+import it.slumdroid.tool.utilities.AllPassFilter;
+import it.slumdroid.tool.utilities.SimpleRestarter;
+import it.slumdroid.tool.utilities.SimpleTypeDetector;
+import it.slumdroid.tool.utilities.UserFactory;
 
 import java.util.GregorianCalendar;
 
@@ -44,8 +49,8 @@ public class SystematicEngine extends Engine {
 
 	public SystematicEngine () {
 		super ();
-		setScheduler(getNewScheduler());
-		this.theAutomation = getNewAutomation();
+		setScheduler(new TraceDispatcher());
+		this.theAutomation = new Automation();
 		this.theRestarter = new SimpleRestarter();
 		setExecutor (this.theAutomation);
 		setExtractor (this.theAutomation);
@@ -103,14 +108,6 @@ public class SystematicEngine extends Engine {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public TraceDispatcher getNewScheduler() {
-		return new TraceDispatcher();
-	}
-
-	public Automation getNewAutomation() {
-		return new Automation();
 	}
 
 }

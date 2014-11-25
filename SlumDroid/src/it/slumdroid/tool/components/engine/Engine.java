@@ -18,7 +18,17 @@ package it.slumdroid.tool.components.engine;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.persistence.ResumingPersistence;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
-import it.slumdroid.tool.model.*;
+import it.slumdroid.tool.model.Abstractor;
+import it.slumdroid.tool.model.ActivityDescription;
+import it.slumdroid.tool.model.Executor;
+import it.slumdroid.tool.model.Extractor;
+import it.slumdroid.tool.model.ImageCaptor;
+import it.slumdroid.tool.model.Persistence;
+import it.slumdroid.tool.model.Plan;
+import it.slumdroid.tool.model.Planner;
+import it.slumdroid.tool.model.SaveStateListener;
+import it.slumdroid.tool.model.SessionParams;
+import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.utilities.ScreenshotFactory;
 
 import java.util.ArrayList;
@@ -31,7 +41,10 @@ import it.slumdroid.droidmodels.xml.XmlGraph;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
+import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.Resources.theClass;
 
 @SuppressWarnings("rawtypes")
 public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
@@ -95,7 +108,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			ActivityState theActivity = getAbstractor().createActivity(d);
 			getStrategy().compareState(theActivity);
 			if (screenshotEnabled()) takeScreenshot(theActivity);
-			getExecutor().wait(SLEEP_AFTER_TASK);
+			if (SLEEP_AFTER_TASK != 0) getExecutor().wait(SLEEP_AFTER_TASK);
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTask(theTask);
 			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
@@ -172,8 +185,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	protected void planFirstTests (ActivityState theActivity) {
-		Plan thePlan = getPlanner().getPlanForActivity(theActivity);
-		planTests (null, thePlan);
+		planTests (null, theActivity);
 	}
 
 	protected void planTests (Task theTask, ActivityState theActivity) {
