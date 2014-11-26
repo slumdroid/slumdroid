@@ -82,24 +82,76 @@ public class SimpleTypeDetector implements TypeDetector {
 
 	public String getSimpleType(View view) {
 		String type = view.getClass().getName();
-		String detect = checkEnd(type,view);
-		if (detect.equals("")){
-			detect = checkInstances(type,view);
+		if (type.endsWith("TableRow")) {
+			return TABLE_ROW;
 		}
-		return detect;
-	}
-
-	private String checkInstances(String type, View view) {
+		if (type.endsWith("TwoLineListItem")) {
+			return LIST_ITEM;
+		}
+		if (type.endsWith("DialogTitle")) {
+			return DIALOG_TITLE;
+		}
+		if (type.endsWith("NumberPickerButton")) {
+			return NUMBER_PICKER_BUTTON;
+		}
+		if (type.endsWith("Layout")){
+			return detectLayout(type);
+		}
+		if (type.endsWith("View")){
+			if (type.endsWith("ExpandedMenuView")) {
+				return EXPAND_MENU;
+			}
+			if (type.endsWith("HomeView")) {
+				return ACTION_HOME;
+			}
+			if (type.endsWith("MenuView")) {
+				return MENU_VIEW;
+			}
+			if (type.endsWith("MenuItemView")) {
+				return MENU_ITEM;
+			}
+			if (view instanceof TextView || type.endsWith("TextView")){
+				return detectTextView(type, view);
+			}
+			if (view instanceof ImageView 
+					|| type.endsWith("ImageView")) {
+				return IMAGE_VIEW;
+			}
+			if (view instanceof ListView 
+					|| type.endsWith("ListView")) {
+				return detectList(type, view);
+			}
+			if (view instanceof WebView 
+					|| type.endsWith("WebView")) {
+				return WEB_VIEW;
+			}
+			return "view";
+		}
 		if (view instanceof TextView){
-			return detectTextView(type,view);
+			return detectTextView(type, view);
 		}
 		if (view instanceof ImageButton 
 				|| type.endsWith("Button")) {
 			return BUTTON;
 		}
-		if (view instanceof Spinner) {
+		if (view instanceof Spinner){
 			return detectSpinner(view);
-		}		
+		}
+		if (type.endsWith("Picker")){
+			return detectPicker(type);
+		}
+		if (type.endsWith("PopupMenu") 
+				|| type.contains("PopupMenu")) {
+			return POPUP_MENU;
+		}
+		if (type.endsWith("PopupWindow") 
+				|| type.contains("PopupWindow") 
+				|| type.endsWith("PopupViewContainer")) {
+			return POPUP_WINDOW;
+		}
+		if (type.endsWith("Container")) {
+			return "Container";
+		}
 		if (view instanceof RadioGroup) {
 			return RADIO_GROUP;
 		}
@@ -116,53 +168,27 @@ public class SimpleTypeDetector implements TypeDetector {
 		return new String();
 	}
 
-	private String checkEnd(String type, View view) {
-		if (type.endsWith("View")){
-			return detectView(type,view);
-		}
-		if (type.endsWith("TableRow")) {
-			return TABLE_ROW;
-		}
-		if (type.endsWith("TwoLineListItem")) {
-			return LIST_ITEM;
-		}
-		if (type.endsWith("DialogTitle")) {
-			return DIALOG_TITLE;
-		}
-		if (type.endsWith("NumberPickerButton")) {
-			return NUMBER_PICKER_BUTTON;
-		}
-		if (type.endsWith("Layout")){
-			return detectLayout(type);
-		}
-		if (type.endsWith("Picker")) {
-			return detectPicker(type);
-		}
-		if (type.endsWith("PopupMenu") 
-				|| type.contains("PopupMenu")) {
-			return POPUP_MENU;
-		}
-		if (type.endsWith("PopupWindow") 
-				|| type.contains("PopupWindow") 
-				|| type.endsWith("PopupViewContainer")) {
-			return POPUP_WINDOW;
-		}
-		if (type.endsWith("Container")) {
-			return "Container";
-		}
-		return new String();
-	}
-
 	private String detectProgressBar(View view) {
-		if (view instanceof RatingBar && (!((RatingBar)view).isIndicator())) return RATING_BAR;
-		if (view instanceof SeekBar) return SEEK_BAR;
+		if (view instanceof RatingBar 
+				&& (!((RatingBar)view).isIndicator())) {
+			return RATING_BAR;
+		}
+		if (view instanceof SeekBar) {
+			return SEEK_BAR;
+		}
 		return PROGRESS_BAR;
 	}
 
 	private String detectPicker(String type) {
-		if (type.endsWith("DatePicker")) return DATE_PICKER;
-		if (type.endsWith("TimePicker")) return TIME_PICKER;
-		if (type.endsWith("NumberPicker")) return NUMBER_PICKER;
+		if (type.endsWith("DatePicker")) {
+			return DATE_PICKER;
+		}
+		if (type.endsWith("TimePicker")) {
+			return TIME_PICKER;
+		}
+		if (type.endsWith("NumberPicker")) {
+			return NUMBER_PICKER;
+		}
 		return "Picker";
 	}
 
@@ -180,7 +206,7 @@ public class SimpleTypeDetector implements TypeDetector {
 
 	private String detectTextView(String type, View view) {
 		if (view instanceof EditText){
-			return detectEdit(type,view);
+			return detectEdit(type, view);
 		}
 		if (view instanceof Button){
 			return detectButton(view);
@@ -205,65 +231,22 @@ public class SimpleTypeDetector implements TypeDetector {
 	}
 
 	private String detectButton(View view) {
-		if (view instanceof CheckBox) return CHECKBOX;
-		if (view instanceof ToggleButton) return TOGGLE_BUTTON;
-		if (view instanceof RadioButton) return RADIO;	
+		if (view instanceof CheckBox) {
+			return CHECKBOX;
+		}
+		if (view instanceof ToggleButton) {
+			return TOGGLE_BUTTON;
+		}
+		if (view instanceof RadioButton) {
+			return RADIO;	
+		}
 		return BUTTON;
 	}
 
-	private String detectView(String type, View view) {
-		if (type.contains("Menu")){
-			return detectMenu(type);
-		}
-		if (type.endsWith("HomeView")) {
-			return ACTION_HOME;
-		}
-		if (view instanceof TextView 
-				|| type.endsWith("TextView")){
-			return detectText(type,view);
-		}
-		if (view instanceof ImageView 
-				|| type.endsWith("ImageView")) {
-			return IMAGE_VIEW;
-		}
-		if (view instanceof ListView  
-				|| type.endsWith("ListView")) {
-			return detectList(view);
-		}
-		if (view instanceof WebView 
-				|| type.endsWith("WebView")) {
-			return WEB_VIEW;
-		}
-		return "view";
-	}
-
-	private String detectMenu(String type) {
-		if (type.endsWith("ExpandedMenuView") 
-				|| type.endsWith("RecycleListView")) {
+	private String detectList(String type, View view) {
+		if (type.endsWith("RecycleListView")) {
 			return EXPAND_MENU;
 		}
-		if (type.endsWith("MenuView")) {
-			return MENU_VIEW;
-		}
-		if (type.endsWith("MenuItemView")) {
-			return MENU_ITEM;
-		}
-		return new String();
-	}
-
-	private String detectText(String type, View view) {
-		if (view instanceof AutoCompleteTextView 
-				|| type.endsWith("AutoCompleteTextView")) {
-			return AUTOC_TEXT;
-		}
-		if (view instanceof CheckedTextView 
-				|| type.endsWith("CheckedTextView")) {
-			return CHECKTEXT;
-		}
-		return TEXT_VIEW;
-	}
-
-	private String detectList(View view) {
 		ListView list = (ListView)view;
 		if (list.getCount() == 0) {
 			return EMPTY_LIST;
