@@ -22,16 +22,16 @@ import it.slumdroid.tool.model.Strategy;
 public class StrategyFactory {
 
 	private Comparator comparator;
-	private int PAUSE_AFTER_TASKS = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
+	private int pauseAfterTasks = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
 
 	public StrategyFactory (Comparator c) {
 		this.comparator = c;
 	}
 
 	public Strategy getStrategy () {
-		CustomStrategy s = new CustomStrategy(this.comparator);
-		s.addCriteria(new MaxStepsPause(PAUSE_AFTER_TASKS));
-		return s;
+		CustomStrategy strategy = new CustomStrategy(this.comparator);
+		strategy.addCriteria(new MaxStepsPause(this.pauseAfterTasks));
+		return strategy;
 	}
 	
 }

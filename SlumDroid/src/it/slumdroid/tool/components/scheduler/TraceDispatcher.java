@@ -56,9 +56,9 @@ public class TraceDispatcher implements Iterable<Task> {
 	}
 
 	public TaskScheduler getTrivialScheduler(SchedulerAlgorithm a) {
-		TaskScheduler s = new TrivialScheduler(this, a);
-		s.setTaskList(new ArrayList<Task>());
-		return s;
+		TaskScheduler scheduler = new TrivialScheduler(this, a);
+		scheduler.setTaskList(new ArrayList<Task>());
+		return scheduler;
 	}
 
 	public TaskScheduler getScheduler() {

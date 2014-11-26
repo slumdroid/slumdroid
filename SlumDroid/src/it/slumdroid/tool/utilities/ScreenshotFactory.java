@@ -42,9 +42,9 @@ public class ScreenshotFactory {
 
 	public static boolean saveScreenshot(String id) {
 		try {
-			Bitmap b = theImageCaptor.captureImage();
-			if (b == null) return false;
-			theImageStorage.saveImage(b, id);
+			Bitmap bitmap = theImageCaptor.captureImage();
+			if (bitmap == null) return false;
+			theImageStorage.saveImage(bitmap, id);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

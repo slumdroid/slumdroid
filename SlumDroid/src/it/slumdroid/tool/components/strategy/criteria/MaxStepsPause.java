@@ -30,11 +30,11 @@ public class MaxStepsPause implements PauseCriteria {
 
 	public boolean pause () {
 		this.current--;
-		return this.current==0;
+		return this.current == 0;
 	}
 
 	public void reset() {
-		this.current = max;
+		this.current = this.max;
 	}
 
 	public void setStrategy(Strategy theStrategy) {

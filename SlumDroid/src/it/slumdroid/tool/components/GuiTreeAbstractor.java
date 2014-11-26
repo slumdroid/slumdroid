@@ -133,23 +133,23 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public TestCaseWidget createWidget (View v) {
-		TestCaseWidget w = TestCaseWidget.createWidget(getTheSession());
+		TestCaseWidget widget = TestCaseWidget.createWidget(getTheSession());
 		String id = String.valueOf(v.getId());
 		String name = detectName(v);
-		w.setIdNameType(id, name, getType(v));
-		w.setSimpleType(getTypeDetector().getSimpleType(v));
-		setCount (v,w);
-		setValue (v,w);
+		widget.setIdNameType(id, name, getType(v));
+		widget.setSimpleType(getTypeDetector().getSimpleType(v));
+		setCount (v,widget);
+		setValue (v,widget);
 		if (v instanceof TextView) {
 			int type = ((TextView)v).getInputType();
 			if (type!=0){
-				w.setTextType(new WidgetType(type, name, w.getValue()).convert());
+				widget.setTextType(new WidgetType(type, name, widget.getValue()).convert());
 			}	
 		}
-		w.setAvailable((v.isEnabled())?"true":"false");
-		w.setClickable((v.isClickable())?"true":"false");
-		w.setLongClickable((v.isLongClickable())?"true":"false");
-		return w;
+		widget.setAvailable((v.isEnabled())?"true":"false");
+		widget.setClickable((v.isClickable())?"true":"false");
+		widget.setLongClickable((v.isLongClickable())?"true":"false");
+		return widget;
 	}
 
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
@@ -157,15 +157,15 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		for (View v: desc) {
 			hasDescription = true;
 			if (!v.isShown()) continue;
-			TestCaseWidget w = createWidget (v);
-			w.setIndex(desc.getWidgetIndex(v));
-			if (w.getIndex() == 0 && w.getSimpleType().equals(TEXT_VIEW)) {
-				w.setSimpleType(TOAST);
+			TestCaseWidget widget = createWidget (v);
+			widget.setIndex(desc.getWidgetIndex(v));
+			if (widget.getIndex() == 0 && widget.getSimpleType().equals(TEXT_VIEW)) {
+				widget.setSimpleType(TOAST);
 			}
-			if (detectDuplicates && newActivity.hasWidget(w)) continue;
-			((ElementWrapper) newActivity).appendChild(w.getElement());
+			if (detectDuplicates && newActivity.hasWidget(widget)) continue;
+			((ElementWrapper) newActivity).appendChild(widget.getElement());
 			for (Filter f: this.filters) {
-				f.loadItem(w);
+				f.loadItem(widget);
 			}
 		}
 		return hasDescription;
@@ -228,14 +228,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public Task createTask(Task head, Transition tail) {
-		TestCaseTask t;
+		TestCaseTask task;
 		if (head!= null) {
-			t = ((TestCaseTask)head).clone();
+			task = ((TestCaseTask)head).clone();
 		} else {
-			t = new TestCaseTask (getTheSession());
+			task = new TestCaseTask (getTheSession());
 		}
-		t.addTransition(tail);
-		return t;
+		task.addTransition(tail);
+		return task;
 	}
 
 	public Task importTask (Element fromXml) {
@@ -250,18 +250,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	}
 
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
-		Transition t = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
+		Transition transition = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
 		try {
-			setStartActivity(t, StartActivity.createActivity(start));
+			setStartActivity(transition, StartActivity.createActivity(start));
 			for (UserInput inPut: inputs) {
-				t.addInput(inPut);
+				transition.addInput(inPut);
 			}
-			t.setEvent (event);
+			transition.setEvent (event);
 		}
 		catch (DOMException e) {
 			e.printStackTrace();
 		}
-		return t;
+		return transition;
 	}
 
 	public void registerListener(AbstractorListener theListener) {

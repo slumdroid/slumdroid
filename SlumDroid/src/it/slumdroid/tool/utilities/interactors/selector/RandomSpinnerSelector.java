@@ -31,7 +31,7 @@ public class RandomSpinnerSelector extends RandomInteractorAdapter {
 
 	@Override
 	public boolean canUseWidget (WidgetState w) {
-		if (getMin(w)>getMax(w)) return false;
+		if (getMin(w) > getMax(w)) return false;
 		return super.canUseWidget(w);
 	}
 

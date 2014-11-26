@@ -52,7 +52,7 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	}
 
 	public void setMinMax (int minValue, int maxValue) {
-		if (minValue>maxValue) {
+		if (minValue > maxValue) {
 			setMinMax(maxValue, minValue);
 		}
 		setMin(minValue);
@@ -76,12 +76,12 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	}
 
 	public int getValue() {
-		return getRandomGenerator().nextInt(getMax()-getMin()) + getMin();
+		return getRandomGenerator().nextInt(getMax() - getMin()) + getMin();
 	}
 
 	public int getValue (WidgetState w) {
-		int delta = getMax(w)-getMin(w)+1;
-		return (delta>0)?(getRandomGenerator().nextInt(delta) + getMin(w)):getMin(w);
+		int delta = getMax(w) - getMin(w) + 1;
+		return (delta > 0)?(getRandomGenerator().nextInt(delta) + getMin(w)):getMin(w);
 	}
 
 	@Override

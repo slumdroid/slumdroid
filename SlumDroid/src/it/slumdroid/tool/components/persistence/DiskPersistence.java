@@ -37,7 +37,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 
 	FileOutputStream fOut = null; 
 	OutputStreamWriter osw = null;
-	ContextWrapper w = null;
+	ContextWrapper wrapper = null;
 	private String fileName;
 	private Session theSession;
 	protected int mode = ContextWrapper.MODE_PRIVATE;
@@ -68,7 +68,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	}
 
 	public void setContext(Activity a) {
-		this.w = new ContextWrapper(a);
+		this.wrapper = new ContextWrapper(a);
 	}
 
 	public void addTask(Task t) {
@@ -115,8 +115,8 @@ public class DiskPersistence implements Persistence, ImageStorage {
 
 	public void openFile (String fileName) {
 		try{
-			this.fOut = w.openFileOutput(fileName, this.mode);
-			this.osw = new OutputStreamWriter(fOut);
+			this.fOut = this.wrapper.openFileOutput(fileName, this.mode);
+			this.osw = new OutputStreamWriter(this.fOut);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -124,11 +124,11 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	}
 
 	public boolean delete (String fileName) {
-		return w.deleteFile(fileName);
+		return this.wrapper.deleteFile(fileName);
 	}
 
 	public boolean exists (String filename) {
-		File file = w.getFileStreamPath(filename);
+		File file = this.wrapper.getFileStreamPath(filename);
 		return file.exists();
 	}
 
@@ -137,11 +137,11 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		FileOutputStream out;
 		byte[] buffer = new byte[4096];
 		try {
-			in = w.openFileInput(from);
-			out = w.openFileOutput(to, ContextWrapper.MODE_PRIVATE);
-			int n = 0;
-			while ((n = in.read(buffer)) != -1) {
-				out.write(buffer, 0, n);
+			in = this.wrapper.openFileInput(from);
+			out = this.wrapper.openFileOutput(to, ContextWrapper.MODE_PRIVATE);
+			int reader = 0;
+			while ((reader = in.read(buffer)) != -1) {
+				out.write(buffer, 0, reader);
 			}
 			in.close();
 			out.close();
@@ -192,7 +192,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		FileOutputStream fileOutput = null;
 		OutputStreamWriter streamWriter = null;
 		try {
-			fileOutput = w.openFileOutput(name,ContextWrapper.MODE_PRIVATE);
+			fileOutput = this.wrapper.openFileOutput(name,ContextWrapper.MODE_PRIVATE);
 			streamWriter = new OutputStreamWriter(fileOutput);
 			if (fileOutput != null) {
 				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);

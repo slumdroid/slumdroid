@@ -28,7 +28,6 @@ public interface Executor {
 	public void setInput (UserInput i);
 	public void process (Task t);
 	public void process (Transition tr);
-	public void finalize();
 	public void wait (int milli);
 
 }

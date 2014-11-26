@@ -140,7 +140,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			parameters.put(listener.getKey(), listener.getValue().onSavingState());
 		}
 		try {
-			theFile = w.openFileOutput(getParametersFileName(), ContextWrapper.MODE_PRIVATE);
+			theFile = wrapper.openFileOutput(getParametersFileName(), ContextWrapper.MODE_PRIVATE);
 			theStream = new ObjectOutputStream(theFile);
 			theStream.writeObject(this.parameters);
 		} catch (FileNotFoundException e) {
@@ -159,7 +159,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		FileInputStream theFile = null;
 		ObjectInputStream theStream = null;
 		try {
-			theFile = w.openFileInput(getParametersFileName());
+			theFile = wrapper.openFileInput(getParametersFileName());
 			theStream = new ObjectInputStream(theFile);
 			this.parameters = (Map<String, SessionParams>) theStream.readObject();
 			theFile.close();
@@ -218,7 +218,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		String line;
 		List<String> output = new ArrayList<String>();
 		try{
-			theFile = w.openFileInput (input);
+			theFile = wrapper.openFileInput (input);
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
 			while ( (line = theStream.readLine()) != null) {
 				output.add(line);
@@ -241,7 +241,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	public void openTaskFile () {
 		try{
-			this.taskFile = w.openFileOutput(getTaskListFileName(), ContextWrapper.MODE_PRIVATE);
+			this.taskFile = wrapper.openFileOutput(getTaskListFileName(), ContextWrapper.MODE_PRIVATE);
 			this.taskStream = new OutputStreamWriter(this.taskFile);
 		}
 		catch (Exception e) {
@@ -255,7 +255,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	public void openStateFile (boolean append) {
 		try{
-			this.stateFile = w.openFileOutput(getActivityFileName(), (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
+			this.stateFile = wrapper.openFileOutput(getActivityFileName(), (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
 			this.stateStream = new OutputStreamWriter(this.stateFile);
 		}
 		catch (Exception e) {

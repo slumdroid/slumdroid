@@ -44,35 +44,35 @@ public class SessionParams implements Serializable {
 	}
 
 	public String get (String key) {
-		return values.get(key);
+		return this.values.get(key);
 	}
 
 	public int getInt (String key) {
-		return Integer.parseInt(values.get(key));
+		return Integer.parseInt(this.values.get(key));
 	}
 
 	public long getLong (String key) {
-		return Long.parseLong(values.get(key));
+		return Long.parseLong(this.values.get(key));
 	}
 
 	public boolean has (String key) {
-		return values.containsKey(key);
+		return this.values.containsKey(key);
 	}
 
 	public void store (String key, String value) {
-		values.put(key, value);
+		this.values.put(key, value);
 	}
 
 	public void store (String key, int number) {
-		values.put(key, String.valueOf(number));
+		this.values.put(key, String.valueOf(number));
 	}
 
 	public void store (String key, long number) {
-		values.put(key, String.valueOf(number));
+		this.values.put(key, String.valueOf(number));
 	}
 
 	public void store (SessionParams p) {
-		values.putAll(p.values);
+		this.values.putAll(p.values);
 	}
 
 }

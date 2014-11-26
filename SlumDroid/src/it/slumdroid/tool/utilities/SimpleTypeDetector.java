@@ -82,83 +82,209 @@ public class SimpleTypeDetector implements TypeDetector {
 
 	public String getSimpleType(View view) {
 		String type = view.getClass().getName();
-		if (type.endsWith("TableRow")) return TABLE_ROW;
-		if (type.endsWith("TwoLineListItem")) return LIST_ITEM;
-		if (type.endsWith("DialogTitle")) return DIALOG_TITLE;
-		if (type.endsWith("NumberPickerButton")) return NUMBER_PICKER_BUTTON;
-		if (type.endsWith("Layout")){
-			if (type.endsWith("LinearLayout")) return LINEAR_LAYOUT;
-			if (type.endsWith("RelativeLayout")) return RELATIVE_LAYOUT;
-			if (type.endsWith("TableLayout")) return TABLE_LAYOUT;
-			return "layout";
+		String detect = checkEnd(type,view);
+		if (detect.equals("")){
+			detect = checkInstances(type,view);
 		}
-		if (type.endsWith("View")){
-			if (type.endsWith("ExpandedMenuView") || type.endsWith("RecycleListView")) return EXPAND_MENU;
-			if (type.endsWith("HomeView")) return ACTION_HOME;
-			if (type.endsWith("MenuView")) return MENU_VIEW;
-			if (type.endsWith("MenuItemView")) return MENU_ITEM;
-			if (view instanceof TextView || type.endsWith("TextView")){
-				if (view instanceof AutoCompleteTextView || type.endsWith("AutoCompleteTextView")) return AUTOC_TEXT;
-				if (view instanceof CheckedTextView 	 || type.endsWith("CheckedTextView")) return CHECKTEXT;
-				return TEXT_VIEW;
-			}
-			if (view instanceof ImageView || type.endsWith("ImageView")) return IMAGE_VIEW;
-			if (view instanceof ListView  || type.endsWith("ListView")) {
-				ListView list = (ListView)view;
-				if (list.getCount() == 0) return EMPTY_LIST;
-				if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) return PREFERENCE_LIST;
-				return LIST_VIEW;
-			}
-			if (view instanceof WebView || type.endsWith("WebView")) return WEB_VIEW;
-			return "view";
-		}
-		if (view instanceof TextView){
-			if (view instanceof EditText){
-				if (view instanceof AutoCompleteTextView){
-					if (type.endsWith("SearchAutoComplete")) return SEARCH_BAR;
-					return AUTOC_TEXT;
-				}
-				if (((EditText) view).getKeyListener() == null) return NOEDITABLE_TEXT;
-				return EDIT_TEXT;
-			}
-			if (view instanceof Button){
-				if (view instanceof CheckBox) return CHECKBOX;
-				if (view instanceof ToggleButton) return TOGGLE_BUTTON;
-				if (view instanceof RadioButton) return RADIO;	
-				return BUTTON;
-			}
-			if (view instanceof CheckedTextView) return CHECKTEXT;
-			return TEXT_VIEW;
-		}
-		if (view instanceof ImageButton || type.endsWith("Button")) return BUTTON;
+		return detect;
+	}
 
-		if (view instanceof Spinner){
-			if (((Spinner)view).getCount() == 0) return EMPTY_SPINNER;
-			if (((Spinner)view).getOnItemClickListener() != null 
-					|| ((Spinner)view).getOnItemLongClickListener()!= null
-					|| ((Spinner)view).getOnItemSelectedListener()!= null) return SPINNER;
-			return SPINNER_INPUT;
+	private String checkInstances(String type, View view) {
+		if (view instanceof TextView){
+			return detectTextView(type,view);
 		}
-		if (type.endsWith("Picker")){
-			if (type.endsWith("DatePicker")) return DATE_PICKER;
-			if (type.endsWith("TimePicker")) return TIME_PICKER;
-			if (type.endsWith("NumberPicker")) return NUMBER_PICKER;
-			return "Picker";
+		if (view instanceof ImageButton 
+				|| type.endsWith("Button")) {
+			return BUTTON;
 		}
-		if (type.endsWith("PopupMenu") || type.contains("PopupMenu")) return POPUP_MENU;
-		if (type.endsWith("PopupWindow") || type.contains("PopupWindow") || type.endsWith("PopupViewContainer")) return POPUP_WINDOW;
-		if (type.endsWith("Container")) return "Container";
-		
-		if (view instanceof RadioGroup) return RADIO_GROUP;
-		
-		if (view instanceof ProgressBar || type.endsWith("ProgressBar")) {
-			if (view instanceof RatingBar && (!((RatingBar)view).isIndicator())) return RATING_BAR;
-			if (view instanceof SeekBar) return SEEK_BAR;
-			return PROGRESS_BAR;
+		if (view instanceof Spinner) {
+			return detectSpinner(view);
+		}		
+		if (view instanceof RadioGroup) {
+			return RADIO_GROUP;
 		}
-		if (view instanceof TabHost) return TAB_HOST;
-		if (view instanceof SlidingDrawer) return SLIDING_DRAWER; // Deprecated in API level 17
-		return "";
+		if (view instanceof ProgressBar 
+				|| type.endsWith("ProgressBar")) {
+			return detectProgressBar(view);
+		}
+		if (view instanceof TabHost) {
+			return TAB_HOST;
+		}
+		if (view instanceof SlidingDrawer) {
+			return SLIDING_DRAWER; // Deprecated in API level 17
+		}
+		return new String();
+	}
+
+	private String checkEnd(String type, View view) {
+		if (type.endsWith("View")){
+			return detectView(type,view);
+		}
+		if (type.endsWith("TableRow")) {
+			return TABLE_ROW;
+		}
+		if (type.endsWith("TwoLineListItem")) {
+			return LIST_ITEM;
+		}
+		if (type.endsWith("DialogTitle")) {
+			return DIALOG_TITLE;
+		}
+		if (type.endsWith("NumberPickerButton")) {
+			return NUMBER_PICKER_BUTTON;
+		}
+		if (type.endsWith("Layout")){
+			return detectLayout(type);
+		}
+		if (type.endsWith("Picker")) {
+			return detectPicker(type);
+		}
+		if (type.endsWith("PopupMenu") 
+				|| type.contains("PopupMenu")) {
+			return POPUP_MENU;
+		}
+		if (type.endsWith("PopupWindow") 
+				|| type.contains("PopupWindow") 
+				|| type.endsWith("PopupViewContainer")) {
+			return POPUP_WINDOW;
+		}
+		if (type.endsWith("Container")) {
+			return "Container";
+		}
+		return new String();
+	}
+
+	private String detectProgressBar(View view) {
+		if (view instanceof RatingBar && (!((RatingBar)view).isIndicator())) return RATING_BAR;
+		if (view instanceof SeekBar) return SEEK_BAR;
+		return PROGRESS_BAR;
+	}
+
+	private String detectPicker(String type) {
+		if (type.endsWith("DatePicker")) return DATE_PICKER;
+		if (type.endsWith("TimePicker")) return TIME_PICKER;
+		if (type.endsWith("NumberPicker")) return NUMBER_PICKER;
+		return "Picker";
+	}
+
+	private String detectSpinner(View view) {
+		if (((Spinner)view).getCount() == 0) {
+			return EMPTY_SPINNER;
+		}
+		if (((Spinner)view).getOnItemClickListener() != null 
+				|| ((Spinner)view).getOnItemLongClickListener() != null
+				|| ((Spinner)view).getOnItemSelectedListener() != null) {
+			return SPINNER;
+		}
+		return SPINNER_INPUT;
+	}
+
+	private String detectTextView(String type, View view) {
+		if (view instanceof EditText){
+			return detectEdit(type,view);
+		}
+		if (view instanceof Button){
+			return detectButton(view);
+		}
+		if (view instanceof CheckedTextView) {
+			return CHECKTEXT;
+		}
+		return TEXT_VIEW;
+	}
+
+	private String detectEdit(String type, View view) {
+		if (view instanceof AutoCompleteTextView){
+			if (type.endsWith("SearchAutoComplete")) {
+				return SEARCH_BAR;
+			}
+			return AUTOC_TEXT;
+		}
+		if (((EditText) view).getKeyListener() == null) {
+			return NOEDITABLE_TEXT;
+		}
+		return EDIT_TEXT;
+	}
+
+	private String detectButton(View view) {
+		if (view instanceof CheckBox) return CHECKBOX;
+		if (view instanceof ToggleButton) return TOGGLE_BUTTON;
+		if (view instanceof RadioButton) return RADIO;	
+		return BUTTON;
+	}
+
+	private String detectView(String type, View view) {
+		if (type.contains("Menu")){
+			return detectMenu(type);
+		}
+		if (type.endsWith("HomeView")) {
+			return ACTION_HOME;
+		}
+		if (view instanceof TextView 
+				|| type.endsWith("TextView")){
+			return detectText(type,view);
+		}
+		if (view instanceof ImageView 
+				|| type.endsWith("ImageView")) {
+			return IMAGE_VIEW;
+		}
+		if (view instanceof ListView  
+				|| type.endsWith("ListView")) {
+			return detectList(view);
+		}
+		if (view instanceof WebView 
+				|| type.endsWith("WebView")) {
+			return WEB_VIEW;
+		}
+		return "view";
+	}
+
+	private String detectMenu(String type) {
+		if (type.endsWith("ExpandedMenuView") 
+				|| type.endsWith("RecycleListView")) {
+			return EXPAND_MENU;
+		}
+		if (type.endsWith("MenuView")) {
+			return MENU_VIEW;
+		}
+		if (type.endsWith("MenuItemView")) {
+			return MENU_ITEM;
+		}
+		return new String();
+	}
+
+	private String detectText(String type, View view) {
+		if (view instanceof AutoCompleteTextView 
+				|| type.endsWith("AutoCompleteTextView")) {
+			return AUTOC_TEXT;
+		}
+		if (view instanceof CheckedTextView 
+				|| type.endsWith("CheckedTextView")) {
+			return CHECKTEXT;
+		}
+		return TEXT_VIEW;
+	}
+
+	private String detectList(View view) {
+		ListView list = (ListView)view;
+		if (list.getCount() == 0) {
+			return EMPTY_LIST;
+		}
+		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
+			return PREFERENCE_LIST;
+		}
+		return LIST_VIEW;
+	}
+
+	private String detectLayout(String type) {
+		if (type.endsWith("LinearLayout")) {
+			return LINEAR_LAYOUT;
+		}
+		if (type.endsWith("RelativeLayout")) {
+			return RELATIVE_LAYOUT;
+		}
+		if (type.endsWith("TableLayout")) {
+			return TABLE_LAYOUT;
+		}
+		return "layout";
 	}
 
 }

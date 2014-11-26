@@ -58,8 +58,7 @@ public class SystematicEngine extends Engine {
 			GuiTree.setValidation(false);
 			this.guiAbstractor = new GuiTreeAbstractor();
 			this.theGuiTree = this.guiAbstractor.getTheSession();
-			GregorianCalendar c=new GregorianCalendar();
-			theGuiTree.setDateTime(c.getTime().toString());
+			this.theGuiTree.setDateTime(new GregorianCalendar().getTime().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -74,8 +73,8 @@ public class SystematicEngine extends Engine {
 		this.guiAbstractor.addFilter (eventFilter);
 		this.guiAbstractor.setTypeDetector(new SimpleTypeDetector());
 		this.user = UserFactory.getUser(this.guiAbstractor);
-		planner.setUser(user);
-		planner.setFormFiller(user);
+		planner.setUser(this.user);
+		planner.setFormFiller(this.user);
 		planner.setAbstractor(this.guiAbstractor);
 		setPlanner (planner);		
 		this.theStrategyFactory = new StrategyFactory(new CompositionalComparator()); 
@@ -83,16 +82,16 @@ public class SystematicEngine extends Engine {
 	}
 
 	protected void setUp (){		
-		Strategy s = this.theStrategyFactory.getStrategy();
-		setStrategy (s);
-		this.thePersistenceFactory.setStrategy(s);
+		Strategy strategy = this.theStrategyFactory.getStrategy();
+		setStrategy (strategy);
+		this.thePersistenceFactory.setStrategy(strategy);
 		setPersistence (this.thePersistenceFactory.getPersistence());
 		try {
 			super.setUp();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		theRestarter.setRestartPoint(theAutomation.getActivity());
+		this.theRestarter.setRestartPoint(this.theAutomation.getActivity());
 	}	
 
 	public Session getNewSession() {
