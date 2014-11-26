@@ -82,9 +82,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		if (getImageCaptor()!=null) ScreenshotFactory.setImageCaptor(getImageCaptor());
 		getExecutor().bind(this);
 		getExtractor().extractState();
-		Activity a = getExtractor().getActivity();
+		Activity activity = getExtractor().getActivity();
 		getPersistence().setFileName(FILE_NAME);
-		getPersistence().setContext(a);
+		getPersistence().setContext(activity);
 		ActivityDescription d = getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(d);
 		if (resume()) setupAfterResume();
@@ -95,7 +95,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
 		Log.i(TAG, "Start Activity saved");
-		if (screenshotEnabled()) takeScreenshot (baseActivity);
+		if (SCREENSHOT_ENABLED) takeScreenshot (baseActivity);
 		planFirstTests(baseActivity);
 	}
 
@@ -110,7 +110,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			ActivityDescription d = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(d);
 			getStrategy().compareState(theActivity);
-			if (screenshotEnabled()) takeScreenshot(theActivity);
+			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
 			if (SLEEP_AFTER_TASK != 0) getExecutor().wait(SLEEP_AFTER_TASK);
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTask(theTask);
@@ -134,7 +134,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			getSession().addFailedTask(getStrategy().getTask());
 		}
 		getPersistence().save();
-		getExecutor().finalize();
 		super.tearDown();
 	}
 
@@ -142,13 +141,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		if (!(getPersistence() instanceof ResumingPersistence)) {
 			return false;
 		}
-		ResumingPersistence r = (ResumingPersistence)getPersistence();
-		if (!r.canHasResume()) return false;
-		importTaskList(r);		
-		importActivitiyList(r);
-		r.loadParameters();
-		r.setNotFirst();
-		r.saveStep();
+		ResumingPersistence resumer = (ResumingPersistence)getPersistence();
+		if (!resumer.canHasResume()) return false;
+		importTaskList(resumer);		
+		importActivitiyList(resumer);
+		resumer.loadParameters();
+		resumer.setNotFirst();
+		resumer.saveStep();
 		return true;
 	}
 
@@ -176,13 +175,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		Element e;
 		entries = r.readTaskFile();
 		List<Task> taskList = new ArrayList<Task>();
-		Task t;
+		Task task;
 		for (String trace: entries) {
 			sandboxSession.parse(trace);
 			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-			t = getAbstractor().importTask (e);
-			if (t.isFailed()) getSession().addCrashedTask(t);
-			else taskList.add(t);
+			task = getAbstractor().importTask (e);
+			if (task.isFailed()) getSession().addCrashedTask(task);
+			else taskList.add(task);
 		}
 		getScheduler().addTasks(taskList);
 	}
@@ -306,10 +305,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 
 	public String getListenerName () {
 		return ACTOR_NAME;
-	}
-
-	public boolean screenshotEnabled() {
-		return SCREENSHOT_ENABLED;
 	}
 
 	public String screenshotName (String stateId) {

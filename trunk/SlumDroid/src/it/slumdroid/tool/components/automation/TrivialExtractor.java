@@ -80,8 +80,8 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 	}
 
 	public Bitmap captureImage() {
-		ArrayList<View> views = solo.getViews();
-		Bitmap b = null;
+		ArrayList<View> views = this.solo.getViews();
+		Bitmap bmap = null;
 		try{
 			if (views != null && views.size() > 0) {
 				final View view = views.get(0);
@@ -95,8 +95,8 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 					}
 				});
 				sync();
-				b = view.getDrawingCache();
-				b = b.copy(b.getConfig(), false);
+				bmap = view.getDrawingCache();
+				bmap = bmap.copy(bmap.getConfig(), false);
 				getActivity().runOnUiThread(new Runnable() {
 					public void run() {
 						if (!flag) {
@@ -104,12 +104,12 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 						}
 					}
 				});
-				return b;
+				return bmap;
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		b.recycle();
+		bmap.recycle();
 		return null;
 	}
 	
@@ -122,23 +122,23 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 	}
 	
 	public void clearWidgetList() {
-		theViews.clear();
-		allViews.clear();		
+		this.theViews.clear();
+		this.allViews.clear();		
 	}
 	
 	public void retrieveWidgets () {
 		DroidExecutor.home();
 		clearWidgetList();
-		ArrayList<View> viewList = solo.getViews();
-		if (viewList.size()!=0){
+		ArrayList<View> viewList = this.solo.getViews();
+		if (viewList.size() != 0){
 			Log.d(TAG, "Retrieving widgets");
 			Log.d(TAG, "Found widget:");
 			for (View w: viewList) {
-				allViews.add(w);
-				String text = (w instanceof TextView)?": "+((TextView)w).getText().toString():"";
-				Log.d(TAG, "id=" + w.getId() + " ("+ w.toString().split("@")[0] + ")" + text);
-				if (w.getId()>0) {
-					theViews.put(w.getId(), w); // Add only if the widget has a valid ID
+				this.allViews.add(w);
+				String text = (w instanceof TextView)?": " + ((TextView)w).getText().toString():"";
+				Log.d(TAG, "id=" + w.getId() + " (" + w.toString().split("@")[0] + ")" + text);
+				if (w.getId() > 0) {
+					this.theViews.put(w.getId(), w); // Add only if the widget has a valid ID
 				}
 			}	
 		}

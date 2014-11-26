@@ -30,18 +30,15 @@ class TrivialScheduler implements TaskScheduler {
 	private List<Task> tasks;
 	private SchedulerAlgorithm algorithm;
 
-	public TrivialScheduler (TraceDispatcher traceDispatcher, SchedulerAlgorithm algorithm) {
+	public TrivialScheduler (TraceDispatcher traceDispatcher, 
+			SchedulerAlgorithm algorithm) {
 		this.traceDispatcher = traceDispatcher;
-		setSchedulerAlgorithm (algorithm);
-	}
-
-	public void setSchedulerAlgorithm (SchedulerAlgorithm algorithm) {
 		this.algorithm = algorithm;
 	}
 
 	public Task nextTask() {
 		if (!hasMore()) return null;
-		switch (algorithm) {
+		switch (this.algorithm) {
 		case DEPTH_FIRST: return lastTask();
 		case BREADTH_FIRST:
 		case RANDOM:
@@ -51,20 +48,25 @@ class TrivialScheduler implements TaskScheduler {
 
 	public void addTasks(Collection<Task> newTasks) {
 		for (Task t: newTasks) {
-			tasks.add(t);
-			for (DispatchListener theListener: this.traceDispatcher.theListeners) {
+			this.tasks.add(t);
+			for (DispatchListener theListener: 
+				this.traceDispatcher.theListeners) {
 				theListener.onNewTaskAdded(t);
 			}
 		}				
 	}
 
 	public void addPlannedTasks(List<Task> newTasks) {
-		switch (algorithm) {
+		switch (this.algorithm) {
 		case DEPTH_FIRST:
 			Collections.reverse(newTasks);
+			addTasks(newTasks);
+			break;
 		case BREADTH_FIRST:
 		case RANDOM:
-		default: addTasks(newTasks);
+		default: 
+			addTasks(newTasks);
+			break;
 		}
 	}
 
@@ -77,11 +79,11 @@ class TrivialScheduler implements TaskScheduler {
 	}
 
 	public boolean hasMore() {
-		return !tasks.isEmpty();
+		return !this.tasks.isEmpty();
 	}
 
 	public void remove(Task t) {
-		tasks.remove(t);
+		this.tasks.remove(t);
 	}
 
 	public void addTasks(Task t) {
@@ -93,7 +95,7 @@ class TrivialScheduler implements TaskScheduler {
 	}
 
 	public Task lastTask() {
-		return this.tasks.get(this.tasks.size()-1);
+		return this.tasks.get(this.tasks.size() - 1);
 	}
 
 }

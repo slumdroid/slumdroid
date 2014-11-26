@@ -26,8 +26,8 @@ import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
-import static it.slumdroid.tool.Resources.ADDITIONAL_EVENTS;
-import static it.slumdroid.tool.Resources.ADDITIONAL_INPUTS;
+import static it.slumdroid.tool.Prefs.ADDITIONAL_EVENTS;
+import static it.slumdroid.tool.Prefs.ADDITIONAL_INPUTS;
 import static it.slumdroid.tool.Resources.HASH_VALUES;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 import static it.slumdroid.tool.Resources.RANDOM_SEED;
@@ -93,12 +93,19 @@ public class UserFactory {
 		userAdapter.addEvent(new Clicker(typesForEvent(CLICK)));
 		userAdapter.addEvent(new LongClicker(typesForEvent(LONG_CLICK)));
 		if (isRequiredEvent(WRITE_TEXT)) {
-			if(HASH_VALUES) userAdapter.addEvent(new HashWriteEditor(typesForEvent(WRITE_TEXT)));
-			else userAdapter.addEvent(new RandomWriteEditor(typesForEvent(WRITE_TEXT)));
+			if(HASH_VALUES) {
+				userAdapter.addEvent(new HashWriteEditor(typesForEvent(WRITE_TEXT)));
+			}
+			else {
+				userAdapter.addEvent(new RandomWriteEditor(typesForEvent(WRITE_TEXT)));
+			}
 		}
 		if(HASH_VALUES){
 			userAdapter.addEvent(new HashEnterEditor(typesForEvent(ENTER_TEXT)));
-		} else userAdapter.addEvent(new RandomEnterEditor(typesForEvent(ENTER_TEXT)));
+		} 
+		else {
+			userAdapter.addEvent(new RandomEnterEditor(typesForEvent(ENTER_TEXT)));
+		}
 		userAdapter.addEvent(new ListSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_SELECT)));
 		userAdapter.addEvent(new ListLongSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_LONG_SELECT)));
 		userAdapter.addEvent(new SpinnerSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(SPINNER_SELECT)));
@@ -110,8 +117,12 @@ public class UserFactory {
 		}
 		userAdapter.addInput(new Clicker (typesForInput(CLICK)));	
 		if (isRequiredInput(WRITE_TEXT)) {
-			if (HASH_VALUES) userAdapter.addInput(new HashWriteEditor(typesForInput(WRITE_TEXT)));
-			else userAdapter.addInput(new RandomWriteEditor(typesForInput(WRITE_TEXT)));
+			if (HASH_VALUES) {
+				userAdapter.addInput(new HashWriteEditor(typesForInput(WRITE_TEXT)));
+			}
+			else {
+				userAdapter.addInput(new RandomWriteEditor(typesForInput(WRITE_TEXT)));
+			}
 		}
 		userAdapter.addInput(new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)));
 		userAdapter.addInput(new BarSlider(typesForInput(SET_BAR)));

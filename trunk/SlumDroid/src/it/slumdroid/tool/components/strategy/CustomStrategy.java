@@ -34,7 +34,7 @@ import android.util.Log;
 public class CustomStrategy implements Strategy {
 
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
-	private Comparator c;
+	private Comparator comparator;
 	protected Collection<PauseCriteria> pausers = new ArrayList<PauseCriteria>();
 	protected boolean positiveComparation = true;
 	private Task theTask;
@@ -69,7 +69,7 @@ public class CustomStrategy implements Strategy {
 			return false;
 		}
 
-		for (ActivityState stored: guiNodes) {
+		for (ActivityState stored: this.guiNodes) {
 			if (getComparator().compare(theActivity, stored)) {
 				theActivity.setId(stored.getId());
 				Log.i(TAG, "This activity state is equivalent to " + stored.getId());
@@ -100,11 +100,11 @@ public class CustomStrategy implements Strategy {
 	}
 
 	public Comparator getComparator() {
-		return this.c;
+		return this.comparator;
 	}
 
 	public void setComparator(Comparator c) {
-		this.c = c;
+		this.comparator = c;
 	}
 
 	public void setTask(Task theTask) {

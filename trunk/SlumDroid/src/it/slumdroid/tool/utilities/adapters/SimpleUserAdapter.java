@@ -76,7 +76,7 @@ public class SimpleUserAdapter implements UserAdapter {
 	public void addEvent (Interactor ... events) {
 		for (Interactor e: events) {
 			e.setAbstractor(getAbstractor());
-			eventTypes.add(e);
+			this.eventTypes.add(e);
 		}
 	}
 
@@ -90,7 +90,7 @@ public class SimpleUserAdapter implements UserAdapter {
 			if (i instanceof RandomInteractor) {
 				((RandomInteractor) i).setRandomGenerator(getRandomGenerator());
 			}
-			inputTypes.add(i);
+			this.inputTypes.add(i);
 		}
 	}
 

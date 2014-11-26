@@ -100,14 +100,14 @@ public class DroidExecutor {
 		requestFocus(list);
 		solo.sendKey(Solo.DOWN);
 		final ListView theList = list;
-		final int n = Math.min(list.getCount(), Math.max(1,num))-1;
+		final int index = Math.min(list.getCount(), Math.max(1,num))-1;
 		runOnUiThread(new Runnable() {
 			public void run() {
-				theList.setSelection(n);
+				theList.setSelection(index);
 			}
 		});
 		sync();
-		if (n<list.getCount()/2) {
+		if (index<list.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);
 		} else {
@@ -115,7 +115,7 @@ public class DroidExecutor {
 			solo.sendKey(Solo.DOWN);
 		}
 		sync();
-		Log.i(TAG, "Swapping to item " + n);
+		Log.i(TAG, "Swapping to item " + index);
 		View view = list.getSelectedView();
 		if (longClick) longClick(view);
 		else click (view);
@@ -199,9 +199,9 @@ public class DroidExecutor {
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=count);
-		final int n = Math.min(count, Math.max(1,num))-1;
+		final int index = Math.min(count, Math.max(1,num))-1;
 		Log.i(TAG, "Swapping to tab " + num);
-		click (tabHost.getTabWidget().getChildAt(n));
+		click (tabHost.getTabWidget().getChildAt(index));
 	}
 
 	// Scroll and search methods

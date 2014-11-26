@@ -59,22 +59,9 @@ public class UltraPlanner implements Planner {
 		setIncludeAction(false);
 		setIncludeMenu(true);
 		setIncludeRotation(true);
-		for (WidgetState w: getEventFilter()) {
-			if (w.getSimpleType().equals(TOAST)
-					|| w.getSimpleType().equals(DIALOG_TITLE)
-					|| w.getSimpleType().equals(PREFERENCE_LIST)){
-				setIncludeMenu(false);
-			}
-			if (w.getSimpleType().equals(PREFERENCE_LIST) 
-					|| w.getSimpleType().equals(EXPAND_MENU)){
-				setIncludeRotation(false);
-			}
-			if (w.getSimpleType().equals(ACTION_HOME) 
-					&& w.isClickable() 
-					&& w.isAvailable()){
-				setIncludeAction(true);
-			}
-			Collection<UserEvent> events = getUser().handleEvent(w);
+		for (WidgetState widget: getEventFilter()) {
+			reductionActions(widget);
+			Collection<UserEvent> events = getUser().handleEvent(widget);
 			for (UserEvent event: events) {                           
 				if (event == null) continue;
 				if (includeEvent(event)) adjacentValues(planner, activityState, event);
@@ -82,12 +69,29 @@ public class UltraPlanner implements Planner {
 		}    
 	}
 
+	private void reductionActions(WidgetState widget) {
+		if (widget.getSimpleType().equals(TOAST)
+				|| widget.getSimpleType().equals(DIALOG_TITLE)
+				|| widget.getSimpleType().equals(PREFERENCE_LIST)){
+			setIncludeMenu(false);
+		}
+		if (widget.getSimpleType().equals(PREFERENCE_LIST) 
+				|| widget.getSimpleType().equals(EXPAND_MENU)){
+			setIncludeRotation(false);
+		}
+		if (widget.getSimpleType().equals(ACTION_HOME) 
+				&& widget.isClickable() 
+				&& widget.isAvailable()){
+			setIncludeAction(true);
+		}	
+	}
+
 	private void adjacentValues(Plan planner, ActivityState activityState, UserEvent event){
 		ArrayList<List<UserInput>> macroInputs = new ArrayList<List<UserInput>>();
 		int numWidgets = 0;
 		for(WidgetState formWidget: getInputFilter()){
 			List<UserInput> alternatives = getFormFiller().handleInput(formWidget);
-			if(alternatives.size()!=0){                                             
+			if(alternatives.size() != 0){                                             
 				macroInputs.add(alternatives);
 				numWidgets++;
 			}                                               
@@ -97,10 +101,10 @@ public class UltraPlanner implements Planner {
 			UserInput input = macroInputs.get(widget).get(0);
 			if (includeInput(input, event)) inputs.add(input);
 		}
-		Transition t = getAbstractor().createStep(activityState, inputs, event);                          
-		planner.addTask(t);
+		Transition transition = getAbstractor().createStep(activityState, inputs, event);                          
+		planner.addTask(transition);
 		for(int widget = 0; widget < numWidgets; widget++){                                                                  
-			for(int inPut = 1; inPut <= macroInputs.get(widget).size()-1; inPut++){
+			for(int inPut = 1; inPut <= macroInputs.get(widget).size() - 1; inPut++){
 				Collection<UserInput> combinations = new ArrayList<UserInput>();
 				for(int component = 0; component < numWidgets; component++){
 					if(component == widget){
@@ -111,8 +115,8 @@ public class UltraPlanner implements Planner {
 					UserInput input = macroInputs.get(component).get(0);
 					if (includeInput(input, event)) combinations.add(((TestCaseInput) input).clone());
 				}
-				t = getAbstractor().createStep(activityState, combinations,((TestCaseEvent) event).clone());                                        
-				planner.addTask(t);                           
+				transition = getAbstractor().createStep(activityState, combinations,((TestCaseEvent) event).clone());                                        
+				planner.addTask(transition);                           
 			}                                                               
 		}
 	}

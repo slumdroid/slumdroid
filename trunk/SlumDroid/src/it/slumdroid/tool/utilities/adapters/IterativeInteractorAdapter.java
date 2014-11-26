@@ -40,8 +40,8 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 		if (canUseWidget(w)) {
 			final int fromItem = 1; 
 			final int toItem = getToItem(w, fromItem, w.getCount()); 
-			if (toItem<fromItem) return events;
-			for (int i=fromItem; i<=toItem; i++) {
+			if (toItem < fromItem) return events;
+			for (int i=fromItem; i <= toItem; i++) {
 				events.add(generateEvent(w, String.valueOf(i)));
 			}
 		}
@@ -49,7 +49,7 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 	}
 
 	public int getToItem(WidgetState w, int fromItem, int toItem) {
-		return (getMaxEventsPerWidget(w)>0)?Math.min (fromItem + getMaxEventsPerWidget(w) - 1, toItem):toItem;
+		return (getMaxEventsPerWidget(w) > 0)?Math.min (fromItem + getMaxEventsPerWidget(w) - 1, toItem):toItem;
 	}
 
 	public int getMaxEventsPerWidget() {

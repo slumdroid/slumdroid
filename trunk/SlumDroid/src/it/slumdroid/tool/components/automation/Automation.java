@@ -119,15 +119,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		fireEvent (step.getEvent());		
 	}
 
-	public void finalize() {
-		try {
-			trivialExtractor.solo.finalize();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
-		getActivity().finish();
-	}
-
 	public void fireEvent(UserEvent event) {
 		this.currentEvent = event;
 		String eventType = event.getType();
@@ -286,7 +277,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 
 	public void waitOnThrobber() {
 		int sleepTime = SLEEP_ON_THROBBER;
-		if (sleepTime==0) return;
+		if (sleepTime == 0) return;
 		boolean flag;
 		do {
 			flag = false;
@@ -350,12 +341,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public Bitmap captureImage() {
-		try{
-			return this.imageCaptor.captureImage();	
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return null;
+		return this.imageCaptor.captureImage();	
 	}
 
 	// This methods call the Abstractor Utility methods to describe the current event

@@ -33,19 +33,19 @@ public class AbstractorUtilities {
 	public static String detectName (View v) {
 		String name = new String();
 		if (v instanceof TextView) {
-			TextView t = (TextView)v;
-			name = t.getText().toString();
+			TextView text = (TextView)v;
+			name = text.getText().toString();
 			if (v instanceof EditText) {
 				CharSequence hint = ((EditText)v).getHint();
 				name = (hint == null)?new String():hint.toString();
 			}
 		} else if (v instanceof RadioGroup) {
-			RadioGroup g = (RadioGroup)v;
-			int max=g.getChildCount();
+			RadioGroup group = (RadioGroup)v;
+			int max=group.getChildCount();
 			String text = new String();
-			for (int i=0; i<max; i++) {
-				View c = g.getChildAt(i);
-				text = detectName (c);
+			for (int i=0; i < max; i++) {
+				View child = group.getChildAt(i);
+				text = detectName (child);
 				if (!text.equals("")) {
 					name = text;
 					break;
@@ -111,14 +111,14 @@ public class AbstractorUtilities {
 		if (e == null) return false; // This is probably an input, not an event
 		// Get text from the target widget
 		if (v instanceof TextView) {
-			String s = ((TextView)v).getText().toString();
-			e.setDescription(s);
+			String text = ((TextView)v).getText().toString();
+			e.setDescription(text);
 			return true;
 		} else if (v instanceof TabHost) {
 			e.setDescription(((TabHost)v).getCurrentTabTag());
 		} else if (v instanceof ViewGroup) {
 			int childNum = ((ViewGroup)v).getChildCount();
-			for (int i = 0; i<childNum; i++) {
+			for (int i = 0; i < childNum; i++) {
 				View child =  ((ViewGroup)v).getChildAt(i);
 				if (describeCurrentEvent(e, child)) return true;
 			}
