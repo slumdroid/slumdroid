@@ -85,16 +85,14 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getPersistence().setContext(activity);
 		getPersistence().setFileName(FILE_NAME);
 		if (resume()) setupAfterResume();
-		else {
-			Log.i(TAG, "Ripping starts");
-			getExtractor().extractState();
-			ActivityDescription description = getExtractor().describeActivity();
-			getAbstractor().setBaseActivity(description);
-			setupFirstStart();
-		}
+		else setupFirstStart();
 	}
 
 	protected void setupFirstStart() {
+		Log.i(TAG, "Ripping starts");
+		getExtractor().extractState();
+		ActivityDescription description = getExtractor().describeActivity();
+		getAbstractor().setBaseActivity(description);
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
 		Log.i(TAG, "Start Activity State saved");
