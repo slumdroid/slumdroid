@@ -81,20 +81,23 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		super.setUp();
 		if (getImageCaptor()!=null) ScreenshotFactory.setImageCaptor(getImageCaptor());
 		getExecutor().bind(this);
-		getExtractor().extractState();
 		Activity activity = getExtractor().getActivity();
-		getPersistence().setFileName(FILE_NAME);
 		getPersistence().setContext(activity);
-		ActivityDescription d = getExtractor().describeActivity();
-		getAbstractor().setBaseActivity(d);
+		getPersistence().setFileName(FILE_NAME);
 		if (resume()) setupAfterResume();
-		else setupFirstStart();
+		else {
+			Log.i(TAG, "Ripping starts");
+			getExtractor().extractState();
+			ActivityDescription description = getExtractor().describeActivity();
+			getAbstractor().setBaseActivity(description);
+			setupFirstStart();
+		}
 	}
 
 	protected void setupFirstStart() {
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
-		Log.i(TAG, "Start Activity saved");
+		Log.i(TAG, "Start Activity State saved");
 		if (SCREENSHOT_ENABLED) takeScreenshot (baseActivity);
 		planFirstTests(baseActivity);
 	}
