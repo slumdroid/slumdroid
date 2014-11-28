@@ -155,8 +155,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 	
 	private void writeLogInfo(UserEvent event, String extraInfo){
-		String eventType = event.getType();
-		String toWrite = "Firing event: type=" + eventType + " id=" + event.getWidgetId() + " widget=" + event.getWidget().getSimpleType();
+		String toWrite = "Firing event: type=" + event.getType() + " id=" + event.getWidgetId() + " widget=" + event.getWidget().getSimpleType();
 		Log.i(TAG, toWrite + extraInfo);
 	}
 
@@ -172,7 +171,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 	
 	private void writeLogInfo(UserInput input, String extraInfo){
-		String toWrite = "Setting input: type=" + input.getType() + " id=" + input.getWidgetId() + " widget=" + input.getWidgetType();
+		String toWrite = "Setting input: type=" + input.getType() + " id=" + input.getWidgetId() + " widget=" + input.getWidget().getSimpleType();
 		Log.i(TAG, toWrite + extraInfo);
 	}
 
