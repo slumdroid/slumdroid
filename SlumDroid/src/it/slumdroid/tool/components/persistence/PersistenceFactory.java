@@ -53,9 +53,8 @@ public class PersistenceFactory {
 	}
 
 	public Persistence getPersistence () {
-		Persistence thePersistence;
 		ResumingPersistence resumer = new ResumingPersistence();
-		thePersistence = resumer;
+		Persistence thePersistence = resumer;
 		resumer.setTaskList(getDispatcher().getScheduler().getTaskList());
 		resumer.setTaskListFile(TASK_LIST_FILE_NAME);
 		resumer.setActivityFile(ACTIVITY_LIST_FILE_NAME);

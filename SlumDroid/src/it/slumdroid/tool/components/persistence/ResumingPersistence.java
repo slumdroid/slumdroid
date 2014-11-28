@@ -216,7 +216,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 	
 	private List<String> readFile (String input) {
-		FileInputStream theFile;
+		FileInputStream theFile = null;
 		BufferedReader theStream = null;
 		String line = new String();
 		List<String> output = new ArrayList<String>();
@@ -226,10 +226,15 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			while ( (line = theStream.readLine()) != null) {
 				output.add(line);
 			}
-			theFile.close();
-			theStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				theFile.close();
+				theStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return output;
 	} 
