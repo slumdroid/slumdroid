@@ -133,12 +133,12 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 		if (viewList.size() != 0){
 			Log.d(TAG, "Retrieving widgets");
 			Log.d(TAG, "Found widget:");
-			for (View w: viewList) {
-				this.allViews.add(w);
-				String text = (w instanceof TextView)?": " + ((TextView)w).getText().toString():"";
-				Log.d(TAG, "id=" + w.getId() + " (" + w.toString().split("@")[0] + ")" + text);
-				if (w.getId() > 0) {
-					this.theViews.put(w.getId(), w); // Add only if the widget has a valid ID
+			for (View view: viewList) {
+				this.allViews.add(view);
+				String text = (view instanceof TextView)?": " + ((TextView)view).getText().toString():"";
+				Log.d(TAG, "id=" + view.getId() + " (" + view.toString().split("@")[0] + ")" + text);
+				if (view.getId() > 0) {
+					this.theViews.put(view.getId(), view); // Add only if the widget has a valid ID
 				}
 			}	
 		}

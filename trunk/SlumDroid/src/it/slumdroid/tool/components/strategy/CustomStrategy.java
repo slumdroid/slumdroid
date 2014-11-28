@@ -88,8 +88,8 @@ public class CustomStrategy implements Strategy {
 	}
 
 	public boolean checkForPause () { // Logic OR of the criteria
-		for (PauseCriteria p: this.pausers) {
-			if (p.pause()) return true;
+		for (PauseCriteria criteria: this.pausers) {
+			if (criteria.pause()) return true;
 		}
 		return false;
 	}
@@ -103,8 +103,8 @@ public class CustomStrategy implements Strategy {
 		return this.comparator;
 	}
 
-	public void setComparator(Comparator c) {
-		this.comparator = c;
+	public void setComparator(Comparator comparator) {
+		this.comparator = comparator;
 	}
 
 	public void setTask(Task theTask) {

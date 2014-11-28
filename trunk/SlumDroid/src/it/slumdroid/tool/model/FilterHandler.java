@@ -17,6 +17,6 @@ package it.slumdroid.tool.model;
 
 public interface FilterHandler extends Iterable<Filter> {
 
-	public void addFilter (Filter f);
+	public void addFilter (Filter filter);
 
 }

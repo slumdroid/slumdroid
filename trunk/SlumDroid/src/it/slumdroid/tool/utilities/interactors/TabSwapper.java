@@ -34,8 +34,8 @@ public class TabSwapper extends IterativeInteractorAdapter {
 	}
 
 	@Override
-	public boolean canUseWidget(WidgetState w) {
-		return super.canUseWidget(w) && (isFirst() || !TAB_EVENTS_START_ONLY);
+	public boolean canUseWidget(WidgetState widget) {
+		return super.canUseWidget(widget) && (isFirst() || !TAB_EVENTS_START_ONLY);
 	}
 
 	private boolean isFirst() {

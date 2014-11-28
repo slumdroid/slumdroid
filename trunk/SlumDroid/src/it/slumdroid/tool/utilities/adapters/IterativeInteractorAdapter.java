@@ -35,28 +35,28 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 	}
 
 	@Override
-	public List<UserEvent> getEvents (WidgetState w) {
+	public List<UserEvent> getEvents (WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
-		if (canUseWidget(w)) {
+		if (canUseWidget(widget)) {
 			final int fromItem = 1; 
-			final int toItem = getToItem(w, fromItem, w.getCount()); 
+			final int toItem = getToItem(widget, fromItem, widget.getCount()); 
 			if (toItem < fromItem) return events;
-			for (int i=fromItem; i <= toItem; i++) {
-				events.add(generateEvent(w, String.valueOf(i)));
+			for (int item = fromItem; item <= toItem; item++) {
+				events.add(generateEvent(widget, String.valueOf(item)));
 			}
 		}
 		return events;
 	}
 
-	public int getToItem(WidgetState w, int fromItem, int toItem) {
-		return (getMaxEventsPerWidget(w) > 0)?Math.min (fromItem + getMaxEventsPerWidget(w) - 1, toItem):toItem;
+	public int getToItem(WidgetState widget, int fromItem, int toItem) {
+		return (getMaxEventsPerWidget(widget) > 0)?Math.min (fromItem + getMaxEventsPerWidget(widget) - 1, toItem):toItem;
 	}
 
 	public int getMaxEventsPerWidget() {
 		return this.maxEventsPerWidget;
 	}
 
-	public int getMaxEventsPerWidget(WidgetState w) {
+	public int getMaxEventsPerWidget(WidgetState widget) {
 		return getMaxEventsPerWidget();
 	}
 

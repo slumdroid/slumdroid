@@ -30,20 +30,20 @@ import android.widget.TextView;
 
 public class AbstractorUtilities {
 
-	public static String detectName (View v) {
+	public static String detectName (View view) {
 		String name = new String();
-		if (v instanceof TextView) {
-			TextView text = (TextView)v;
+		if (view instanceof TextView) {
+			TextView text = (TextView)view;
 			name = text.getText().toString();
-			if (v instanceof EditText) {
-				CharSequence hint = ((EditText)v).getHint();
+			if (view instanceof EditText) {
+				CharSequence hint = ((EditText)view).getHint();
 				name = (hint == null)?new String():hint.toString();
 			}
-		} else if (v instanceof RadioGroup) {
-			RadioGroup group = (RadioGroup)v;
-			int max=group.getChildCount();
+		} else if (view instanceof RadioGroup) {
+			RadioGroup group = (RadioGroup)view;
+			int max = group.getChildCount();
 			String text = new String();
-			for (int i=0; i < max; i++) {
+			for (int i = 0; i < max; i++) {
 				View child = group.getChildAt(i);
 				text = detectName (child);
 				if (!text.equals("")) {
@@ -55,72 +55,72 @@ public class AbstractorUtilities {
 		return name;
 	}
 
-	public static void setCount (View v, WidgetState w) {
+	public static void setCount (View view, WidgetState widget) {
 		// For lists, the count is set to the number of rows in the list (inactive rows - e.g. separators - count as well)
-		if (v instanceof AdapterView) {
-			w.setCount(((AdapterView<?>)v).getCount());
+		if (view instanceof AdapterView) {
+			widget.setCount(((AdapterView<?>)view).getCount());
 			return;
 		}
 		// For Spinners, the count is set to the number of options
-		if (v instanceof AbsSpinner) {
-			w.setCount(((AbsSpinner)v).getCount());
+		if (view instanceof AbsSpinner) {
+			widget.setCount(((AbsSpinner)view).getCount());
 			return;
 		}
 		// For the tab layout host, the count is set to the number of tabs
-		if (v instanceof TabHost) {
-			w.setCount(((TabHost)v).getTabWidget().getTabCount());
+		if (view instanceof TabHost) {
+			widget.setCount(((TabHost)view).getTabWidget().getTabCount());
 			return;
 		}
 		// For grids, the count is set to the number of icons, for RadioGroups it's set to the number of RadioButtons
-		if (v instanceof ViewGroup) {
-			w.setCount(((ViewGroup)v).getChildCount());
+		if (view instanceof ViewGroup) {
+			widget.setCount(((ViewGroup)view).getChildCount());
 			return;
 		}
 		// For progress bars, seek bars and rating bars, the count is set to the maximum value allowed
-		if (v instanceof ProgressBar) {
-			w.setCount(((ProgressBar)v).getMax());
+		if (view instanceof ProgressBar) {
+			widget.setCount(((ProgressBar)view).getMax());
 			return;
 		}
 	}
 
-	public static void setValue (View v, WidgetState w) {
+	public static void setValue (View view, WidgetState widget) {
 
 		// CheckBoxes, Radio Buttons and Toggle Buttons -> the value is the checked state (true or false)
-		if (v instanceof Checkable) {
-			w.setValue(((Checkable) v).isChecked()?"true":"false");
+		if (view instanceof Checkable) {
+			widget.setValue(((Checkable) view).isChecked()?"true":"false");
 			return;
 		}
 		// TextView, EditText et al. -> the value is the displayed text
-		if (v instanceof TextView) {
-			w.setValue(((TextView) v).getText().toString());
+		if (view instanceof TextView) {
+			widget.setValue(((TextView) view).getText().toString());
 			return;
 		}
 		// ProgressBars, SeekBars and RatingBars -> the value is the current progress
-		if (v instanceof ProgressBar) {
-			w.setValue(String.valueOf(((ProgressBar) v).getProgress()));
+		if (view instanceof ProgressBar) {
+			widget.setValue(String.valueOf(((ProgressBar) view).getProgress()));
 			return;
 		}
 	}
 
-	public static String getType (View v) {
-		return v.getClass().getName();
+	public static String getType (View view) {
+		return view.getClass().getName();
 	}
 
 	// Event description methods, used by Automation - the description property is only used in graphs	
-	public static boolean describeCurrentEvent (UserEvent e, View v) {
-		if (e == null) return false; // This is probably an input, not an event
+	public static boolean describeCurrentEvent (UserEvent event, View view) {
+		if (event == null) return false; // This is probably an input, not an event
 		// Get text from the target widget
-		if (v instanceof TextView) {
-			String text = ((TextView)v).getText().toString();
-			e.setDescription(text);
+		if (view instanceof TextView) {
+			String text = ((TextView)view).getText().toString();
+			event.setDescription(text);
 			return true;
-		} else if (v instanceof TabHost) {
-			e.setDescription(((TabHost)v).getCurrentTabTag());
-		} else if (v instanceof ViewGroup) {
-			int childNum = ((ViewGroup)v).getChildCount();
+		} else if (view instanceof TabHost) {
+			event.setDescription(((TabHost)view).getCurrentTabTag());
+		} else if (view instanceof ViewGroup) {
+			int childNum = ((ViewGroup)view).getChildCount();
 			for (int i = 0; i < childNum; i++) {
-				View child =  ((ViewGroup)v).getChildAt(i);
-				if (describeCurrentEvent(e, child)) return true;
+				View child =  ((ViewGroup)view).getChildAt(i);
+				if (describeCurrentEvent(event, child)) return true;
 			}
 		}
 		return false;

@@ -30,9 +30,9 @@ public class RandomSpinnerSelector extends RandomInteractorAdapter {
 	}
 
 	@Override
-	public boolean canUseWidget (WidgetState w) {
-		if (getMin(w) > getMax(w)) return false;
-		return super.canUseWidget(w);
+	public boolean canUseWidget (WidgetState widget) {
+		if (getMin(widget) > getMax(widget)) return false;
+		return super.canUseWidget(widget);
 	}
 
 	@Override
@@ -41,8 +41,8 @@ public class RandomSpinnerSelector extends RandomInteractorAdapter {
 	}
 
 	@Override
-	public int getMax(WidgetState w) {
-		return w.getCount();
+	public int getMax(WidgetState widget) {
+		return widget.getCount();
 	}
 
 }

@@ -43,7 +43,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	protected int mode = ContextWrapper.MODE_PRIVATE;
 
 	public DiskPersistence () {
-		
+		// do nothing
 	}
 
 	public DiskPersistence (Session theSession) {
@@ -55,8 +55,8 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		this.fileName = name;
 	}
 
-	public void setSession(Session s) {
-		this.theSession = s;
+	public void setSession(Session session) {
+		this.theSession = session;
 	}
 
 	public Session getSession() {
@@ -67,12 +67,12 @@ public class DiskPersistence implements Persistence, ImageStorage {
 		return this.fileName;
 	}
 
-	public void setContext(Activity a) {
-		this.wrapper = new ContextWrapper(a);
+	public void setContext(Activity activity) {
+		this.wrapper = new ContextWrapper(activity);
 	}
 
-	public void addTask(Task t) {
-		this.theSession.addTask(t);
+	public void addTask(Task task) {
+		this.theSession.addTask(task);
 	}
 
 	public void save() {
@@ -133,8 +133,8 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	}
 
 	public void copy (String from, String to) {
-		FileInputStream in;
-		FileOutputStream out;
+		FileInputStream in = null;
+		FileOutputStream out = null;
 		byte[] buffer = new byte[4096];
 		try {
 			in = this.wrapper.openFileInput(from);
@@ -143,10 +143,15 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			while ((reader = in.read(buffer)) != -1) {
 				out.write(buffer, 0, reader);
 			}
-			in.close();
-			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				in.close();
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -163,7 +168,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			try {
 				theStream.close();
 				theFile.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -178,14 +183,14 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			try {
 				theStream.close();
 				theFile.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
 	public void registerListener(SaveStateListener listener) {
-
+		// do nothing
 	}
 
 	public void saveImage(Bitmap image, String name) throws IOException {

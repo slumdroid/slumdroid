@@ -19,7 +19,7 @@ import it.slumdroid.droidmodels.model.WidgetState;
 
 public interface Filter extends Iterable<WidgetState> {
 
-	public void loadItem(WidgetState w);
+	public void loadItem(WidgetState widget);
 	public void clear ();
 
 }

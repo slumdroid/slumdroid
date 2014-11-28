@@ -32,8 +32,8 @@ public class SimpleRestarter implements Restarter {
 	}
 
 	@Override
-	public void setRestartPoint(Activity a) {
-		this.main = new ContextWrapper(a);
+	public void setRestartPoint(Activity activity) {
+		this.main = new ContextWrapper(activity);
 	}
 
 }

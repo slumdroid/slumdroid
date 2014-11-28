@@ -25,8 +25,8 @@ public class LongClicker extends SimpleInteractorAdapter {
 		super (simpleTypes);
 	}
 
-	public boolean canUseWidget (WidgetState w) {
-		return w.isLongClickable() && super.canUseWidget(w);
+	public boolean canUseWidget (WidgetState widget) {
+		return widget.isLongClickable() && super.canUseWidget(widget);
 	}
 
 	public String getInteractionType () {

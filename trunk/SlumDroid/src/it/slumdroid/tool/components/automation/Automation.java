@@ -100,23 +100,23 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		refreshCurrentActivity();
 	}
 
-	public void execute (Task t) {
-		this.executor.process (t);
+	public void execute (Task task) {
+		this.executor.process (task);
 	}
 
-	public void process (Task t) {
+	public void process (Task task) {
 		afterRestart();
-		Log.i (TAG, "Playing Task " + t.getId());
-		for (Transition step: t) {
+		Log.i (TAG, "Playing Task " + task.getId());
+		for (Transition step: task) {
 			process (step);
 		}
 	}
 
-	public void process (Transition step) {
-		for (UserInput i: step) {
-			setInput(i);
+	public void process (Transition transition) {
+		for (UserInput input: transition) {
+			setInput(input);
 		}
-		fireEvent (step.getEvent());		
+		fireEvent (transition.getEvent());		
 	}
 
 	public void fireEvent(UserEvent event) {
@@ -130,16 +130,16 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 			Log.i(TAG, "Firing event: type=" + eventType);
 			fireEventOnView(null, eventType, null);
 		} else {
-			View v = null;
+			View view = null;
 			if (event.getWidget().getIndex()<trivialExtractor.getAllWidgets().size()) {
-				v = trivialExtractor.getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
+				view = trivialExtractor.getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
-			if ((v!=null) && checkWidgetEquivalence(v, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
+			if ((view != null) && checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
 				if (eventType.equals(WRITE_TEXT) || eventType.equals(ENTER_TEXT)) {
-					Log.i(TAG, "Firing event: type=" + eventType + " index=" + event.getWidget().getIndex() + " widget="+ event.getWidgetType() + " value=" + eventValue);
+					Log.i(TAG, "Firing event: type=" + eventType + " index=" + event.getWidget().getIndex() + " widget=" + event.getWidgetType() + " value=" + eventValue);
 				}
-				else Log.i(TAG, "Firing event: type=" + eventType + " index=" + event.getWidget().getIndex() + " widget="+ event.getWidgetType());
-				fireEventOnView (v, eventType, eventValue);
+				else Log.i(TAG, "Firing event: type=" + eventType + " index=" + event.getWidget().getIndex() + " widget=" + event.getWidgetType());
+				fireEventOnView (view, eventType, eventValue);
 			} else if (event.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
 				Log.i(TAG, "Firing event: type=" + eventType + " name=" + event.getWidgetName() + " widget="+ event.getWidgetType());
 				fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
@@ -160,47 +160,47 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
-		View v = getWidget(widgetId, widgetType, widgetName);
-		if (v == null) {
-			v = getWidget(widgetId);
+		View view = getWidget(widgetId, widgetType, widgetName);
+		if (view == null) {
+			view = getWidget(widgetId);
 		}
-		if (v == null) {
-			v = ExtractorUtilities.findViewById(widgetId);
+		if (view == null) {
+			view = ExtractorUtilities.findViewById(widgetId);
 		}
-		fireEventOnView(v, eventType, value);
+		fireEventOnView(view, eventType, value);
 	}
 
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
-		View v = null;
+		View view = null;
 		if (widgetType.equals(BUTTON)) {
-			v = trivialExtractor.solo.getButton(widgetName);
+			view = trivialExtractor.solo.getButton(widgetName);
 		} else if (widgetType.equals(MENU_ITEM)) {
-			v = trivialExtractor.solo.getText(widgetName);
+			view = trivialExtractor.solo.getText(widgetName);
 		}
-		if (v == null) {
-			for (View w: trivialExtractor.getAllWidgets()) {
-				if (w instanceof Button) {
-					Button candidate = (Button) w;
+		if (view == null) {
+			for (View theView: trivialExtractor.getAllWidgets()) {
+				if (theView instanceof Button) {
+					Button candidate = (Button) theView;
 					if (candidate.getText().equals(widgetName)) {
-						v = candidate;
+						view = candidate;
 					}
 				}
-				if (v!=null) break;
+				if (view != null) break;
 			}
 		}
-		fireEventOnView(v, eventType, value);
+		fireEventOnView(view, eventType, value);
 	}
 
 	private void fireEventOnView (View view, String eventType, String value) {
 		injectInteraction(view, eventType, value);
-		if (SLEEP_AFTER_EVENT!=0) wait(SLEEP_AFTER_EVENT);
+		if (SLEEP_AFTER_EVENT != 0) wait(SLEEP_AFTER_EVENT);
 		waitOnThrobber();
 		refreshCurrentActivity();
 		extractState();
 	}
 
 	private void injectInteraction (View view, String interactionType, String value) {
-		if (view!=null) {
+		if (view != null) {
 			requestView(view);
 		}
 		if (interactionType.equals(CLICK)) click (view);
@@ -231,23 +231,23 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
-		View v = getWidget(widgetId, widgetType, widgetName);
-		if (v == null) {
-			v = getWidget(widgetId);
+		View view = getWidget(widgetId, widgetType, widgetName);
+		if (view == null) {
+			view = getWidget(widgetId);
 		}
-		if (v == null) {
-			v = ExtractorUtilities.findViewById(widgetId);
+		if (view == null) {
+			view = ExtractorUtilities.findViewById(widgetId);
 		}
-		if (v == null) {
-			for (View w: trivialExtractor.getAllWidgets()) {
-				if (w instanceof Button || w instanceof RadioGroup) {
-					if (!AbstractorUtilities.getType(w).equals(widgetType)) continue;
-					v = (AbstractorUtilities.detectName(w).equals(widgetName))?w:null;
+		if (view == null) {
+			for (View theView: trivialExtractor.getAllWidgets()) {
+				if (theView instanceof Button || theView instanceof RadioGroup) {
+					if (!AbstractorUtilities.getType(theView).equals(widgetType)) continue;
+					view = (AbstractorUtilities.detectName(theView).equals(widgetName))?theView:null;
 				}
-				if (v!=null) break;
+				if (view != null) break;
 			}
 		}
-		injectInteraction(v, inputType, value);
+		injectInteraction(view, inputType, value);
 	}
 
 	protected void requestView (View view) {
@@ -258,16 +258,16 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		DroidExecutor.wait(milli);
 	}
 
-	public void setExecutor (Executor e) {
-		this.executor = e;
+	public void setExecutor (Executor executor) {
+		this.executor = executor;
 	}
 
 	public Activity getActivity() {
 		return ExtractorUtilities.getActivity();
 	}
 
-	public void setExtractor (Extractor e) {
-		this.extractor = e;
+	public void setExtractor (Extractor extractor) {
+		this.extractor = extractor;
 	}
 
 	public void afterRestart() {
@@ -277,7 +277,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 
 	public void waitOnThrobber() {
 		int sleepTime = SLEEP_ON_THROBBER;
-		if (sleepTime == 0) return;
 		boolean flag;
 		do {
 			flag = false;
@@ -345,8 +344,8 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	// This methods call the Abstractor Utility methods to describe the current event
-	public void onClickEventFired (View v) {
-		AbstractorUtilities.describeCurrentEvent (this.currentEvent, v);
+	public void onClickEventFired (View view) {
+		AbstractorUtilities.describeCurrentEvent (this.currentEvent, view);
 	}
 
 	public void onLongClickEventFired (View view) {

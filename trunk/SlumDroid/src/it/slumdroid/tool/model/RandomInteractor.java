@@ -19,6 +19,6 @@ import java.util.Random;
 
 public interface RandomInteractor {
 
-	public void setRandomGenerator (Random r);
+	public void setRandomGenerator (Random random);
 
 }

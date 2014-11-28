@@ -34,25 +34,25 @@ public class SimpleUserAdapter implements UserAdapter {
 	private List<Interactor> eventTypes;
 	private List<Interactor> inputTypes;
 
-	public SimpleUserAdapter (Abstractor a, Random r) {
+	public SimpleUserAdapter (Abstractor abstractor, Random random) {
 		this.eventTypes = new ArrayList<Interactor>();
 		this.inputTypes = new ArrayList<Interactor>();		
-		setRandomGenerator(r);	
-		setAbstractor(a);
+		setRandomGenerator(random);	
+		setAbstractor(abstractor);
 	}
 
-	public List<UserEvent> handleEvent(WidgetState w) {
+	public List<UserEvent> handleEvent(WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		for (Interactor eventAdapter: getEventTypes()) {
-			events.addAll(eventAdapter.getEvents(w));
+			events.addAll(eventAdapter.getEvents(widget));
 		}
 		return events;
 	}
 
-	public List<UserInput> handleInput(WidgetState w) {
+	public List<UserInput> handleInput(WidgetState widget) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		for (Interactor inputAdapter: getInputTypes()) {
-			inputs.addAll(inputAdapter.getInputs(w));
+			inputs.addAll(inputAdapter.getInputs(widget));
 		}
 		return inputs;
 	}

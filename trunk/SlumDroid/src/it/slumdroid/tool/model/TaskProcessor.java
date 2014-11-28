@@ -19,7 +19,7 @@ import it.slumdroid.droidmodels.model.Task;
 
 public interface TaskProcessor {
 
-	public void execute (Task trace);
+	public void execute (Task task);
 	public void setExecutor (Executor executor);
 
 }

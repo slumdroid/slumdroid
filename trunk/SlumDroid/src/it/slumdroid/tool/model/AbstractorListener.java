@@ -21,8 +21,8 @@ import it.slumdroid.droidmodels.model.UserInput;
 
 public interface AbstractorListener {
 
-	public void onNewActivity (ActivityState a);
-	public void onNewEvent (UserEvent e);
-	public void onNewInput (UserInput i);
+	public void onNewActivity (ActivityState activity);
+	public void onNewEvent (UserEvent event);
+	public void onNewInput (UserInput input);
 
 }

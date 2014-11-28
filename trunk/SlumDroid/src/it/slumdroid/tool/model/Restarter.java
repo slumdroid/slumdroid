@@ -20,6 +20,6 @@ import android.app.Activity;
 public interface Restarter {
 
 	public void restart ();
-	public void setRestartPoint (Activity a);
+	public void setRestartPoint (Activity activity);
 
 }

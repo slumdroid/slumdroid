@@ -35,8 +35,8 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	}
 
 	@Override
-	public void setRandomGenerator (Random r) {
-		this.random = r;
+	public void setRandomGenerator (Random random) {
+		this.random = random;
 	}
 
 	public Random getRandomGenerator () {
@@ -67,11 +67,11 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 		return this.min;
 	}
 
-	public int getMax(WidgetState w) {
+	public int getMax(WidgetState widget) {
 		return getMax();
 	}
 
-	public int getMin(WidgetState w) {
+	public int getMin(WidgetState widget) {
 		return getMin();
 	}
 
@@ -79,19 +79,19 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 		return getRandomGenerator().nextInt(getMax() - getMin()) + getMin();
 	}
 
-	public int getValue (WidgetState w) {
-		int delta = getMax(w) - getMin(w) + 1;
-		return (delta > 0)?(getRandomGenerator().nextInt(delta) + getMin(w)):getMin(w);
+	public int getValue (WidgetState widget) {
+		int delta = getMax(widget) - getMin(widget) + 1;
+		return (delta > 0)?(getRandomGenerator().nextInt(delta) + getMin(widget)):getMin(widget);
 	}
 
 	@Override
-	public List<UserEvent> getEvents (WidgetState w) {
-		return getEvents (w, String.valueOf(getValue(w)));
+	public List<UserEvent> getEvents (WidgetState widget) {
+		return getEvents (widget, String.valueOf(getValue(widget)));
 	}
 
 	@Override
-	public List<UserInput> getInputs (WidgetState w) {
-		return getInputs (w, String.valueOf(getValue(w)));
+	public List<UserInput> getInputs (WidgetState widget) {
+		return getInputs (widget, String.valueOf(getValue(widget)));
 	}
 
 }

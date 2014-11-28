@@ -27,8 +27,8 @@ public interface TaskScheduler {
 	public void addPlannedTasks(List<Task> newTasks);
 	public void setTaskList (List<Task> theList);
 	public boolean hasMore();
-	public void remove (Task t);
-	public void addTasks(Task t);
+	public void remove (Task task);
+	public void addTasks(Task task);
 	public List<Task> getTaskList();
 
 }

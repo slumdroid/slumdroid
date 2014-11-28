@@ -26,8 +26,8 @@ public class ExtractorUtilities {
 		return theActivity;
 	}
 
-	public static void setActivity(Activity a) {
-		theActivity = a;
+	public static void setActivity(Activity activity) {
+		theActivity = activity;
 	}
 
 	public static View findViewById (int id) {

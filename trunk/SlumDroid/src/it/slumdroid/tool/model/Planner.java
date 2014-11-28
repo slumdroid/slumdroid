@@ -19,6 +19,6 @@ import it.slumdroid.droidmodels.model.ActivityState;
 
 public interface Planner {
 
-	public Plan getPlanForActivity (ActivityState a);
+	public Plan getPlanForActivity (ActivityState activity);
 
 }

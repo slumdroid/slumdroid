@@ -22,6 +22,6 @@ import java.util.List;
 
 public interface EventHandler {
 
-	public List<UserEvent> handleEvent (WidgetState w);
+	public List<UserEvent> handleEvent (WidgetState widget);
 
 }
