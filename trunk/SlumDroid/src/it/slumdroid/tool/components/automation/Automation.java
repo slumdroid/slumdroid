@@ -134,21 +134,29 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 			if (event.getWidget().getIndex()<trivialExtractor.getAllWidgets().size()) {
 				view = trivialExtractor.getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
-			if ((view != null) && checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
+			boolean checkEquivalence = checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName()); 
+			if ((view != null) && checkEquivalence) { // Widget found
+				String index = " index=" + event.getWidget().getIndex();
 				if (eventType.equals(WRITE_TEXT) || eventType.equals(ENTER_TEXT)) {
-					Log.i(TAG, "Firing event: type=" + eventType + " index=" + event.getWidget().getIndex() + " widget=" + event.getWidgetType() + " value=" + eventValue);
+					writeLogInfo(event, index + " value=" + eventValue);
 				}
-				else Log.i(TAG, "Firing event: type=" + eventType + " index=" + event.getWidget().getIndex() + " widget=" + event.getWidgetType());
+				else writeLogInfo(event, index);
 				fireEventOnView (view, eventType, eventValue);
 			} else if (event.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
-				Log.i(TAG, "Firing event: type=" + eventType + " name=" + event.getWidgetName() + " widget="+ event.getWidgetType());
+				writeLogInfo(event, new String());
 				fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
 			} else { // Widget not found. Search widget by id
-				Log.i(TAG, "Firing event: type=" + eventType + " id=" + event.getWidgetId() + " widget="+ event.getWidgetType());
+				writeLogInfo(event, new String());
 				fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
 			}
 		}
 		this.currentEvent = null;
+	}
+	
+	private void writeLogInfo(UserEvent event, String extraInfo){
+		String eventType = event.getType();
+		String toWrite = "Firing event: type=" + eventType + " id=" + event.getWidgetId() + " widget="+ event.getWidget().getSimpleType();
+		Log.i(TAG, toWrite + extraInfo);
 	}
 
 	public void setInput(UserInput input) {
