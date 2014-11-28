@@ -131,19 +131,20 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 			fireEventOnView(null, eventType, null);
 		} else {
 			View view = null;
+			String extraInfo = new String();
 			if (event.getWidget().getIndex()<trivialExtractor.getAllWidgets().size()) {
 				view = trivialExtractor.getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
 			boolean checkEquivalence = checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName()); 
 			if ((view != null) && checkEquivalence) { // Widget found
-				String index = " index=" + event.getWidget().getIndex();
+				extraInfo = " index=" + event.getWidget().getIndex();
 				if (eventType.equals(WRITE_TEXT) || eventType.equals(ENTER_TEXT)) {
-					writeLogInfo(event, index + " value=" + eventValue);
+					writeLogInfo(event, extraInfo + " value=" + eventValue);
 				}
-				else writeLogInfo(event, index);
+				else writeLogInfo(event, extraInfo);
 				fireEventOnView (view, eventType, eventValue);
 			} else if (event.getWidgetId().equals("-1")) { // Widget not found. Search widget by name
-				writeLogInfo(event, new String());
+				writeLogInfo(event, extraInfo);
 				fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
 			} else { // Widget not found. Search widget by id
 				writeLogInfo(event, new String());
@@ -155,7 +156,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	
 	private void writeLogInfo(UserEvent event, String extraInfo){
 		String eventType = event.getType();
-		String toWrite = "Firing event: type=" + eventType + " id=" + event.getWidgetId() + " widget="+ event.getWidget().getSimpleType();
+		String toWrite = "Firing event: type=" + eventType + " id=" + event.getWidgetId() + " widget=" + event.getWidget().getSimpleType();
 		Log.i(TAG, toWrite + extraInfo);
 	}
 
