@@ -135,8 +135,8 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 			if (event.getWidget().getIndex()<trivialExtractor.getAllWidgets().size()) {
 				view = trivialExtractor.getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			} 
-			if (checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName()) 
-					&& (view != null)) { // Widget found
+			if ( (view != null) && 
+					checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName()) ) { // Widget found
 				extraInfo = " index=" + event.getWidget().getIndex();
 				if (eventType.equals(WRITE_TEXT) || eventType.equals(ENTER_TEXT)) {
 					writeLogInfo(event, extraInfo + " value=" + eventValue);
