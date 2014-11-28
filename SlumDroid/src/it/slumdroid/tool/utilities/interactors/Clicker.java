@@ -25,8 +25,8 @@ public class Clicker extends SimpleInteractorAdapter {
 		super (simpleTypes);
 	}
 
-	public boolean canUseWidget (WidgetState w) {
-		return w.isClickable() && super.canUseWidget(w);
+	public boolean canUseWidget (WidgetState widget) {
+		return widget.isClickable() && super.canUseWidget(widget);
 	}
 
 	public String getInteractionType () {

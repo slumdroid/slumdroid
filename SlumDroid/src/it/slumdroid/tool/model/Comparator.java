@@ -19,6 +19,6 @@ import it.slumdroid.droidmodels.model.ActivityState;
 
 public interface Comparator {
 
-	public boolean compare (ActivityState a, ActivityState b);
+	public boolean compare (ActivityState currentActivity, ActivityState storedActivity);
 
 }

@@ -90,9 +90,9 @@ public class DroidExecutor {
 	}
 
 	public static void selectListItem (ListView list, int num, boolean longClick) {
-		if (list==null) {
+		if (list == null) {
 			List<ListView> lists = solo.getCurrentViews(ListView.class);
-			if (lists.size()>0) {
+			if (lists.size() > 0) {
 				list = lists.get(0);
 			}
 		}
@@ -107,7 +107,7 @@ public class DroidExecutor {
 			}
 		});
 		sync();
-		if (index<list.getCount()/2) {
+		if (index < list.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);
 		} else {
@@ -151,10 +151,10 @@ public class DroidExecutor {
 	}
 
 	public static void selectRadioItem (final RadioGroup radioGroup, int num) {
-		if (num<1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
+		if (num < 1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
 		Log.i(TAG, "Selecting from the Radio Group view");
-		click(radioGroup.getChildAt(num-1));
+		click(radioGroup.getChildAt(num - 1));
 		sync();
 	}
 
@@ -176,7 +176,7 @@ public class DroidExecutor {
 	public static void changeOrientation() {
 		Display display = ((WindowManager) getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		int angle = display.getRotation();
-		int newAngle = ((angle==ROTATION_0)||(angle==ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
+		int newAngle = ((angle == ROTATION_0) || (angle == ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
 		solo.setActivityOrientation(newAngle);
 	}
 
@@ -199,7 +199,7 @@ public class DroidExecutor {
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=count);
-		final int index = Math.min(count, Math.max(1,num))-1;
+		final int index = Math.min(count, Math.max(1,num)) - 1;
 		Log.i(TAG, "Swapping to tab " + num);
 		click (tabHost.getTabWidget().getChildAt(index));
 	}

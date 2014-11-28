@@ -19,7 +19,7 @@ import it.slumdroid.droidmodels.model.Task;
 
 public interface DispatchListener {
 
-	public void onTaskDispatched (Task t);
-	public void onNewTaskAdded (Task t);
+	public void onTaskDispatched (Task task);
+	public void onNewTaskAdded (Task task);
 
 }

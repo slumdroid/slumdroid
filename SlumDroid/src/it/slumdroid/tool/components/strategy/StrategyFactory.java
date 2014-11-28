@@ -24,8 +24,8 @@ public class StrategyFactory {
 	private Comparator comparator;
 	private int pauseAfterTasks = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
 
-	public StrategyFactory (Comparator c) {
-		this.comparator = c;
+	public StrategyFactory (Comparator comparator) {
+		this.comparator = comparator;
 	}
 
 	public Strategy getStrategy () {

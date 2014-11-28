@@ -25,7 +25,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 
 	private int step = 1;
 	private int count = 0;
-	private String footer = "";
+	private String footer = new String();
 	private boolean first = true;
 	private boolean last = false;
 
@@ -60,8 +60,8 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	}
 
 	@Override
-	public void addTask (Task t) {
-		super.addTask (t);
+	public void addTask (Task task) {
+		super.addTask (task);
 		this.count++;
 		if (this.count == this.step) {
 			saveStep();

@@ -42,36 +42,36 @@ public class AdditionalWriteEditor extends SimpleInteractorAdapter {
 	}
 
 	@Override
-	public boolean canUseWidget(WidgetState w) {
-		return super.canUseWidget(w) && hasId(w.getId());
+	public boolean canUseWidget(WidgetState widget) {
+		return super.canUseWidget(widget) && hasId(widget.getId());
 	}
 
 	public boolean hasId (String id) {
-		for (Map.Entry<String,ArrayList<String>> c: this.idValuePairs.entrySet()) {
-			if (id.equals(c.getKey())) return true;
+		for (Map.Entry<String,ArrayList<String>> entry: this.idValuePairs.entrySet()) {
+			if (id.equals(entry.getKey())) return true;
 		}
 		return false;
 	}
 
 	@Override
-	public List<UserEvent> getEvents (WidgetState w) {
+	public List<UserEvent> getEvents (WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
-		if (canUseWidget(w)) {
-			ArrayList<String> values = this.idValuePairs.get(w.getId());
+		if (canUseWidget(widget)) {
+			ArrayList<String> values = this.idValuePairs.get(widget.getId());
 			for (String value: values) {
-				events.add(generateEvent(w, value));
+				events.add(generateEvent(widget, value));
 			}
 		}
 		return events;
 	}
 
 	@Override
-	public List<UserInput> getInputs (WidgetState w) {
+	public List<UserInput> getInputs (WidgetState widget) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
-		if (canUseWidget(w)) {
-			ArrayList<String> values = this.idValuePairs.get(w.getId());
+		if (canUseWidget(widget)) {
+			ArrayList<String> values = this.idValuePairs.get(widget.getId());
 			for (String value: values) {
-				inputs.add(generateInput(w, value));
+				inputs.add(generateInput(widget, value));
 			}
 		}
 		return inputs;

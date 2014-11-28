@@ -36,7 +36,7 @@ public interface Abstractor {
 	public UserInput createInput (WidgetState target, String value, String type);
 	public Task createTask (Task prototype, Transition appendix);
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
-	public Task importTask (Element e);
+	public Task importTask (Element element);
 	public ActivityState importState (Element fromXml);
 	public void setFinalActivity (Task theTask, ActivityState theActivity);
 

@@ -32,19 +32,19 @@ public class HashWriteEditor extends SimpleInteractorAdapter {
 	public String getInteractionType() {
 		return WRITE_TEXT;
 	}
-	
-	public String[] getValues(WidgetState w){
-            String[] values = new String[1];                
-            values[0] = Integer.toString(w.getId().hashCode() % 100);
-            return values;
-    }
-    
-    public List<UserEvent> getEvents (WidgetState w) {
-            return getEvents (w, getValues(w));
-    }
 
-    public List<UserInput> getInputs (WidgetState w) {
-            return getInputs (w, getValues(w));
-    }
+	public String[] getValues(WidgetState widget){
+		String[] values = new String[1];                
+		values[0] = Integer.toString(widget.getId().hashCode() % 100);
+		return values;
+	}
+
+	public List<UserEvent> getEvents (WidgetState widget) {
+		return getEvents (widget, getValues(widget));
+	}
+
+	public List<UserInput> getInputs (WidgetState widget) {
+		return getInputs (widget, getValues(widget));
+	}
 
 }

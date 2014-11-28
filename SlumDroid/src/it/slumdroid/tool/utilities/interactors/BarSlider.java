@@ -35,8 +35,8 @@ public class BarSlider extends RandomInteractorAdapter {
 	}
 
 	@Override
-	public int getMax(WidgetState w) {
-		return w.getCount();
+	public int getMax(WidgetState widget) {
+		return widget.getCount();
 	}
 
 }

@@ -24,10 +24,10 @@ import android.test.ActivityInstrumentationTestCase2;
 public interface Executor {
 
 	public void bind (ActivityInstrumentationTestCase2<?> engine);
-	public void fireEvent (UserEvent e);
-	public void setInput (UserInput i);
-	public void process (Task t);
-	public void process (Transition tr);
+	public void fireEvent (UserEvent event);
+	public void setInput (UserInput input);
+	public void process (Task task);
+	public void process (Transition transition);
 	public void wait (int milli);
 
 }

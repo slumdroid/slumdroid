@@ -19,7 +19,7 @@ import android.view.View;
 
 public interface EventFiredListener {
 
-	public void onClickEventFired (View v);
-	public void onLongClickEventFired (View v);
+	public void onClickEventFired (View view);
+	public void onLongClickEventFired (View view);
 
 }

@@ -22,7 +22,7 @@ public interface Strategy {
 
 	public void addState (ActivityState newActivity);
 	public Comparator getComparator ();
-	public void setComparator (Comparator c);
+	public void setComparator (Comparator comparator);
 	public boolean compareState (ActivityState theActivity);
 	public boolean checkForExploration ();
 	public boolean checkForPause ();

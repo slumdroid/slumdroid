@@ -23,13 +23,13 @@ import java.util.List;
 
 public interface Interactor {
 
-	public boolean canUseWidget (WidgetState w);
-	public List<UserEvent> getEvents (WidgetState w);
-	public List<UserInput> getInputs (WidgetState w);
-	public List<UserEvent> getEvents (WidgetState w, String ... values);
-	public List<UserInput> getInputs (WidgetState w, String ... values);
+	public boolean canUseWidget (WidgetState widget);
+	public List<UserEvent> getEvents (WidgetState widget);
+	public List<UserInput> getInputs (WidgetState widget);
+	public List<UserEvent> getEvents (WidgetState widget, String ... values);
+	public List<UserInput> getInputs (WidgetState widget, String ... values);
 	public Abstractor getAbstractor();
-	public void setAbstractor (Abstractor a);
+	public void setAbstractor (Abstractor abstractor);
 	public String getInteractionType ();
 
 }

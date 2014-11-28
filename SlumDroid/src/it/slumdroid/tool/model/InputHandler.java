@@ -22,6 +22,6 @@ import java.util.List;
 
 public interface InputHandler {
 
-	public List<UserInput> handleInput (WidgetState w);
+	public List<UserInput> handleInput (WidgetState widget);
 
 }

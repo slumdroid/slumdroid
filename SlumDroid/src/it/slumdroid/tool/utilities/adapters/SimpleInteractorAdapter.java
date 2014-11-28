@@ -31,79 +31,79 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	private Abstractor theAbstractor;
 
 	public SimpleInteractorAdapter (String ... simpleTypes) {
-		for (String s: simpleTypes) {
-			this.widgetClasses.add(s);
+		for (String type: simpleTypes) {
+			this.widgetClasses.add(type);
 		}
 	}
 
-	public boolean canUseWidget (WidgetState w) {
-		return w.isAvailable() && matchClass(w.getSimpleType());
+	public boolean canUseWidget (WidgetState widget) {
+		return widget.isAvailable() && matchClass(widget.getSimpleType());
 	}
 
-	public List<UserEvent> getEvents (WidgetState w) {
+	public List<UserEvent> getEvents (WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
-		if (canUseWidget(w)) {
-			events.add(generateEvent(w));
+		if (canUseWidget(widget)) {
+			events.add(generateEvent(widget));
 		}
 		return events;
 	}
 
-	public List<UserInput> getInputs (WidgetState w) {
+	public List<UserInput> getInputs (WidgetState widget) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
-		if (canUseWidget(w)) {
-			inputs.add(generateInput(w));
+		if (canUseWidget(widget)) {
+			inputs.add(generateInput(widget));
 		}
 		return inputs;
 	}
 
-	public List<UserEvent> getEvents (WidgetState w, String ... values) {
+	public List<UserEvent> getEvents (WidgetState widget, String ... values) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
-		if (canUseWidget(w)) {
+		if (canUseWidget(widget)) {
 			for (String value: values) {
-				events.add(generateEvent(w, value));
+				events.add(generateEvent(widget, value));
 			}
 		}
 		return events;
 	}
 
-	public List<UserInput> getInputs (WidgetState w, String ... values) {
+	public List<UserInput> getInputs (WidgetState widget, String ... values) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
-		if (canUseWidget(w)) {
+		if (canUseWidget(widget)) {
 			for (String value: values) {
-				inputs.add(generateInput(w, value));    
+				inputs.add(generateInput(widget, value));    
 			}
 		}
 		return inputs;
 	}
 
-	protected UserEvent createEvent (WidgetState w) {
-		return getAbstractor().createEvent(w, getInteractionType());
+	protected UserEvent createEvent (WidgetState widget) {
+		return getAbstractor().createEvent(widget, getInteractionType());
 	}
 
-	protected UserEvent generateEvent (WidgetState w) {
-		return createEvent(w);
+	protected UserEvent generateEvent (WidgetState widget) {
+		return createEvent(widget);
 	}
 
-	protected UserInput generateInput (WidgetState w) {
-		return generateInput (w,"");
+	protected UserInput generateInput (WidgetState widget) {
+		return generateInput (widget,"");
 	}
 
-	protected UserEvent generateEvent (WidgetState w, String value) {
-		UserEvent event = createEvent(w);
+	protected UserEvent generateEvent (WidgetState widget, String value) {
+		UserEvent event = createEvent(widget);
 		event.setValue(value);
 		return event;
 	}
 
-	protected UserInput generateInput (WidgetState w, String value) {
-		return getAbstractor().createInput(w, value, getInteractionType());
+	protected UserInput generateInput (WidgetState widget, String value) {
+		return getAbstractor().createInput(widget, value, getInteractionType());
 	}
 
 	public Abstractor getAbstractor() {
 		return this.theAbstractor;
 	}
 
-	public void setAbstractor (Abstractor a) {
-		this.theAbstractor = a;
+	public void setAbstractor (Abstractor abstractor) {
+		this.theAbstractor = abstractor;
 	}
 
 	public abstract String getInteractionType ();

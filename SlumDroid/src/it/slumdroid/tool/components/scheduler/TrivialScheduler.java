@@ -82,12 +82,12 @@ class TrivialScheduler implements TaskScheduler {
 		return !this.tasks.isEmpty();
 	}
 
-	public void remove(Task t) {
-		this.tasks.remove(t);
+	public void remove(Task task) {
+		this.tasks.remove(task);
 	}
 
-	public void addTasks(Task t) {
-		this.tasks.add(t);
+	public void addTasks(Task task) {
+		this.tasks.add(task);
 	}
 
 	public Task firstTask() {

@@ -21,6 +21,6 @@ public interface ActivityDescription extends Iterable<View> {
 
 	public String getActivityName();
 	public String getActivityTitle();
-	public int getWidgetIndex (View v);
+	public int getWidgetIndex (View view);
 
 }

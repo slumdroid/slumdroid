@@ -79,7 +79,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
-		if (getImageCaptor()!=null) ScreenshotFactory.setImageCaptor(getImageCaptor());
+		if (getImageCaptor() != null) ScreenshotFactory.setImageCaptor(getImageCaptor());
 		getExecutor().bind(this);
 		Activity activity = getExtractor().getActivity();
 		getPersistence().setContext(activity);
@@ -108,8 +108,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
 			process(theTask);
-			ActivityDescription d = getExtractor().describeActivity();
-			ActivityState theActivity = getAbstractor().createActivity(d);
+			ActivityDescription description = getExtractor().describeActivity();
+			ActivityState theActivity = getAbstractor().createActivity(description);
 			getStrategy().compareState(theActivity);
 			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
 			if (SLEEP_AFTER_TASK != 0) getExecutor().wait(SLEEP_AFTER_TASK);
@@ -152,18 +152,15 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		return true;
 	}
 
-	public void importActivitiyList(ResumingPersistence r) {
-		List<String> entries;
+	public void importActivitiyList(ResumingPersistence resumer) {
 		Session sandboxSession = getNewSession();
-		Element e;
-		entries = r.readStateFile();
+		List<String> entries = resumer.readStateFile();
 		List<ActivityState> stateList = new ArrayList<ActivityState>();
-		ActivityState s;
-		for (String state: entries) {
-			sandboxSession.parse(state);
-			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-			s = getAbstractor().importState (e);
-			stateList.add(s);
+		for (String row: entries) {
+			sandboxSession.parse(row);
+			Element element = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
+			ActivityState state = getAbstractor().importState (element);
+			stateList.add(state);
 		}
 		for (ActivityState state: stateList) {
 			getStrategy().addState(state);
@@ -171,16 +168,13 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	public void importTaskList(ResumingPersistence r) {
-		List<String> entries;
 		Session sandboxSession = getNewSession();
-		Element e;
-		entries = r.readTaskFile();
+		List<String> entries = r.readTaskFile();
 		List<Task> taskList = new ArrayList<Task>();
-		Task task;
-		for (String trace: entries) {
-			sandboxSession.parse(trace);
-			e = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-			task = getAbstractor().importTask (e);
+		for (String row: entries) {
+			sandboxSession.parse(row);
+			Element element = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
+			Task task = getAbstractor().importTask (element);
 			if (task.isFailed()) getSession().addCrashedTask(task);
 			else taskList.add(task);
 		}
@@ -198,8 +192,8 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 
 	protected void planTests (Task baseTask, Plan thePlan) {
 		List<Task> tasks = new ArrayList<Task>();
-		for (Transition t: thePlan) {
-			tasks.add(getNewTask(baseTask, t));
+		for (Transition transition: thePlan) {
+			tasks.add(getNewTask(baseTask, transition));
 		}
 		getScheduler().addPlannedTasks(tasks);
 	}
@@ -209,9 +203,9 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 	}
 
 	protected Task getNewTask (Task theTask, Transition t) {
-		Task newTrace = getAbstractor().createTask(theTask, t);
-		newTrace.setId(nextId());
-		return newTrace;
+		Task newTask = getAbstractor().createTask(theTask, t);
+		newTask.setId(nextId());
+		return newTask;
 	}
 
 	public SessionParams onSavingState () {

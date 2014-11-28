@@ -38,7 +38,7 @@ public class MaxStepsPause implements PauseCriteria {
 	}
 
 	public void setStrategy(Strategy theStrategy) {
-		
+		// do nothing
 	}
 
 }

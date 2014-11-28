@@ -112,8 +112,8 @@ public class UserFactory {
 		userAdapter.addEvent(new RadioSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(RADIO_SELECT)));
 		userAdapter.addEvent(new TabSwapper(typesForEvent(SWAP_TAB)));
 		userAdapter.addEvent(new Drager(typesForEvent(DRAG)));
-		for (SimpleInteractorAdapter i: ADDITIONAL_EVENTS) {
-			userAdapter.addEvent(i);			
+		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {
+			userAdapter.addEvent(interactor);			
 		}
 		userAdapter.addInput(new Clicker (typesForInput(CLICK)));	
 		if (isRequiredInput(WRITE_TEXT)) {
@@ -126,8 +126,8 @@ public class UserFactory {
 		}
 		userAdapter.addInput(new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)));
 		userAdapter.addInput(new BarSlider(typesForInput(SET_BAR)));
-		for (SimpleInteractorAdapter i: ADDITIONAL_INPUTS) {
-			userAdapter.addInput(i);
+		for (SimpleInteractorAdapter interactor: ADDITIONAL_INPUTS) {
+			userAdapter.addInput(interactor);
 		}
 		return userAdapter;
 	}	

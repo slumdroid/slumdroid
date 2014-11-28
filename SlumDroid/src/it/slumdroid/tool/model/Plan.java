@@ -29,8 +29,8 @@ public class Plan implements Iterable<Transition> {
 		return this.tasks.iterator();
 	}
 
-	public boolean addTask (Transition t) {
-		return this.tasks.add(t);
+	public boolean addTask (Transition transition) {
+		return this.tasks.add(transition);
 	}
 
 	public int size () {

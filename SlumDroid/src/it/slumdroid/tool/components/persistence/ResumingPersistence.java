@@ -69,10 +69,12 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		super.addTask(t);
 	}
 
-	public void onNewTaskAdded (Task t) { /* do nothing */ }
+	public void onNewTaskAdded (Task task) { 
+		// do nothing 
+	}
 
-	public void onTaskDispatched(Task t) {
-		t.setFailed(true);
+	public void onTaskDispatched(Task task) {
+		task.setFailed(true);
 		saveTaskList();
 		saveParameters();
 	}
@@ -162,14 +164,15 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 			theFile = wrapper.openFileInput(getParametersFileName());
 			theStream = new ObjectInputStream(theFile);
 			this.parameters = (Map<String, SessionParams>) theStream.readObject();
-			theFile.close();
-			theStream.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} finally {
+			try {
+				theFile.close();
+				theStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		for (Entry<String, SaveStateListener> listener: this.theListeners.entrySet()) {
 			listener.getValue().onLoadingState(this.parameters.get(listener.getKey()));
@@ -215,7 +218,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	private List<String> readFile (String input) {
 		FileInputStream theFile;
 		BufferedReader theStream = null;
-		String line;
+		String line = new String();
 		List<String> output = new ArrayList<String>();
 		try{
 			theFile = wrapper.openFileInput (input);
@@ -280,7 +283,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	}
 
 	public boolean noTasks() {
-		return this.taskList.size()==0;
+		return this.taskList.size() == 0;
 	}
 
 	public void setTaskList(List<Task> taskList) {

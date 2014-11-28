@@ -28,15 +28,16 @@ public class ListSelector extends IterativeInteractorAdapter {
 	}
 
 	@Override
-	public int getToItem (WidgetState w, int fromItem, int toItem) {
-		if (w.getSimpleType().equals(PREFERENCE_LIST) || w.getSimpleType().equals(EXPAND_MENU)) {
+	public int getToItem (WidgetState widget, int fromItem, int toItem) {
+		if (widget.getSimpleType().equals(PREFERENCE_LIST) 
+				|| widget.getSimpleType().equals(EXPAND_MENU)) {
 			return toItem;
 		}		
-		return super.getToItem (w,fromItem,toItem);
+		return super.getToItem (widget,fromItem,toItem);
 	}
 
-	public boolean canUseWidget (WidgetState w) {
-		return w.isClickable() && super.canUseWidget(w);
+	public boolean canUseWidget (WidgetState widget) {
+		return widget.isClickable() && super.canUseWidget(widget);
 	}
 
 	public String getInteractionType () {

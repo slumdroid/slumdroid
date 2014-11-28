@@ -157,7 +157,7 @@ public class Prefs {
 	public String[] getStringArray (Field parameter) throws IllegalArgumentException {
 		List<String> theList = new ArrayList<String>();
 		int index = 0;
-		String value;
+		String value = new String();
 		boolean found = false;
 		while ((value = this.localPrefs.get(fromArray(parameter, index), null)) != null) {
 			found = true;
@@ -172,7 +172,7 @@ public class Prefs {
 		String[] value = getStringArray (parameter);
 		if (value == null) return null;
 		int[] ret = new int[value.length];
-		for (int i=0; i < value.length; i++) {
+		for (int i = 0; i < value.length; i++) {
 			ret[i] = Integer.parseInt(value[i]);
 		}
 		return ret;
