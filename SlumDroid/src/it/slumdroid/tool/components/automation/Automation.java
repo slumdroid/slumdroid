@@ -161,11 +161,19 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public void setInput(UserInput input) {
-		if (input.getType().equals(CLICK)){
-			Log.i(TAG, "Setting input: type=" + input.getType() + " id=" + input.getWidgetId() + " widget=" + input.getWidgetType());
-		} 
-		else Log.i(TAG, "Setting input: type=" + input.getType() + " id=" + input.getWidgetId() + " widget=" + input.getWidgetType() + " value=" + input.getValue());
+		String extraInfo = new String();
+		if (input.getType().equals(CLICK)) {
+			writeLogInfo(input, extraInfo);
+		}
+		else {
+			writeLogInfo(input, extraInfo + " value=" + input.getValue());
+		}
 		setInput (Integer.parseInt(input.getWidgetId()), input.getType(), input.getValue(), input.getWidgetName(), input.getWidgetType());
+	}
+	
+	private void writeLogInfo(UserInput input, String extraInfo){
+		String toWrite = "Setting input: type=" + input.getType() + " id=" + input.getWidgetId() + " widget=" + input.getWidgetType();
+		Log.i(TAG, toWrite + extraInfo);
 	}
 
 	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
