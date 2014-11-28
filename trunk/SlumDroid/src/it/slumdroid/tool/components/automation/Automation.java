@@ -210,7 +210,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	private void fireEventOnView (View view, String eventType, String value) {
 		injectInteraction(view, eventType, value);
 		if (SLEEP_AFTER_EVENT != 0) wait(SLEEP_AFTER_EVENT);
-		waitOnThrobber();
+		if (SLEEP_ON_THROBBER != 0) waitOnThrobber();
 		refreshCurrentActivity();
 		extractState();
 	}
