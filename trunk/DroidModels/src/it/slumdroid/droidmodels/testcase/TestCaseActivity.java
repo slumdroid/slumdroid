@@ -40,11 +40,6 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 		return new TestCaseActivity(e);
 	}
 
-	@Override
-	public void setElement (Element e) {
-		super.setElement(e);
-	}
-
 	public Iterator<WidgetState> iterator() {
 		return new NodeListWrapper<WidgetState> (this.element, new TestCaseWidget());
 	}
@@ -54,7 +49,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	}
 
 	public void setName(String name) {
-		setAttribute("name",name);
+		setAttribute("name", name);
 	}
 
 	public String getTitle() {
@@ -70,7 +65,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	}
 
 	public void setId(String id) {
-		setAttribute("id",id);		
+		setAttribute("id", id);		
 	}
 
 	public String getUniqueId() {
@@ -78,7 +73,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	}
 
 	public void setUniqueId(String id) {
-		setAttribute("unique_id",id);		
+		setAttribute("unique_id", id);		
 	}
 
 	public String getScreenshot() {
@@ -86,7 +81,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	}
 
 	public void setScreenshot(String fileName) {
-		setAttribute("screenshot",fileName);		
+		setAttribute("screenshot", fileName);		
 	}
 
 	public static TestCaseActivity createActivity (Document dom, String tag) {

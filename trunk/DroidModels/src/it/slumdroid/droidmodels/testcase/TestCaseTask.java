@@ -78,9 +78,9 @@ public class TestCaseTask extends ElementWrapper implements Task {
 
 	// Iterator Methods
 	public Iterator<Transition> transitions () {
-		Element t = getElement();
-		if (t.getNodeName().equals(TAG)) {
-			return new NodeListWrapper<Transition> (t, new TestCaseTransition());
+		Element transition = getElement();
+		if (transition.getNodeName().equals(TAG)) {
+			return new NodeListWrapper<Transition> (transition, new TestCaseTransition());
 		}
 		return null;		
 	}
@@ -95,13 +95,13 @@ public class TestCaseTask extends ElementWrapper implements Task {
 
 	@Override
 	public TestCaseTask clone () {
-		TestCaseTask t = new TestCaseTask (getElement().getOwnerDocument());
+		TestCaseTask task = new TestCaseTask (getElement().getOwnerDocument());
 		for (Transition child: this) {
 			TestCaseTransition newChild = ((TestCaseTransition)child).clone();
-			t.addTransition(newChild);
+			task.addTransition(newChild);
 		}
-		t.setFailed(getFailed());
-		return t;
+		task.setFailed(getFailed());
+		return task;
 	}
 
 	public void setFinalActivity(ActivityState theActivity) {

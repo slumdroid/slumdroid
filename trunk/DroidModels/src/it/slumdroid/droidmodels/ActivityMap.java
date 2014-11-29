@@ -74,7 +74,7 @@ public class ActivityMap implements Iterable<ActivityState> {
 			while ( (line = theStream.readLine()) != null) {
 				String dtd = (first)?"start_activity.dtd":"final_activity.dtd";
 				String tag = (first)?"START_STATE":"FINAL_STATE";
-				String root = "<"+tag;
+				String root = "<" + tag;
 				String doctype = "<!DOCTYPE " + tag + " PUBLIC \"" + tag + "\" \"" + dtd + "\">";
 				output.add(line.replaceFirst(root, doctype + root));
 				first = false;
@@ -90,13 +90,11 @@ public class ActivityMap implements Iterable<ActivityState> {
 	public void loadActivities(String stateFile) {
 		List<String> entries = readStateFile(stateFile); 
 		GuiTree sandboxSession = getNewSession();
-		TestCaseActivity s;
-		Element e;
 		for (String state: entries) {
 			sandboxSession.parse(state);
-			e = sandboxSession.getDom().getDocumentElement();
-			s = sandboxSession.importState (e);
-			addActivity(s);
+			Element e = sandboxSession.getDom().getDocumentElement();
+			TestCaseActivity activity = sandboxSession.importState (e);
+			addActivity(activity);
 		}
 	}
 
@@ -110,7 +108,7 @@ public class ActivityMap implements Iterable<ActivityState> {
 	}
 
 	public Iterator<ActivityState> iterator() {
-		return activities.values().iterator();
+		return this.activities.values().iterator();
 	}
 
 }

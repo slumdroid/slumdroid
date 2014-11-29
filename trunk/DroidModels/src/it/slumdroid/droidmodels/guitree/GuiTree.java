@@ -82,9 +82,9 @@ public class GuiTree extends XmlGraph implements Session {
 	}
 
 	public static GuiTree fromXml (File f) throws ParserConfigurationException, SAXException, IOException {
-		GuiTree g = new GuiTree();
-		g.parse(f);
-		return g;
+		GuiTree guiT = new GuiTree();
+		guiT.parse(f);
+		return guiT;
 	}
 
 	public void addTask (Task t) {
