@@ -64,6 +64,12 @@ public class SystematicEngine extends Engine {
 		}
 		setAbstractor(this.guiAbstractor);
 		setSession (this.theGuiTree);
+		definePlanner();
+		this.theStrategyFactory = new StrategyFactory(new CompositionalComparator()); 
+		this.thePersistenceFactory = new PersistenceFactory (this.theGuiTree, getScheduler());
+	}
+	
+	private void definePlanner() {
 		UltraPlanner planner = new UltraPlanner();
 		Filter inputFilter = new AllPassFilter();
 		planner.setInputFilter (inputFilter);
@@ -76,12 +82,10 @@ public class SystematicEngine extends Engine {
 		planner.setUser(this.user);
 		planner.setFormFiller(this.user);
 		planner.setAbstractor(this.guiAbstractor);
-		setPlanner (planner);		
-		this.theStrategyFactory = new StrategyFactory(new CompositionalComparator()); 
-		this.thePersistenceFactory = new PersistenceFactory (this.theGuiTree, getScheduler());
+		setPlanner (planner);
 	}
 
-	protected void setUp (){		
+	protected void setUp () {		
 		Strategy strategy = this.theStrategyFactory.getStrategy();
 		setStrategy (strategy);
 		this.thePersistenceFactory.setStrategy(strategy);
