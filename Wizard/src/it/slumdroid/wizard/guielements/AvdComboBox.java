@@ -15,6 +15,7 @@
 
 package it.slumdroid.wizard.guielements;
 
+import static it.slumdroid.wizard.tools.CommandLine.LOAD_AVD;
 import it.slumdroid.wizard.tools.CommandLine;
 
 import java.awt.Font;
@@ -27,8 +28,6 @@ import java.io.InputStreamReader;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-
-import static it.slumdroid.wizard.tools.CommandLine.LOAD_AVD;
 
 public class AvdComboBox extends JComboBox<Object> {
 	

@@ -15,14 +15,14 @@
 
 package it.slumdroid.wizard.tools;
 
+import static it.slumdroid.wizard.tools.CommandLine.APP_PATH;
+import static it.slumdroid.wizard.tools.CommandLine.DUMP_APK;
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 import javax.swing.JOptionPane;
-
-import static it.slumdroid.wizard.tools.CommandLine.*;
 
 public class AppData {
 	private String theClass;
@@ -78,7 +78,8 @@ public class AppData {
 					c = s1.substring(0, s1.indexOf("'"));
 				}
 			}
-		} catch (IOException e1) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error generating apk description");
 		}
 		return new AppData (c, p);

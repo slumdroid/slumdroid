@@ -15,6 +15,13 @@
 
 package it.slumdroid.wizard;
 
+import static it.slumdroid.wizard.tools.CommandLine.CLASS;
+import static it.slumdroid.wizard.tools.CommandLine.DEPLOY;
+import static it.slumdroid.wizard.tools.CommandLine.DEVICE;
+import static it.slumdroid.wizard.tools.CommandLine.FIRST_BOOT;
+import static it.slumdroid.wizard.tools.CommandLine.PACKAGE;
+import static it.slumdroid.wizard.tools.CommandLine.POST_PROCESS;
+import static it.slumdroid.wizard.tools.CommandLine.SYSTEMATIC_TEST;
 import it.slumdroid.wizard.guielements.AppPathTextField;
 import it.slumdroid.wizard.guielements.AvdComboBox;
 import it.slumdroid.wizard.guielements.PathTextField;
@@ -27,15 +34,19 @@ import it.slumdroid.wizard.tools.ExternalProcess;
 import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.*;
-
-import javax.swing.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
-import java.io.IOException;
 import java.text.ParseException;
 
-import static it.slumdroid.wizard.tools.CommandLine.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
 
 public class Wizard {
 
@@ -100,7 +111,8 @@ public class Wizard {
 				file.toURI();
 				try {
 					Desktop.getDesktop().open(file);
-				} catch (IOException e1) {
+				} catch (Exception e) {
+					e.printStackTrace();
 					JOptionPane.showMessageDialog(null, "Can't open the results folder!", "Folder not found", JOptionPane.ERROR_MESSAGE);
 				}
 			}
@@ -370,7 +382,6 @@ public class Wizard {
 		btnFirstBoot.setEnabled(b);
 		btnDeploy.setEnabled(b);
 		btnGenerateReports.setEnabled(b);
-		btnOpenResultsFolder.setEnabled(b);
 		btnRunSlumDroid.setEnabled(b);
 	}
 
@@ -378,7 +389,6 @@ public class Wizard {
 		btnDeploy.setEnabled(!b);
 		btnRunSlumDroid.setEnabled(b);
 		btnGenerateReports.setEnabled(!b);
-		btnOpenResultsFolder.setEnabled(!b);
 	}
 	
 	public static void postGenerate(){
