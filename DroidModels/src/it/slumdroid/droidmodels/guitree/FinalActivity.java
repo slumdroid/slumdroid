@@ -36,7 +36,7 @@ public class FinalActivity extends TestCaseActivity {
 	}
 
 	public static FinalActivity createActivity (Document dom) {
-		return (FinalActivity) createActivity (dom, getTag());
+		return createActivity (dom, getTag());
 	}
 
 	public static FinalActivity createActivity (Document dom, String tag) {

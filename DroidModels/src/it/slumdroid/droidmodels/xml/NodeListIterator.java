@@ -38,8 +38,8 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 	}
 
 	public boolean hasNext() {
-		int l = this.getItems().getLength();
-		return this.currentItem<l;
+		int item = this.getItems().getLength();
+		return this.currentItem < item;
 	}
 
 	public Element next() {

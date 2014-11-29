@@ -67,7 +67,7 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	}
 
 	public void setType (String type) {
-		setAttribute("type",type);
+		setAttribute("type", type);
 	}
 
 	public void setValue (String value) {
@@ -75,7 +75,7 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	}
 
 	public void setId (String id) {
-		setAttribute("id",id);
+		setAttribute("id", id);
 	}
 
 	public String getId() {

@@ -87,9 +87,9 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 
 	@SuppressWarnings("unchecked")
 	private E wrap (Element e) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-		if (aWrapper instanceof WrapperInterface)
-			return ((E) aWrapper.getWrapper(e));
-		if (classe instanceof Class)
+		if (this.aWrapper instanceof WrapperInterface)
+			return ((E) this.aWrapper.getWrapper(e));
+		if (this.classe instanceof Class)
 			return this.costruisci.newInstance (e);
 		return null;
 	}

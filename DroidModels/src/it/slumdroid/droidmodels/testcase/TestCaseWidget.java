@@ -89,8 +89,8 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	}
 
 	public String guessType() {
-		String s = getAttribute("type");
-		return (s.indexOf('@')==-1)?s:s.substring(0, s.indexOf('@'));
+		String type = getAttribute("type");
+		return (type.indexOf('@') == -1)?type:type.substring(0, type.indexOf('@'));
 	}
 
 	public void setId(String id) {
@@ -164,17 +164,6 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 		}
 		newOne.setIndex(this.getIndex());
 		return newOne;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof WidgetState)) return false;
-		WidgetState that = (WidgetState)o;
-		return ( (this.getId()==that.getId()) && 
-				 (this.getName()==that.getName()) && 
-				 (this.getType()==that.getType()) && 
-				 (this.getTextType()==that.getTextType()) && 
-				 (this.getCount()==that.getCount()) );
 	}
 
 	protected String getAvailable () {

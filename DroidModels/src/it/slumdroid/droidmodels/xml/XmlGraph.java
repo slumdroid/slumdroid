@@ -33,10 +33,10 @@ import org.xml.sax.SAXException;
 
 public abstract class XmlGraph {
 	
-	protected String doctype_system = new String();
-	protected String doctype_public = new String();
+	protected String doctypeSystem = new String();
+	protected String doctypePublic = new String();
 	protected String indent = "yes";
-	protected int indent_amount = 4;
+	protected int indentAmount = 4;
 	protected String method = "xml";
 	static boolean validation = true;
 	static private DocumentBuilder builder = null;
@@ -52,20 +52,20 @@ public abstract class XmlGraph {
 	}
 
 	public void setDoctype (String systemId, String publicId) {
-		this.doctype_public = publicId;
-		this.doctype_system = systemId;
+		this.doctypePublic = publicId;
+		this.doctypeSystem = systemId;
 	}
 
 	public String toXml () throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(this.getDom());
 		StringWriter autput = new StringWriter();
-		Transformer t = TransformerFactory.newInstance().newTransformer();
-		t.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, this.doctype_system);
-		t.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, this.doctype_public);
-		t.setOutputProperty(OutputKeys.INDENT, this.indent);
-		t.setOutputProperty(OutputKeys.METHOD, this.method);
-		t.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "" + indent_amount);
-		t.transform(theDom, new StreamResult(autput));
+		Transformer trasformer = TransformerFactory.newInstance().newTransformer();
+		trasformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, this.doctypeSystem);
+		trasformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, this.doctypePublic);
+		trasformer.setOutputProperty(OutputKeys.INDENT, this.indent);
+		trasformer.setOutputProperty(OutputKeys.METHOD, this.method);
+		trasformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "" + this.indentAmount);
+		trasformer.transform(theDom, new StreamResult(autput));
 		return autput.toString();
 	}
 
@@ -82,9 +82,9 @@ public abstract class XmlGraph {
 			builder = factory.newDocumentBuilder();
 			builder.setEntityResolver(new EntityResolver (){
 				public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-					String dtdFileName = systemId.substring(systemId.lastIndexOf("/")+1);
-					InputStream u = XmlGraph.class.getClassLoader().getResourceAsStream("ext/"+dtdFileName);
-					return (u == null)?null:new InputSource (u);
+					String dtdFileName = systemId.substring(systemId.lastIndexOf("/") + 1);
+					InputStream input = XmlGraph.class.getClassLoader().getResourceAsStream("ext/" + dtdFileName);
+					return (input == null)?null:new InputSource (input);
 				}
 			});
 

@@ -46,11 +46,6 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 		super (dom, TAG);
 	}
 
-	@Override
-	public void setElement (Element transition) {
-		super.setElement (transition);
-	}
-
 	public NodeList eventProperties () {
 		return getElement().getChildNodes();
 	}
@@ -104,27 +99,27 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	}
 
 	public static TestCaseTransition createTransition (Document dom) {
-		TestCaseTransition t = new TestCaseTransition(dom);
+		TestCaseTransition transition = new TestCaseTransition(dom);
 		StartActivity sa = StartActivity.createActivity(dom);
-		t.appendChild(sa); 
+		transition.appendChild(sa); 
 		Element inputz = dom.createElement("INPUTS");
-		t.appendChild(inputz);
+		transition.appendChild(inputz);
 		TestCaseEvent e = TestCaseEvent.createEvent(dom);
-		t.appendChild(e); 
+		transition.appendChild(e); 
 		FinalActivity fa = FinalActivity.createActivity(dom);
-		t.appendChild(fa); 
-		return t;
+		transition.appendChild(fa); 
+		return transition;
 	}
 
 	public TestCaseTransition clone () {
-		TestCaseTransition t = createTransition (this.getElement().getOwnerDocument());
-		t.setStartActivity(this.getStartActivity().clone());
+		TestCaseTransition theTransition = createTransition (this.getElement().getOwnerDocument());
+		theTransition.setStartActivity(this.getStartActivity().clone());
 		for (UserInput i: this) {
-			t.addInput (((TestCaseInput)i).clone());
+			theTransition.addInput (((TestCaseInput)i).clone());
 		}
-		t.setEvent(this.getEvent().clone());
-		t.setFinalActivity(this.getFinalActivity().clone());
-		return t;
+		theTransition.setEvent(this.getEvent().clone());
+		theTransition.setFinalActivity(this.getFinalActivity().clone());
+		return theTransition;
 	}
 
 }

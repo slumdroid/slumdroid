@@ -33,7 +33,7 @@ import org.w3c.dom.Element;
 public abstract class ElementWrapper implements WrapperInterface {
 	
 	protected Element element;
-	protected static Transformer t;
+	protected static Transformer trasformer;
 
 	public ElementWrapper() {
 		super();
@@ -68,6 +68,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 		try{
 			return getElement().getAttribute(name);
 		}catch (Exception e){
+			e.printStackTrace();
 			return new String();
 		}
 	}
@@ -92,9 +93,9 @@ public abstract class ElementWrapper implements WrapperInterface {
 	}
 
 	protected Transformer getTransformer() throws TransformerConfigurationException, TransformerFactoryConfigurationError {
-		if (t instanceof Transformer) return t;
-		t = TransformerFactory.newInstance().newTransformer();
-		return t;
+		if (trasformer instanceof Transformer) return trasformer;
+		trasformer = TransformerFactory.newInstance().newTransformer();
+		return trasformer;
 	}
 
 }
