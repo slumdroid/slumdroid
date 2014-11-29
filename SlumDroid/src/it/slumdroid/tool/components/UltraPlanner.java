@@ -60,7 +60,7 @@ public class UltraPlanner implements Planner {
 		setIncludeMenu(true);
 		setIncludeRotation(true);
 		for (WidgetState widget: getEventFilter()) {
-			reductionActions(widget);
+			reductionActions(widget, activityState);
 			Collection<UserEvent> events = getUser().handleEvent(widget);
 			for (UserEvent event: events) {                           
 				if (event == null) continue;
@@ -69,11 +69,13 @@ public class UltraPlanner implements Planner {
 		}    
 	}
 
-	private void reductionActions(WidgetState widget) {
-		if (widget.getSimpleType().equals(TOAST)
-				|| widget.getSimpleType().equals(DIALOG_TITLE)
-				|| widget.getSimpleType().equals(PREFERENCE_LIST)){
-			setIncludeMenu(false);
+	private void reductionActions(WidgetState widget , ActivityState activityState) {
+		if (!activityState.getId().equals("a0")){
+			if (widget.getSimpleType().equals(TOAST)
+					|| widget.getSimpleType().equals(DIALOG_TITLE)
+					|| widget.getSimpleType().equals(PREFERENCE_LIST)){
+				setIncludeMenu(false);
+			}	
 		}
 		if (widget.getSimpleType().equals(PREFERENCE_LIST) 
 				|| widget.getSimpleType().equals(EXPAND_MENU)){
