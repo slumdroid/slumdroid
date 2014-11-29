@@ -59,7 +59,7 @@ public class AppPathTextField extends PathTextField {
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					setPath(fileChooser.getSelectedFile().toString());
-					if (Wizard.ianpkg()==false) {
+					if (!Wizard.ianpkg()) {
 						Wizard.clearText();
 						Wizard.DownSide(false);
 						if (Wizard.checkExp()!=0) Wizard.enableOpenResultFolder();

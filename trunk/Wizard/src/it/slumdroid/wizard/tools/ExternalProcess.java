@@ -15,7 +15,6 @@
 
 package it.slumdroid.wizard.tools;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import static it.slumdroid.wizard.tools.CommandLine.CLOSE;
@@ -41,8 +40,8 @@ public class ExternalProcess {
 			this.process = Runtime.getRuntime().exec(this.command);
 			runningProcs.add(this.process);
 			StreamGobbler.fromProcess(this.process);
-		} catch (IOException e) {
-			//e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
