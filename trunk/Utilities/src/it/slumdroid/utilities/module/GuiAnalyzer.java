@@ -317,14 +317,14 @@ public class GuiAnalyzer extends JFrame {
 								if (!control.equals("exclude")){
 									String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturb(control);
 									if (!pertubedInput.equals("")){
-										if ((boolean) jTableInfo.getValueAt(i, 6).equals("Input")){
+										if (jTableInfo.getValueAt(i, 6).equals("Input")){
 											builder.append(data
 													.replace("INDEX", String.valueOf(countInput))
 													.replace("ID",  String.valueOf(colId[i]))
 													.replace("PERTUBATIONS", pertubedInput));
 											countInput++;
-										} else if ((boolean) jTableInfo.getValueAt(i, 6).equals("Event")){
-											if ((boolean) ((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
+										} else if (jTableInfo.getValueAt(i, 6).equals("Event")){
+											if (((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
 												builder.append(data
 														.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
 														.replace("INDEX", String.valueOf(countEvent))
@@ -340,7 +340,7 @@ public class GuiAnalyzer extends JFrame {
 											}
 
 											countEvent++;
-										} else if ((boolean) jTableInfo.getValueAt(i, 6).equals("Input & Event")){
+										} else if (jTableInfo.getValueAt(i, 6).equals("Input & Event")){
 											builder.append(data
 													.replace("INDEX", String.valueOf(countInput))
 													.replace("ID",  String.valueOf(colId[i]))

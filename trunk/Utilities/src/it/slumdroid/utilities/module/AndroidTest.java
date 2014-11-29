@@ -24,10 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.xml.sax.SAXException;
-
 public class AndroidTest  {
 
 	private String inputFileName = new String();
@@ -47,7 +43,7 @@ public class AndroidTest  {
 	private void processFile() {
 		try {
 			this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
-		} catch (ParserConfigurationException | SAXException | IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot

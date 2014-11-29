@@ -62,7 +62,7 @@ public class GuiTreeToDot {
 			}
 		}
 
-		dot.append("}");		
+		dot.append('}');		
 		return dot.toString();
 	}
 
