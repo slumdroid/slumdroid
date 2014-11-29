@@ -161,7 +161,7 @@ public class UnionTaskListDiet {
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
-					if (strLine.equals("") == false ){
+					if (!strLine.equals("")){
 						tasklist_diet.add(strLine);
 					}
 				}
@@ -177,7 +177,7 @@ public class UnionTaskListDiet {
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
 					if (strLine.length() > 1) {
-						if (strLine.contains(FAKE_TASK_IDENTIFIER) == false) {
+						if (!strLine.contains(FAKE_TASK_IDENTIFIER)) {
 							tasklist_xml.add(strLine);
 						}
 						else {
@@ -240,7 +240,7 @@ public class UnionTaskListDiet {
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
-					if (strLine.equals("") == false )
+					if (!strLine.equals(""))
 						tasklist_diet.add(strLine);
 				}
 				in.close();
@@ -254,7 +254,7 @@ public class UnionTaskListDiet {
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
 					if (strLine.length() > 1) {
-						if (strLine.contains(FAKE_TASK_IDENTIFIER) == false) {
+						if (!strLine.contains(FAKE_TASK_IDENTIFIER)) {
 							tasklist_xml.add(strLine);
 						}
 						else {
@@ -306,7 +306,7 @@ public class UnionTaskListDiet {
 	}
 
 	private static String getID(String line) throws Exception {
-		if (line != null && line.equals("") == false) {
+		if (!(line != null && line.equals(""))) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -327,7 +327,7 @@ public class UnionTaskListDiet {
 	}
 
 	private static String setID(String line, int newID) throws Exception {
-		if (line != null && line.equals("") == false) {
+		if (!(line != null && line.equals(""))) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -356,7 +356,7 @@ public class UnionTaskListDiet {
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
-				if (strLine.equals("") == false )
+				if (!strLine.equals(""))
 					ret.add(strLine);
 			}
 			in.close();

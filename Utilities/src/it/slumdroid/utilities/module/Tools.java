@@ -28,7 +28,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -54,7 +53,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 public class Tools {
 
@@ -126,7 +124,7 @@ public class Tools {
 			DocumentBuilder dombuilder = factory.newDocumentBuilder(); 
 			try {
 				doc = dombuilder.parse( new InputSource( new StringReader( builder.toString() ) ) );
-			} catch (SAXException | IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -233,7 +231,9 @@ public class Tools {
 					counter = 0;
 				}
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		if (!theFiles.equals("")) {
 			fileList.add(theFiles);
 			theFiles = "";	    	
