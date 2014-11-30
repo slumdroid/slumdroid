@@ -46,9 +46,8 @@ public abstract class TestCaseInteraction  extends ElementWrapper {
 
 	public void setWidget(WidgetState newChild) {
 		Element oldChild = getWidget().getElement();
-		if (oldChild != null)
-			getElement().removeChild(oldChild);
-		getElement().appendChild(newChild.getElement());
+		if (oldChild != null) getElement().removeChild(oldChild);
+		if (newChild != null) getElement().appendChild(newChild.getElement());
 	}
 
 	public String getWidgetName() {
