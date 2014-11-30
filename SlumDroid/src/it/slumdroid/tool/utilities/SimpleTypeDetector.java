@@ -98,34 +98,7 @@ public class SimpleTypeDetector implements TypeDetector {
 			return detectLayout(type);
 		}
 		if (type.endsWith("View")){
-			if (type.endsWith("ExpandedMenuView")) {
-				return EXPAND_MENU;
-			}
-			if (type.endsWith("HomeView")) {
-				return ACTION_HOME;
-			}
-			if (type.endsWith("MenuView")) {
-				return MENU_VIEW;
-			}
-			if (type.endsWith("MenuItemView")) {
-				return MENU_ITEM;
-			}
-			if (view instanceof TextView || type.endsWith("TextView")){
-				return detectTextView(type, view);
-			}
-			if (view instanceof ImageView 
-					|| type.endsWith("ImageView")) {
-				return IMAGE_VIEW;
-			}
-			if (view instanceof ListView 
-					|| type.endsWith("ListView")) {
-				return detectList(type, view);
-			}
-			if (view instanceof WebView 
-					|| type.endsWith("WebView")) {
-				return WEB_VIEW;
-			}
-			return "view";
+			return detectView(type, view);
 		}
 		if (view instanceof TextView){
 			return detectTextView(type, view);
@@ -167,43 +140,51 @@ public class SimpleTypeDetector implements TypeDetector {
 		}
 		return new String();
 	}
-
-	private String detectProgressBar(View view) {
-		if (view instanceof RatingBar 
-				&& (!((RatingBar)view).isIndicator())) {
-			return RATING_BAR;
+	
+	private String detectLayout(String type) {
+		if (type.endsWith("LinearLayout")) {
+			return LINEAR_LAYOUT;
 		}
-		if (view instanceof SeekBar) {
-			return SEEK_BAR;
+		if (type.endsWith("RelativeLayout")) {
+			return RELATIVE_LAYOUT;
 		}
-		return PROGRESS_BAR;
+		if (type.endsWith("TableLayout")) {
+			return TABLE_LAYOUT;
+		}
+		return "Layout";
 	}
 
-	private String detectPicker(String type) {
-		if (type.endsWith("DatePicker")) {
-			return DATE_PICKER;
+	private String detectView(String type, View view) {
+		if (type.endsWith("ExpandedMenuView")) {
+			return EXPAND_MENU;
 		}
-		if (type.endsWith("TimePicker")) {
-			return TIME_PICKER;
+		if (type.endsWith("HomeView")) {
+			return ACTION_HOME;
 		}
-		if (type.endsWith("NumberPicker")) {
-			return NUMBER_PICKER;
+		if (type.endsWith("MenuView")) {
+			return MENU_VIEW;
 		}
-		return "Picker";
+		if (type.endsWith("MenuItemView")) {
+			return MENU_ITEM;
+		}
+		if (view instanceof TextView || type.endsWith("TextView")){
+			return detectTextView(type, view);
+		}
+		if (view instanceof ImageView 
+				|| type.endsWith("ImageView")) {
+			return IMAGE_VIEW;
+		}
+		if (view instanceof ListView 
+				|| type.endsWith("ListView")) {
+			return detectList(type, view);
+		}
+		if (view instanceof WebView 
+				|| type.endsWith("WebView")) {
+			return WEB_VIEW;
+		}
+		return "View";
 	}
-
-	private String detectSpinner(View view) {
-		if (((Spinner)view).getCount() == 0) {
-			return EMPTY_SPINNER;
-		}
-		if (((Spinner)view).getOnItemClickListener() != null 
-				|| ((Spinner)view).getOnItemLongClickListener() != null
-				|| ((Spinner)view).getOnItemSelectedListener() != null) {
-			return SPINNER;
-		}
-		return SPINNER_INPUT;
-	}
-
+	
 	private String detectTextView(String type, View view) {
 		if (view instanceof EditText){
 			return detectEdit(type, view);
@@ -216,7 +197,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		}
 		return TEXT_VIEW;
 	}
-
+	
 	private String detectEdit(String type, View view) {
 		if (view instanceof AutoCompleteTextView){
 			if (type.endsWith("SearchAutoComplete")) {
@@ -242,7 +223,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		}
 		return BUTTON;
 	}
-
+	
 	private String detectList(String type, View view) {
 		if (type.endsWith("RecycleListView")) {
 			return EXPAND_MENU;
@@ -257,17 +238,40 @@ public class SimpleTypeDetector implements TypeDetector {
 		return LIST_VIEW;
 	}
 
-	private String detectLayout(String type) {
-		if (type.endsWith("LinearLayout")) {
-			return LINEAR_LAYOUT;
+	private String detectSpinner(View view) {
+		if (((Spinner)view).getCount() == 0) {
+			return EMPTY_SPINNER;
 		}
-		if (type.endsWith("RelativeLayout")) {
-			return RELATIVE_LAYOUT;
+		if (((Spinner)view).getOnItemClickListener() != null 
+				|| ((Spinner)view).getOnItemLongClickListener() != null
+				|| ((Spinner)view).getOnItemSelectedListener() != null) {
+			return SPINNER;
 		}
-		if (type.endsWith("TableLayout")) {
-			return TABLE_LAYOUT;
+		return SPINNER_INPUT;
+	}
+	
+	private String detectPicker(String type) {
+		if (type.endsWith("DatePicker")) {
+			return DATE_PICKER;
 		}
-		return "layout";
+		if (type.endsWith("TimePicker")) {
+			return TIME_PICKER;
+		}
+		if (type.endsWith("NumberPicker")) {
+			return NUMBER_PICKER;
+		}
+		return "Picker";
+	}
+	
+	private String detectProgressBar(View view) {
+		if (view instanceof RatingBar 
+				&& (!((RatingBar)view).isIndicator())) {
+			return RATING_BAR;
+		}
+		if (view instanceof SeekBar) {
+			return SEEK_BAR;
+		}
+		return PROGRESS_BAR;
 	}
 
 }

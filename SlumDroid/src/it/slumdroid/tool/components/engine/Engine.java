@@ -95,7 +95,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getAbstractor().setBaseActivity(description);
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
-		Log.i(TAG, "Start Activity State saved");
+		Log.i(TAG, "Initial Start Activity State saved");
 		if (SCREENSHOT_ENABLED) takeScreenshot (baseActivity);
 		planFirstTests(baseActivity);
 	}
@@ -312,9 +312,10 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		if (ScreenshotFactory.saveScreenshot(fileName)) {
 			theActivity.setScreenshot(fileName);
 			Log.i(TAG,"Saved image on disk: " + fileName);
-		} else{
-			Log.i(TAG,"Image is not saved on disk: " + fileName);
-		}
+		} 
+//		else{
+//			Log.i(TAG,"Image is not saved on disk: " + fileName);
+//		}
 	}
 
 }
