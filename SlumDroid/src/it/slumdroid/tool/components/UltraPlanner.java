@@ -70,7 +70,7 @@ public class UltraPlanner implements Planner {
 	}
 
 	private void reductionActions(WidgetState widget , ActivityState activityState) {
-		if (!activityState.getId().equals("a0")){
+		if (!activityState.getId().equals("a0")){ // a0 is the initial START_STATE
 			if (widget.getSimpleType().equals(TOAST)
 					|| widget.getSimpleType().equals(DIALOG_TITLE)
 					|| widget.getSimpleType().equals(PREFERENCE_LIST)){
