@@ -116,11 +116,9 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 			that.setDescription(this.getDescription());
 		}
 		try{
-			if (this.getWidget() != null){
-				that.setWidget(this.getWidget().clone());	
-			}
+			that.setWidget(this.getWidget().clone());	
 		} catch (Exception e){
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return that;
 	}
