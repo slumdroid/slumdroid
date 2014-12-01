@@ -15,11 +15,28 @@
 
 package it.slumdroid.utilities;
 
+import static it.slumdroid.utilities.Resources.ACTIVITY;
+import static it.slumdroid.utilities.Resources.ACTIVITY_DIR;
+import static it.slumdroid.utilities.Resources.ACTIVITY_SUB;
+import static it.slumdroid.utilities.Resources.COV_GENERATOR;
+import static it.slumdroid.utilities.Resources.DIET_DIR;
+import static it.slumdroid.utilities.Resources.GUITREE;
+import static it.slumdroid.utilities.Resources.GUITREE_DIR;
+import static it.slumdroid.utilities.Resources.GUITREE_SUB;
+import static it.slumdroid.utilities.Resources.INCREMENTAL_COV;
+import it.slumdroid.utilities.module.AndroidTest;
+import it.slumdroid.utilities.module.GraphicalEditor;
+import it.slumdroid.utilities.module.GuiAnalyzer;
+import it.slumdroid.utilities.module.PreferenceEditor;
+import it.slumdroid.utilities.module.Tools;
+import it.slumdroid.utilities.module.UnionTaskListDiet;
+
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
-import it.slumdroid.utilities.module.*;
-import static it.slumdroid.utilities.Resources.*;
+import javax.swing.JOptionPane;
 
 public class Utilities {
 
@@ -43,7 +60,15 @@ public class Utilities {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
-								GraphicalEditor frame = new GraphicalEditor(expPath, appPackage, appClass);
+								final GraphicalEditor frame = new GraphicalEditor(expPath, appPackage, appClass);
+								frame.frmGraph.addWindowListener(new WindowAdapter () {
+									@Override
+									public void windowClosing(WindowEvent e) {
+										frame.resetDefaultValues();
+										frame.saveXML(expPath);
+										JOptionPane.showMessageDialog(null, "Preferences created with Default values", "Information", JOptionPane.INFORMATION_MESSAGE);
+									}
+								}); 
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
