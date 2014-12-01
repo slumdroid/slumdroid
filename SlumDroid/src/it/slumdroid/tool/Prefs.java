@@ -51,6 +51,7 @@ import static it.slumdroid.tool.Resources.EVENTS;
 import static it.slumdroid.tool.Resources.EXTRA_EVENTS;
 import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
 import static it.slumdroid.tool.Resources.INPUTS;
+import static it.slumdroid.tool.Resources.TAG;
 import it.slumdroid.tool.utilities.UserFactory;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.tool.utilities.interactors.editor.AdditionalEnterEditor;
@@ -68,6 +69,7 @@ import java.util.List;
 import java.util.prefs.Preferences;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 public class Prefs {
 
@@ -101,6 +103,7 @@ public class Prefs {
 	public static void loadMainNode (String node) {
 		String path = "/data/data/" + mainNode + "/files/preferences.xml";
 		if (!(new File(path).exists())) {
+			Log.i(TAG, "Preferences file not found.");
 			notFound = true;
 			return;
 		}
