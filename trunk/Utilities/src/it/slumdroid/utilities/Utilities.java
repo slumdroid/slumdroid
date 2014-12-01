@@ -61,14 +61,14 @@ public class Utilities {
 						public void run() {
 							try {
 								final GraphicalEditor frame = new GraphicalEditor(expPath, appPackage, appClass);
-								frame.frmGraph.addWindowListener(new WindowAdapter () {
+								frame.addWindowListener(new WindowAdapter () {
 									@Override
 									public void windowClosing(WindowEvent e) {
 										frame.resetDefaultValues();
 										frame.saveXML(expPath);
-										JOptionPane.showMessageDialog(null, "Preferences created with Default values", "Information", JOptionPane.INFORMATION_MESSAGE);
+										JOptionPane.showMessageDialog(null, "Preferences created with default values", "Information", JOptionPane.INFORMATION_MESSAGE);
 									}
-								}); 
+								});
 								frame.setVisible(true);
 							} catch (Exception e) {
 								e.printStackTrace();
