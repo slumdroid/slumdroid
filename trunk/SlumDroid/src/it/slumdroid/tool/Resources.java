@@ -74,3 +74,7 @@ public class Resources {
 	}
 
 }
+ 
+// Log.d("nofatclips","Sono qui");
+// Log.d("nofatclips","Sono qua");
+// Log.d("nofatclips","Sono quo");
