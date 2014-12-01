@@ -56,8 +56,6 @@ public class GraphicalEditor extends JFrame {
 
 	private JCheckBox chckbxInputPertubation;
 
-	public JFrame frmGraph;
-
 	private static JComboBox listComparatorBox;
 
 	private static JComboBox editTextBox;
