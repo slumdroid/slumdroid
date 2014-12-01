@@ -15,10 +15,18 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
-import java.util.*;
-
 import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.*;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.WidgetState;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ReportGenerator extends StatsReport {
 

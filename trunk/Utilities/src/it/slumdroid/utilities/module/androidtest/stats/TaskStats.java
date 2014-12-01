@@ -15,11 +15,11 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TaskStats extends StatsReport {
 

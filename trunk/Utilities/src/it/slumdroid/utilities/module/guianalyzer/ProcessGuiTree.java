@@ -15,15 +15,14 @@
 
 package it.slumdroid.utilities.module.guianalyzer;
 
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
-
-import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
-import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 
 import java.io.File;
 import java.util.HashMap;
