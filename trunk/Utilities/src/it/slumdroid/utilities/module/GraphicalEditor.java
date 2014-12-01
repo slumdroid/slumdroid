@@ -35,6 +35,7 @@ import java.awt.Font;
 import java.io.PrintWriter;
 
 import javax.swing.JCheckBox;
+import javax.swing.JSeparator;
 
 @SuppressWarnings("rawtypes")
 public class GraphicalEditor extends JFrame {
@@ -45,6 +46,7 @@ public class GraphicalEditor extends JFrame {
 	private static String path = System.getProperty("user.dir") + "/../data/preferences.xml";
 	private static String appPackage = new String();
 	private static String appPackageClass = new String();
+	
 	private static JComboBox screenshotBox;
 	private static JComboBox schedulerBox;
 
@@ -54,6 +56,9 @@ public class GraphicalEditor extends JFrame {
 	private static JFormattedTextField waitingThrobberField;
 
 	private JCheckBox chckbxInputPertubation;
+
+	public JFrame frmGraph;
+
 	private static JComboBox listComparatorBox;
 
 	private static JComboBox editTextBox;
@@ -81,7 +86,7 @@ public class GraphicalEditor extends JFrame {
 		setAppPackageClass(appClass);
 		setFirstPath(expPath);
 
-		setBounds(100, 100, 493, 273);
+		setBounds(100, 100, 485, 282);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -90,7 +95,7 @@ public class GraphicalEditor extends JFrame {
 		// Labels
 		JLabel lblGeneralParameters = new JLabel("General Parameters");
 		lblGeneralParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblGeneralParameters.setBounds(10, 5, 149, 27);
+		lblGeneralParameters.setBounds(10, 5, 225, 27);
 		contentPane.add(lblGeneralParameters);
 
 		JLabel lblScreenshotEnabled = new JLabel("Screenshot Enabled");
@@ -103,7 +108,7 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblAutomationParameters = new JLabel("Automation Parameters");
 		lblAutomationParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAutomationParameters.setBounds(10, 86, 235, 14);
+		lblAutomationParameters.setBounds(10, 81, 225, 25);
 		contentPane.add(lblAutomationParameters);
 
 		JLabel lblAfterEvent = new JLabel("Waiting after Event");
@@ -140,36 +145,36 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblComparatorParameters = new JLabel("Comparator Parameters");
 		lblComparatorParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblComparatorParameters.setBounds(255, 5, 216, 27);
+		lblComparatorParameters.setBounds(245, 5, 216, 27);
 		contentPane.add(lblComparatorParameters);
 
-		JLabel lblCompareListCount = new JLabel("Compare List Count");
-		lblCompareListCount.setBounds(255, 36, 107, 14);
+		JLabel lblCompareListCount = new JLabel("List Count");
+		lblCompareListCount.setBounds(245, 36, 99, 14);
 		contentPane.add(lblCompareListCount);
 
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
 		lblInteractionParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblInteractionParameters.setBounds(255, 54, 216, 25);
+		lblInteractionParameters.setBounds(245, 54, 216, 25);
 		contentPane.add(lblInteractionParameters);
 
 		JLabel lblEdittextInteractions = new JLabel("EditText");
-		lblEdittextInteractions.setBounds(255, 88, 99, 14);
+		lblEdittextInteractions.setBounds(245, 88, 99, 14);
 		contentPane.add(lblEdittextInteractions);
 
 		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete");
-		lblAutocompleteInteractions.setBounds(255, 111, 99, 14);
+		lblAutocompleteInteractions.setBounds(245, 111, 99, 14);
 		contentPane.add(lblAutocompleteInteractions);
 
 		JLabel lblCheckboxInteractions = new JLabel("CheckBox");
-		lblCheckboxInteractions.setBounds(255, 161, 99, 14);
+		lblCheckboxInteractions.setBounds(245, 161, 99, 14);
 		contentPane.add(lblCheckboxInteractions);
 
 		JLabel lblToggleInteractions = new JLabel("Toggle");
-		lblToggleInteractions.setBounds(255, 186, 99, 14);
+		lblToggleInteractions.setBounds(245, 186, 99, 14);
 		contentPane.add(lblToggleInteractions);
 
 		JLabel lblTextInputs = new JLabel("Text Inputs");
-		lblTextInputs.setBounds(255, 136, 99, 14);
+		lblTextInputs.setBounds(245, 136, 99, 14);
 		contentPane.add(lblTextInputs);
 
 		// FormattedTextField
@@ -204,31 +209,31 @@ public class GraphicalEditor extends JFrame {
 
 		listComparatorBox = new JComboBox(bool);
 		listComparatorBox.setSelectedIndex(1);
-		listComparatorBox.setBounds(364, 33, 107, 20);
+		listComparatorBox.setBounds(354, 33, 107, 20);
 		contentPane.add(listComparatorBox);
 
 		editTextBox = new JComboBox(interactions);
-		editTextBox.setBounds(364, 85, 107, 20);
+		editTextBox.setBounds(354, 85, 107, 20);
 		editTextBox.setSelectedIndex(1);
 		contentPane.add(editTextBox);
 
 		autoCompleteBox = new JComboBox(interactions);
-		autoCompleteBox.setBounds(364, 108, 107, 20);
+		autoCompleteBox.setBounds(354, 108, 107, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
 
 		checkBox = new JComboBox(interactions);
-		checkBox.setBounds(364, 158, 107, 20);
+		checkBox.setBounds(354, 158, 107, 20);
 		checkBox.setSelectedIndex(1);
 		contentPane.add(checkBox);
 
 		toggleBox = new JComboBox(interactions);
-		toggleBox.setBounds(364, 183, 107, 20);
+		toggleBox.setBounds(354, 183, 107, 20);
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 
 		inputTextBox = new JComboBox(inputs);
-		inputTextBox.setBounds(364, 133, 107, 20);
+		inputTextBox.setBounds(354, 133, 107, 20);
 		contentPane.add(inputTextBox);
 
 		schedulerBox = new JComboBox(algorithm);
@@ -237,8 +242,8 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(schedulerBox);
 
 		// CheckBox
-		chckbxInputPertubation = new JCheckBox("Input Pertubation Testing");
-		chckbxInputPertubation.setBounds(315, 209, 156, 23);
+		chckbxInputPertubation = new JCheckBox("Input Pertubation");
+		chckbxInputPertubation.setBounds(349, 218, 112, 23);
 		contentPane.add(chckbxInputPertubation);
 
 		// Button
@@ -249,7 +254,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(10, 207, 183, 27);
+		btnDefaultValues.setBounds(10, 216, 213, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
@@ -259,13 +264,17 @@ public class GraphicalEditor extends JFrame {
 				saveXML(expPath); 
 			}
 		});
-		btnSave.setBounds(202, 207, 107, 27);
+		btnSave.setBounds(232, 216, 112, 27);
 		contentPane.add(btnSave);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(10, 211, 451, 2);
+		contentPane.add(separator);
 
 		resetDefaultValues();
 	}
 
-	private void saveXML(String expPath) {
+	public void saveXML(String expPath) {
 		if(!validateField()){
 			JOptionPane.showMessageDialog(null, "Automation Parameters don't valid", "Information", JOptionPane.INFORMATION_MESSAGE);
 		} else{
@@ -470,11 +479,10 @@ public class GraphicalEditor extends JFrame {
 		}
 	}
 
-	private void resetDefaultValues() {
-		int i=0;
+	public void resetDefaultValues() {
 		chckbxInputPertubation.setSelected(false);
-		screenshotBox.setSelectedIndex(i);
-		schedulerBox.setSelectedIndex(i);
+		screenshotBox.setSelectedIndex(0);
+		schedulerBox.setSelectedIndex(0);
 		listComparatorBox.setSelectedIndex(1);
 
 		waitingEventField.setText("1000");
@@ -507,5 +515,4 @@ public class GraphicalEditor extends JFrame {
 	public static void setAppPackageClass(String value) {
 		appPackageClass = value;
 	}
-
 }
