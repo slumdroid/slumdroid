@@ -202,6 +202,8 @@ public class DiskPersistence implements Persistence, ImageStorage {
 			if (fileOutput != null) {
 				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			if (fileOutput != null) {
 				streamWriter.close();
