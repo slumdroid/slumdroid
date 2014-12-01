@@ -36,8 +36,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
-import javax.swing.JOptionPane;
-
 public class Utilities {
 
 	public static void main(String[] args) {
@@ -65,8 +63,7 @@ public class Utilities {
 									@Override
 									public void windowClosing(WindowEvent e) {
 										frame.resetDefaultValues();
-										frame.saveXML(expPath);
-										JOptionPane.showMessageDialog(null, "Preferences created with default values", "Information", JOptionPane.INFORMATION_MESSAGE);
+										frame.saveXML();
 									}
 								});
 								frame.setVisible(true);

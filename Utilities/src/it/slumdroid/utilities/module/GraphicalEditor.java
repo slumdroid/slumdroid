@@ -240,7 +240,7 @@ public class GraphicalEditor extends JFrame {
 
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation");
-		chckbxInputPertubation.setBounds(349, 218, 112, 23);
+		chckbxInputPertubation.setBounds(320, 218, 141, 23);
 		contentPane.add(chckbxInputPertubation);
 
 		// Button
@@ -251,17 +251,17 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(10, 216, 213, 27);
+		btnDefaultValues.setBounds(10, 216, 182, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				saveXML(expPath); 
+				saveXML(); 
 			}
 		});
-		btnSave.setBounds(232, 216, 112, 27);
+		btnSave.setBounds(202, 216, 112, 27);
 		contentPane.add(btnSave);
 		
 		JSeparator separator = new JSeparator();
@@ -271,7 +271,7 @@ public class GraphicalEditor extends JFrame {
 		resetDefaultValues();
 	}
 
-	public void saveXML(String expPath) {
+	public void saveXML() {
 		if(!validateField()){
 			JOptionPane.showMessageDialog(null, "Automation Parameters don't valid", "Information", JOptionPane.INFORMATION_MESSAGE);
 		} else{
