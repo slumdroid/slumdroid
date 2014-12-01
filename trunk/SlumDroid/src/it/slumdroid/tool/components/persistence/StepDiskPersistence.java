@@ -92,7 +92,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 			return (bodyBegin == -1)?(this.footer):graph.substring(bodyBegin);
 		}
 		if ( (bodyBegin == -1) || (bodyEnd == -1) ) { // Empty body
-			return "";
+			return new String();
 		}
 		// Return the body of the XML graph
 		return graph.substring(bodyBegin,bodyEnd);
