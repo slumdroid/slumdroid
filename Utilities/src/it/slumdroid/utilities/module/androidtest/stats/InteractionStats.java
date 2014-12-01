@@ -15,14 +15,14 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
-
-import it.slumdroid.droidmodels.model.Transition;
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
 
 public class InteractionStats extends StatsReport {
 

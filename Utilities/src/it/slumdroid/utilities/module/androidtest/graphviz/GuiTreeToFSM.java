@@ -15,13 +15,19 @@
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
+import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.EOL;
+import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.TAB;
+import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.getCaption;
+import it.slumdroid.droidmodels.guitree.GuiTree;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
-
-import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.*;
-import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.*;
 
 public class GuiTreeToFSM {
 

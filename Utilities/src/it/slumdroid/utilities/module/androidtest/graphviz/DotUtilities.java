@@ -15,11 +15,11 @@
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
-import java.util.Locale;
-
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.UserEvent;
+
+import java.util.Locale;
 
 public class DotUtilities {
 
