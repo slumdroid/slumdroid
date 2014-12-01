@@ -15,9 +15,9 @@
 
 package it.slumdroid.wizard.tools;
 
-import java.util.ArrayList;
-
 import static it.slumdroid.wizard.tools.CommandLine.CLOSE;
+
+import java.util.ArrayList;
 
 public class ExternalProcess {
 
