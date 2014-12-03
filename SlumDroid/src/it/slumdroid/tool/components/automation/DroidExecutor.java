@@ -18,7 +18,6 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
-import static it.slumdroid.tool.Resources.TAG;
 import it.slumdroid.tool.model.EventFiredListener;
 import it.slumdroid.tool.model.ExtractorUtilities;
 
@@ -27,7 +26,6 @@ import java.util.List;
 
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
@@ -115,7 +113,6 @@ public class DroidExecutor {
 			solo.sendKey(Solo.DOWN);
 		}
 		sync();
-		Log.i(TAG, "Swapping to item " + index);
 		View view = list.getSelectedView();
 		if (longClick) longClick(view);
 		else click (view);
@@ -128,7 +125,6 @@ public class DroidExecutor {
 
 	public static void selectSpinnerItem (final Spinner spinner, int num) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
-		Log.i(TAG, "Clicking the spinner view");
 		click(spinner);
 		sync();
 		selectListItem(solo.getCurrentViews(ListView.class).get(0), num, false);
@@ -153,7 +149,6 @@ public class DroidExecutor {
 	public static void selectRadioItem (final RadioGroup radioGroup, int num) {
 		if (num < 1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
-		Log.i(TAG, "Selecting from the Radio Group view");
 		click(radioGroup.getChildAt(num - 1));
 		sync();
 	}
@@ -200,7 +195,6 @@ public class DroidExecutor {
 		int count = tabHost.getTabWidget().getTabCount();
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=count);
 		final int index = Math.min(count, Math.max(1,num)) - 1;
-		Log.i(TAG, "Swapping to tab " + num);
 		click (tabHost.getTabWidget().getChildAt(index));
 	}
 

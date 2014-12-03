@@ -29,11 +29,11 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	private boolean first = true;
 	private boolean last = false;
 
-	public final static String ACTOR_NAME = "StepDiskPersistence";
-	public final static String PARAM_NAME = "footer";
+	public final String ACTOR_NAME = "StepDiskPersistence";
+	public final String PARAM_NAME = "footer";
 
-	private final static String XML_BODY_BEGIN = "    <TASK";
-	private final static String XML_BODY_END = "/TASK>";
+	private final String XML_BODY_BEGIN = "    <TASK";
+	private final String XML_BODY_END = "/TASK>";
 
 	public StepDiskPersistence () {
 		super();

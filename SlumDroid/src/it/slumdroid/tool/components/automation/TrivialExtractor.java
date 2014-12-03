@@ -81,7 +81,7 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 
 	public Bitmap captureImage() {
 		ArrayList<View> views = this.solo.getViews();
-		Bitmap bmap = null;
+		Bitmap bitmap = null;
 		try{
 			if (views != null && views.size() > 0) {
 				final View view = views.get(0);
@@ -95,8 +95,8 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 					}
 				});
 				sync();
-				bmap = view.getDrawingCache();
-				bmap = bmap.copy(bmap.getConfig(), false);
+				bitmap = view.getDrawingCache();
+				bitmap = bitmap.copy(bitmap.getConfig(), false);
 				getActivity().runOnUiThread(new Runnable() {
 					public void run() {
 						if (!flag) {
@@ -104,12 +104,12 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 						}
 					}
 				});
-				return bmap;
+				return bitmap;
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		bmap.recycle();
+		bitmap.recycle();
 		return null;
 	}
 	
