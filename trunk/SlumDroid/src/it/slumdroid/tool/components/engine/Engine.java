@@ -54,18 +54,17 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 
 	public final static String ACTOR_NAME = "Engine";
 
+	private Abstractor theAbstractor;
 	private Executor theExecutor;
 	private Extractor theExtractor;
-	private Abstractor theAbstractor;
+	private ImageCaptor theImageCaptor;	
+	private Persistence thePersistence;
 	private Planner thePlanner;
 	private TraceDispatcher theScheduler;
-	private Strategy theStrategy;
-	private Persistence thePersistence;
 	private Session theSession;
-	private ImageCaptor theImageCaptor;
+	private Strategy theStrategy;
 
 	private final static String PARAM_NAME = "taskId";
-	private final static String FILE_NAME = "guitree.xml"; 
 	private int id = 0;
 
 	@SuppressWarnings("unchecked")
@@ -83,7 +82,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getExecutor().bind(this);
 		Activity activity = getExtractor().getActivity();
 		getPersistence().setContext(activity);
-		getPersistence().setFileName(FILE_NAME);
 		if (resume()) setupAfterResume();
 		else setupFirstStart();
 	}

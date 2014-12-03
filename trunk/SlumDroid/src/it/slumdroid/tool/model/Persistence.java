@@ -22,7 +22,6 @@ import android.app.Activity;
 public interface Persistence {
 
 	public void save ();
-	public void setFileName(String name);
 	public void setSession (Session session);
 	public void addTask (Task task);
 	public void setContext(Activity activity);

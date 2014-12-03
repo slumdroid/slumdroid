@@ -38,9 +38,10 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	FileOutputStream fOut = null; 
 	OutputStreamWriter osw = null;
 	ContextWrapper wrapper = null;
-	private String fileName;
 	private Session theSession;
 	protected int mode = ContextWrapper.MODE_PRIVATE;
+	
+	private final String FILE_NAME = new String("guitree.xml"); 
 
 	public DiskPersistence () {
 		// do nothing
@@ -49,10 +50,6 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	public DiskPersistence (Session theSession) {
 		this();
 		setSession(theSession);
-	}
-
-	public void setFileName(String name) {
-		this.fileName = name;
 	}
 
 	public void setSession(Session session) {
@@ -64,7 +61,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	}
 
 	public String getFileName () {
-		return this.fileName;
+		return this.FILE_NAME;
 	}
 
 	public void setContext(Activity activity) {
@@ -76,7 +73,7 @@ public class DiskPersistence implements Persistence, ImageStorage {
 	}
 
 	public void save() {
-		save (this.fileName);
+		save (this.FILE_NAME);
 	}
 
 	protected String generate () {

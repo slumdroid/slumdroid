@@ -29,9 +29,9 @@ import java.util.List;
 
 public class PersistenceFactory {
 
-	private final static String ACTIVITY_LIST_FILE_NAME = "activities.xml"; 
-	private final static String PARAMETERS_FILE_NAME = "parameters.obj"; 
-	private final static String TASK_LIST_FILE_NAME = "tasklist.xml";
+	private final String ACTIVITY_LIST_FILE_NAME = new String("activities.xml"); 
+	private final String PARAMETERS_FILE_NAME = new String("parameters.obj"); 
+	private final String TASK_LIST_FILE_NAME = new String("tasklist.xml");
 
 	private Session theSession;
 	private TraceDispatcher scheduler;

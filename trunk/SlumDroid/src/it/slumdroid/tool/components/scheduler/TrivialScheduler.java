@@ -24,7 +24,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-class TrivialScheduler implements TaskScheduler {
+public class TrivialScheduler implements TaskScheduler {
 
 	private final TraceDispatcher traceDispatcher;
 	private List<Task> tasks;
