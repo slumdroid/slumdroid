@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.utilities;
 
-import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.WidgetState;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,26 +103,6 @@ public class AbstractorUtilities {
 
 	public static String getType (View view) {
 		return view.getClass().getName();
-	}
-
-	// Event description methods, used by Automation - the description property is only used in graphs	
-	public static boolean describeCurrentEvent (UserEvent event, View view) {
-		if (event == null) return false; // This is probably an input, not an event
-		// Get text from the target widget
-		if (view instanceof TextView) {
-			String text = ((TextView)view).getText().toString();
-			event.setDescription(text);
-			return true;
-		} else if (view instanceof TabHost) {
-			event.setDescription(((TabHost)view).getCurrentTabTag());
-		} else if (view instanceof ViewGroup) {
-			int childNum = ((ViewGroup)view).getChildCount();
-			for (int i = 0; i < childNum; i++) {
-				View child =  ((ViewGroup)view).getChildAt(i);
-				if (describeCurrentEvent(event, child)) return true;
-			}
-		}
-		return false;
 	}
 
 }
