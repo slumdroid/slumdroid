@@ -33,12 +33,12 @@ import it.slumdroid.tool.model.Executor;
 import it.slumdroid.tool.model.Extractor;
 import it.slumdroid.tool.model.ImageCaptor;
 import it.slumdroid.tool.model.Persistence;
-import it.slumdroid.tool.model.Plan;
 import it.slumdroid.tool.model.Planner;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.SessionParams;
 import it.slumdroid.tool.model.Strategy;
+import it.slumdroid.tool.utilities.Plan;
 import it.slumdroid.tool.utilities.ScreenshotFactory;
+import it.slumdroid.tool.utilities.SessionParams;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,11 +46,10 @@ import java.util.List;
 import org.w3c.dom.Element;
 
 import android.app.Activity;
-import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
 @SuppressWarnings("rawtypes")
-public abstract class Engine extends ActivityInstrumentationTestCase2 implements SaveStateListener {
+public abstract class Engine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
 
 	public final static String ACTOR_NAME = "Engine";
 
@@ -82,8 +81,7 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		getExecutor().bind(this);
 		Activity activity = getExtractor().getActivity();
 		getPersistence().setContext(activity);
-		if (resume()) setupAfterResume();
-		else setupFirstStart();
+		if (!resume()) setupFirstStart();
 	}
 
 	protected void setupFirstStart() {
@@ -98,24 +96,22 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 		planFirstTests(baseActivity);
 	}
 
-	protected void setupAfterResume() {
-		// do nothing
-	}
-
 	public void testAndCrawl() {
 		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
 			process(theTask);
+			
 			ActivityDescription description = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(description);
-			getStrategy().compareState(theActivity);
+			if (theActivity.isExit()) Log.i(TAG, "Exit state");
+			else getStrategy().compareState(theActivity);
+			
 			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
 			if (SLEEP_AFTER_TASK != 0) getExecutor().wait(SLEEP_AFTER_TASK);
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTask(theTask);
 			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
-			else doNotPlanTests();
-			if (getStrategy().checkForPause()) break;
+			break;
 		}
 	}
 
@@ -194,10 +190,6 @@ public abstract class Engine extends ActivityInstrumentationTestCase2 implements
 			tasks.add(getNewTask(baseTask, transition));
 		}
 		getScheduler().addPlannedTasks(tasks);
-	}
-
-	protected void doNotPlanTests() { 
-		// do nothing 
 	}
 
 	protected Task getNewTask (Task theTask, Transition t) {

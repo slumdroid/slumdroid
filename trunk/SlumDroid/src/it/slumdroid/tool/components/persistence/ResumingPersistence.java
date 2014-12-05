@@ -22,8 +22,8 @@ import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
 import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.SessionParams;
 import it.slumdroid.tool.model.StateDiscoveryListener;
+import it.slumdroid.tool.utilities.SessionParams;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -67,10 +67,6 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	public void addTask (Task t) {
 		t.setFailed(false);
 		super.addTask(t);
-	}
-
-	public void onNewTaskAdded (Task task) { 
-		// do nothing 
 	}
 
 	public void onTaskDispatched(Task task) {

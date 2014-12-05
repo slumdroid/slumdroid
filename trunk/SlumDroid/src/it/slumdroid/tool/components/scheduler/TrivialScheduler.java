@@ -17,7 +17,6 @@ package it.slumdroid.tool.components.scheduler;
 
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.tool.Resources.SchedulerAlgorithm;
-import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.TaskScheduler;
 
 import java.util.Collection;
@@ -26,13 +25,10 @@ import java.util.List;
 
 public class TrivialScheduler implements TaskScheduler {
 
-	private final TraceDispatcher traceDispatcher;
 	private List<Task> tasks;
 	private SchedulerAlgorithm algorithm;
 
-	public TrivialScheduler (TraceDispatcher traceDispatcher, 
-			SchedulerAlgorithm algorithm) {
-		this.traceDispatcher = traceDispatcher;
+	public TrivialScheduler (SchedulerAlgorithm algorithm) {
 		this.algorithm = algorithm;
 	}
 
@@ -49,10 +45,6 @@ public class TrivialScheduler implements TaskScheduler {
 	public void addTasks(Collection<Task> newTasks) {
 		for (Task t: newTasks) {
 			this.tasks.add(t);
-			for (DispatchListener theListener: 
-				this.traceDispatcher.theListeners) {
-				theListener.onNewTaskAdded(t);
-			}
 		}				
 	}
 

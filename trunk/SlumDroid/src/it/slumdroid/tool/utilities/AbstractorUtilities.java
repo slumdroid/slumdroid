@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.model;
+package it.slumdroid.tool.utilities;
 
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.WidgetState;

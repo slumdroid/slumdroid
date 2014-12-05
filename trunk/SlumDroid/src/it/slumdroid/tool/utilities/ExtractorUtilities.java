@@ -13,10 +13,25 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.model;
+package it.slumdroid.tool.utilities;
 
-public interface StrategyCriteria {
+import android.app.Activity;
+import android.view.View;
 
-	public void setStrategy (Strategy theStrategy);
+public class ExtractorUtilities {
+
+	private static Activity theActivity; // Current Activity
+
+	public static Activity getActivity() {
+		return theActivity;
+	}
+
+	public static void setActivity(Activity activity) {
+		theActivity = activity;
+	}
+
+	public static View findViewById (int id) {
+		return getActivity().findViewById(id);
+	}
 
 }

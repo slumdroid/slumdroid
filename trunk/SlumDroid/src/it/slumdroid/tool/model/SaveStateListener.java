@@ -15,6 +15,8 @@
 
 package it.slumdroid.tool.model;
 
+import it.slumdroid.tool.utilities.SessionParams;
+
 public interface SaveStateListener {
 
 	public String getListenerName();

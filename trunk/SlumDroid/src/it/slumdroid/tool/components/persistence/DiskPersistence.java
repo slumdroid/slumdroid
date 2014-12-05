@@ -20,7 +20,6 @@ import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.tool.model.ImageStorage;
 import it.slumdroid.tool.model.Persistence;
-import it.slumdroid.tool.model.SaveStateListener;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -184,10 +183,6 @@ public class DiskPersistence implements Persistence, ImageStorage {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public void registerListener(SaveStateListener listener) {
-		// do nothing
 	}
 
 	public void saveImage(Bitmap image, String name) throws IOException {

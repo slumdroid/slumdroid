@@ -15,14 +15,12 @@
 
 package it.slumdroid.tool.components.strategy;
 
-import it.slumdroid.tool.components.strategy.criteria.MaxStepsPause;
 import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.Strategy;
 
 public class StrategyFactory {
 
 	private Comparator comparator;
-	private int pauseAfterTasks = 1; // After performing this amount of traces, the tool pauses (0 = no pause)
 
 	public StrategyFactory (Comparator comparator) {
 		this.comparator = comparator;
@@ -30,7 +28,6 @@ public class StrategyFactory {
 
 	public Strategy getStrategy () {
 		CustomStrategy strategy = new CustomStrategy(this.comparator);
-		strategy.addCriteria(new MaxStepsPause(this.pauseAfterTasks));
 		return strategy;
 	}
 	
