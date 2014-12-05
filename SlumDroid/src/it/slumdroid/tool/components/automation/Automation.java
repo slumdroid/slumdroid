@@ -57,7 +57,6 @@ import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.tool.model.ActivityDescription;
-import it.slumdroid.tool.model.EventFiredListener;
 import it.slumdroid.tool.model.Executor;
 import it.slumdroid.tool.model.Extractor;
 import it.slumdroid.tool.model.ImageCaptor;
@@ -79,11 +78,10 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-public class Automation implements Executor, Extractor, TaskProcessor, ImageCaptor, EventFiredListener {
+public class Automation implements Executor, Extractor, TaskProcessor, ImageCaptor {
  
 	private Extractor extractor;
 	private Executor executor;
-	private UserEvent currentEvent;
 	private ImageCaptor imageCaptor;
 	private TrivialExtractor trivialExtractor;
 
@@ -92,7 +90,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		setExtractor (trivialExtractor);
 		this.imageCaptor = trivialExtractor;
 		setExecutor (this);
-		DroidExecutor.addListener(this);
 	}
 
 	// Initializations
@@ -123,7 +120,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	}
 
 	public void fireEvent(UserEvent event) {
-		this.currentEvent = event;
 		String eventType = event.getType();
 		if (eventType.equals(PRESS_BACK) 
 				|| eventType.equals(PRESS_MENU) 
@@ -149,7 +145,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 				fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
 			}
 		}
-		this.currentEvent = null;
 	}
 	
 	private void writeLogInfo(UserEvent event) {
@@ -350,15 +345,6 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 
 	public Bitmap captureImage() {
 		return this.imageCaptor.captureImage();	
-	}
-
-	// This methods call the Abstractor Utility methods to describe the current event
-	public void onClickEventFired (View view) {
-		AbstractorUtilities.describeCurrentEvent (this.currentEvent, view);
-	}
-
-	public void onLongClickEventFired (View view) {
-		onClickEventFired (view);
 	}
 
 }
