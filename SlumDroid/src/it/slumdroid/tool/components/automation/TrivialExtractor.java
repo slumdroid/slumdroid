@@ -19,8 +19,8 @@ package it.slumdroid.tool.components.automation;
 import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Extractor;
-import it.slumdroid.tool.model.ExtractorUtilities;
 import it.slumdroid.tool.model.ImageCaptor;
+import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,6 +31,7 @@ import android.graphics.Bitmap;
 import android.util.SparseArray;
 import android.view.View;
 // import android.widget.TextView;
+
 
 import com.robotium.solo.Solo;
 

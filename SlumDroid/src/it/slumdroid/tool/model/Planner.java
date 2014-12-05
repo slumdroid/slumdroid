@@ -16,6 +16,7 @@
 package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.tool.utilities.Plan;
 
 public interface Planner {
 

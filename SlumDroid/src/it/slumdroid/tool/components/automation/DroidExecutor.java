@@ -19,7 +19,7 @@ import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
 import it.slumdroid.tool.model.EventFiredListener;
-import it.slumdroid.tool.model.ExtractorUtilities;
+import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +59,10 @@ public class DroidExecutor {
 
 	public static Instrumentation getInstrumentation() {
 		return instrum;
+	}
+	
+	public static void unLockScreen() {
+		solo.unlockScreen();
 	}
 
 	// Click interactions

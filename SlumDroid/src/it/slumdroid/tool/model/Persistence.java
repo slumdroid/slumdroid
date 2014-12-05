@@ -26,6 +26,5 @@ public interface Persistence {
 	public void addTask (Task task);
 	public void setContext(Activity activity);
 	public boolean exists (String fileName);
-	public void registerListener (SaveStateListener listener);
 
 }

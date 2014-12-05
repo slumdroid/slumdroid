@@ -37,8 +37,8 @@ import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.EventHandler;
 import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.InputHandler;
-import it.slumdroid.tool.model.Plan;
 import it.slumdroid.tool.model.Planner;
+import it.slumdroid.tool.utilities.Plan;
 
 import java.util.ArrayList;
 import java.util.Collection;

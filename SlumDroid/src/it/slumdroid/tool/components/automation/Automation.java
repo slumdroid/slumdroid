@@ -50,19 +50,20 @@ import static it.slumdroid.tool.components.automation.DroidExecutor.selectSpinne
 import static it.slumdroid.tool.components.automation.DroidExecutor.setProgressBar;
 import static it.slumdroid.tool.components.automation.DroidExecutor.swapTab;
 import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
+import static it.slumdroid.tool.components.automation.DroidExecutor.unLockScreen;
 import static it.slumdroid.tool.components.automation.DroidExecutor.writeText;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.tool.model.AbstractorUtilities;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.EventFiredListener;
 import it.slumdroid.tool.model.Executor;
 import it.slumdroid.tool.model.Extractor;
-import it.slumdroid.tool.model.ExtractorUtilities;
 import it.slumdroid.tool.model.ImageCaptor;
 import it.slumdroid.tool.model.TaskProcessor;
+import it.slumdroid.tool.utilities.AbstractorUtilities;
+import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
 
@@ -97,6 +98,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 	// Initializations
 	public void bind (ActivityInstrumentationTestCase2<?> test) {
 		trivialExtractor.solo = DroidExecutor.createRobotium (test);
+		unLockScreen();
 		afterRestart();
 		refreshCurrentActivity();
 	}
@@ -127,7 +129,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 				|| eventType.equals(PRESS_MENU) 
 				|| eventType.equals(PRESS_ACTION)
 				|| eventType.equals(CHANGE_ORIENTATION)) { // Special events
-			Log.i(TAG, "Firing event: type=" + eventType);
+			Log.i(TAG, "Firing event: " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else {
 			View view = null;
@@ -154,7 +156,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		String eventType = event.getType();
 		String eventId = event.getWidgetId();
 		String eventSimpleType = event.getWidget().getSimpleType();
-		String toWrite = "Firing event: type=" + eventType + " id=" + eventId + " widget=" + eventSimpleType;
+		String toWrite = "Firing event: " + eventType + " widgetId=" + eventId + " widgetType=" + eventSimpleType;
 		String extraInfo = new String(); 
 		if (eventType.equals(WRITE_TEXT) || eventType.equals(ENTER_TEXT)) {
 			String eventValue = event.getValue();
@@ -170,7 +172,7 @@ public class Automation implements Executor, Extractor, TaskProcessor, ImageCapt
 		String widgetName = input.getWidgetName();
 		String widgetType = input.getWidgetType();
 		String inputSimpleType = input.getWidget().getSimpleType();
-		String toWrite = "Setting input: type=" + inputType + " id=" + widgetId + " widget=" + inputSimpleType;
+		String toWrite = "Setting input: " + inputType + " widgetId=" + widgetId + " widgetType=" + inputSimpleType;
 		if (!input.getType().equals(CLICK)) {
 			toWrite += " value=" + input.getValue();
 		}

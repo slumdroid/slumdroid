@@ -17,10 +17,10 @@ package it.slumdroid.tool.components;
 
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
-import static it.slumdroid.tool.model.AbstractorUtilities.detectName;
-import static it.slumdroid.tool.model.AbstractorUtilities.getType;
-import static it.slumdroid.tool.model.AbstractorUtilities.setCount;
-import static it.slumdroid.tool.model.AbstractorUtilities.setValue;
+import static it.slumdroid.tool.utilities.AbstractorUtilities.detectName;
+import static it.slumdroid.tool.utilities.AbstractorUtilities.getType;
+import static it.slumdroid.tool.utilities.AbstractorUtilities.setCount;
+import static it.slumdroid.tool.utilities.AbstractorUtilities.setValue;
 import it.slumdroid.droidmodels.guitree.FinalActivity;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.guitree.StartActivity;
@@ -45,8 +45,8 @@ import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.FilterHandler;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.SessionParams;
 import it.slumdroid.tool.model.TypeDetector;
+import it.slumdroid.tool.utilities.SessionParams;
 
 import java.util.ArrayList;
 import java.util.Collection;
