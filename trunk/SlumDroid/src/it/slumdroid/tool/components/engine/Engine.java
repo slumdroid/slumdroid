@@ -99,7 +99,7 @@ public abstract class Engine extends android.test.ActivityInstrumentationTestCas
 	public void testAndCrawl() {
 		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
-			process(theTask);
+			getExecutor().process(theTask);
 			
 			ActivityDescription description = getExtractor().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(description);
@@ -113,10 +113,6 @@ public abstract class Engine extends android.test.ActivityInstrumentationTestCas
 			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
 			break;
 		}
-	}
-
-	protected void process(Task theTask) {
-		getExecutor().process(theTask);
 	}
 
 	protected boolean canPlanTests (ActivityState theActivity){

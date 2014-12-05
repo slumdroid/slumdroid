@@ -18,7 +18,6 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
-import it.slumdroid.tool.model.EventFiredListener;
 import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
@@ -45,16 +44,11 @@ public class DroidExecutor {
 
 	static private Solo solo;
 	static private Instrumentation instrum;
-	static private List<EventFiredListener> listeners = new ArrayList<EventFiredListener>();
 
 	public static Solo createRobotium (ActivityInstrumentationTestCase2<?> test) {
 		instrum = test.getInstrumentation();
 		solo = new Solo (instrum, test.getActivity());
 		return solo;
-	}
-
-	public static void addListener(EventFiredListener cil) {
-		listeners.add(cil);
 	}
 
 	public static Instrumentation getInstrumentation() {
@@ -68,17 +62,11 @@ public class DroidExecutor {
 	// Click interactions
 	public static void click (View view) {
 		assertNotNull(view,"Cannot click: the widget does not exist");
-		for (EventFiredListener l: listeners) {
-			l.onClickEventFired(view);
-		}
 		solo.clickOnView(view);
 	}
 
 	public static void longClick (View view) {
 		assertNotNull(view, "Cannot longClick: the widget does not exist");
-		for (EventFiredListener l: listeners) {
-			l.onLongClickEventFired(view);
-		}
 		solo.clickLongOnView(view);
 	}
 
