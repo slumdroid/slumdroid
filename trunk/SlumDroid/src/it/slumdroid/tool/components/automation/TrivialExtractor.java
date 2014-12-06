@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.components.automation;
 
-// import static it.slumdroid.tool.Resources.TAG;
 import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Extractor;
@@ -27,11 +26,8 @@ import java.util.Iterator;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-// import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
-// import android.widget.TextView;
-
 
 import com.robotium.solo.Solo;
 
@@ -132,12 +128,8 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 		clearWidgetList();
 		ArrayList<View> viewList = this.solo.getViews();
 		if (viewList.size() != 0){
-			//Log.d(TAG, "Retrieving widgets");
-			//Log.d(TAG, "Found widget:");
 			for (View view: viewList) {
 				this.allViews.add(view);
-				//String text = (view instanceof TextView)?": " + ((TextView)view).getText().toString():"";
-				//Log.d(TAG, "id=" + view.getId() + " (" + view.toString().split("@")[0] + ")" + text);
 				if (view.getId() > 0) {
 					this.theViews.put(view.getId(), view); // Add only if the widget has a valid ID
 				}

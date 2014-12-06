@@ -25,7 +25,7 @@ public interface Strategy {
 	public void setComparator (Comparator comparator);
 	public void compareState (ActivityState theActivity);
 	public boolean checkForExploration ();
-	public void setTask(Task theTask);
-	public Task getTask();
+	public void setTask (Task theTask);
+	public Task getTask ();
 
 }

@@ -28,7 +28,7 @@ public interface Interactor {
 	public List<UserInput> getInputs (WidgetState widget);
 	public List<UserEvent> getEvents (WidgetState widget, String ... values);
 	public List<UserInput> getInputs (WidgetState widget, String ... values);
-	public Abstractor getAbstractor();
+	public Abstractor getAbstractor ();
 	public void setAbstractor (Abstractor abstractor);
 	public String getInteractionType ();
 
