@@ -40,7 +40,6 @@ import it.slumdroid.droidmodels.testcase.TestCaseWidget;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.model.Abstractor;
-import it.slumdroid.tool.model.AbstractorListener;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.FilterHandler;
@@ -48,11 +47,9 @@ import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.TypeDetector;
 import it.slumdroid.tool.utilities.SessionParams;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -72,7 +69,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	private int activityId = 0;
 	private int widgetId = 0;
 	private TypeDetector detector;
-	private List<AbstractorListener> theListeners = new ArrayList<AbstractorListener>();
 	public final static String ACTOR_NAME = "GuiTreeAbstractor";
 	private static final String EVENT_PARAM_NAME = "eventId";
 	private static final String INPUT_PARAM_NAME = "inputId";
@@ -122,9 +118,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		}
 		boolean hasDescription = updateDescription(newActivity, desc, false);
 		if (!hasDescription) newActivity.markAsExit();
-		for (AbstractorListener listener: this.theListeners) {
-			listener.onNewActivity(newActivity);
-		}
 		return newActivity;
 	}
 
@@ -209,9 +202,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		if (target != null) newEvent.setWidget (target.clone());
 		newEvent.setType(type);
 		newEvent.setId(getUniqueEventId());
-		for (AbstractorListener listener: this.theListeners) {
-			listener.onNewEvent(newEvent);
-		}
 		return newEvent;
 	}
 
@@ -221,9 +211,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		newInput.setValue(value);
 		newInput.setType(type);
 		newInput.setId(getUniqueInputId());
-		for (AbstractorListener listener: this.theListeners) {
-			listener.onNewInput(newInput);
-		}
 		return newInput;
 	}
 
@@ -262,10 +249,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			e.printStackTrace();
 		}
 		return transition;
-	}
-
-	public void registerListener(AbstractorListener theListener) {
-		this.theListeners.add(theListener);
 	}
 
 	public String getUniqueEventId () {
