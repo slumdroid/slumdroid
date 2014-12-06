@@ -78,17 +78,21 @@ public abstract class Engine extends android.test.ActivityInstrumentationTestCas
 	protected void setUp() throws Exception {
 		super.setUp();
 		if (getImageCaptor() != null) ScreenshotFactory.setImageCaptor(getImageCaptor());
+		
 		getExecutor().bind(this);
+		getExtractor().extractState();
+		
 		Activity activity = getExtractor().getActivity();
 		getPersistence().setContext(activity);
+		
+		ActivityDescription description = getExtractor().describeActivity();
+		getAbstractor().setBaseActivity(description);
+		
 		if (!resume()) setupFirstStart();
 	}
 
 	protected void setupFirstStart() {
 		Log.i(TAG, "Ripping starts");
-		getExtractor().extractState();
-		ActivityDescription description = getExtractor().describeActivity();
-		getAbstractor().setBaseActivity(description);
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
 		Log.i(TAG, "Initial Start Activity State saved");
