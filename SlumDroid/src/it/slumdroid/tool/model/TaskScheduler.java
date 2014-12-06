@@ -22,13 +22,13 @@ import java.util.List;
 
 public interface TaskScheduler {
 
-	public Task nextTask();
+	public Task nextTask ();
 	public void addTasks (Collection<Task> newTasks);
-	public void addPlannedTasks(List<Task> newTasks);
+	public void addPlannedTasks (List<Task> newTasks);
 	public void setTaskList (List<Task> theList);
-	public boolean hasMore();
+	public boolean hasMore ();
 	public void remove (Task task);
-	public void addTasks(Task task);
-	public List<Task> getTaskList();
+	public void addTasks (Task task);
+	public List<Task> getTaskList ();
 
 }

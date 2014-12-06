@@ -16,7 +16,6 @@
 package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import android.test.ActivityInstrumentationTestCase2;
@@ -24,10 +23,9 @@ import android.test.ActivityInstrumentationTestCase2;
 public interface Executor {
 
 	public void bind (ActivityInstrumentationTestCase2<?> engine);
+	public void execute (Task task);
 	public void fireEvent (UserEvent event);
 	public void setInput (UserInput input);
-	public void process (Task task);
-	public void process (Transition transition);
 	public void wait (int milli);
 
 }

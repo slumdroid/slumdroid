@@ -19,8 +19,8 @@ import it.slumdroid.tool.utilities.SessionParams;
 
 public interface SaveStateListener {
 
-	public String getListenerName();
-	public SessionParams onSavingState();
-	public void onLoadingState(SessionParams sessionParams);
+	public String getListenerName ();
+	public SessionParams onSavingState ();
+	public void onLoadingState (SessionParams sessionParams);
 
 }

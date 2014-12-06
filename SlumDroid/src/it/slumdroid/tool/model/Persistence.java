@@ -24,7 +24,7 @@ public interface Persistence {
 	public void save ();
 	public void setSession (Session session);
 	public void addTask (Task task);
-	public void setContext(Activity activity);
+	public void setContext (Activity activity);
 	public boolean exists (String fileName);
 
 }
