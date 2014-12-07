@@ -79,9 +79,11 @@ import android.widget.ToggleButton;
 
 @SuppressWarnings("deprecation")
 public class SimpleTypeDetector implements TypeDetector {
-
+	
+	private String type = new String(); 
+	
 	public String getSimpleType(View view) {
-		String type = view.getClass().getName();
+		type = view.getClass().getName();
 		if (type.endsWith("TableRow")) {
 			return TABLE_ROW;
 		}
@@ -95,13 +97,13 @@ public class SimpleTypeDetector implements TypeDetector {
 			return NUMBER_PICKER_BUTTON;
 		}
 		if (type.endsWith("Layout")){
-			return detectLayout(type);
+			return detectLayout();
 		}
 		if (type.endsWith("View")){
-			return detectView(type, view);
+			return detectView(view);
 		}
 		if (view instanceof TextView){
-			return detectTextView(type, view);
+			return detectTextView(view);
 		}
 		if (view instanceof ImageButton 
 				|| type.endsWith("Button")) {
@@ -111,7 +113,7 @@ public class SimpleTypeDetector implements TypeDetector {
 			return detectSpinner(view);
 		}
 		if (type.endsWith("Picker")){
-			return detectPicker(type);
+			return detectPicker();
 		}
 		if (type.endsWith("PopupMenu") 
 				|| type.contains("PopupMenu")) {
@@ -121,9 +123,6 @@ public class SimpleTypeDetector implements TypeDetector {
 				|| type.contains("PopupWindow") 
 				|| type.endsWith("PopupViewContainer")) {
 			return POPUP_WINDOW;
-		}
-		if (type.endsWith("Container")) {
-			return "Container";
 		}
 		if (view instanceof RadioGroup) {
 			return RADIO_GROUP;
@@ -138,10 +137,13 @@ public class SimpleTypeDetector implements TypeDetector {
 		if (view instanceof SlidingDrawer) {
 			return SLIDING_DRAWER; // Deprecated in API level 17
 		}
-		return new String();
+		if (type.endsWith("Container")) {
+			return "Container"; // Generic Container
+		}
+		return new String(); // unKnown Widget or Custom Widget
 	}
 	
-	private String detectLayout(String type) {
+	private String detectLayout() {
 		if (type.endsWith("LinearLayout")) {
 			return LINEAR_LAYOUT;
 		}
@@ -151,10 +153,10 @@ public class SimpleTypeDetector implements TypeDetector {
 		if (type.endsWith("TableLayout")) {
 			return TABLE_LAYOUT;
 		}
-		return "Layout";
+		return "Layout"; // Generic Layout
 	}
 
-	private String detectView(String type, View view) {
+	private String detectView(View view) {
 		if (type.endsWith("ExpandedMenuView")) {
 			return EXPAND_MENU;
 		}
@@ -168,7 +170,7 @@ public class SimpleTypeDetector implements TypeDetector {
 			return MENU_ITEM;
 		}
 		if (view instanceof TextView || type.endsWith("TextView")){
-			return detectTextView(type, view);
+			return detectTextView(view);
 		}
 		if (view instanceof ImageView 
 				|| type.endsWith("ImageView")) {
@@ -176,18 +178,18 @@ public class SimpleTypeDetector implements TypeDetector {
 		}
 		if (view instanceof ListView 
 				|| type.endsWith("ListView")) {
-			return detectList(type, view);
+			return detectList(view);
 		}
 		if (view instanceof WebView 
 				|| type.endsWith("WebView")) {
 			return WEB_VIEW;
 		}
-		return "View";
+		return "View"; // Generic View
 	}
 	
-	private String detectTextView(String type, View view) {
+	private String detectTextView(View view) {
 		if (view instanceof EditText){
-			return detectEdit(type, view);
+			return detectEdit(view);
 		}
 		if (view instanceof Button){
 			return detectButton(view);
@@ -198,7 +200,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		return TEXT_VIEW;
 	}
 	
-	private String detectEdit(String type, View view) {
+	private String detectEdit(View view) {
 		if (view instanceof AutoCompleteTextView){
 			if (type.endsWith("SearchAutoComplete")) {
 				return SEARCH_BAR;
@@ -224,7 +226,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		return BUTTON;
 	}
 	
-	private String detectList(String type, View view) {
+	private String detectList(View view) {
 		if (type.endsWith("RecycleListView")) {
 			return EXPAND_MENU;
 		}
@@ -250,7 +252,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		return SPINNER_INPUT;
 	}
 	
-	private String detectPicker(String type) {
+	private String detectPicker() {
 		if (type.endsWith("DatePicker")) {
 			return DATE_PICKER;
 		}
@@ -260,7 +262,7 @@ public class SimpleTypeDetector implements TypeDetector {
 		if (type.endsWith("NumberPicker")) {
 			return NUMBER_PICKER;
 		}
-		return "Picker";
+		return "Picker"; // Generic Picker
 	}
 	
 	private String detectProgressBar(View view) {
