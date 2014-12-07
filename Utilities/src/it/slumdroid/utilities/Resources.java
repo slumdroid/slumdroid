@@ -26,6 +26,8 @@ public class Resources {
 	public static final String GUITREE_DIR = "./diet/guitree/";
 	public static final String GUITREE_SUB = "guitree_"; 
 	public static final String INCREMENTAL_COV = "%EMMA% report -r txt -Dreport.sort=+name -in ";
+	public static final int MAX_ES = 100;
 	public static final String TOOL = "it.slumdroid.tool";
+	public static final String TOOL_TARGET = "19";
 	
 }

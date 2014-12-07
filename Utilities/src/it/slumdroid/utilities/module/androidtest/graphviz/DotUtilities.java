@@ -111,7 +111,7 @@ public class DotUtilities {
 			GuiTreeToDot g = new GuiTreeToDot ((GuiTree)xml);
 			return g.getDot();
 		}
-		return "";
+		return new String();
 	}
 
 	public static String exportToFsm (Session xml){
@@ -119,7 +119,7 @@ public class DotUtilities {
 			GuiTreeToFSM g = new GuiTreeToFSM ((GuiTree)xml);
 			return g.getDot();
 		}
-		return "";
+		return new String();
 	}	   	
 
 }
