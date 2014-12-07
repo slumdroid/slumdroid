@@ -112,7 +112,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		newActivity.setName(desc.getActivityName());
 		newActivity.setTitle(desc.getActivityTitle());
 		newActivity.setUniqueId(getUniqueActivityId());
-		newActivity.setId(getUniqueActivityId());
+		newActivity.setId(newActivity.getUniqueId());
 		for (Filter f: this.filters) {
 			f.clear();
 		}
