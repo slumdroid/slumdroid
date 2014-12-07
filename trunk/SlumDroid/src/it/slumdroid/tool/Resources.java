@@ -28,10 +28,7 @@ public class Resources {
 	public static String CLASS_NAME = "app.package.class";
 	
 	public static long RANDOM_SEED = System.currentTimeMillis(); 
-	public static boolean SCREENSHOT_ENABLED = true; // Performs an image capture of the screen after processing a task
-	
-	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
-	public static boolean HASH_VALUES = true;
+	public static boolean SCREENSHOT_ENABLED = true; // true -> perform an image capture of the screen after processing a task
 	
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 	
@@ -48,10 +45,13 @@ public class Resources {
 	public static String EVENTS[];
 	public static String INPUTS[];
 	
+	public static boolean HASH_VALUES = true; // true -> use Hash Id to generate the text values
+	
 	public static String EXTRA_EVENTS[];
 	public static String EXTRA_INPUTS[];
 	
 	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
+	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
 		
 	public static Class<?> theClass;
 
