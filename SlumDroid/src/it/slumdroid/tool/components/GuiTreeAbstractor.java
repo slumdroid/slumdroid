@@ -64,16 +64,16 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	private GuiTree theSession;
 	private StartActivity baseActivity;
 	private HashSet<Filter> filters;
+	private TypeDetector detector;
+	
 	private int eventId = 0;
 	private int inputId = 0;
 	private int activityId = 0;
-	private int widgetId = 0;
-	private TypeDetector detector;
+	
 	public final static String ACTOR_NAME = "GuiTreeAbstractor";
 	private static final String EVENT_PARAM_NAME = "eventId";
 	private static final String INPUT_PARAM_NAME = "inputId";
 	private static final String ACTIVITY_PARAM_NAME = "activityId";
-	private static final String WIDGET_PARAM_NAME = "widgetId";
 
 	public GuiTreeAbstractor () throws ParserConfigurationException {
 		this (new GuiTree());
@@ -112,7 +112,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		newActivity.setName(desc.getActivityName());
 		newActivity.setTitle(desc.getActivityTitle());
 		newActivity.setUniqueId(getUniqueActivityId());
-		newActivity.setId(newActivity.getUniqueId());
+		newActivity.setId(getUniqueActivityId());
 		for (Filter f: this.filters) {
 			f.clear();
 		}
@@ -269,18 +269,11 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return "i" + ret;
 	}
 
-	public String getUniqueWidgetId () {
-		int ret = this.widgetId;
-		this.widgetId++;
-		return "w" + ret;
-	}
-
 	public SessionParams onSavingState() {
 		SessionParams state = new SessionParams();
 		state.store(EVENT_PARAM_NAME, this.eventId);
 		state.store(INPUT_PARAM_NAME, this.inputId);
 		state.store(ACTIVITY_PARAM_NAME, this.activityId);
-		state.store(WIDGET_PARAM_NAME, this.widgetId);
 		return state;
 	}
 
@@ -288,7 +281,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		this.eventId = sessionParams.getInt(EVENT_PARAM_NAME);
 		this.inputId = sessionParams.getInt(INPUT_PARAM_NAME);
 		this.activityId = sessionParams.getInt(ACTIVITY_PARAM_NAME);
-		this.widgetId = sessionParams.getInt(WIDGET_PARAM_NAME);
 	}
 
 	public String getListenerName() {
