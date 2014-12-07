@@ -19,6 +19,8 @@ import static it.slumdroid.utilities.Resources.ACTIVITY;
 import static it.slumdroid.utilities.Resources.ACTIVITY_DIR;
 import static it.slumdroid.utilities.Resources.GUITREE;
 import static it.slumdroid.utilities.Resources.GUITREE_DIR;
+import static it.slumdroid.utilities.Resources.MAX_ES;
+import static it.slumdroid.utilities.Resources.TOOL_TARGET;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -56,8 +58,7 @@ import org.xml.sax.InputSource;
 
 public class Tools {
 
-	static final int maxPerEs = 100;
-	static String metadata = new String();
+	private static String metadata = new String();
 
 	// Preference Editor Utilities
 	public void cleanNode (Preferences prefs) {
@@ -214,7 +215,7 @@ public class Tools {
 	private static String[] showFiles() {
 		ArrayList<String> fileList = new ArrayList<String>();
 		int counter = 0;
-		String theFiles = "";
+		String theFiles = new String();
 		try{
 			File[] candidates = new File("../coverage/").listFiles();
 			for (File file : candidates) {
@@ -225,7 +226,7 @@ public class Tools {
 					theFiles+=","+file.getName();
 					counter++;
 				}
-				if (counter>=maxPerEs) {
+				if (counter >= MAX_ES) {
 					fileList.add(theFiles);
 					theFiles = "";
 					counter = 0;
@@ -272,7 +273,7 @@ public class Tools {
 			while ((line = inputStream1.readLine()) != null ) {
 				if (line.contains("[exec] Success")) {
 					count++;
-					if (count==2) success = true;  
+					if (count == 2) success = true;  
 				}
 			}
 			inputStream1.close();
@@ -409,7 +410,28 @@ public class Tools {
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		if (count==0) new File(xml).delete();
+		if (count == 0) new File(xml).delete();
+	}
+
+	// UpdateProperties Utilities 
+	public void updateProperties(String autPath) {
+		String path = new String(autPath.concat("/project.properties"));
+		String target = new String("target=android-");
+		StringBuilder builder = new StringBuilder();
+		try{
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains(target)) builder.append(target + TOOL_TARGET + "\n");	 
+				else builder.append(line + "\n");	
+			}
+			inputStream1.close();
+			PrintWriter outputStream1 = new PrintWriter (path);
+			outputStream1.write(builder.toString());
+			outputStream1.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

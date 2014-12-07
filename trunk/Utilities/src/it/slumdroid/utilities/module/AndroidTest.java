@@ -21,7 +21,6 @@ import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.utilities.module.androidtest.stats.ReportGenerator;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 
 public class AndroidTest  {
@@ -56,7 +55,7 @@ public class AndroidTest  {
 			PrintWriter autput = new PrintWriter (outputFile);
 			autput.println(inputString);
 			autput.close();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

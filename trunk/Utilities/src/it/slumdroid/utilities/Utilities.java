@@ -100,6 +100,7 @@ public class Utilities {
 					new UnionTaskListDiet().tasklistDiet(args[1], args[2]);
 				}
 				else if (args[0].equals("traslate")) new Tools().traslate(args[1], args[2]);
+				else if (args[0].equals("properties")) new Tools().updateProperties(args[1]);
 			}
 		}catch(Exception e){
 			e.printStackTrace();
