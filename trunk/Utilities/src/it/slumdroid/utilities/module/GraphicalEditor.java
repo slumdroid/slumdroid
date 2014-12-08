@@ -58,6 +58,7 @@ public class GraphicalEditor extends JFrame {
 	private JCheckBox chckbxInputPertubation;
 
 	private static JComboBox listComparatorBox;
+	private static JComboBox checkComparatorBox;
 
 	private static JComboBox editTextBox;
 	private static JComboBox autoCompleteBox;
@@ -107,7 +108,7 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblAutomationParameters = new JLabel("Automation Parameters");
 		lblAutomationParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAutomationParameters.setBounds(10, 151, 225, 25);
+		lblAutomationParameters.setBounds(10, 164, 225, 14);
 		contentPane.add(lblAutomationParameters);
 
 		JLabel lblAfterEvent = new JLabel("Waiting after Event");
@@ -144,12 +145,16 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblComparatorParameters = new JLabel("Comparator Parameters");
 		lblComparatorParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblComparatorParameters.setBounds(10, 88, 225, 27);
+		lblComparatorParameters.setBounds(10, 86, 225, 29);
 		contentPane.add(lblComparatorParameters);
 
 		JLabel lblCompareListCount = new JLabel("Compare List Count");
-		lblCompareListCount.setBounds(10, 126, 151, 14);
+		lblCompareListCount.setBounds(10, 114, 151, 14);
 		contentPane.add(lblCompareListCount);
+		
+		JLabel lblCompareCheckbox = new JLabel("Compare CheckBox values");
+		lblCompareCheckbox.setBounds(10, 139, 151, 14);
+		contentPane.add(lblCompareCheckbox);
 
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
 		lblInteractionParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -160,7 +165,7 @@ public class GraphicalEditor extends JFrame {
 		lblEdittextInteractions.setBounds(245, 101, 132, 14);
 		contentPane.add(lblEdittextInteractions);
 
-		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete Interactions");
+		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete");
 		lblAutocompleteInteractions.setBounds(245, 126, 132, 14);
 		contentPane.add(lblAutocompleteInteractions);
 
@@ -181,7 +186,7 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(lblMaxEventsFor);
 		
 		JLabel lblSwapTab = new JLabel("SwapTab only initially");
-		lblSwapTab.setBounds(244, 36, 112, 14);
+		lblSwapTab.setBounds(244, 36, 133, 14);
 		contentPane.add(lblSwapTab);
 
 		// FormattedTextField
@@ -216,8 +221,13 @@ public class GraphicalEditor extends JFrame {
 
 		listComparatorBox = new JComboBox(bool);
 		listComparatorBox.setSelectedIndex(1);
-		listComparatorBox.setBounds(171, 123, 64, 20);
+		listComparatorBox.setBounds(171, 111, 64, 20);
 		contentPane.add(listComparatorBox);
+		
+		checkComparatorBox = new JComboBox(bool);
+		checkComparatorBox.setSelectedIndex(1);
+		checkComparatorBox.setBounds(171, 136, 64, 20);
+		contentPane.add(checkComparatorBox);
 
 		editTextBox = new JComboBox(interactions);
 		editTextBox.setBounds(387, 98, 74, 20);
@@ -360,12 +370,14 @@ public class GraphicalEditor extends JFrame {
 	}
 
 	private void createComparatorParameters() {
-		if (listComparatorBox.getSelectedIndex() != 1) {
+		if (listComparatorBox.getSelectedIndex() != 1 
+				|| checkComparatorBox.getSelectedIndex() != 1){
 			builder.append("<node name=\"comparator\">");
 			builder.append("<map>");
-			builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
+			if (listComparatorBox.getSelectedIndex() != 1) builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
+			if (checkComparatorBox.getSelectedIndex() != 1) builder.append("<entry key=\"COMPARE_CHECKBOX\" value=\"true\"/>");
 			builder.append("</map>");
-			builder.append("</node>");	
+			builder.append("</node>");
 		}
 	}
 
@@ -506,7 +518,8 @@ public class GraphicalEditor extends JFrame {
 		schedulerBox.setSelectedIndex(0);
 		
 		listComparatorBox.setSelectedIndex(1);
-
+		checkComparatorBox.setSelectedIndex(1);
+		
 		waitingEventField.setText("1000");
 		waitingRestartField.setText("0");
 		waitingTaskField.setText("0");
