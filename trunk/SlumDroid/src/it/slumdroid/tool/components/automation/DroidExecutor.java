@@ -20,7 +20,6 @@ import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
 import it.slumdroid.tool.utilities.ExtractorUtilities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Instrumentation;
@@ -32,7 +31,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.SlidingDrawer;
 import android.widget.Spinner;
 import android.widget.TabHost;
@@ -190,31 +188,7 @@ public class DroidExecutor {
 		click (tabHost.getTabWidget().getChildAt(index));
 	}
 
-	// Scroll and search methods
-	// Scroll the view to the top. Only works for ListView and ScrollView. Support for GridView and others must be added
-	public static void home () {
-		// Scroll listviews up
-		final ArrayList<ListView> viewList = solo.getCurrentViews(ListView.class);
-		if (viewList.size() > 0) {
-			runOnUiThread(new Runnable() {
-				public void run() {
-					viewList.get(0).setSelection(0);
-				}
-			});
-		}
-		// Scroll scrollviews up
-		final ArrayList<ScrollView> viewScroll = solo.getCurrentViews(ScrollView.class);
-		if (viewScroll.size() > 0) {
-			runOnUiThread(new Runnable() {
-				public void run() {
-					viewScroll.get(0).fullScroll(ScrollView.FOCUS_UP);
-				}
-			});
-		}
-	}
-
 	public static void requestView (final View view) {
-		home();
 		solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
 		solo.waitForView(view, 1000, true);
 		requestFocus(view);

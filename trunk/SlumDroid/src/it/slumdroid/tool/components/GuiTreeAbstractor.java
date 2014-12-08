@@ -149,22 +149,21 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
-		boolean hasList = false;
 		int listCount = 0;
 		for (View view: desc) {
 			hasDescription = true;
 			if (!view.isShown()) continue;
 			TestCaseWidget widget = createWidget (view);
 			widget.setIndex(desc.getWidgetIndex(view));
-			if (widget.getIndex() == 0 && widget.getSimpleType().equals(TEXT_VIEW)) {
+			if (widget.getIndex() == 0 
+					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
 			}
 			if (widget.getSimpleType().equals(LIST_ITEM) 
-					|| widget.getSimpleType().equals(LIST_VIEW)){
-				hasList = true;
+					|| widget.getSimpleType().equals(LIST_VIEW)) {
 				listCount = widget.getCount();
 			}
-			if (hasList && !widget.getId().equals("-1") && listCount != 0) {
+			if (!widget.getId().equals("-1") && listCount != 0) {
 				widget.setSimpleType(LIST_ITEM);
 				listCount--;
 			}

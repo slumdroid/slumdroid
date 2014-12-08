@@ -54,6 +54,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
 import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
+import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.model.Comparator;
@@ -109,14 +110,20 @@ public class CompositionalComparator implements Comparator {
 	
 	private boolean matchWidget (WidgetState field, WidgetState otherField) {	
 		boolean compareId = otherField.getId().equals(field.getId());
-		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());		
-		boolean compareWidget = compareId && compareType;
-		if (compareWidget){
+		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());
+		boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
+		boolean compareWidget = compareId && compareType && compareAvailable;
+		if (compareWidget) {
 			if (field.getSimpleType().equals(TEXT_VIEW)) return field.getValue().isEmpty() == otherField.getValue().isEmpty();
 			if (field.getSimpleType().equals(DIALOG_TITLE)) return otherField.getName().equals(field.getName());
-			boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(PREFERENCE_LIST);	
-			boolean isMenu = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU);
-			if (isMenu || (isList && COMPARE_LIST_COUNT)) return otherField.getCount() == field.getCount();
+			
+			boolean compareList = (field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(PREFERENCE_LIST)) && COMPARE_LIST_COUNT;	
+			boolean compareMenu = (field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU));
+			boolean compareCount = compareMenu || compareList; 
+			if (compareCount) return otherField.getCount() == field.getCount();
+			
+			boolean compareCheckBox = field.getSimpleType().equals(CHECKBOX) && COMPARE_CHECKBOX; 
+			if (compareCheckBox) return field.getValue().equals(otherField.getValue());
 		}
 		return compareWidget;
 	}
