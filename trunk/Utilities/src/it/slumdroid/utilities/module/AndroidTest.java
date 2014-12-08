@@ -32,11 +32,13 @@ public class AndroidTest  {
 	private GuiTree guiTree;
 
 	public AndroidTest (String inputPath) {
-		this.inputFileName = inputPath + "\\files\\guitree.xml";
-		this.reportFileName = inputPath + "\\output\\report.txt";
-		this.dotFileName = inputPath + "\\output\\guitree.dot";
-		this.fsmFileName = inputPath + "\\output\\fsm.dot";
-		processFile();
+		if (!inputPath.equals("")){
+			this.inputFileName = inputPath + "\\files\\guitree.xml";
+			this.reportFileName = inputPath + "\\output\\report.txt";
+			this.dotFileName = inputPath + "\\output\\guitree.dot";
+			this.fsmFileName = inputPath + "\\output\\fsm.dot";
+			processFile();	
+		}
 	}
 
 	private void processFile() {

@@ -15,9 +15,6 @@
 
 package it.slumdroid.utilities;
 
-import static it.slumdroid.utilities.Resources.ACTIVITY;
-import static it.slumdroid.utilities.Resources.ACTIVITY_DIR;
-import static it.slumdroid.utilities.Resources.ACTIVITY_SUB;
 import static it.slumdroid.utilities.Resources.COV_GENERATOR;
 import static it.slumdroid.utilities.Resources.DIET_DIR;
 import static it.slumdroid.utilities.Resources.GUITREE;
@@ -41,11 +38,8 @@ public class Utilities {
 	public static void main(String[] args) {
 		try{
 			if (args.length!=0){
-				if (args[0].equals("androidTest")) {
-					if (!args[1].equals("")) new AndroidTest(args[1]);
-				}
+				if (args[0].equals("androidTest")) new AndroidTest(args[1]);
 				else if (args[0].equals("buildControl")) new Tools().buildControl(args[1]);
-				else if (args[0].equals("countEvents")) new Tools().countEvents(args[1]);
 				else if (args[0].contains("coverage")) {
 					if (args[0].equals("coverageG")) new Tools().covGenerator(COV_GENERATOR);  	
 					else if (args[0].equals("coverageI")) new Tools().covGenerator(INCREMENTAL_COV);
@@ -84,23 +78,16 @@ public class Utilities {
 						}
 					});
 				}
-				else if (args[0].contains("merge")) {
-					if (args[0].equals("mergeAct")) new Tools().mergeA(args[1]);
-					else if (args[0].equals("mergeGui")) new Tools().mergeG(args[1]);
-				}
-				else if (args[0].equals("preferenceEditor")) new PreferenceEditor().preferenceEditor(args); 
+				else if (args[0].equals("mergeGui")) new Tools().mergeG(args[1]); 
 				else if (args[0].equals("retarget")) new Tools().retarget(args[1], args[2]);
-				else if (args[0].contains("split")) {
+				else if (args[0].equals("splitGui") || args[0].equals("tasklist")) {
 					if (!new File(DIET_DIR).exists()) new File(DIET_DIR).mkdir();
-					if (args[0].equals("splitAct")) new Tools().split(args[1], ACTIVITY_DIR, ACTIVITY, ACTIVITY_SUB);
-					else if (args[0].equals("splitGui")) new Tools().split(args[1], GUITREE_DIR, GUITREE, GUITREE_SUB); 			
+					if (args[0].equals("splitGui")) new Tools().split(args[1], GUITREE_DIR, GUITREE, GUITREE_SUB);
+					if (args[0].equals("tasklist")) new UnionTaskListDiet().tasklistDiet(args[1], args[2]); 
 				}
-				else if (args[0].equals("tasklist")){
-					if (!new File(DIET_DIR).exists()) new File(DIET_DIR).mkdir();
-					new UnionTaskListDiet().tasklistDiet(args[1], args[2]);
-				}
-				else if (args[0].equals("traslate")) new Tools().traslate(args[1], args[2]);
 				else if (args[0].equals("properties")) new Tools().updateProperties(args[1]);
+				else if (args[0].equals("traslate")) new Tools().traslate(args[1], args[2]);
+				else if (args[0].equals("preferenceEditor")) new PreferenceEditor().preferenceEditor(args);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

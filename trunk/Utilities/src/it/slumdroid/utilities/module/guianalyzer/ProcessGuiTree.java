@@ -83,7 +83,7 @@ public class ProcessGuiTree {
 					}
 				}
 			}
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		numWidgets = Widgets.size();

@@ -27,13 +27,13 @@ public class ImagePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private Image img;
 
-	public ImagePanel (String img) {
-		this(new ImageIcon(img).getImage());
+	public ImagePanel (String image) {
+		this(new ImageIcon(image).getImage());
 	}
 
-	public ImagePanel (Image img) {
-		this.img = img;
-		Dimension size = new Dimension(img.getWidth(null), img.getHeight(null));
+	public ImagePanel (Image image) {
+		this.img = image;
+		Dimension size = new Dimension(image.getWidth(null), image.getHeight(null));
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);

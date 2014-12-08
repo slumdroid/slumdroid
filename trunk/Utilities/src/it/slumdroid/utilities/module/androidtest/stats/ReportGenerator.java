@@ -15,6 +15,9 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import static it.slumdroid.utilities.Resources.BREAK;
+import static it.slumdroid.utilities.Resources.NEW_LINE;
+import static it.slumdroid.utilities.Resources.TAB;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
@@ -56,12 +59,12 @@ public class ReportGenerator extends StatsReport {
 	}
 
 	public void evaluate() {
-		for (Task theTrace: this.session) {
-			// Trace count
-			taskReport.analyzeTrace(theTrace);
+		for (Task theTask: this.session) {
+			// Task count
+			taskReport.analyzeTask(theTask);
 			boolean first = true;
 			int currentDepth = 0;
-			for (Transition step: theTrace) {				
+			for (Transition step: theTask) {				
 				currentDepth++;
 				// Events and input count
 				eventReport.analyzeInteractions(step);

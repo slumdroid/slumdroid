@@ -15,6 +15,8 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import static it.slumdroid.utilities.Resources.NEW_LINE;
+import static it.slumdroid.utilities.Resources.TAB;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;

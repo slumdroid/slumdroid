@@ -17,9 +17,6 @@ package it.slumdroid.utilities;
 
 public class Resources {
 	
-	public static final String ACTIVITY = "/activities.xml";
-	public static final String ACTIVITY_DIR = "./diet/activity/";
-	public static final String ACTIVITY_SUB = "activities_";
 	public static final String COV_GENERATOR = "%EMMA% report -r html -sp %APKPATH%\\src -Dreport.sort=+name -in ";
 	public static final String DIET_DIR = "./diet/";
 	public static final String GUITREE = "/guitree.xml";
@@ -29,5 +26,9 @@ public class Resources {
 	public static final int MAX_ES = 100;
 	public static final String TOOL = "it.slumdroid.tool";
 	public static final String TOOL_TARGET = "19";
+	
+	public final static String NEW_LINE = System.getProperty("line.separator");
+	public final static String BREAK = NEW_LINE + NEW_LINE;
+	public final static String TAB = "\t";
 	
 }

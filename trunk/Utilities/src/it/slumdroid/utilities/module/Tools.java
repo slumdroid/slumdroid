@@ -15,11 +15,10 @@
 
 package it.slumdroid.utilities.module;
 
-import static it.slumdroid.utilities.Resources.ACTIVITY;
-import static it.slumdroid.utilities.Resources.ACTIVITY_DIR;
 import static it.slumdroid.utilities.Resources.GUITREE;
 import static it.slumdroid.utilities.Resources.GUITREE_DIR;
 import static it.slumdroid.utilities.Resources.MAX_ES;
+import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TOOL_TARGET;
 
 import java.io.BufferedInputStream;
@@ -246,23 +245,7 @@ public class Tools {
 		}
 		return null;
 	}
-	
-	// CountEvents Utilities
-	public void countEvents(String path) {
-		try{
-			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
-			int count = 0;
-			String line = new String();
-			while ((line = inputStream1.readLine()) != null ) {
-				if (line.contains("Firing event:")) count++;	 			 	
-			}
-			System.out.println("Performed " + count + " events");
-			inputStream1.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
+		
 	// BuildControl Utilities
 	public void buildControl(String path){
 		try {
@@ -368,24 +351,13 @@ public class Tools {
 	}
 	
 	// Merge Utilities
-	public void mergeA(String path) {	    
-		String activityXml = path.concat(ACTIVITY);
-		File dir = new File(ACTIVITY_DIR);
-		if (dir.exists() && dir.isDirectory()) merge(activityXml, ACTIVITY_DIR);
-	}
-
 	public void mergeG(String path) {
-		String closedTxt = path.concat("/closed.txt");
 		String guitreeXml = path.concat(GUITREE);
 		File dir = new File(GUITREE_DIR);
-		if (dir.exists() && dir.isDirectory()) merge(guitreeXml, GUITREE_DIR, closedTxt);
+		if (dir.exists() && dir.isDirectory()) merge(guitreeXml, GUITREE_DIR);
 	}
 	
 	private void merge(String xml, String dir){
-		merge(xml, dir, new String());
-	}
-	
-	private void merge(String xml, String dir, String close){
 		int count = 0;
 		try{
 		File fl[] = new Tools().dirListByAscendingDate( new File(dir) );
@@ -404,7 +376,7 @@ public class Tools {
 				}
 				inFile.close(); 
 			}
-			if (!close.equals("")) if (!new File(close).exists()) out.println("</SESSION>");
+			out.println("</SESSION>");
 			out.close();
 		}
 		} catch (Exception e){
@@ -422,8 +394,8 @@ public class Tools {
 			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
 			String line = new String();
 			while ((line = inputStream1.readLine()) != null ) {
-				if (line.contains(target)) builder.append(target + TOOL_TARGET + "\n");	 
-				else builder.append(line + "\n");	
+				if (line.contains(target)) builder.append(target + TOOL_TARGET + NEW_LINE);	 
+				else builder.append(line + NEW_LINE);	
 			}
 			inputStream1.close();
 			PrintWriter outputStream1 = new PrintWriter (path);
