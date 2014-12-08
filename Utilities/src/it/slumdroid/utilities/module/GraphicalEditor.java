@@ -145,14 +145,14 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblComparatorParameters = new JLabel("Comparator Parameters");
 		lblComparatorParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblComparatorParameters.setBounds(10, 86, 225, 29);
+		lblComparatorParameters.setBounds(10, 80, 225, 29);
 		contentPane.add(lblComparatorParameters);
 
 		JLabel lblCompareListCount = new JLabel("Compare List Count");
 		lblCompareListCount.setBounds(10, 114, 151, 14);
 		contentPane.add(lblCompareListCount);
 		
-		JLabel lblCompareCheckbox = new JLabel("Compare CheckBox values");
+		JLabel lblCompareCheckbox = new JLabel("Compare CheckBox");
 		lblCompareCheckbox.setBounds(10, 139, 151, 14);
 		contentPane.add(lblCompareCheckbox);
 
@@ -161,19 +161,19 @@ public class GraphicalEditor extends JFrame {
 		lblInteractionParameters.setBounds(245, 6, 216, 25);
 		contentPane.add(lblInteractionParameters);
 
-		JLabel lblEdittextInteractions = new JLabel("EditText Interactions");
+		JLabel lblEdittextInteractions = new JLabel("EditText as");
 		lblEdittextInteractions.setBounds(245, 101, 132, 14);
 		contentPane.add(lblEdittextInteractions);
 
-		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete");
+		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete as");
 		lblAutocompleteInteractions.setBounds(245, 126, 132, 14);
 		contentPane.add(lblAutocompleteInteractions);
 
-		JLabel lblCheckboxInteractions = new JLabel("CheckBox Interactions");
+		JLabel lblCheckboxInteractions = new JLabel("CheckBox as");
 		lblCheckboxInteractions.setBounds(245, 187, 132, 14);
 		contentPane.add(lblCheckboxInteractions);
 
-		JLabel lblToggleInteractions = new JLabel("Toggle Interactions");
+		JLabel lblToggleInteractions = new JLabel("Toggle as");
 		lblToggleInteractions.setBounds(245, 212, 132, 14);
 		contentPane.add(lblToggleInteractions);
 
@@ -181,7 +181,7 @@ public class GraphicalEditor extends JFrame {
 		lblTextInputs.setBounds(245, 151, 99, 14);
 		contentPane.add(lblTextInputs);
 		
-		JLabel lblMaxEventsFor = new JLabel("Max Events for Selector");
+		JLabel lblMaxEventsFor = new JLabel("Max Events 4 Selector");
 		lblMaxEventsFor.setBounds(245, 61, 132, 14);
 		contentPane.add(lblMaxEventsFor);
 		
@@ -255,7 +255,7 @@ public class GraphicalEditor extends JFrame {
 
 		schedulerBox = new JComboBox(algorithm);
 		schedulerBox.setSelectedIndex(1);
-		schedulerBox.setBounds(140, 58, 95, 20);
+		schedulerBox.setBounds(128, 58, 107, 20);
 		contentPane.add(schedulerBox);
 		
 		maxEventSelectorBox = new JComboBox(maxEventSelector);
@@ -270,7 +270,7 @@ public class GraphicalEditor extends JFrame {
 		
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation ");
-		chckbxInputPertubation.setBounds(245, 235, 132, 18);
+		chckbxInputPertubation.setBounds(240, 235, 132, 18);
 		contentPane.add(chckbxInputPertubation);
 		
 		// Button
