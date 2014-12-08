@@ -359,6 +359,7 @@ public class Tools {
 	
 	private void merge(String xml, String dir){
 		int count = 0;
+		boolean session_found = false;
 		try{
 		File fl[] = new Tools().dirListByAscendingDate( new File(dir) );
 		if (fl.length > 0){
@@ -371,12 +372,13 @@ public class Tools {
 				while((s = in.readLine()) != null) {
 					if (!s.equals("")) {
 						count++;
+						if (s.contains("</SESSION>")) session_found = true;
 						out.println(s);
 					}
 				}
 				inFile.close(); 
 			}
-			out.println("</SESSION>");
+			if (!session_found) out.println("</SESSION>");
 			out.close();
 		}
 		} catch (Exception e){
