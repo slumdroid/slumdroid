@@ -55,7 +55,7 @@ public class UnionTaskListDiet {
 	private static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
 	private static String TASKLIST_XML = new String();
 	
-	public void tasklistDiet(String filePath, String preferencesPath){
+	public void tasklistDiet(String filePath, String preferencesPath) {
 		TASKLIST_XML = filePath + "/tasklist.xml";
 		if (returnAlgorithm(preferencesPath) == null 
 				|| returnAlgorithm(preferencesPath).equals(BREADTH)){
@@ -109,7 +109,7 @@ public class UnionTaskListDiet {
 		}
 	}
 
-	private static void handleDepthOutTasklist(PrintWriter outTasklist, ArrayList<String> tasklist) throws Exception {
+	private static void handleDepthOutTasklist(PrintWriter outTasklist, ArrayList<String> tasklist) {
 		Integer id_fake = Integer.parseInt( getID( tasklist.get(tasklist.size()-1) ) ) + 1;
 		outTasklist.println(FAKE_TASK.replace("_ID_", id_fake.toString())); 
 		String lastString = tasklist.remove(tasklist.size() - 1);
@@ -126,20 +126,25 @@ public class UnionTaskListDiet {
 		return ret;
 	}
 
-	private static ArrayList<String> readAndDeleteTasklistFile() throws Exception {
+	private static ArrayList<String> readAndDeleteTasklistFile() {
 		ArrayList<String> tasklist_xml = new ArrayList<String>();
 		if (new File(TASKLIST_XML).exists()) {            
-			FileInputStream fstream = new FileInputStream(TASKLIST_XML);
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			while ((strLine = br.readLine()) != null){
-				if (strLine.length() > 1) {
-					tasklist_xml.add(strLine);
-				}	
+			FileInputStream fstream;
+			try {
+				fstream = new FileInputStream(TASKLIST_XML);
+				DataInputStream in = new DataInputStream(fstream);
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				String strLine;
+				while ((strLine = br.readLine()) != null){
+					if (strLine.length() > 1) {
+						tasklist_xml.add(strLine);
+					}	
+				}
+				in.close();
+				new File(TASKLIST_XML).delete();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			in.close();
-			new File(TASKLIST_XML).delete();
 			return tasklist_xml;
 		}
 		else return null;
@@ -316,7 +321,7 @@ public class UnionTaskListDiet {
 		}
 	}
 
-	private static String getID(String line) throws Exception {
+	private static String getID(String line) {
 		if (!(line != null && line.equals(""))) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -337,7 +342,7 @@ public class UnionTaskListDiet {
 		return null;
 	}
 
-	private static String setID(String line, int newID) throws Exception {
+	private static String setID(String line, int newID) {
 		if (!(line != null && line.equals(""))) {
 			try {
 				DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -359,19 +364,24 @@ public class UnionTaskListDiet {
 		return null;
 	}
 
-	private static ArrayList<String> readAndDeleteTasklistDietFile() throws Exception {
+	private static ArrayList<String> readAndDeleteTasklistDietFile() {
 		ArrayList<String> ret = new ArrayList<String>();
 		if (new File(TASKLIST_DIET_XML).exists()) {
-			FileInputStream fstream = new FileInputStream(TASKLIST_DIET_XML);
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			while ((strLine = br.readLine()) != null) {
-				if (!strLine.equals(""))
-					ret.add(strLine);
+			FileInputStream fstream;
+			try {
+				fstream = new FileInputStream(TASKLIST_DIET_XML);
+				DataInputStream in = new DataInputStream(fstream);
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				String strLine;
+				while ((strLine = br.readLine()) != null) {
+					if (!strLine.equals(""))
+						ret.add(strLine);
+				}
+				in.close();
+				new File(TASKLIST_DIET_XML).delete();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			in.close();
-			new File(TASKLIST_DIET_XML).delete();
 			return ret;
 		}
 		else return null;
