@@ -99,11 +99,11 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(lblGeneralParameters);
 
 		JLabel lblScreenshotEnabled = new JLabel("Screenshot Enabled");
-		lblScreenshotEnabled.setBounds(10, 36, 112, 14);
+		lblScreenshotEnabled.setBounds(10, 36, 151, 14);
 		contentPane.add(lblScreenshotEnabled);
 
 		JLabel lblScheduler = new JLabel("Scheduler Algorithm");
-		lblScheduler.setBounds(10, 61, 112, 14);
+		lblScheduler.setBounds(10, 61, 123, 14);
 		contentPane.add(lblScheduler);
 
 		JLabel lblAutomationParameters = new JLabel("Automation Parameters");
@@ -255,7 +255,7 @@ public class GraphicalEditor extends JFrame {
 
 		schedulerBox = new JComboBox(algorithm);
 		schedulerBox.setSelectedIndex(1);
-		schedulerBox.setBounds(128, 58, 107, 20);
+		schedulerBox.setBounds(143, 58, 92, 20);
 		contentPane.add(schedulerBox);
 		
 		maxEventSelectorBox = new JComboBox(maxEventSelector);
