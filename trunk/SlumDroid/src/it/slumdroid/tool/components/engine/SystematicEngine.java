@@ -45,7 +45,6 @@ import it.slumdroid.tool.utilities.AllPassFilter;
 import it.slumdroid.tool.utilities.Plan;
 import it.slumdroid.tool.utilities.ScreenshotFactory;
 import it.slumdroid.tool.utilities.SessionParams;
-import it.slumdroid.tool.utilities.SimpleRestarter;
 import it.slumdroid.tool.utilities.SimpleTypeDetector;
 import it.slumdroid.tool.utilities.UserFactory;
 
@@ -73,7 +72,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	protected PersistenceFactory thePersistenceFactory;
 	private Planner thePlanner;
 	private Session theSession;
-	private SimpleRestarter theRestarter;
 	private Strategy theStrategy;
 	protected StrategyFactory theStrategyFactory;
 	private TraceDispatcher theScheduler;
@@ -88,7 +86,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		PersistenceFactory.registerForSavingState(this);
 		setScheduler(new TraceDispatcher());
 		this.theAutomation = new Automation();
-		this.theRestarter = new SimpleRestarter();
 		setAutomation(this.theAutomation);
 		defineAbstractor();
 		definePlanner();
@@ -142,7 +139,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		this.theRestarter.setRestartPoint(this.theAutomation.getActivity());
 	}	
 	
 	protected void setupFirstStart() {
