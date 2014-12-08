@@ -15,8 +15,9 @@
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
-import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.EOL;
-import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.TAB;
+import static it.slumdroid.utilities.Resources.NEW_LINE;
+import static it.slumdroid.utilities.Resources.BREAK;
+import static it.slumdroid.utilities.Resources.TAB;
 import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.getCaption;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
@@ -43,8 +44,8 @@ public class GuiTreeToFSM {
 		ArrayList<String> insertedEvents = new ArrayList<String>();
 
 		StringBuilder dot = new StringBuilder ();
-		dot.append("digraph finite_state_machine {" + EOL + EOL);
-		dot.append("\trankdir=LR;" + EOL + "\tnode [shape = circle];" + EOL + EOL);
+		dot.append("digraph finite_state_machine {" + BREAK);
+		dot.append("\trankdir=LR;" + NEW_LINE + "\tnode [shape = circle];" + BREAK);
 
 		for (Task t: this.session) {
 			Transition action = t.getFinalTransition();
@@ -59,16 +60,16 @@ public class GuiTreeToFSM {
 			ActivityState end = action.getFinalActivity();
 			String startnode = start.getId().equals("a0")?"start":start.getId();
 			String endnode = end.getId().equals("a0")?"start":end.getId();
-			dot.append("\t" + startnode + " -> " + endnode + " [label=\"" + event.getId().replace("e", "Event") + ": " + getCaption(event) + userInputs + "\"];" + EOL);
+			dot.append("\t" + startnode + " -> " + endnode + " [label=\"" + event.getId().replace("e", "Event") + ": " + getCaption(event) + userInputs + "\"];" + NEW_LINE);
 			this.nodes.add(endnode);
 			insertedEvents.add(event.getId());
 		}
 
-		dot.append(EOL);
+		dot.append(NEW_LINE);
 		for (String node: this.nodes) {
-			dot.append(TAB + node + " [label=\"" + node + "\"];" + EOL);
+			dot.append(TAB + node + " [label=\"" + node + "\"];" + NEW_LINE);
 		}
-		dot.append(EOL + "}");
+		dot.append(NEW_LINE + "}");
 		return dot.toString();
 	}
 

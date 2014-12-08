@@ -15,6 +15,8 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import static it.slumdroid.utilities.Resources.NEW_LINE;
+import static it.slumdroid.utilities.Resources.TAB;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 
@@ -37,7 +39,7 @@ public class TaskStats extends StatsReport {
 		exits = new ArrayList<String>();
 	}
 
-	public void analyzeTrace (Task theTask) {
+	public void analyzeTask (Task theTask) {
 		this.tasks++;
 		ActivityState a = theTask.getFinalTransition().getFinalActivity();
 		String txt;
@@ -73,7 +75,7 @@ public class TaskStats extends StatsReport {
 	}
 
 	public String printList (List<String> list) {
-		return ((list.size()>0)?(TAB + TAB + "Tasks: " + expandList(list) + NEW_LINE):"");
+		return ((list.size() > 0)?(TAB + TAB + "Tasks: " + expandList(list) + NEW_LINE):"");
 	}
 
 	public String getReport() {

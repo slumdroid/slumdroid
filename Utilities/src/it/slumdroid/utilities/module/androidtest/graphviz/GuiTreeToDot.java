@@ -15,8 +15,9 @@
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
-import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.EOL;
-import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.TAB;
+import static it.slumdroid.utilities.Resources.NEW_LINE;
+import static it.slumdroid.utilities.Resources.BREAK;
+import static it.slumdroid.utilities.Resources.TAB;
 import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.getCaption;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
@@ -53,18 +54,18 @@ public class GuiTreeToDot {
 		}
 
 		StringBuilder dot = new StringBuilder ();
-		dot.append("digraph GuiTree {" + EOL + EOL);
+		dot.append("digraph GuiTree {" + BREAK);
 
 		for (Edge edge: this.edges) {
-			dot.append(TAB + edge + " [label=\"" + edge.getId().replace("e", "Event") + ": " + edge.getLabel() + "\"];" + EOL);
+			dot.append(TAB + edge + " [label=\"" + edge.getId().replace("e", "Event") + ": " + edge.getLabel() + "\"];" + NEW_LINE);
 		}
-		dot.append(EOL);
+		dot.append(NEW_LINE);
 		for (Node node: this.nodes) {
 			if (node.hasImage()) {
-				dot.append(TAB + "subgraph cluster_" + node + "{label=\"" + node.getLabel() + "\"; " + node + "};" + EOL);
-				dot.append(TAB + node + " [label=\"" + node + "\", shapefile=\"" + node.getImage() + "\"];" + EOL + EOL);				
+				dot.append(TAB + "subgraph cluster_" + node + "{label=\"" + node.getLabel() + "\"; " + node + "};" + NEW_LINE);
+				dot.append(TAB + node + " [label=\"" + node + "\", shapefile=\"" + node.getImage() + "\"];" + BREAK);				
 			} else {
-				dot.append(TAB + node + " [label=\"" + node.getLabel() + "\"];" + EOL + EOL);
+				dot.append(TAB + node + " [label=\"" + node.getLabel() + "\"];" + BREAK);
 			}
 		}
 

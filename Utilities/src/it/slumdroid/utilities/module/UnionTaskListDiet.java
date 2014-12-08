@@ -40,20 +40,28 @@ import org.xml.sax.InputSource;
 
 public class UnionTaskListDiet {
 
-	static Preferences prefs;
+	private static Preferences prefs;
 
-	static final String FAKE_TASK_IDENTIFIER = "!_FAKE_TASK_!";
-	static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\"" + FAKE_TASK_IDENTIFIER + "\" id=\"_ID_\"/>";
-	static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
-	static String TASKLIST_XML = new String();
-
+	private static final String SCHEDULER ="SCHEDULER_ALGORITHM";
+	private static final String BREADTH = "BREADTH_FIRST";
+	private static final String DEPTH = "DEPTH_FIRST";
+	
+	private static final String FAKE_TASK_IDENTIFIER = "!_FAKE_TASK_!";
+	private static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\"" + FAKE_TASK_IDENTIFIER + "\" id=\"_ID_\"/>";
+	
+	private static final String ID = "id";
+	private static final String TAG = "TASK";
+	
+	private static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
+	private static String TASKLIST_XML = new String();
+	
 	public void tasklistDiet(String filePath, String preferencesPath){
 		TASKLIST_XML = filePath + "/tasklist.xml";
 		if (returnAlgorithm(preferencesPath) == null 
-				|| returnAlgorithm(preferencesPath).equals("BREADTH_FIRST")){
+				|| returnAlgorithm(preferencesPath).equals(BREADTH)){
 			mergeTasklistsBreadth();
 		} else {
-			if (returnAlgorithm(preferencesPath).equals("DEPTH_FIRST")){
+			if (returnAlgorithm(preferencesPath).equals(DEPTH)){
 				mergeTasklistsDepth();
 			} else{ // RANDOM
 				extractRandomTask();
@@ -66,8 +74,8 @@ public class UnionTaskListDiet {
 		new Tools().cleanNode (prefs);
 		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().loadNode(path);
-		String BREADTH = "BREADTH_FIRST";
-		return prefs.get("SCHEDULER_ALGORITHM", BREADTH);
+		
+		return prefs.get(SCHEDULER, BREADTH);
 	}
 
 	private static void mergeTasklistsDepth() {
@@ -315,10 +323,10 @@ public class UnionTaskListDiet {
 				Document doc = dBuilder.parse(is);
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
-				NodeList nList = doc.getElementsByTagName("TASK");
+				NodeList nList = doc.getElementsByTagName(TAG);
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
-				return firstNodeElement.getAttribute("id");
+				return firstNodeElement.getAttribute(ID);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -336,10 +344,10 @@ public class UnionTaskListDiet {
 				Document doc = dBuilder.parse(is);
 				doc.setTextContent(line);
 				doc.getDocumentElement().normalize();
-				NodeList nList = doc.getElementsByTagName("TASK");
+				NodeList nList = doc.getElementsByTagName(TAG);
 				Node firstNode = nList.item(0);
 				Element firstNodeElement = (Element) firstNode;
-				firstNodeElement.setAttribute("id", Integer.toString(newID));
+				firstNodeElement.setAttribute(ID, Integer.toString(newID));
 				return new Tools().xmlToString(doc);
 			} catch (Exception e) {
 				e.printStackTrace();

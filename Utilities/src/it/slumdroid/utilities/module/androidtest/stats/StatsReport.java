@@ -15,15 +15,14 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import static it.slumdroid.utilities.Resources.NEW_LINE;
+import static it.slumdroid.utilities.Resources.TAB;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public abstract class StatsReport {
-
-	public final static String NEW_LINE = System.getProperty("line.separator");
-	public final static String BREAK = NEW_LINE + NEW_LINE;
-	public final static String TAB = "\t";
 
 	public abstract String getReport();
 
@@ -50,7 +49,7 @@ public abstract class StatsReport {
 
 	public static void inc (Map<String,Integer> table, String key) {
 		if (table.containsKey(key)) {
-			table.put(key, table.get(key)+1);
+			table.put(key, table.get(key) + 1);
 		} else {
 			table.put(key, 1);
 		}
