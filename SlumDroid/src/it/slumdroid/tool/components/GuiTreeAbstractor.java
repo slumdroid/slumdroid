@@ -160,14 +160,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
 			}
+			if (hasList && !widget.getId().equals("-1") && listCount != 0) {
+				widget.setSimpleType(LIST_ITEM);
+				listCount--;
+			}
 			if (widget.getSimpleType().equals(LIST_ITEM) 
 					|| widget.getSimpleType().equals(LIST_VIEW)) {
 				hasList = true;
 				listCount = widget.getCount();
-			}
-			if (hasList && !widget.getId().equals("-1") && listCount != 0) {
-				widget.setSimpleType(LIST_ITEM);
-				listCount--;
 			}
 			if (detectDuplicates && newActivity.hasWidget(widget)) continue;
 			((ElementWrapper) newActivity).appendChild(widget.getElement());
