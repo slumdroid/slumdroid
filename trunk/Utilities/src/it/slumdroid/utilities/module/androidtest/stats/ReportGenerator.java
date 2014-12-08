@@ -60,21 +60,15 @@ public class ReportGenerator extends StatsReport {
 
 	public void evaluate() {
 		for (Task theTask: this.session) {
-			// Task count
 			taskReport.analyzeTask(theTask);
 			boolean first = true;
 			int currentDepth = 0;
 			for (Transition step: theTask) {				
 				currentDepth++;
-				// Events and input count
 				eventReport.analyzeInteractions(step);
-				// Widgets count
-				if (first) {
-					countWidgets(step.getStartActivity());
-				}
+				if (first) countWidgets(step.getStartActivity());
 				countWidgets(step.getFinalActivity());
 				first = false;
-
 			}
 			this.depth = max(this.depth,currentDepth);
 		}
