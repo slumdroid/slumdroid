@@ -102,7 +102,8 @@ public class UnionTaskListDiet {
 					}
 					out.close();
 				}
-			}	
+				System.out.println("Task to be performed: " + tasklist_out.size());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -226,7 +227,8 @@ public class UnionTaskListDiet {
 					}
 					out.close();
 				}
-			}           
+				System.out.println("Task to be performed: " + tasklist_diet.size());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -307,7 +309,8 @@ public class UnionTaskListDiet {
 					}
 					out.close();
 				}
-			}           
+				System.out.println("Task to be performed: " + tasklist_diet.size());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
