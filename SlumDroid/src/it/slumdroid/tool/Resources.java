@@ -40,6 +40,7 @@ public class Resources {
 
 	// Comparator Parameters
 	public static boolean COMPARE_LIST_COUNT = false;
+	public static boolean COMPARE_CHECKBOX = false;
 	
 	// Interactions Parameters
 	public static String EVENTS[];

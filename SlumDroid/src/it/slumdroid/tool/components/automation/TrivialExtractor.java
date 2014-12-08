@@ -124,7 +124,6 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 	}
 	
 	public void retrieveWidgets () {
-		DroidExecutor.home();
 		clearWidgetList();
 		ArrayList<View> viewList = this.solo.getViews();
 		if (viewList.size() != 0){
