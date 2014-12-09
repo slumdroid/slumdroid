@@ -45,6 +45,7 @@ public interface SimpleType {
 	public final static String RADIO_GROUP 		= "radioGroup";
 	public final static String RATING_BAR 		= "ratingBar";
 	public final static String RELATIVE_LAYOUT 	= "relativeLayout";
+	public final static String SCROLL_VIEW 		= "scrollView";
 	public final static String SEARCH_BAR 		= "searchBar";
 	public final static String SEEK_BAR 		= "seekBar";
 	public final static String SLIDING_DRAWER 	= "slidingDrawer";
