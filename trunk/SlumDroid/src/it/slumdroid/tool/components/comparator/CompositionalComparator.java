@@ -42,6 +42,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
 import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
 import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.RELATIVE_LAYOUT;
+import static it.slumdroid.droidmodels.model.SimpleType.SCROLL_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
@@ -53,8 +54,8 @@ import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
-import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
 import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
+import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.model.Comparator;
@@ -68,7 +69,7 @@ public class CompositionalComparator implements Comparator {
 		DATE_PICKER, NUMBER_PICKER, TIME_PICKER, 							// PICKER
 		EMPTY_LIST, LIST_VIEW, PREFERENCE_LIST,								// LIST
 		LINEAR_LAYOUT, RELATIVE_LAYOUT,										// LAYOUT
-		IMAGE_VIEW, MENU_VIEW, TEXT_VIEW, WEB_VIEW,							// VIEW
+		IMAGE_VIEW, MENU_VIEW, SCROLL_VIEW, TEXT_VIEW, WEB_VIEW,			// VIEW
 		PROGRESS_BAR, RATING_BAR, SEARCH_BAR, SEEK_BAR,						// BAR
 		EMPTY_SPINNER, SPINNER, SPINNER_INPUT,								// SPINNER
 		POPUP_MENU, POPUP_WINDOW,											// POPUP
@@ -112,7 +113,8 @@ public class CompositionalComparator implements Comparator {
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());
 		boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
-		boolean compareWidget = compareId && compareType && compareAvailable;
+		boolean compareIndex = otherField.getIndex() == field.getIndex();
+		boolean compareWidget = compareId && compareType && compareAvailable && compareIndex;
 		if (compareWidget) {
 			if (field.getSimpleType().equals(TEXT_VIEW)) return field.getValue().isEmpty() == otherField.getValue().isEmpty();
 			if (field.getSimpleType().equals(DIALOG_TITLE)) return otherField.getName().equals(field.getName());
