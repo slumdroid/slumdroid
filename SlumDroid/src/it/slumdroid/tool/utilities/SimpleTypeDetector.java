@@ -43,6 +43,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
 import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
 import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.RELATIVE_LAYOUT;
+import static it.slumdroid.droidmodels.model.SimpleType.SCROLL_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
@@ -70,6 +71,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SlidingDrawer;
 import android.widget.Spinner;
@@ -179,6 +181,9 @@ public class SimpleTypeDetector implements TypeDetector {
 		if (view instanceof ListView 
 				|| type.endsWith("ListView")) {
 			return detectList(view);
+		}
+		if (view instanceof ScrollView){
+			return SCROLL_VIEW;
 		}
 		if (view instanceof WebView 
 				|| type.endsWith("WebView")) {
