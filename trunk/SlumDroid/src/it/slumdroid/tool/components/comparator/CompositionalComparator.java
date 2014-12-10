@@ -125,8 +125,8 @@ public class CompositionalComparator implements Comparator {
 			boolean compareList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(PREFERENCE_LIST);
 			if (compareList && COMPARE_LIST_COUNT) return otherField.getCount() == field.getCount();
 			
-			boolean compareCheckBox = field.getSimpleType().equals(CHECKBOX) && COMPARE_CHECKBOX; 
-			if (compareCheckBox) return field.getValue().equals(otherField.getValue());
+			boolean compareCheckBox = field.getSimpleType().equals(CHECKBOX) || field.getType().equals("android.widget.CheckBox"); 
+			if (compareCheckBox && COMPARE_CHECKBOX) return field.getValue().equals(otherField.getValue());
 		}
 		return compareWidget;
 	}
