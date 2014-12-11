@@ -29,8 +29,20 @@ public class CommandLine {
 		config.put(RESULTS_PATH, path);
 	}
 
-	public static void setAppPath (String path) {
-		config.put(APP_PATH, path);
+	public static void setAutPath (String path) {
+		config.put(AUT_PATH, path);
+	}
+	
+	public static void setAutPackage (String path) {
+		config.put(AUT_PACKAGE, path);
+	}
+
+	public static void setAutClass (String path) {
+		config.put(AUT_CLASS, path);
+	}
+	
+	public static void setApkName (String path) {
+		config.put(APK_NAME, path);
 	}
 
 	public static String get (String command, String ... args) {
@@ -66,28 +78,41 @@ public class CommandLine {
 	}
 
 	public final static String ANDROID_PATH = System.getenv("ANDROID_HOME");
-	public final static String RESULTS_PATH = "experimentPath";
-	public final static String APP_PATH = "appPath";
-	public final static String DEVICE = "device";
-	public final static String CLASS = "class";
-	public final static String PACKAGE = "package";
-	public final static String DUMP_APK = "dump apk";
-	public final static String LOAD_AVD = "load avd";
-	public final static String DEPLOY = "deploy";
-	public final static String SYSTEMATIC_TEST = "test systematic";
-	public final static String POST_PROCESS = "postproc";
 	public final static String CLOSE = "close";
-	public final static String FIRST_BOOT = "first boot";
-
+	
+	private final static String RESULTS_PATH = "experimentPath";
+	
+	public final static  String AUT_PATH = "autSorceCode";
+	private final static String AUT_CLASS = "autClass";
+	private final static String AUT_PACKAGE = "autPackage";
+	
+	public final static  String DUMP_APK = "dumpApk";
+	private static final String APK_NAME = "apkName";
+	
+	public final static String DEFINE = "define";
+	public final static String DEPLOY = "deploy";
+	public final static String RIPPING_PROCESS = "rippingProcess";
+	public final static String POST_PROCESS = "postProcess";
+	
 	// DOS commands
 	static String place = System.getProperty("user.dir");
 	static {
-		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
-		dosCommands.put(LOAD_AVD, (System.getenv("ANDROID_HOME") + "\\tools\\android.bat list avd"));
-		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) );
-		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + arg(DEVICE) + " " + path(APP_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) + " " + path(RESULTS_PATH));
-		dosCommands.put(SYSTEMATIC_TEST, place + "\\batch\\Ripper.bat " + arg(DEVICE) + " " + arg(PACKAGE) + " " + path(RESULTS_PATH) + " 10");
-		dosCommands.put(POST_PROCESS, place + "\\batch\\PostProcess.bat " + path(RESULTS_PATH) + " " + path(APP_PATH) + " " + arg(PACKAGE));
+		/*
+		 *  External parameters:
+		 *  %1 = A.U.T. Source Path
+   		 *  %2 = A.U.T. Package
+		 *  %3 = A.U.T. Class
+		 *  %4 = A.U.T. Apk Name
+		 *  %5 = Output Results Path
+		 */
+		String parameters = path(AUT_PATH) + " " + arg(AUT_PACKAGE) + " " + 
+				arg(AUT_CLASS) + " " + arg(APK_NAME) +" " + path(RESULTS_PATH);
+		
+		dosCommands.put(DUMP_APK, "aapt dump badging " + path(AUT_PATH));
+		dosCommands.put(DEFINE, place + "\\batch\\Define.bat " + parameters);
+		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + parameters);
+		dosCommands.put(RIPPING_PROCESS, place + "\\batch\\Ripper.bat " + parameters);
+		dosCommands.put(POST_PROCESS, place + "\\batch\\PostProcess.bat " + parameters);
 		dosCommands.put(CLOSE, place + "\\batch\\close.bat");
 	}
 

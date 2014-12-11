@@ -40,15 +40,16 @@ public class BackWorker extends SwingWorker<Integer, String> {
 				e.printStackTrace();
 			}
 			FileReader f;
+			BufferedReader b = null;
 			try {
-				f=new FileReader(file);
-				BufferedReader b=new BufferedReader(f);
+				f = new FileReader(file);
+				b = new BufferedReader(f);
 				String s = b.readLine();
 				if (s.contentEquals("completed")) {
 
 					b.close();
 					Wizard.postExec(true);
-					JOptionPane.showMessageDialog(null, "Deploy Completed Successfully.\n Define your state initial and close the AVD", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Deploy Completed Successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("failed")) {
 
@@ -61,7 +62,7 @@ public class BackWorker extends SwingWorker<Integer, String> {
 					b.close();
 					Wizard.postExec(false);
 					Wizard.disableDeploy();
-					JOptionPane.showMessageDialog(null, "Ripping Test Executed", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Ripping Process Executed", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (s.contentEquals("artifactdone")) {
 
@@ -75,15 +76,21 @@ public class BackWorker extends SwingWorker<Integer, String> {
 
 					b.close();
 					Wizard.postFirstBoot();
-					JOptionPane.showMessageDialog(null, "Wait the Android OS Booting,\n then click on \"Deploy\"", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Click on \"Deploy\"", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				}
 
-				fileNotFound=false;
+				fileNotFound = false;
 				b.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}   
+			} catch (Exception ignore) {
+				// ignore.printStackTrace();
+			}   finally {
+				try {
+					b.close();
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
+			}
 		}
 		return null;
 	}

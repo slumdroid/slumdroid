@@ -15,7 +15,7 @@
 
 package it.slumdroid.wizard.tools;
 
-import static it.slumdroid.wizard.tools.CommandLine.APP_PATH;
+import static it.slumdroid.wizard.tools.CommandLine.AUT_PATH;
 import static it.slumdroid.wizard.tools.CommandLine.DUMP_APK;
 
 import java.io.BufferedReader;
@@ -62,7 +62,7 @@ public class AppData {
 	public static AppData getFromApk (String apkPath) {
 		String c = new String();
 		String p = new String();
-		String command = CommandLine.get (DUMP_APK, APP_PATH, apkPath);
+		String command = CommandLine.get (DUMP_APK, AUT_PATH, apkPath);
 		try {
 			Process proc = Runtime.getRuntime().exec(command);
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
