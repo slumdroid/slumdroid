@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -163,8 +164,9 @@ public class Tools {
 	
 	// Coverage Text Parsing Utilities
 	public void covTextParsing(String path) {
+		BufferedReader inputStream1 = null;
 		try {
-			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
+			inputStream1 = new BufferedReader (new FileReader (path));
 			String line = new String();
 			while ((line = inputStream1.readLine()) != null ) {
 				if (line.contains("all classes")) {
@@ -175,9 +177,14 @@ public class Tools {
 					return;
 				}
 			}
-			inputStream1.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				inputStream1.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
