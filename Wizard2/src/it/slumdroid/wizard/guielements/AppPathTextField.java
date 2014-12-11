@@ -32,7 +32,7 @@ public class AppPathTextField extends PathTextField {
 
 	@Override
 	public void onUpdate (String path) {
-		CommandLine.setAppPath(path);
+		CommandLine.setAutPath(path);
 		if (Wizard.checkApp()!=0) {
 			Wizard.detect();
 			if (Wizard.checkExp()!=0){
@@ -48,14 +48,14 @@ public class AppPathTextField extends PathTextField {
 	}
 
 	public JButton getChangeButton() {
-		JButton btnSelect_1 = new JButton("Select AuT");
+		JButton btnSelect_1 = new JButton("Select AUT");
 		btnSelect_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Wizard.clearText();
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
-				fileChooser.setDialogTitle("Select the AuT Folder");
+				fileChooser.setDialogTitle("Select the AUT Folder");
 				fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					setPath(fileChooser.getSelectedFile().toString());

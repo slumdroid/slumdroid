@@ -40,8 +40,8 @@ public class ExternalProcess {
 			this.process = Runtime.getRuntime().exec(this.command);
 			runningProcs.add(this.process);
 			StreamGobbler.fromProcess(this.process);
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception ignore) {
+			// ignore.printStackTrace();
 		}
 	}
 
