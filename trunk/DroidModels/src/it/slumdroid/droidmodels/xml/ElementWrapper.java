@@ -68,7 +68,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 		try{
 			return getElement().getAttribute(name);
 		}catch (Exception ignore){
-			ignore.printStackTrace();
+			// ignore.printStackTrace();
 			return new String();
 		}
 	}
