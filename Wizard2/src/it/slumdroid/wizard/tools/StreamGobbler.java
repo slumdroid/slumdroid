@@ -29,9 +29,9 @@ class StreamGobbler extends Thread {
 		this.type = type;
 	}
 
-	public static void fromProcess (Process proc) {
-		StreamGobbler errorGobbler = new StreamGobbler(proc.getErrorStream(), "");
-		StreamGobbler outputGobbler = new StreamGobbler(proc.getInputStream(), "");
+	public static void fromProcess (Process process) {
+		StreamGobbler errorGobbler = new StreamGobbler(process.getErrorStream(), "");
+		StreamGobbler outputGobbler = new StreamGobbler(process.getInputStream(), "");
 		errorGobbler.start();
 		outputGobbler.start();
 	}
@@ -40,7 +40,7 @@ class StreamGobbler extends Thread {
 		try {
 			InputStreamReader isr = new InputStreamReader(is);
 			BufferedReader br = new BufferedReader(isr);
-			String line=null;
+			String line = null;
 			while ( (line = br.readLine()) != null) {
 				System.out.println(type + line);
 			}

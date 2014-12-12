@@ -27,20 +27,20 @@ import javax.swing.JOptionPane;
 public class AppData {
 	private String theClass;
 	private String thePackage;
-	
+
 	public final static String MANIFEST_XPATH = "//manifest[1]/@package";
 	public final static String CLASS_XPATH = "//activity[intent-filter/action/@name='android.intent.action.MAIN'][1]/@name";
 
 	public AppData () {}
 
-	public AppData (String c, String p) {
-		if (c.contains(p)){
-			String without = c.replace(p, "");
-			setClassName(p.concat(without).replace("..", "."));
+	public AppData (String theClass, String thePackage) {
+		if (theClass.contains(thePackage)){
+			String without = theClass.replace(thePackage, "");
+			setClassName(thePackage.concat(without).replace("..", "."));
 		}else{
-			setClassName(c);
+			setClassName(theClass);
 		}
-		setPackage(p);
+		setPackage(thePackage);
 	}
 
 	public String getClassName() {
@@ -60,8 +60,8 @@ public class AppData {
 	}
 
 	public static AppData getFromApk (String apkPath) {
-		String c = new String();
-		String p = new String();
+		String theClass = new String();
+		String thePackage = new String();
 		String command = CommandLine.get (DUMP_APK, AUT_PATH, apkPath);
 		try {
 			Process proc = Runtime.getRuntime().exec(command);
@@ -70,19 +70,19 @@ public class AppData {
 			while ((s = stdInput.readLine()) != null) {
 				if(s.contains("package: name=")) {
 					String s1=s.substring(15);
-					p = s1.substring(0, s1.indexOf("'"));
+					thePackage = s1.substring(0, s1.indexOf("'"));
 				}
 
 				if(s.contains("launchable-activity: name=")) {
-					String s1=s.substring(27);
-					c = s1.substring(0, s1.indexOf("'"));
+					String s1 = s.substring(27);
+					theClass = s1.substring(0, s1.indexOf("'"));
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "Error generating apk description");
 		}
-		return new AppData (c, p);
+		return new AppData (theClass, thePackage);
 	}
 
 	public static AppData getFromSource(String sourcePath) {
@@ -93,10 +93,10 @@ public class AppData {
 		return new AppData (getClassFullName (theClass, thePackage), thePackage);
 	}
 
-	public static String getClassFullName(String c, String p) {
-		if (c.equals("")) return "";
-		String dot = (p.endsWith(".") || c.startsWith("."))?"":".";
-		return p + dot + c;
+	public static String getClassFullName(String theClass, String thePackage) {
+		if (theClass.equals("")) return "";
+		String dot = (thePackage.endsWith(".") || theClass.startsWith("."))?"":".";
+		return thePackage + dot + theClass;
 	}
-	
+
 }
