@@ -63,7 +63,7 @@ class SearchableManifest {
 		} catch (XPathExpressionException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return new String();
 	}
 
 }

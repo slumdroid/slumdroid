@@ -22,7 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 public abstract class PathTextField extends JTextField {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	public PathTextField() {
@@ -30,24 +30,24 @@ public abstract class PathTextField extends JTextField {
 		this.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
-			public void removeUpdate(DocumentEvent arg0) {
-				updateAndroidPath (arg0);
+			public void removeUpdate(DocumentEvent event) {
+				updateAndroidPath (event);
 			}
 
 			@Override
-			public void insertUpdate(DocumentEvent arg0) {
-				updateAndroidPath (arg0);
+			public void insertUpdate(DocumentEvent event) {
+				updateAndroidPath (event);
 			}
 
 			@Override
-			public void changedUpdate(DocumentEvent arg0) {
-				updateAndroidPath (arg0);
+			public void changedUpdate(DocumentEvent event) {
+				updateAndroidPath (event);
 			}
 
-			public void updateAndroidPath (DocumentEvent arg0) {
-				if (arg0.getLength()==0) return;
+			public void updateAndroidPath (DocumentEvent event) {
+				if (event.getLength()==0) return;
 				try {
-					onUpdate(arg0.getDocument().getText(0, arg0.getDocument().getLength()));
+					onUpdate(event.getDocument().getText(0, event.getDocument().getLength()));
 				} catch (BadLocationException e) {
 					e.printStackTrace();
 				}
@@ -62,8 +62,8 @@ public abstract class PathTextField extends JTextField {
 		return getText();
 	}
 
-	public void setPath(String p) {
-		setText(p);
+	public void setPath(String path) {
+		setText(path);
 	}
 
 }

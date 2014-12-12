@@ -32,7 +32,7 @@ public class CommandLine {
 	public static void setAutPath (String path) {
 		config.put(AUT_PATH, path);
 	}
-	
+
 	public static void setAutPackage (String path) {
 		config.put(AUT_PACKAGE, path);
 	}
@@ -40,7 +40,7 @@ public class CommandLine {
 	public static void setAutClass (String path) {
 		config.put(AUT_CLASS, path);
 	}
-	
+
 	public static void setApkName (String path) {
 		config.put(APK_NAME, path);
 	}
@@ -54,11 +54,11 @@ public class CommandLine {
 
 		String key = null;
 		for (String s: args) {
-			if (key==null) {
+			if (key == null) {
 				key = arg(s);
 			} else {
 				pattern = pattern.replace(key, s);
-				key=null;
+				key = null;
 			}
 		}
 
@@ -79,35 +79,35 @@ public class CommandLine {
 
 	public final static String ANDROID_PATH = System.getenv("ANDROID_HOME");
 	public final static String CLOSE = "close";
-	
+
 	private final static String RESULTS_PATH = "experimentPath";
-	
+
 	public final static  String AUT_PATH = "autSorceCode";
 	private final static String AUT_CLASS = "autClass";
 	private final static String AUT_PACKAGE = "autPackage";
-	
+
 	public final static  String DUMP_APK = "dumpApk";
 	private static final String APK_NAME = "apkName";
-	
+
 	public final static String DEFINE = "define";
 	public final static String DEPLOY = "deploy";
 	public final static String RIPPING_PROCESS = "rippingProcess";
 	public final static String POST_PROCESS = "postProcess";
-	
+
 	// DOS commands
 	static String place = System.getProperty("user.dir");
 	static {
 		/*
 		 *  External parameters:
 		 *  %1 = A.U.T. Source Path
-   		 *  %2 = A.U.T. Package
+		 *  %2 = A.U.T. Package
 		 *  %3 = A.U.T. Class
 		 *  %4 = A.U.T. Apk Name
 		 *  %5 = Output Results Path
 		 */
 		String parameters = path(AUT_PATH) + " " + arg(AUT_PACKAGE) + " " + 
 				arg(AUT_CLASS) + " " + arg(APK_NAME) +" " + path(RESULTS_PATH);
-		
+
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(AUT_PATH));
 		dosCommands.put(DEFINE, place + "\\batch\\Define.bat " + parameters);
 		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + parameters);

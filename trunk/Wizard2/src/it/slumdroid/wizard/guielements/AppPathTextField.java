@@ -48,10 +48,10 @@ public class AppPathTextField extends PathTextField {
 	}
 
 	public JButton getChangeButton() {
-		JButton btnSelect_1 = new JButton("Select AUT");
-		btnSelect_1.addMouseListener(new MouseAdapter() {
+		JButton button = new JButton("Select AUT");
+		button.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent event) {
 				Wizard.clearText();
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
@@ -67,7 +67,7 @@ public class AppPathTextField extends PathTextField {
 				} 
 			}
 		});
-		return btnSelect_1;
+		return button;
 	}
 
 	private static final long serialVersionUID = 1L;

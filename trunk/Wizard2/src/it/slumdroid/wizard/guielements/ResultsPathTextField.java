@@ -35,9 +35,9 @@ public class ResultsPathTextField extends PathTextField {
 	@Override
 	public void onUpdate (String path) {
 		CommandLine.setResultsPath(path);
-		if (Wizard.checkExp()!=0) {
+		if (Wizard.checkExp() != 0) {
 			Wizard.enableOpenResultFolder();
-			if (Wizard.checkPkg()!=0) {
+			if (Wizard.checkPkg() != 0) {
 				Wizard.enableStart();
 				Wizard.enableReporting();
 			}
@@ -48,7 +48,7 @@ public class ResultsPathTextField extends PathTextField {
 		JButton button = new JButton("Select the Results Folder");
 		button.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent event) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
 				fileChooser.setDialogTitle("Select the Results Folder");

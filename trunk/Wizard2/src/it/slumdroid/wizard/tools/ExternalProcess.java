@@ -27,8 +27,8 @@ public class ExternalProcess {
 
 	public ExternalProcess () {}
 
-	public ExternalProcess (String c) {
-		load(c);
+	public ExternalProcess (String process) {
+		load(process);
 	}
 
 	public void load (String commandList) {
@@ -58,7 +58,7 @@ public class ExternalProcess {
 	}
 
 	public void kill() {
-		if (process!=null) {
+		if (process != null) {
 			process.destroy();
 		}
 	}

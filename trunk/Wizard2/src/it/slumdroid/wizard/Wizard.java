@@ -44,18 +44,22 @@ import javax.swing.SwingConstants;
 public class Wizard {
 
 	private JFrame frmWizard;
+
 	private static JTextField textFieldAAuTpackage;
 	private static JTextField textFieldAAuTClass;
-	private static PathTextField textFieldResults;
 
+	private static PathTextField textFieldResults;
 	private static AppPathTextField textFieldAuTPath;
-	private static JButton btnDeploy;
-	private static JButton btnGenerateReports;
-	private static JButton btnOpenResultsFolder;
-	private static JButton btnResults;
-	private static JButton btnRunSlumDroid;
+
 	private static JButton btnSelectAutPath;
+	private static JButton btnSelectResultsPath;
+	private static JButton btnOpenResultsPath;
+
 	private static JButton btnDefine;
+	private static JButton btnDeploy;
+	private static JButton btnRunSlumDroid;
+	private static JButton btnGenerateReports;
+
 	private JSeparator separator_line;
 
 	public static void main(String[] args) {
@@ -84,6 +88,7 @@ public class Wizard {
 	}
 
 	private void initialize() throws ParseException {
+
 		frmWizard = new JFrame();
 		frmWizard.setResizable(false);
 		frmWizard.setTitle("SlumDroid Wizard");
@@ -92,23 +97,24 @@ public class Wizard {
 		frmWizard.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmWizard.getContentPane().setLayout(null);
 
-		btnOpenResultsFolder = new JButton("Open");
-		btnOpenResultsFolder.setEnabled(false);
-		btnOpenResultsFolder.setFont(new Font("Tahoma", Font.BOLD, 9));
-		btnOpenResultsFolder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnOpenResultsPath = new JButton("Open");
+		btnOpenResultsPath.setEnabled(false);
+		btnOpenResultsPath.setFont(new Font("Tahoma", Font.BOLD, 9));
+		btnOpenResultsPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
 				File file = new File(textFieldResults.getPath());
 				file.toURI();
 				try {
 					Desktop.getDesktop().open(file);
 				} catch (Exception e) {
 					e.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Can't open the results folder!", "Folder not found", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Can't open the results folder!", 
+							"Folder not found", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnOpenResultsFolder.setBounds(227, 142, 90, 20);
-		frmWizard.getContentPane().add(btnOpenResultsFolder);
+		btnOpenResultsPath.setBounds(227, 142, 90, 20);
+		frmWizard.getContentPane().add(btnOpenResultsPath);
 
 		JLabel lblAvdName = new JLabel("SlumDroid Wizard");
 		lblAvdName.setFont(new Font("Tahoma", Font.PLAIN, 22));
@@ -127,6 +133,10 @@ public class Wizard {
 		JLabel lblAutClass = new JLabel("AuT Class");
 		lblAutClass.setBounds(10, 89, 90, 20);
 		frmWizard.getContentPane().add(lblAutClass);
+
+		JLabel lblResultsPath = new JLabel("Results Path");
+		lblResultsPath.setBounds(10, 117, 72, 14);
+		frmWizard.getContentPane().add(lblResultsPath);
 
 		textFieldAAuTpackage = new JTextField();
 		textFieldAAuTpackage.setEditable(false);
@@ -157,14 +167,14 @@ public class Wizard {
 		textFieldResults.setBounds(10, 142, 211, 20);
 		frmWizard.getContentPane().add(textFieldResults);
 
-		btnResults = textFieldResults.getChangeButton();
-		btnResults.setBounds(104, 114, 213, 20);
-		btnResults.setFont(new Font("Tahoma", Font.BOLD, 9));
-		frmWizard.getContentPane().add(btnResults);
+		btnSelectResultsPath = textFieldResults.getChangeButton();
+		btnSelectResultsPath.setBounds(104, 114, 213, 20);
+		btnSelectResultsPath.setFont(new Font("Tahoma", Font.BOLD, 9));
+		frmWizard.getContentPane().add(btnSelectResultsPath);
 
-		JLabel label = new JLabel("Results Path");
-		label.setBounds(10, 117, 72, 14);
-		frmWizard.getContentPane().add(label);
+		separator_line = new JSeparator();
+		separator_line.setBounds(10, 173, 307, 4);
+		frmWizard.getContentPane().add(separator_line);
 
 		btnGenerateReports = new JButton("Generate Reports");
 		btnGenerateReports.addActionListener(new ActionListener() {
@@ -185,18 +195,19 @@ public class Wizard {
 
 		btnDefine = new JButton("Define Settings");
 		btnDefine.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent event) {
 				if (getResultPath().equals(textFieldAuTPath.getPath())){
-					JOptionPane.showMessageDialog(null, "AUT Path and Results Path must be different", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "AUT Path and Results Path must be different", 
+							"Information", JOptionPane.INFORMATION_MESSAGE);
 				}else{
-						setParameters();
-						DownSide(false);
-						Upside(false);				
-						BackWorker bw = new BackWorker();
-						bw.setFile(getResultPath() + File.separator + "firstboot.txt");
-						bw.execute();
-						String commandLine = CommandLine.get(DEFINE);
-						ExternalProcess.executeCommand(commandLine);	
+					setParameters();
+					DownSide(false);
+					Upside(false);				
+					BackWorker bw = new BackWorker();
+					bw.setFile(getResultPath() + File.separator + "firstboot.txt");
+					bw.execute();
+					String commandLine = CommandLine.get(DEFINE);
+					ExternalProcess.executeCommand(commandLine);	
 				}
 			}
 		});
@@ -209,7 +220,7 @@ public class Wizard {
 		btnDeploy.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnDeploy.setEnabled(false);
 		btnDeploy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {	
+			public void actionPerformed(ActionEvent event) {	
 				setParameters();
 				DownSide(false);
 				Upside(false);				
@@ -225,7 +236,7 @@ public class Wizard {
 
 		btnRunSlumDroid = new JButton("Run SlumDroid");
 		btnRunSlumDroid.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent event) {
 				setParameters();
 				DownSide(false);
 				Upside(false);
@@ -240,10 +251,7 @@ public class Wizard {
 		btnRunSlumDroid.setEnabled(false);
 		btnRunSlumDroid.setBounds(10, 246, 307, 28);
 		frmWizard.getContentPane().add(btnRunSlumDroid);
-		
-		separator_line = new JSeparator();
-		separator_line.setBounds(10, 173, 307, 4);
-		frmWizard.getContentPane().add(separator_line);
+
 	}
 
 	public void checkSdk () {
@@ -254,7 +262,8 @@ public class Wizard {
 			e.printStackTrace();
 		}
 		if(!ret) {
-			JOptionPane.showMessageDialog(null, "Please, set the ANDROID_HOME environment variable!", "Android SDK Folder not found", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Please, set the ANDROID_HOME environment variable!", 
+					"Android SDK Folder not found", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}
 	}
@@ -262,7 +271,8 @@ public class Wizard {
 	public static boolean checkPackage () {
 		boolean ret = textFieldAAuTpackage.getText().equals("");
 		if(ret) {
-			JOptionPane.showMessageDialog(null, "Please, make sure that you're selecting a proper Android application.", "Application not found", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Please, make sure that you're selecting a proper Android application.", 
+					"Application not found", JOptionPane.ERROR_MESSAGE);
 			disableDeploy();
 		}
 		return !ret;
@@ -278,7 +288,9 @@ public class Wizard {
 	public static boolean checkClass () {
 		boolean ret = textFieldAAuTClass.getText().equals("");
 		if(ret) {
-			JOptionPane.showMessageDialog(null, "Please, make sure that you're selecting a proper Android application," + System.getProperty("line.separator") + "with at least one activity! (Perhaps it's a test project?)", "Main Activity not found", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Please, make sure that you're selecting a proper Android application," 
+					+ System.getProperty("line.separator") + "with at least one activity! (Perhaps it's a test project?)", 
+					"Main Activity not found", JOptionPane.ERROR_MESSAGE);
 			disableDeploy();
 		}
 		return !ret;
@@ -288,7 +300,9 @@ public class Wizard {
 		String version = System.getProperty("java.version");
 		boolean ret = version.startsWith("1.7") || version.startsWith("1.8");
 		if(!ret) {
-			JOptionPane.showMessageDialog(null, "Detected Java " + version + ". Please, set the JAVA_HOME environment variable with the path Java JDK!", "Warning", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Detected Java " + version 
+					+ ". Please, set the JAVA_HOME environment variable with the path Java JDK!", 
+					"Warning", JOptionPane.ERROR_MESSAGE);
 			System.exit(-1);
 		}	
 	}
@@ -333,7 +347,7 @@ public class Wizard {
 	}
 
 	public static void enableOpenResultFolder() {
-		btnOpenResultsFolder.setEnabled(true);
+		btnOpenResultsPath.setEnabled(true);
 	}
 
 	public static String getResultPath() {
@@ -341,7 +355,7 @@ public class Wizard {
 	}
 
 	public static void Upside(boolean b){
-		btnResults.setEnabled(b);
+		btnSelectResultsPath.setEnabled(b);
 		btnSelectAutPath.setEnabled(b);
 	}
 
@@ -357,7 +371,7 @@ public class Wizard {
 		btnRunSlumDroid.setEnabled(b);
 		btnGenerateReports.setEnabled(!b);
 	}
-	
+
 	public static void postGenerate(){
 		btnDeploy.setEnabled(false);
 	}
@@ -371,7 +385,7 @@ public class Wizard {
 			e.printStackTrace();
 		}
 	}
-	
+
 	protected void setParameters() {
 		setAutPath(textFieldAuTPath.getText());
 		setAutPackage(textFieldAAuTpackage.getText());
@@ -379,8 +393,7 @@ public class Wizard {
 		String thePackage = textFieldAAuTpackage.getText() + ".";
 		String apkName  = textFieldAAuTClass.getText().replace(thePackage, "");
 		setApkName(apkName + "-instrumented.apk");
-
 		setResultsPath(textFieldResults.getText());
 	}
-	
+
 }
