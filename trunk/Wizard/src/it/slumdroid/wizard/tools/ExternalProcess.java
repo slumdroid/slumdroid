@@ -58,7 +58,7 @@ public class ExternalProcess {
 	}
 
 	public void kill() {
-		if (process!=null) {
+		if (process != null) {
 			process.destroy();
 		}
 	}
@@ -71,8 +71,8 @@ public class ExternalProcess {
 		ExternalProcess.executeCommand(commandLine);
 	}
 
-	public static void remove (Process p) {
-		runningProcs.remove(p);
+	public static void remove (Process prc) {
+		runningProcs.remove(prc);
 	}
 
 }

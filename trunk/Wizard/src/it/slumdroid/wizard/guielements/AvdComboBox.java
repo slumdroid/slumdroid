@@ -39,16 +39,16 @@ public class AvdComboBox extends JComboBox<Object> {
 			Process proc = Runtime.getRuntime().exec(CommandList);
 			BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
 			String s;
-			int i=0;
+			int i = 0;
 			while ((s = stdInput.readLine()) != null) {
-				if (i==0) removeAllItems();
+				if (i == 0) removeAllItems();
 				if(s.contains("Name: ")) {
-					insertItemAt(s.substring(s.indexOf("Name: ")+6).trim(), i);
+					insertItemAt(s.substring(s.indexOf("Name: ") + 6).trim(), i);
 					i++;
 				}
 
 			}
-			if (getItemCount()>0) {
+			if (getItemCount() > 0) {
 				setSelectedIndex(0);
 			}
 		} catch (IOException e1) {

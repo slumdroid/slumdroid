@@ -32,7 +32,7 @@ public class AppPathTextField extends PathTextField {
 
 	@Override
 	public void onUpdate (String path) {
-		CommandLine.setAppPath(path);
+		CommandLine.setAutPath(path);
 		if (Wizard.checkApp()!=0) {
 			Wizard.detect();
 			if (Wizard.checkExp()!=0){
@@ -48,8 +48,8 @@ public class AppPathTextField extends PathTextField {
 	}
 
 	public JButton getChangeButton() {
-		JButton btnSelect_1 = new JButton("Select AuT");
-		btnSelect_1.addMouseListener(new MouseAdapter() {
+		JButton button = new JButton("Select AuT");
+		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Wizard.clearText();
@@ -62,12 +62,12 @@ public class AppPathTextField extends PathTextField {
 					if (!Wizard.ianpkg()) {
 						Wizard.clearText();
 						Wizard.DownSide(false);
-						if (Wizard.checkExp()!=0) Wizard.enableOpenResultFolder();
+						if (Wizard.checkExp() != 0) Wizard.enableOpenResultFolder();
 					}
 				} 
 			}
 		});
-		return btnSelect_1;
+		return button;
 	}
 
 	private static final long serialVersionUID = 1L;

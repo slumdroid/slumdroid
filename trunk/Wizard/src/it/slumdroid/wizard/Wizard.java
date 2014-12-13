@@ -15,13 +15,7 @@
 
 package it.slumdroid.wizard;
 
-import static it.slumdroid.wizard.tools.CommandLine.CLASS;
-import static it.slumdroid.wizard.tools.CommandLine.DEPLOY;
-import static it.slumdroid.wizard.tools.CommandLine.DEVICE;
-import static it.slumdroid.wizard.tools.CommandLine.FIRST_BOOT;
-import static it.slumdroid.wizard.tools.CommandLine.PACKAGE;
-import static it.slumdroid.wizard.tools.CommandLine.POST_PROCESS;
-import static it.slumdroid.wizard.tools.CommandLine.SYSTEMATIC_TEST;
+import static it.slumdroid.wizard.tools.CommandLine.*;
 import it.slumdroid.wizard.guielements.AppPathTextField;
 import it.slumdroid.wizard.guielements.AvdComboBox;
 import it.slumdroid.wizard.guielements.PathTextField;
@@ -106,7 +100,7 @@ public class Wizard {
 		btnOpenResultsFolder.setEnabled(false);
 		btnOpenResultsFolder.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnOpenResultsFolder.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent event) {
 				File file = new File(textFieldResults.getPath());
 				file.toURI();
 				try {
@@ -185,13 +179,17 @@ public class Wizard {
 		btnGenerateReports = new JButton("Generate Reports");
 		btnGenerateReports.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				setParameters();
 				DownSide(false);
+				
 				BackWorker bw = new BackWorker();
-				bw.setFile(getResultPath()+File.separator+"artifact.txt");
+				bw.setFile(getResultPath() + File.separator + "artifact.txt");
 				bw.execute();
-				String thePackage = textFieldAAuTpackage.getText();
-				String commandLine = CommandLine.get(POST_PROCESS, PACKAGE, thePackage);
+				
+				String commandLine = CommandLine.get(POST_PROCESS);
 				ExternalProcess.executeCommand(commandLine);
+				
 			}
 		});
 		btnGenerateReports.setFont(new Font("Tahoma", Font.BOLD, 9));
@@ -201,26 +199,25 @@ public class Wizard {
 
 		btnFirstBoot = new JButton("Start AVD");
 		btnFirstBoot.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent event) {
 				if (getResultPath().equals(textFieldAAuTPath.getPath())){
 					JOptionPane.showMessageDialog(null, "AAuT Path and Results Path must be different", "Information", JOptionPane.INFORMATION_MESSAGE);
-				}else{
+				}else {
 
-					String command = FIRST_BOOT;
-					String avd = comboBoxAVDs.getDevice();
-					String thePackage = textFieldAAuTpackage.getText();
-					String theClass = textFieldAAuTClass.getText();
-
-					try{
-						String commandLine = CommandLine.get(command, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);
+					try {
+						
+						setParameters();
 						DownSide(false);
 						Upside(false);				
-
+						
 						BackWorker bw = new BackWorker();
-						bw.setFile(getResultPath()+File.separator+"firstboot.txt");
+						bw.setFile(getResultPath() + File.separator + "firstboot.txt");
 						bw.execute();
+						
+						String commandLine = CommandLine.get(DEFINE);
 						ExternalProcess.executeCommand(commandLine);	
-					}catch (Exception e){
+						
+					} catch (Exception e){
 						e.printStackTrace();
 						JOptionPane.showMessageDialog(null, "AVD List doesn't loaded", "Information", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -236,17 +233,19 @@ public class Wizard {
 		btnDeploy.setFont(new Font("Tahoma", Font.BOLD, 9));
 		btnDeploy.setEnabled(false);
 		btnDeploy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				String avd = comboBoxAVDs.getDevice();
-				String thePackage = textFieldAAuTpackage.getText();
-				String theClass = textFieldAAuTClass.getText();
-				String commandLine = CommandLine.get(DEPLOY, DEVICE, avd, PACKAGE, thePackage, CLASS, theClass);	
+			public void actionPerformed(ActionEvent event) {
+				
+				setParameters();
 				DownSide(false);
-				Upside(false);				
+				Upside(false);
+				
 				BackWorker bw = new BackWorker();
-				bw.setFile(getResultPath()+File.separator+"build.txt");
+				bw.setFile(getResultPath() + File.separator + "build.txt");
 				bw.execute();
+				
+				String commandLine = CommandLine.get(DEPLOY);
 				ExternalProcess.executeCommand(commandLine);
+				
 			}
 		});
 		btnDeploy.setBounds(10, 216, 307, 28);
@@ -254,15 +253,17 @@ public class Wizard {
 
 		btnRunSlumDroid = new JButton("Run SlumDroid");
 		btnRunSlumDroid.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String command = SYSTEMATIC_TEST;
-				String thePackage = textFieldAAuTpackage.getText();
-				String commandLine = CommandLine.get(command, DEVICE, comboBoxAVDs.getDevice(), PACKAGE, thePackage);	
+			public void actionPerformed(ActionEvent event) {
+				
+				setParameters();
 				DownSide(false);
 				Upside(false);
+				
 				BackWorker bw = new BackWorker();
-				bw.setFile(getResultPath()+File.separator+"ripper.txt");
+				bw.setFile(getResultPath() + File.separator + "ripper.txt");
 				bw.execute();
+				
+				String commandLine = CommandLine.get(TEST);
 				ExternalProcess.executeCommand(commandLine);
 
 			}
@@ -275,6 +276,14 @@ public class Wizard {
 		separator_1 = new JSeparator();
 		separator_1.setBounds(10, 173, 307, 4);
 		frmWizard.getContentPane().add(separator_1);
+	}
+
+	protected void setParameters() {
+		setDevice(comboBoxAVDs.getDevice());
+		setAutPath(textFieldAAuTPath.getText());
+		setAutPackage(textFieldAAuTpackage.getText());
+		setAutClass(textFieldAAuTClass.getText());
+		setResultsPath(textFieldResults.getText());
 	}
 
 	public void checkSdk () {

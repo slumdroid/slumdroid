@@ -24,15 +24,27 @@ public class CommandLine {
 	private static Map<String, String> dosCommands = new HashMap<String, String>();
 	private static Map<String, String> config = new HashMap<String, String>();
 	private static Map<String, String> commandMap = dosCommands;
-
-	public static void setResultsPath (String path) {
-		config.put(RESULTS_PATH, path);
+	
+	public static void setDevice (String value) {
+		config.put(DEVICE, value);
 	}
 
-	public static void setAppPath (String path) {
-		config.put(APP_PATH, path);
+	public static void setAutPath (String value) {
+		config.put(AUT_PATH, value);
+	}
+	
+	public static void setAutPackage (String value) {
+		config.put(AUT_PACKAGE, value);
 	}
 
+	public static void setAutClass (String value) {
+		config.put(AUT_CLASS, value);
+	}
+	
+	public static void setResultsPath (String value) {
+		config.put(RESULTS_PATH, value);
+	}
+	
 	public static String get (String command, String ... args) {
 		String pattern = commandMap.get(command);
 		for (Entry<String, String> e: config.entrySet()) {
@@ -53,41 +65,49 @@ public class CommandLine {
 		return pattern;
 	}
 
-	public static String arg (String a) {
-		return "[[" + a + "]]";
+	public static String arg (String argument) {
+		return "[[" + argument + "]]";
 	}
 
-	public static String path (String p) {
-		return "\"" + arg (p) + "\"";
+	public static String path (String oath) {
+		return "\"" + arg (oath) + "\"";
 	}
 
-	public static String path (String p1, String p2) {
-		return "\"" + arg (p1) + p2 + "\"";
+	public static String path (String value1, String value2) {
+		return "\"" + arg (value1) + value2 + "\"";
 	}
 
 	public final static String ANDROID_PATH = System.getenv("ANDROID_HOME");
-	public final static String RESULTS_PATH = "experimentPath";
-	public final static String APP_PATH = "appPath";
-	public final static String DEVICE = "device";
-	public final static String CLASS = "class";
-	public final static String PACKAGE = "package";
-	public final static String DUMP_APK = "dump apk";
 	public final static String LOAD_AVD = "load avd";
+	public final static String DEVICE = "device";
+	
+	public final static String RESULTS_PATH = "experimentPath";
+	
+	public final static String AUT_PATH = "appPath";
+	public final static String AUT_PACKAGE = "package";
+	public final static String AUT_CLASS = "class";
+	public final static String DUMP_APK = "dump apk";
+	
+	public final static String DEFINE = "define";
 	public final static String DEPLOY = "deploy";
-	public final static String SYSTEMATIC_TEST = "test systematic";
+	public final static String TEST = "test";
 	public final static String POST_PROCESS = "postproc";
+	
 	public final static String CLOSE = "close";
-	public final static String FIRST_BOOT = "first boot";
-
+	
 	// DOS commands
 	static String place = System.getProperty("user.dir");
 	static {
-		dosCommands.put(DUMP_APK, "aapt dump badging " + path(APP_PATH));
+		String parameters = arg(DEVICE) + " " + path(AUT_PATH) + " " + arg(AUT_PACKAGE) + " " + arg(AUT_CLASS) + " " + path(RESULTS_PATH);
+		
+		dosCommands.put(DUMP_APK, "aapt dump badging " + path(AUT_PATH));
 		dosCommands.put(LOAD_AVD, (System.getenv("ANDROID_HOME") + "\\tools\\android.bat list avd"));
-		dosCommands.put(FIRST_BOOT, place + "\\batch\\FirstBoot.bat " + arg(DEVICE) + " " + path(RESULTS_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) );
-		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + arg(DEVICE) + " " + path(APP_PATH) + " " + arg(PACKAGE) + " " + arg(CLASS) + " " + path(RESULTS_PATH));
-		dosCommands.put(SYSTEMATIC_TEST, place + "\\batch\\Ripper.bat " + arg(DEVICE) + " " + arg(PACKAGE) + " " + path(RESULTS_PATH) + " 10");
-		dosCommands.put(POST_PROCESS, place + "\\batch\\PostProcess.bat " + path(RESULTS_PATH) + " " + path(APP_PATH) + " " + arg(PACKAGE));
+		
+		dosCommands.put(DEFINE, place + "\\batch\\FirstBoot.bat " + parameters);
+		dosCommands.put(DEPLOY, place + "\\batch\\Installer.bat " + parameters);
+		dosCommands.put(TEST, place + "\\batch\\Ripper.bat " + parameters);
+		dosCommands.put(POST_PROCESS, place + "\\batch\\PostProcess.bat " + parameters);
+		
 		dosCommands.put(CLOSE, place + "\\batch\\close.bat");
 	}
 

@@ -39,51 +39,58 @@ public class BackWorker extends SwingWorker<Integer, String> {
 			} catch (Exception e) {	
 				e.printStackTrace();
 			}
-			FileReader f;
+			FileReader reader;
+			BufferedReader buffer = null;
 			try {
-				f=new FileReader(file);
-				BufferedReader b=new BufferedReader(f);
-				String s = b.readLine();
-				if (s.contentEquals("completed")) {
+				reader = new FileReader(file);
+				buffer = new BufferedReader(reader);
+				String line = buffer.readLine();
+				if (line.contentEquals("completed")) {
 
-					b.close();
+					buffer.close();
 					Wizard.postExec(true);
 					JOptionPane.showMessageDialog(null, "Deploy Completed Successfully.\n Define your state initial and close the AVD", "Information", JOptionPane.INFORMATION_MESSAGE);
 
-				} else if (s.contentEquals("failed")) {
+				} else if (line.contentEquals("failed")) {
 
-					b.close();
+					buffer.close();
 					Wizard.postExec(false);
 					JOptionPane.showMessageDialog(null, "Deploy Failed", "Information", JOptionPane.INFORMATION_MESSAGE);
 
-				} else if (s.contentEquals("done")) {
+				} else if (line.contentEquals("done")) {
 
-					b.close();
+					buffer.close();
 					Wizard.postExec(false);
 					Wizard.disableDeploy();
 					JOptionPane.showMessageDialog(null, "Ripping Test Executed", "Information", JOptionPane.INFORMATION_MESSAGE);
 
-				} else if (s.contentEquals("artifactdone")) {
+				} else if (line.contentEquals("artifactdone")) {
 
-					b.close();
+					buffer.close();
 					Wizard.DownSide(true);
 					Wizard.Upside(true);
 					Wizard.postGenerate();
 					JOptionPane.showMessageDialog(null, "Reports Generated", "Information", JOptionPane.INFORMATION_MESSAGE);
 
-				} else if (s.contentEquals("firstboot")) {
+				} else if (line.contentEquals("firstboot")) {
 
-					b.close();
+					buffer.close();
 					Wizard.postFirstBoot();
 					JOptionPane.showMessageDialog(null, "Wait the Android OS Booting,\n then click on \"Deploy\"", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				}
 
-				fileNotFound=false;
-				b.close();
+				fileNotFound = false;
+				buffer.close();
 			} catch (Exception e) {
-				e.printStackTrace();
-			}   
+				// e.printStackTrace();
+			}   finally {
+				try {
+					buffer.close();
+				} catch (Exception e) {
+					// e.printStackTrace();
+				}
+			}
 		}
 		return null;
 	}
