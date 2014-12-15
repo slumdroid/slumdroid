@@ -45,6 +45,10 @@ public class CommandLine {
 		config.put(RESULTS_PATH, value);
 	}
 	
+	public static void setApkName (String path) {
+		config.put(APK_NAME, path);
+	}
+	
 	public static String get (String command, String ... args) {
 		String pattern = commandMap.get(command);
 		for (Entry<String, String> e: config.entrySet()) {
@@ -86,6 +90,7 @@ public class CommandLine {
 	public final static String AUT_PATH = "appPath";
 	public final static String AUT_PACKAGE = "package";
 	public final static String AUT_CLASS = "class";
+	public final static String APK_NAME = "apkName";
 	public final static String DUMP_APK = "dump apk";
 	
 	public final static String DEFINE = "define";
@@ -98,7 +103,7 @@ public class CommandLine {
 	// DOS commands
 	static String place = System.getProperty("user.dir");
 	static {
-		String parameters = arg(DEVICE) + " " + path(AUT_PATH) + " " + arg(AUT_PACKAGE) + " " + arg(AUT_CLASS) + " " + path(RESULTS_PATH);
+		String parameters = arg(DEVICE) + " " + path(AUT_PATH) + " " + arg(AUT_PACKAGE) + " " + arg(AUT_CLASS) + " " + path(RESULTS_PATH) + " " + arg(APK_NAME);
 		
 		dosCommands.put(DUMP_APK, "aapt dump badging " + path(AUT_PATH));
 		dosCommands.put(LOAD_AVD, (System.getenv("ANDROID_HOME") + "\\tools\\android.bat list avd"));
