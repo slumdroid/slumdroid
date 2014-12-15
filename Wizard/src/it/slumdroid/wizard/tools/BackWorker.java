@@ -49,7 +49,7 @@ public class BackWorker extends SwingWorker<Integer, String> {
 
 					buffer.close();
 					Wizard.postExec(true);
-					JOptionPane.showMessageDialog(null, "Deploy Completed Successfully.\n Define your state initial and close the AVD", "Information", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Deploy Completed Successfully", "Information", JOptionPane.INFORMATION_MESSAGE);
 
 				} else if (line.contentEquals("failed")) {
 
