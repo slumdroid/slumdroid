@@ -51,11 +51,11 @@ public class InteractionStats extends StatsReport {
 		return this.events;
 	}
 
-	public void addEvent (UserEvent e) {
-		if (!getEvents().contains(e.getId())) {
-			inc (this.eventTypes, e.getType());
+	public void addEvent (UserEvent event) {
+		if (!getEvents().contains(event.getId())) {
+			inc (this.eventTypes, event.getType());
 		}
-		addEvent (e.getId());
+		addEvent (event.getId());
 	}
 
 	public void addEvent(String event) {
@@ -66,11 +66,11 @@ public class InteractionStats extends StatsReport {
 		return this.inputs;
 	}
 
-	public void addInput (UserInput i) {
-		if (!getInputs().contains(i.getId())) {
-			inc (this.inputTypes, i.getType());
+	public void addInput (UserInput input) {
+		if (!getInputs().contains(input.getId())) {
+			inc (this.inputTypes, input.getType());
 		}
-		addInput (i.getId());
+		addInput (input.getId());
 	}
 
 	public void addInput(String input) {

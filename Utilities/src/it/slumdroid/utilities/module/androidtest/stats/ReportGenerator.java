@@ -66,7 +66,9 @@ public class ReportGenerator extends StatsReport {
 			for (Transition step: theTask) {				
 				currentDepth++;
 				eventReport.analyzeInteractions(step);
-				if (first) countWidgets(step.getStartActivity());
+				if (first) {
+					countWidgets(step.getStartActivity());
+				}
 				countWidgets(step.getFinalActivity());
 				first = false;
 			}
@@ -80,7 +82,9 @@ public class ReportGenerator extends StatsReport {
 		builder.append(this.taskReport + NEW_LINE);
 		int stateSize = this.activityStates.size() + crash;
 		
-		if (actualCrashes.size()!=0) builder.append("List of Crashed Tasks: " + expandList(this.actualCrashes) + NEW_LINE);
+		if (actualCrashes.size() != 0) {
+			builder.append("List of Crashed Tasks: " + expandList(this.actualCrashes) + NEW_LINE);
+		}
 		builder.append("Model Information: " + NEW_LINE + 
 				TAB + "Different Gui States: " + stateSize + NEW_LINE + 
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +

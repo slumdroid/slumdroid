@@ -29,7 +29,9 @@ public class ComboBoxRenderer extends JComboBox<Object> implements TableCellRend
 	}
 
 	@Override
-	public Component getTableCellRendererComponent (JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+	public Component getTableCellRendererComponent (JTable table, Object value, 
+			boolean isSelected, boolean hasFocus, 
+			int row, int column) {
 		if (isSelected) {
 			setForeground(table.getSelectionForeground());
 			super.setBackground(table.getSelectionBackground());
@@ -40,5 +42,5 @@ public class ComboBoxRenderer extends JComboBox<Object> implements TableCellRend
 		setSelectedItem(value);
 		return this;
 	}
-	
+
 }

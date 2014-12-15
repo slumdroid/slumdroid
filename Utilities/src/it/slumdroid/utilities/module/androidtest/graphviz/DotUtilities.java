@@ -16,7 +16,6 @@
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.UserEvent;
 
 import java.util.Locale;
@@ -41,17 +40,17 @@ public class DotUtilities {
 		return nodeDesc;
 	}
 
-	public static String escapeDot (String str) {
-		if (str == null) {
+	public static String escapeDot (String string) {
+		if (string == null) {
 			return null;
 		}
-		int sz = str.length();
-		StringBuffer out = new StringBuffer(sz * 2);
-		for (int i = 0; i < sz; i++) {
-			char ch = str.charAt(i);
+		int size = string.length();
+		StringBuffer out = new StringBuffer(size * 2);
+		for (int i = 0; i < size; i++) {
+			char character = string.charAt(i);
 			// handle unicode
-			if (ch < 32) {
-				switch (ch) {
+			if (character < 32) {
+				switch (character) {
 				case '\b' :
 					out.append('\\');
 					out.append('b');
@@ -73,15 +72,15 @@ public class DotUtilities {
 					out.append('r');
 					break;
 				default :
-					if (ch > 0xf) {
-						out.append("\\u00").append(hex(ch));
+					if (character > 0xf) {
+						out.append("\\u00").append(hex(character));
 					} else {
-						out.append("\\u000").append(hex(ch));
+						out.append("\\u000").append(hex(character));
 					}
 					break;
 				}
 			} else {
-				switch (ch) {
+				switch (character) {
 				case '"' :
 					out.append('\\');
 					out.append('"');
@@ -91,7 +90,7 @@ public class DotUtilities {
 					out.append('\\');
 					break;
 				default :
-					out.append(ch);
+					out.append(character);
 					break;
 				}
 			}
@@ -99,24 +98,16 @@ public class DotUtilities {
 		return out.toString();
 	}
 
-	public static String hex(char ch) {
-		return Integer.toHexString(ch).toUpperCase(Locale.ENGLISH);
+	public static String hex(char character) {
+		return Integer.toHexString(character).toUpperCase(Locale.ENGLISH);
 	}
 
-	public static String exportToDot (Session xml) {
-		if (xml instanceof GuiTree) {
-			GuiTreeToDot g = new GuiTreeToDot ((GuiTree)xml);
-			return g.getDot();
-		}
-		return new String();
+	public static String exportToDot (GuiTree xml) {
+		return new GuiTreeToDot (xml).getDot();
 	}
 
-	public static String exportToFsm (Session xml){
-		if (xml instanceof GuiTree) {
-			GuiTreeToFSM g = new GuiTreeToFSM ((GuiTree)xml);
-			return g.getDot();
-		}
-		return new String();
+	public static String exportToFsm (GuiTree xml){
+		return new GuiTreeToFSM (xml).getDot();
 	}	   	
 
 }

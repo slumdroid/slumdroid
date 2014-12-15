@@ -38,10 +38,8 @@ public class PreferenceEditor {
 			}
 			else if (args[1].equals("randomize")){
 				prefs.putLong(SEED, new Tools().newSeed(args[3]));
-				System.out.println("RandomSeed " + new Tools().newSeed(args[3]));
 			} else if (args[1].equals("update")) {
-				prefs.put(args[3], args[4]);
-				System.out.println("Updated Key: " + args[3] + " Value: "+ args[4]);			
+				prefs.put(args[3], args[4]);			
 			}
 			new Tools().saveNode (preferencesPath, prefs);
 		}	

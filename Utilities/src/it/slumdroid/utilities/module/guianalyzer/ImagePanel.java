@@ -25,14 +25,14 @@ import javax.swing.JPanel;
 public class ImagePanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private Image img;
+	private Image image;
 
 	public ImagePanel (String image) {
 		this(new ImageIcon(image).getImage());
 	}
 
 	public ImagePanel (Image image) {
-		this.img = image;
+		this.image = image;
 		Dimension size = new Dimension(image.getWidth(null), image.getHeight(null));
 		setPreferredSize(size);
 		setMinimumSize(size);
@@ -43,7 +43,7 @@ public class ImagePanel extends JPanel {
 
 	@Override
 	public void paintComponent (Graphics g) {
-		g.drawImage(img, 0, 0, null);
+		g.drawImage(image, 0, 0, null);
 	}
 	
 }
