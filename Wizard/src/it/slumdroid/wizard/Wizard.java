@@ -283,6 +283,17 @@ public class Wizard {
 		setAutPath(textFieldAAuTPath.getText());
 		setAutPackage(textFieldAAuTpackage.getText());
 		setAutClass(textFieldAAuTClass.getText());
+		String thePackage = textFieldAAuTpackage.getText() + ".";
+		String apkName  = textFieldAAuTClass.getText().replace(thePackage, "");
+		if (apkName.contains(".")) {
+			String newName = new String();
+			for (int i = 0; i< apkName.length(); i++){
+				if (apkName.charAt(i) == '.') newName = new String(); 
+				else newName += Character.toString(apkName.charAt(i));
+			}
+			apkName = new String(newName);
+		}
+		setApkName(apkName + "-instrumented.apk");
 		setResultsPath(textFieldResults.getText());
 	}
 
