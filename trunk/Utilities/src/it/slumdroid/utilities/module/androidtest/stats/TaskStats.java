@@ -17,9 +17,13 @@ package it.slumdroid.utilities.module.androidtest.stats;
 
 import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
+import static it.slumdroid.utilities.module.AndroidTest.getTxtFileName;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +88,32 @@ public class TaskStats extends StatsReport {
 				printList (this.failures) +
 				TAB + "Crashes: " + getTasksCrashed() + NEW_LINE +
 				printList (this.crashes) +
-				TAB + "Exits: " + getTasksExit() + NEW_LINE;
+				TAB + "Exits: " + getTasksExit() + NEW_LINE + 
+				TAB + "Ripping Time: " + getRippingTime() + NEW_LINE;
+	}
+
+	private String getRippingTime() {
+		double seconds = 0;
+		BufferedReader inputStream1 = null;
+		try {
+			inputStream1 = new BufferedReader (new FileReader (getTxtFileName()));
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains("Time: ")) {
+					seconds += Double.valueOf(line.replace("Time: ", ""));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream1.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		String round = String.valueOf(seconds).replace("."," ").split(" ")[0];
+		return new String("in "+ round +" seconds ( " + (int) (seconds/60) + " minutes)");
 	}
 
 }

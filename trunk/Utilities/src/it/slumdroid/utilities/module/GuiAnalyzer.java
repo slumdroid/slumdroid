@@ -37,6 +37,7 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
@@ -106,7 +107,7 @@ public class GuiAnalyzer extends JFrame {
 	private Object[] colScreen;
 	private Object[] colInteraction;
 	private Object[] colSimpleType;
-	
+
 	public GuiAnalyzer () {
 		setResizable(false);
 		initComponents();
@@ -193,6 +194,7 @@ public class GuiAnalyzer extends JFrame {
 	private void createLayout() {
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		resetAll();
+		
 		try {
 			pI = new ProcessGuiTree(theFile.toString());
 		} catch (Exception e) {
@@ -309,87 +311,103 @@ public class GuiAnalyzer extends JFrame {
 	private void createXml(String preferencesFile) {
 		StringBuilder builder =  new StringBuilder();
 		String line = new String();
-		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
+		boolean interact = false;
 
+		BufferedReader inputStream1 = null;
+		PrintWriter outputStream1 = null;
+		
 		try{
-			BufferedReader inputStream1 = new BufferedReader (new FileReader (preferencesFile));
+			inputStream1 = new BufferedReader (new FileReader (preferencesFile));
 			while ((line = inputStream1.readLine()) != null ) {
-				builder.append("<"+ line.split("<")[1]);
-				if (line.contains("<node name=\"interactions\">")){
-					line = inputStream1.readLine();
-					builder.append("<"+ line.split("<")[1]);
-					int countInput = 0;
-					int countEvent = 0;
-					for (int i=0; i < pI.numWidgets; i++){ 
-						String control = (String) jTableInfo.getValueAt(i, 7);
-						if (control!=null){
-							try{
-								if (!control.equals("exclude")){
-									String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturb(control);
-									if (!pertubedInput.equals("")){
-										if (jTableInfo.getValueAt(i, 6).equals("Input")){
-											builder.append(data
-													.replace("INDEX", String.valueOf(countInput))
-													.replace("ID",  String.valueOf(colId[i]))
-													.replace("PERTUBATIONS", pertubedInput));
-											countInput++;
-										} else if (jTableInfo.getValueAt(i, 6).equals("Event")){
-											if (((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
-												builder.append(data
-														.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
-														.replace("INDEX", String.valueOf(countEvent))
-														.replace("ID",  String.valueOf(colId[i]))
-														.replace("writeText", "enterText")
-														.replace("PERTUBATIONS", pertubedInput));
-											} else{
-												builder.append(data
-														.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
-														.replace("INDEX", String.valueOf(countEvent))
-														.replace("ID",  String.valueOf(colId[i]))
-														.replace("PERTUBATIONS", pertubedInput));	
-											}
-
-											countEvent++;
-										} else if (jTableInfo.getValueAt(i, 6).equals("Input & Event")){
-											builder.append(data
-													.replace("INDEX", String.valueOf(countInput))
-													.replace("ID",  String.valueOf(colId[i]))
-													.replace("PERTUBATIONS", pertubedInput));
-											countInput++;
-											builder.append(data
-													.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
-													.replace("INDEX", String.valueOf(countEvent))
-													.replace("ID",  String.valueOf(colId[i]))
-													.replace("PERTUBATIONS", pertubedInput));
-											countEvent++;
-										}
-									}
-								}	
-							}catch (Exception e){
-								e.printStackTrace();
-							}
-						}
-					}
+				if (line.contains("<node name=\"interactions\">")) {
+					interact = true;
 				}
+				if (line.contains("</map>") && interact) {
+					interact = false;
+					addPerturbations(builder);
+				}
+				builder.append("<"+ line.split("<")[1]);
 			}
 			inputStream1.close();
 			new Tools().xmlWriter(preferencesFile, builder);
 
-
 			if (!firstPath.equals("")){
 				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
-				PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
+				outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
 				outputStream1.write("firstboot");
 				outputStream1.close();	
 			}	
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				inputStream1.close();
+				outputStream1.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
+	private void addPerturbations(StringBuilder builder) {
+		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
+		int countInput = 0;
+		int countEvent = 0;
+		for (int i = 0; i < pI.numWidgets; i++){ 
+			String control = (String) jTableInfo.getValueAt(i, 7);
+			if (control!=null){
+				try{
+					if (!control.equals("exclude")){
+						String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturb(control);
+						if (!pertubedInput.equals("")){
+							if (jTableInfo.getValueAt(i, 6).equals("Input")){
+								builder.append(data
+										.replace("INDEX", String.valueOf(countInput))
+										.replace("ID",  String.valueOf(colId[i]))
+										.replace("PERTUBATIONS", pertubedInput));
+								countInput++;
+							} else if (jTableInfo.getValueAt(i, 6).equals("Event")){
+								if (((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
+									builder.append(data
+											.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
+											.replace("INDEX", String.valueOf(countEvent))
+											.replace("ID",  String.valueOf(colId[i]))
+											.replace("writeText", "enterText")
+											.replace("PERTUBATIONS", pertubedInput));
+								} else{
+									builder.append(data
+											.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
+											.replace("INDEX", String.valueOf(countEvent))
+											.replace("ID",  String.valueOf(colId[i]))
+											.replace("PERTUBATIONS", pertubedInput));	
+								}
+								countEvent++;
+							} else if (jTableInfo.getValueAt(i, 6).equals("Input & Event")){
+								builder.append(data
+										.replace("INDEX", String.valueOf(countInput))
+										.replace("ID",  String.valueOf(colId[i]))
+										.replace("PERTUBATIONS", pertubedInput));
+								countInput++;
+								builder.append(data
+										.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
+										.replace("INDEX", String.valueOf(countEvent))
+										.replace("ID",  String.valueOf(colId[i]))
+										.replace("PERTUBATIONS", pertubedInput));
+								countEvent++;
+							}
+						}
+					}	
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
-	public void setFirstPath(String s) {
-		firstPath = s;
+	public void setFirstPath(String path) {
+		firstPath = path;
 	}
 
 }

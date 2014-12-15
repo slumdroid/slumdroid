@@ -52,22 +52,22 @@ public class ProcessGuiTree {
 		Screens = new HashMap<String, String>();
 		Interactions = new HashMap<String, String>();
 		try {
-			for (Task t: guiTree) {
-				for (Transition tr: t) {
-					for (UserInput input: tr) {
+			for (Task task: guiTree) {
+				for (Transition transition: task) {
+					for (UserInput input: transition) {
 						if (input.getType().equals(WRITE_TEXT)) {                       	
 							if (!Screens.containsKey(input.getWidgetId())) {
 								Widgets.put(input.getWidgetId(), input.getWidget());
-								Screens.put(input.getWidgetId(), tr.getStartActivity().getId() + ".jpg");
+								Screens.put(input.getWidgetId(), transition.getStartActivity().getId() + ".jpg");
 								Interactions.put(input.getWidgetId(), "Input");
 							}
 						}
 					}
-					UserEvent event = tr.getEvent();
+					UserEvent event = transition.getEvent();
 					if (event.getType().equals(WRITE_TEXT)) {
 						if (!Screens.containsKey(event.getWidgetId())) {
 							Widgets.put(event.getWidgetId(), event.getWidget());
-							Screens.put(event.getWidgetId(), tr.getStartActivity().getId() + ".jpg");
+							Screens.put(event.getWidgetId(), transition.getStartActivity().getId() + ".jpg");
 							Interactions.put(event.getWidgetId(), "Event");
 						} else {
 							Interactions.remove(event.getWidgetId());
@@ -77,7 +77,7 @@ public class ProcessGuiTree {
 					if (event.getType().equals(ENTER_TEXT)) {
 						if (!Screens.containsKey(event.getWidgetId())) {
 							Widgets.put(event.getWidgetId(), event.getWidget());
-							Screens.put(event.getWidgetId(), tr.getStartActivity().getId() + ".jpg");
+							Screens.put(event.getWidgetId(), transition.getStartActivity().getId() + ".jpg");
 							Interactions.put(event.getWidgetId(), "Event");
 						}
 					}

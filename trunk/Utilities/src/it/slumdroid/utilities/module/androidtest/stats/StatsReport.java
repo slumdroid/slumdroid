@@ -35,13 +35,13 @@ public abstract class StatsReport {
 		return Math.max(a, b);
 	}
 
-	public static int sum (Map<String,Integer> m) {
-		return sum (m.values());
+	public static int sum (Map<String,Integer> map) {
+		return sum (map.values());
 	}
 
-	public static int sum (Collection<Integer> c) {
+	public static int sum (Collection<Integer> collection) {
 		int sum = 0;
-		for (Integer i: c) {
+		for (Integer i: collection) {
 			sum+=i;
 		}
 		return sum;
@@ -56,21 +56,23 @@ public abstract class StatsReport {
 	}
 
 	public static String expandMap (Map<String,Integer> map) {
-		StringBuilder s = new StringBuilder();
+		StringBuilder builder = new StringBuilder();
 		for (Map.Entry<String,Integer> e:map.entrySet()) {
-			s.append(TAB + TAB + e.getKey().substring(0,1).toUpperCase() + e.getKey().substring(1,e.getKey().length()) +  ": " + e.getValue() + NEW_LINE);
+			builder.append(TAB + TAB + e.getKey().substring(0,1).toUpperCase() 
+					+ e.getKey().substring(1,e.getKey().length()) 
+					+  ": " + e.getValue() + NEW_LINE);
 		}
-		return s.toString();
+		return builder.toString();
 	}
 
 	public static String expandList (List<String> list) {
-		StringBuilder s = new StringBuilder();
-		String separator = "";
+		StringBuilder builder = new StringBuilder();
+		String separator = new String();
 		for (String voice: list) {
-			s.append(separator + voice);
+			builder.append(separator + voice);
 			separator = ", ";
 		}
-		return s.toString();		
+		return builder.toString();		
 	}
 
 }

@@ -29,6 +29,7 @@ public class AndroidTest  {
 	private String reportFileName = new String();
 	private String dotFileName = new String();
 	private String fsmFileName = new String();
+	private static String txtFileName = new String();
 	private GuiTree guiTree;
 
 	public AndroidTest (String inputPath) {
@@ -37,6 +38,7 @@ public class AndroidTest  {
 			this.reportFileName = inputPath + "\\output\\report.txt";
 			this.dotFileName = inputPath + "\\output\\guitree.dot";
 			this.fsmFileName = inputPath + "\\output\\fsm.dot";
+			AndroidTest.txtFileName = inputPath + "\\test.txt";
 			processFile();	
 		}
 	}
@@ -49,7 +51,8 @@ public class AndroidTest  {
 		}
 		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot
 		createArtifact(exportToDot(this.guiTree), getDotFileName()); // GuiTreeDot
-		createArtifact(new ReportGenerator (this.guiTree).getReport(), getReportFileName()); // ReportTxt 
+		String report = new ReportGenerator(this.guiTree).getReport(); 
+		createArtifact(report, getReportFileName()); // ReportTxt 
 	}
 		
 	private void createArtifact(String inputString, String outputFile) {
@@ -76,6 +79,10 @@ public class AndroidTest  {
 
 	private String getFsmFileName() {
 		return fsmFileName;
+	}
+
+	public static String getTxtFileName() {
+		return txtFileName;
 	}
 
 }

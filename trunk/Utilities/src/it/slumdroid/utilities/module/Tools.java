@@ -25,11 +25,9 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -182,7 +180,7 @@ public class Tools {
 		} finally {
 			try {
 				inputStream1.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -195,7 +193,7 @@ public class Tools {
 			String esFiles = new Tools().coverage(out);
 			out.print(header + esFiles);
 			out.close();
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}	
