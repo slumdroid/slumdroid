@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="it.slumdroid.tool"
+    android:installLocation="auto"
     android:versionCode="1"
-    android:versionName="1.0A" 
-    android:installLocation="auto" >
-    
-    <uses-sdk
-        android:minSdkVersion="10" />
+    android:versionName="1.0A" >
+
+    <uses-sdk android:minSdkVersion="10" />
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"

@@ -282,10 +282,6 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 		sync();
 	}
 
-	public String getAppName () {
-		return extractor.solo.getCurrentActivity().getApplicationInfo().toString();
-	}
-
 	public View getWidget (int id) {
 		return this.extractor.getWidget(id);
 	}
