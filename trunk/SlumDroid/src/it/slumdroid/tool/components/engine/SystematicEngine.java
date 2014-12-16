@@ -156,13 +156,17 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			getAutomation().execute(theTask);
 			ActivityDescription description = getAutomation().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(description);
-			if (theActivity.isExit()) Log.i(TAG, "Exit state");
-			else getStrategy().compareState(theActivity);
-			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
-			if (SLEEP_AFTER_TASK != 0) getAutomation().wait(SLEEP_AFTER_TASK);
 			getAbstractor().setFinalActivity (theTask, theActivity);
 			getPersistence().addTask(theTask);
-			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
+			if (theActivity.isExit()) {
+				Log.i(TAG, "Exit state");
+			}
+			else {
+				getStrategy().compareState(theActivity);
+				if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
+				if (SLEEP_AFTER_TASK != 0) getAutomation().wait(SLEEP_AFTER_TASK);
+				if (canPlanTests(theActivity)) planTests(theTask, theActivity);
+			}
 			break;
 		}
 	}
