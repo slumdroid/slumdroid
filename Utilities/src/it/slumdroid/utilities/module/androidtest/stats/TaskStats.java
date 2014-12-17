@@ -89,7 +89,7 @@ public class TaskStats extends StatsReport {
 				TAB + "Crashes: " + getTasksCrashed() + NEW_LINE +
 				printList (this.crashes) +
 				TAB + "Exits: " + getTasksExit() + NEW_LINE + 
-				TAB + "Ripping Time: " + getRippingTime() + NEW_LINE;
+				TAB + "Time: " + getRippingTime() + NEW_LINE;
 	}
 
 	private String getRippingTime() {
@@ -113,7 +113,7 @@ public class TaskStats extends StatsReport {
 			}
 		}
 		String round = String.valueOf(seconds).replace("."," ").split(" ")[0];
-		return new String("in "+ round +" seconds ( " + (int) (seconds/60) + " minutes)");
+		return new String("about " + round + " seconds");
 	}
 
 }
