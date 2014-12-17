@@ -18,7 +18,6 @@ package it.slumdroid.tool.components.automation;
 import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
 import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
-import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
@@ -78,16 +77,16 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 public class Automation implements Executor, Extractor, ImageCaptor {
- 
+
 	private TrivialExtractor extractor;
 
 	public Automation () {
-		extractor = new TrivialExtractor(); 
+		setExtractor(new TrivialExtractor()); 
 	}
 
 	// Initializations
 	public void bind (ActivityInstrumentationTestCase2<?> test) {
-		extractor.solo = DroidExecutor.createRobotium (test);
+		getExtractor().solo = DroidExecutor.createRobotium (test);
 		unLockScreen();
 		afterRestart();
 		refreshCurrentActivity();
@@ -118,8 +117,8 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 			fireEventOnView(null, eventType, null);
 		} else {
 			View view = null;
-			if (event.getWidget().getIndex() < extractor.getAllWidgets().size()) {
-				view = extractor.getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
+			if (event.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
+				view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
 			String eventValue = event.getValue();
 			if ( (view != null) && 
@@ -135,16 +134,15 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 			}
 		}
 	}
-	
+
 	private void writeLogInfo(UserEvent event) {
 		String eventType = event.getType();
 		String eventId = event.getWidgetId();
 		String eventSimpleType = event.getWidget().getSimpleType();
 		String toWrite = "Firing event: " + eventType + " widgetId=" + eventId + " widgetType=" + eventSimpleType;
 		String extraInfo = new String(); 
-		if (eventType.equals(WRITE_TEXT) || eventType.equals(ENTER_TEXT)) {
-			String eventValue = event.getValue();
-			extraInfo += " value=" + eventValue;
+		if (!event.getValue().equals("")) {
+			extraInfo += " value=" + event.getValue();
 		}
 		Log.i(TAG, toWrite + extraInfo);
 	}
@@ -157,13 +155,13 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 		String widgetType = input.getWidgetType();
 		String inputSimpleType = input.getWidget().getSimpleType();
 		String toWrite = "Setting input: " + inputType + " widgetId=" + widgetId + " widgetType=" + inputSimpleType;
-		if (!input.getType().equals(CLICK)) {
+		if (!input.getValue().equals("")) {
 			toWrite += " value=" + input.getValue();
 		}
 		Log.i(TAG, toWrite);
 		setInput(widgetId, inputType, value, widgetName, widgetType);
 	}
-	
+
 	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
 		View view = getWidget(widgetId, widgetType, widgetName);
 		if (view == null) view = getWidget(widgetId);
@@ -173,10 +171,10 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View view = null;
-		if (widgetType.equals(BUTTON)) view = extractor.solo.getButton(widgetName);
-		else if (widgetType.equals(MENU_ITEM)) view = extractor.solo.getText(widgetName);
+		if (widgetType.equals(BUTTON)) view = getExtractor().solo.getButton(widgetName);
+		else if (widgetType.equals(MENU_ITEM)) view = getExtractor().solo.getText(widgetName);
 		if (view == null) {
-			for (View theView: extractor.getAllWidgets()) {
+			for (View theView: getExtractor().getAllWidgets()) {
 				if (theView instanceof Button) {
 					Button candidate = (Button) theView;
 					if (candidate.getText().equals(widgetName)) {
@@ -199,7 +197,7 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 
 	private void injectInteraction (View view, String interactionType, String value) {
 		if (view != null) requestView(view);
-		
+
 		if (interactionType.equals(CLICK)) click (view);
 		else if (interactionType.equals(LONG_CLICK)) longClick(view);
 		else if (interactionType.endsWith("Item")){
@@ -224,7 +222,7 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 	}
 
 	private void refreshCurrentActivity() {
-		ExtractorUtilities.setActivity(extractor.solo.getCurrentActivity());
+		ExtractorUtilities.setActivity(getExtractor().solo.getCurrentActivity());
 	}
 
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
@@ -232,7 +230,7 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 		if (view == null) view = getWidget(widgetId);
 		if (view == null) view = ExtractorUtilities.findViewById(widgetId);
 		if (view == null) {
-			for (View theView: extractor.getAllWidgets()) {
+			for (View theView: getExtractor().getAllWidgets()) {
 				if (theView instanceof Button || theView instanceof RadioGroup) {
 					if (!AbstractorUtilities.getType(theView).equals(widgetType)) continue;
 					view = (AbstractorUtilities.detectName(theView).equals(widgetName))?theView:null;
@@ -266,7 +264,7 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 		do {
 			flag = false;
 			int oldId = 0;
-			ArrayList<ProgressBar> bars = extractor.solo.getCurrentViews(ProgressBar.class);
+			ArrayList<ProgressBar> bars = getExtractor().solo.getCurrentViews(ProgressBar.class);
 			for (ProgressBar bar: bars) {
 				if (bar.isShown() &&  bar.isIndeterminate()) {
 					int newId = bar.getId();
@@ -283,7 +281,7 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 	}
 
 	public View getWidget (int id) {
-		return this.extractor.getWidget(id);
+		return this.getExtractor().getWidget(id);
 	}
 
 	public View getWidget (int theId, String theType, String theName) {
@@ -304,7 +302,7 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 
 	public ArrayList<View> getWidgetsById (int id) {
 		ArrayList<View> theList = new ArrayList<View>();
-		for (View theView: extractor.getAllWidgets()) {
+		for (View theView: getExtractor().getAllWidgets()) {
 			if (theView.getId() == id) {
 				theList.add(theView);
 			}
@@ -313,15 +311,23 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 	}
 
 	public ActivityDescription describeActivity() {
-		return this.extractor.describeActivity();
+		return this.getExtractor().describeActivity();
 	}
 
 	public void extractState() {
-		this.extractor.extractState();
+		this.getExtractor().extractState();
 	}
 
 	public Bitmap captureImage() {
-		return this.extractor.captureImage();	
+		return this.getExtractor().captureImage();	
+	}
+
+	public TrivialExtractor getExtractor() {
+		return extractor;
+	}
+
+	public void setExtractor(TrivialExtractor extractor) {
+		this.extractor = extractor;
 	}
 
 }
