@@ -15,7 +15,24 @@
 
 package it.slumdroid.droidmodels.model;
 
-import static it.slumdroid.droidmodels.model.InputType.*;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_CLASS_DATETIME;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_CLASS_NUMBER;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_CLASS_PHONE;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_CLASS_TEXT;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_MASK_CLASS;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_MASK_FLAGS;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_MASK_VARIATION;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_NUMBER_FLAG_DECIMAL;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_NUMBER_FLAG_SIGNED;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_NUMBER_VARIATION_PASSWORD;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_FLAG_MULTI_LINE;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_PASSWORD;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_POSTAL_ADDRESS;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_URI;
+import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
 
 public class WidgetType {
 

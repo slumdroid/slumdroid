@@ -75,14 +75,6 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 		return getAttribute("id");
 	}
 
-	public String getScreenshot() {
-		return getAttribute("screenshot");
-	}
-
-	public void setScreenshot(String fileName) {
-		setAttribute("screenshot",fileName);		
-	}
-
 	public void setDescription (String d) {
 		setAttribute("desc",d);
 	}

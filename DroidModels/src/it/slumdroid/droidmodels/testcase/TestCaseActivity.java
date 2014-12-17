@@ -117,7 +117,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	}
 
 	public static String getTag () {
-		return "ACTIVITY";
+		return "STATE";
 	}
 
 	public boolean isExit() {
