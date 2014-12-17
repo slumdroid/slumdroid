@@ -72,7 +72,7 @@ public class ActivityMap implements Iterable<ActivityState> {
 			theStream = new BufferedReader (new FileReader (theFile.getFD()));
 			boolean first = true;
 			while ( (line = theStream.readLine()) != null) {
-				String dtd = (first)?"start_activity.dtd":"final_activity.dtd";
+				String dtd = (first)?"start_state.dtd":"final_state.dtd";
 				String tag = (first)?"START_STATE":"FINAL_STATE";
 				String root = "<" + tag;
 				String doctype = "<!DOCTYPE " + tag + " PUBLIC \"" + tag + "\" \"" + dtd + "\">";
