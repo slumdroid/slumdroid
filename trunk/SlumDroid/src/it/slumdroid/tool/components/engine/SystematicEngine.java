@@ -160,6 +160,13 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			getPersistence().addTask(theTask);
 			if (theActivity.isExit()) {
 				Log.i(TAG, "Exit state");
+				try {
+					int HomeButton = 3;
+					String command = "adb shell input keyevent " + HomeButton;
+					Runtime.getRuntime().exec(command); 
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			else {
 				getStrategy().compareState(theActivity);
@@ -176,12 +183,25 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	}
 
 	@Override
-	protected void tearDown() throws Exception {
-		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
-			getSession().addFailedTask(getStrategy().getTask());
+	protected void tearDown() {
+		try {
+			if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
+				getSession().addFailedTask(getStrategy().getTask());
+			}
+			getPersistence().save();
+			
+			getAutomation().getActivity().finish();
+			getAutomation().getExtractor().solo.finishOpenedActivities();
+			try {
+				getAutomation().getExtractor().solo.finalize();
+			} catch (Throwable e) {
+				e.printStackTrace();
+			}
+			
+			super.tearDown();	
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		getPersistence().save();
-		super.tearDown();
 	}
 
 	public boolean resume() {

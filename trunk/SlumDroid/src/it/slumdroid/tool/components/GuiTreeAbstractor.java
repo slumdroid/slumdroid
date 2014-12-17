@@ -112,15 +112,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	// If the boolean parameter is omitted, the overloading method will default to a Final Activity
 	public ActivityState createActivity (ActivityDescription desc, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
-		newActivity.setName(desc.getActivityName());
-		newActivity.setTitle(desc.getActivityTitle());
 		newActivity.setUniqueId(getUniqueActivityId());
 		newActivity.setId(newActivity.getUniqueId());
 		for (Filter f: this.filters) {
 			f.clear();
 		}
 		boolean hasDescription = updateDescription(newActivity, desc, false);
-		if (!hasDescription) newActivity.markAsExit();
+		if (!hasDescription) {
+			newActivity.markAsExit();
+			return newActivity;
+		}
+		newActivity.setName(desc.getActivityName());
+		newActivity.setTitle(desc.getActivityTitle());
 		return newActivity;
 	}
 
