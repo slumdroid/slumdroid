@@ -156,24 +156,22 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			getAutomation().execute(theTask);
 			ActivityDescription description = getAutomation().describeActivity();
 			ActivityState theActivity = getAbstractor().createActivity(description);
-			getAbstractor().setFinalActivity (theTask, theActivity);
-			getPersistence().addTask(theTask);
 			if (theActivity.isExit()) {
 				Log.i(TAG, "Exit state");
 				try {
 					int HomeButton = 3;
 					String command = "adb shell input keyevent " + HomeButton;
-					Runtime.getRuntime().exec(command); 
+					Runtime.getRuntime().exec(command);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			else {
-				getStrategy().compareState(theActivity);
-				if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
-				if (SLEEP_AFTER_TASK != 0) getAutomation().wait(SLEEP_AFTER_TASK);
-				if (canPlanTests(theActivity)) planTests(theTask, theActivity);
-			}
+			else getStrategy().compareState(theActivity);
+			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
+			if (SLEEP_AFTER_TASK != 0) getAutomation().wait(SLEEP_AFTER_TASK);
+			getAbstractor().setFinalActivity (theTask, theActivity);
+			getPersistence().addTask(theTask);
+			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
 			break;
 		}
 	}
@@ -183,25 +181,18 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	}
 
 	@Override
-	protected void tearDown() {
+	protected void tearDown() throws Exception {
+		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
+			getSession().addFailedTask(getStrategy().getTask());
+		}
+		getPersistence().save();
 		try {
-			if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
-				getSession().addFailedTask(getStrategy().getTask());
-			}
-			getPersistence().save();
-			
-			getAutomation().getActivity().finish();
 			getAutomation().getExtractor().solo.finishOpenedActivities();
-			try {
-				getAutomation().getExtractor().solo.finalize();
-			} catch (Throwable e) {
-				e.printStackTrace();
-			}
-			
-			super.tearDown();	
-		} catch (Exception e) {
+			getAutomation().getExtractor().solo.finalize();
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		super.tearDown();
 	}
 
 	public boolean resume() {
