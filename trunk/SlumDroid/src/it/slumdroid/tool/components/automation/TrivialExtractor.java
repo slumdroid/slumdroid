@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.components.automation;
 
-import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Extractor;
 import it.slumdroid.tool.model.ImageCaptor;
@@ -78,35 +77,29 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 
 	public Bitmap captureImage() {
 		ArrayList<View> views = this.solo.getViews();
+		Bitmap source = null;
 		Bitmap bitmap = null;
 		try{
 			if (views != null && views.size() > 0) {
 				final View view = views.get(0);
-				final boolean flag = view.isDrawingCacheEnabled();
-				getActivity().runOnUiThread(new Runnable() {
-					public void run() {
-						if (!flag) {
-							view.setDrawingCacheEnabled(true);
-						}
-						view.buildDrawingCache();
-					}
-				});
-				sync();
-				bitmap = view.getDrawingCache();
-				bitmap = bitmap.copy(bitmap.getConfig(), false);
-				getActivity().runOnUiThread(new Runnable() {
-					public void run() {
-						if (!flag) {
-							view.setDrawingCacheEnabled(false);
-						}
-					}
-				});
+				view.destroyDrawingCache();
+				view.buildDrawingCache(false);
+				source = view.getDrawingCache();
+				if (source == null) {
+					return null;
+				}
+				Bitmap.Config config = source.getConfig();
+				if (config == null){
+					config = Bitmap.Config.ARGB_8888;
+				}
+				bitmap = source.copy(config, false);
+				source.recycle();
+				view.destroyDrawingCache();
 				return bitmap;
 			}
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		bitmap.recycle();
 		return null;
 	}
 	
