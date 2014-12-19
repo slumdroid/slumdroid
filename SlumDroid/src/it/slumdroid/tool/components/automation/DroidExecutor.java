@@ -19,9 +19,6 @@ import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
 import it.slumdroid.tool.utilities.ExtractorUtilities;
-
-import java.util.List;
-
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
@@ -78,23 +75,16 @@ public class DroidExecutor {
 	}
 
 	public static void selectListItem (ListView list, int num, boolean longClick) {
-		if (list == null) {
-			List<ListView> lists = solo.getCurrentViews(ListView.class);
-			if (lists.size() > 0) {
-				list = lists.get(0);
-			}
-		}
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		requestFocus(list);
 		solo.sendKey(Solo.DOWN);
 		final ListView theList = list;
-		final int index = Math.min(list.getCount(), Math.max(1,num))-1;
-		runOnUiThread(new Runnable() {
+		final int index = Math.min(list.getCount(), Math.max(1,num)) - 1;
+		runOnUiThread(new Runnable() { 
 			public void run() {
 				theList.setSelection(index);
 			}
 		});
-		sync();
 		if (index < list.getCount()/2) {
 			solo.sendKey(Solo.DOWN);
 			solo.sendKey(Solo.UP);
@@ -102,7 +92,6 @@ public class DroidExecutor {
 			solo.sendKey(Solo.UP);                  
 			solo.sendKey(Solo.DOWN);
 		}
-		sync();
 		View view = list.getSelectedView();
 		if (longClick) longClick(view);
 		else click (view);
@@ -116,7 +105,6 @@ public class DroidExecutor {
 	public static void selectSpinnerItem (final Spinner spinner, int num) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		click(spinner);
-		sync();
 		selectListItem(solo.getCurrentViews(ListView.class).get(0), num, false);
 	}
 
@@ -140,7 +128,6 @@ public class DroidExecutor {
 		if (num < 1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
 		click(radioGroup.getChildAt(num - 1));
-		sync();
 	}
 
 	//SlidingDrawer Interactions
@@ -200,16 +187,11 @@ public class DroidExecutor {
 				view.requestFocus();		
 			}
 		});
-		sync();
 	}
 
 	// Utility methods
 	protected static void runOnUiThread (Runnable action) {
 		ExtractorUtilities.getActivity().runOnUiThread(action);		
-	}
-
-	public static void sync() {
-		getInstrumentation().waitForIdleSync();
 	}
 
 	public static void wait (int milli) {
