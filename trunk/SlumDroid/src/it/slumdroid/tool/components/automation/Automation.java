@@ -42,13 +42,13 @@ import static it.slumdroid.tool.components.automation.DroidExecutor.drag;
 import static it.slumdroid.tool.components.automation.DroidExecutor.enterText;
 import static it.slumdroid.tool.components.automation.DroidExecutor.goBack;
 import static it.slumdroid.tool.components.automation.DroidExecutor.longClick;
+import static it.slumdroid.tool.components.automation.DroidExecutor.getInstrumentation;
 import static it.slumdroid.tool.components.automation.DroidExecutor.openMenu;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectListItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectRadioItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectSpinnerItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.setProgressBar;
 import static it.slumdroid.tool.components.automation.DroidExecutor.swapTab;
-import static it.slumdroid.tool.components.automation.DroidExecutor.sync;
 import static it.slumdroid.tool.components.automation.DroidExecutor.unLockScreen;
 import static it.slumdroid.tool.components.automation.DroidExecutor.writeText;
 import it.slumdroid.droidmodels.model.Task;
@@ -276,8 +276,8 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 					sleepTime-=500;
 				}
 			}
-		} while (flag && (sleepTime>0));
-		sync();
+		} while (flag && (sleepTime > 0));
+		getInstrumentation().waitForIdleSync();
 	}
 
 	public View getWidget (int id) {
