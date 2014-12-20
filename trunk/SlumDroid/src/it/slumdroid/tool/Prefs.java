@@ -16,7 +16,6 @@
 package it.slumdroid.tool;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
@@ -31,7 +30,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
 import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
@@ -41,7 +39,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
 import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
 import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
 import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
 import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
@@ -256,10 +253,10 @@ public class Prefs {
 	public static void checkEvents(){
 		if (EVENTS != null) {
 			if (!events()) {
-				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW, LINEAR_LAYOUT);
+				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW);
 			}
 		} else {
-			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW, LINEAR_LAYOUT);
+			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW);
 		}
 		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW);
 		UserFactory.addEvent(ENTER_TEXT, SEARCH_BAR);
@@ -268,7 +265,6 @@ public class Prefs {
 		UserFactory.addEvent(RADIO_SELECT, RADIO_GROUP); 
 		UserFactory.addEvent(SPINNER_SELECT, SPINNER);
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
-		UserFactory.addEvent(DRAG, SLIDING_DRAWER);
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
 			for (String s: EXTRA_EVENTS) {

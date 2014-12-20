@@ -105,7 +105,10 @@ public class UserFactory {
 		userAdapter.addEvent(new SpinnerSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(SPINNER_SELECT)));
 		userAdapter.addEvent(new RadioSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(RADIO_SELECT)));
 		userAdapter.addEvent(new TabSwapper(typesForEvent(SWAP_TAB)));
-		userAdapter.addEvent(new Drager(typesForEvent(DRAG)));
+		
+		if (isRequiredEvent(DRAG)) {
+			userAdapter.addEvent(new Drager(typesForEvent(DRAG)));
+		}
 		
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {
 			userAdapter.addEvent(interactor);			
