@@ -37,7 +37,7 @@ public class Utilities {
 
 	public static void main(String[] args) {
 		try{
-			if (args.length!=0){
+			if (args.length != 0) {
 				if (args[0].equals("androidTest")) new AndroidTest(args[1]);
 				else if (args[0].equals("buildControl")) new Tools().buildControl(args[1]);
 				else if (args[0].contains("coverage")) {
@@ -87,6 +87,13 @@ public class Utilities {
 				}
 				else if (args[0].equals("properties")) new Tools().updateProperties(args[1]);
 				else if (args[0].equals("traslate")) new Tools().traslate(args[1], args[2]);
+				else if (args[0].equals("trend")) {
+					String path = new String();
+					if (args.length != 1) {
+						path = new String(args[1]);
+					}
+					new Tools().trendTest(path);
+				}
 				else if (args[0].equals("preferenceEditor")) new PreferenceEditor().preferenceEditor(args);
 			}
 		}catch(Exception e){
