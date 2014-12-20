@@ -230,12 +230,12 @@ public class Tools {
 				if (file.getName().endsWith(".em")) {
 					metadata = file.getName();
 				} else if (file.getName().endsWith(".ec")) {
-					theFiles+=","+file.getName();
+					theFiles += "," + file.getName();
 					counter++;
 				}
 				if (counter >= MAX_ES) {
 					fileList.add(theFiles);
-					theFiles = "";
+					theFiles = new String();
 					counter = 0;
 				}
 			}
@@ -244,7 +244,7 @@ public class Tools {
 		}
 		if (!theFiles.equals("")) {
 			fileList.add(theFiles);
-			theFiles = "";	    	
+			theFiles = new String();	    	
 		}
 		if (fileList.size()>0) {
 			String[] output = new String [fileList.size()];
