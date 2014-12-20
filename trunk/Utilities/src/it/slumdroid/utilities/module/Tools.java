@@ -443,10 +443,10 @@ public class Tools {
 			String line = new String();
 			while ((line = inputStream1.readLine()) != null ) {
 				if (line.contains(TASK)) {
-					task = Integer.valueOf(line.replace(TASK, "").replace(" ", ""));
+					task = Integer.valueOf(line.replace(TASK, "").replace(" ", "")) + 1;
 				}
 				if (line.contains(ACTUAL)) {
-					for (int i = 0; i < 2; i++) { 
+					for (int jump = 0; jump < 2; jump++) { 
 						line = inputStream1.readLine();
 					}
 					String[] coverageLine = line.replace("\t","").replace("!", "").split(Pattern.quote(")"));
@@ -492,7 +492,10 @@ public class Tools {
 					item = list.get(index);
 					outputStream1.flush();
 					format = "%-6s %-1s\t%-12s";
-					String row = String.format(format, String.format("%03d", item.getTaskID()), item.getLoC(), String.format("%04d", item.getActualTime()));
+					String row = String.format(format, 
+							String.format("%04d", item.getTaskID()), 
+							item.getLoC().replace(".", ",").replace("% ", "%"), 
+							String.format("%04d", item.getActualTime()));
 					outputStream1.write(row);
 					outputStream1.write(System.getProperty("line.separator"));
 				}
