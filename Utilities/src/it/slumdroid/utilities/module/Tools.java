@@ -25,9 +25,11 @@ import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
@@ -37,6 +39,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Random;
 import java.util.prefs.Preferences;
+import java.util.regex.Pattern;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -411,6 +414,120 @@ public class Tools {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	// Trend Utilities
+	public void trendTest(String inputPath) {
+		
+		if (inputPath.equals("")) {
+			inputPath = new String(System.getProperty("user.dir"));
+		}
+		
+		final String TASK = new String("Playing Task "); 
+		final String TIME = new String("Time: ");
+		final String ACTUAL = new String("Actual Coverage is");
+		
+		double seconds = 0;
+		int task = 0;
+		int time = 0;
+		
+		String coverage = new String();
+		Stats item = new Stats(task, time, coverage);
+		
+		BufferedReader inputStream1 = null;
+		ArrayList<Stats> list = new ArrayList<Stats>();
+		boolean interesting = false;
+		
+		try {
+			inputStream1 = new BufferedReader (new FileReader (inputPath + "\\test.txt"));
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains(TASK)) {
+					task = Integer.valueOf(line.replace(TASK, "").replace(" ", ""));
+				}
+				if (line.contains(ACTUAL)) {
+					for (int i = 0; i < 2; i++) { 
+						line = inputStream1.readLine();
+					}
+					String[] coverageLine = line.replace("\t","").replace("!", "").split(Pattern.quote(")"));
+					String tempLoc = new String(coverageLine[coverageLine.length - 1]) + ")";
+					if (!coverage.equals(tempLoc)) { 
+						interesting = true;
+						coverage = new String(tempLoc);
+					}	
+				}
+				if (line.contains(TIME)) {
+					seconds += Double.valueOf(line.replace(TIME, ""));
+					String round = String.valueOf(seconds).replace("."," ").split(" ")[0];
+					time = Integer.valueOf(round);
+				}
+				if (interesting) {
+					item = new Stats(task, time, coverage);
+					list.add(item);
+					interesting = false;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				inputStream1.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if (time != 0){
+			item = new Stats(task, time, coverage); // Last Task
+			list.add(item);
+			PrintWriter outputStream1 = null;
+			if (!new File(inputPath + "\\output").exists()) {
+				new File(inputPath + "\\output").mkdir();
+			}
+			try {
+				String format = "%-6s %12s \t%-12s";
+				outputStream1 = new PrintWriter (inputPath + "\\output\\trend.txt");
+				outputStream1.write(String.format(format, "Task", "Coverage", "Time"));
+				outputStream1.write(System.getProperty("line.separator"));
+				for (int index = 0; index < list.size(); index++) {
+					item = list.get(index);
+					outputStream1.flush();
+					format = "%-6s %-1s\t%-12s";
+					String row = String.format(format, String.format("%03d", item.getTaskID()), item.getLoC(), String.format("%04d", item.getActualTime()));
+					outputStream1.write(row);
+					outputStream1.write(System.getProperty("line.separator"));
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} finally {
+				outputStream1.close();
+			}
+		}		
+	}
+	
+	protected class Stats {
+
+		private int taskID;
+		private int actualTime;
+		private String LoC;
+		
+		public Stats(int id, int actual, String coverage){
+			this.taskID = id;
+			this.actualTime = actual;
+			this.LoC = new String(coverage);
+		}
+		
+		public int getTaskID() {
+			return taskID;
+		}
+		
+		public int getActualTime() {
+			return actualTime;
+		}
+		
+		public String getLoC() {
+			return LoC;
+		}
+		
 	}
 
 }
