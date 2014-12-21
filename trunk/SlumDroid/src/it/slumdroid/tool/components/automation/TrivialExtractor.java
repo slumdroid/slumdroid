@@ -88,10 +88,7 @@ public class TrivialExtractor implements Extractor, ImageCaptor {
 				if (source == null) {
 					return null;
 				}
-				Bitmap.Config config = source.getConfig();
-				if (config == null){
-					config = Bitmap.Config.ARGB_8888;
-				}
+				Bitmap.Config config = Bitmap.Config.ARGB_8888;
 				bitmap = source.copy(config, false);
 				source.recycle();
 				view.destroyDrawingCache();

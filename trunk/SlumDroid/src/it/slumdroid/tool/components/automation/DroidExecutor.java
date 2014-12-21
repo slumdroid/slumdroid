@@ -176,9 +176,13 @@ public class DroidExecutor {
 	}
 
 	public static void requestView (final View view) {
-		solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
-		solo.waitForView(view, 1000, true);
-		requestFocus(view);
+		try {
+			solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
+			solo.waitForView(view, 1000, true);
+			requestFocus(view);	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 	}		
 
 	protected static void requestFocus (final View view) {
