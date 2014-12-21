@@ -79,7 +79,7 @@ public class CompositionalComparator implements Comparator {
 	
 	@Override
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
-		if (!compareNameTitle(currentActivity, storedActivity)) return false; 
+		if (!compareNameTitle(currentActivity, storedActivity)) return false;
 		for (WidgetState field: currentActivity) {
 			if (matchClass(field.getSimpleType())) {
 				if (!lookFor(field, storedActivity)) return false;
@@ -113,10 +113,7 @@ public class CompositionalComparator implements Comparator {
 	private boolean matchWidget (WidgetState field, WidgetState otherField) {	
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());
-		boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
-		boolean compareIndex = otherField.getIndex() == field.getIndex();
-		boolean compareVisible = compareAvailable && compareIndex && COMPARE_AVAILABLE;
-		boolean compareWidget = compareId && compareType && compareVisible;
+		boolean compareWidget = compareId && compareType;
 		if (compareWidget) {
 			if (field.getSimpleType().equals(TEXT_VIEW)) return field.getValue().isEmpty() == otherField.getValue().isEmpty();
 			if (field.getSimpleType().equals(DIALOG_TITLE)) return otherField.getName().equals(field.getName());
@@ -129,6 +126,11 @@ public class CompositionalComparator implements Comparator {
 			
 			boolean compareCheckBox = field.getSimpleType().equals(CHECKBOX) || field.getType().equals("android.widget.CheckBox"); 
 			if (compareCheckBox && COMPARE_CHECKBOX) return field.getValue().equals(otherField.getValue());
+			
+			boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
+			boolean compareIndex = otherField.getIndex() == field.getIndex();
+			boolean compareVisible = compareAvailable && compareIndex;
+			if (compareVisible && COMPARE_AVAILABLE) return compareVisible;
 		}
 		return compareWidget;
 	}
