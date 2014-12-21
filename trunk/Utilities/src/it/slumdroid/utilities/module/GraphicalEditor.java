@@ -63,6 +63,7 @@ public class GraphicalEditor extends JFrame {
 
 	private static JComboBox editTextBox;
 	private static JComboBox autoCompleteBox;
+	private static JComboBox slidingBox;
 	private static JComboBox checkBox;
 	private static JComboBox toggleBox;
 	private static JComboBox inputTextBox;
@@ -74,19 +75,21 @@ public class GraphicalEditor extends JFrame {
 	private static String[] bool = {"true", "false"};
 	private static String[] inputs = {"hash values", "random values"};
 	private static String[] interactions = {"event", "input", "both", "none"};
+	private static String[] drag = {"event", "none"};
 	private static String[] maxEventSelector = {"no limit", "1", "2", "3", "4", "5"};
 	private static String firstPath = new String();
 	private static StringBuilder builder = new StringBuilder();
 
 	@SuppressWarnings("unchecked")
 	public GraphicalEditor(final String expPath, String appPack, String appClass) {
+		setResizable(false);
 		setTitle("Preference Editor");
 
 		setAppPackage(appPack);
 		setAppPackageClass(appClass);
 		setFirstPath(expPath);
 
-		setBounds(100, 100, 485, 349);
+		setBounds(100, 100, 485, 352);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -172,13 +175,17 @@ public class GraphicalEditor extends JFrame {
 		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete as");
 		lblAutocompleteInteractions.setBounds(245, 126, 132, 14);
 		contentPane.add(lblAutocompleteInteractions);
+		
+		JLabel lblSlidingDrawer = new JLabel("SlidingDrawer as");
+		lblSlidingDrawer.setBounds(245, 189, 132, 14);
+		contentPane.add(lblSlidingDrawer);
 
 		JLabel lblCheckboxInteractions = new JLabel("CheckBox as");
-		lblCheckboxInteractions.setBounds(245, 187, 132, 14);
+		lblCheckboxInteractions.setBounds(245, 214, 132, 14);
 		contentPane.add(lblCheckboxInteractions);
 
 		JLabel lblToggleInteractions = new JLabel("Toggle as");
-		lblToggleInteractions.setBounds(245, 212, 132, 14);
+		lblToggleInteractions.setBounds(245, 239, 132, 14);
 		contentPane.add(lblToggleInteractions);
 
 		JLabel lblTextInputs = new JLabel("Text Inputs use");
@@ -247,14 +254,19 @@ public class GraphicalEditor extends JFrame {
 		autoCompleteBox.setBounds(387, 123, 74, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
+		
+		slidingBox = new JComboBox(drag);
+		slidingBox.setSelectedIndex(1);
+		slidingBox.setBounds(387, 186, 74, 20);
+		contentPane.add(slidingBox);
 
 		checkBox = new JComboBox(interactions);
-		checkBox.setBounds(387, 184, 74, 20);
+		checkBox.setBounds(387, 211, 74, 20);
 		checkBox.setSelectedIndex(1);
 		contentPane.add(checkBox);
 
 		toggleBox = new JComboBox(interactions);
-		toggleBox.setBounds(387, 209, 74, 20);
+		toggleBox.setBounds(387, 236, 74, 20);
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 
@@ -279,7 +291,7 @@ public class GraphicalEditor extends JFrame {
 		
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation ");
-		chckbxInputPertubation.setBounds(241, 237, 132, 18);
+		chckbxInputPertubation.setBounds(241, 262, 132, 18);
 		contentPane.add(chckbxInputPertubation);
 		
 		// Button
@@ -290,7 +302,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 258, 121, 27);
+		btnDefaultValues.setBounds(245, 283, 121, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
@@ -300,7 +312,7 @@ public class GraphicalEditor extends JFrame {
 				saveXML(); 
 			}
 		});
-		btnSave.setBounds(369, 258, 92, 27);
+		btnSave.setBounds(369, 283, 92, 27);
 		contentPane.add(btnSave);
 		
 		resetDefaultValues();
@@ -446,6 +458,9 @@ public class GraphicalEditor extends JFrame {
 		if (!events.equals("")){
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, image, linearLayout" + events + "\"/>");
 		}
+		if (slidingBox.getSelectedIndex() != 1){
+			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"drag, slidingDrawer\"/>");
+		}
 		if (!inputs.equals("")){
 			if (countButton!=2)	builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"click, numberPickerButton" + inputs + "\"/>");
 		}
@@ -542,6 +557,7 @@ public class GraphicalEditor extends JFrame {
 		
 		editTextBox.setSelectedIndex(1);
 		autoCompleteBox.setSelectedIndex(1);
+		slidingBox.setSelectedIndex(1);
 		
 		checkBox.setSelectedIndex(1);
 		toggleBox.setSelectedIndex(1);
