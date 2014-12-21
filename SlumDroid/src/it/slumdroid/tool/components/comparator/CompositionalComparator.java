@@ -76,27 +76,37 @@ public class CompositionalComparator implements Comparator {
 		POPUP_MENU, POPUP_WINDOW,											// POPUP
 		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
 	};
-	
+
 	@Override
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
-		if (!compareNameTitle(currentActivity, storedActivity)) return false;
+		if (!compareNameTitle(currentActivity, storedActivity)) {
+			return false;
+		}
 		for (WidgetState field: currentActivity) {
-			if (matchClass(field.getSimpleType())) {
-				if (!lookFor(field, storedActivity)) return false;
+			if (matchClass(field.getSimpleType())) {		
+				if (!lookFor(field, storedActivity)) {
+					return false;
+				}
 			}
 		}
 		return true; 
 	}
-	
+
 	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity){
-		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) return false;
-		if (!currentActivity.getName().equals(storedActivity.getName())) return false;
+		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
+			return false;
+		}
+		if (!currentActivity.getName().equals(storedActivity.getName())) {
+			return false;
+		}
 		return true;
 	}
-	
+
 	private boolean matchClass (String type) {
 		for (String storedType: WIDGET_TYPES) {
-			if (storedType.equals(type)) return true;
+			if (storedType.equals(type)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -109,28 +119,46 @@ public class CompositionalComparator implements Comparator {
 		}
 		return false;
 	}
-	
+
 	private boolean matchWidget (WidgetState field, WidgetState otherField) {	
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());
 		boolean compareWidget = compareId && compareType;
 		if (compareWidget) {
-			if (field.getSimpleType().equals(TEXT_VIEW)) return field.getValue().isEmpty() == otherField.getValue().isEmpty();
-			if (field.getSimpleType().equals(DIALOG_TITLE)) return otherField.getName().equals(field.getName());
-				
-			boolean compareMenu = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU);
-			if (compareMenu) return otherField.getCount() == field.getCount();
+
+			if (field.getSimpleType().equals(TEXT_VIEW)) {
+				return field.getValue().isEmpty() == otherField.getValue().isEmpty();	
+			}
 			
-			boolean compareList = field.getSimpleType().equals(LIST_VIEW) && COMPARE_LIST_COUNT;
-			if (compareList) return otherField.getCount() == field.getCount();
+			if (field.getSimpleType().equals(DIALOG_TITLE)) {
+				return otherField.getName().equals(field.getName());
+			}
+
+			if (field.getSimpleType().equals(MENU_VIEW) 
+					|| field.getSimpleType().equals(EXPAND_MENU)) {
+				return otherField.getCount() == field.getCount();
+			}
+
+			if (COMPARE_LIST_COUNT) {
+				if (field.getSimpleType().equals(LIST_VIEW)) {
+					return otherField.getCount() == field.getCount();
+				}	
+			}
 			
-			boolean compareCheckBox = field.getSimpleType().equals(CHECKBOX) || field.getType().equals("android.widget.CheckBox"); 
-			if (compareCheckBox && COMPARE_CHECKBOX) return field.getValue().equals(otherField.getValue());
+			if (COMPARE_CHECKBOX) { 
+				if (field.getSimpleType().equals(CHECKBOX)) {
+					return field.getValue().equals(otherField.getValue());
+				}	
+			}
 			
-			boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
-			boolean compareIndex = otherField.getIndex() == field.getIndex();
-			boolean compareVisible = compareAvailable && compareIndex;
-			if (compareVisible && COMPARE_AVAILABLE) return compareVisible;
+			if (COMPARE_AVAILABLE) {
+				boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
+				boolean compareIndex = otherField.getIndex() == field.getIndex();
+				if (compareAvailable && compareIndex) {
+					return true;
+				}	
+			}
+			
 		}
 		return compareWidget;
 	}
