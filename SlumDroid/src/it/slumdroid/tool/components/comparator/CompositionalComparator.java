@@ -27,6 +27,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_SPINNER;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
@@ -40,6 +41,8 @@ import static it.slumdroid.droidmodels.model.SimpleType.PROGRESS_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
 import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
 import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
+import static it.slumdroid.droidmodels.model.SimpleType.RELATIVE_LAYOUT;
+import static it.slumdroid.droidmodels.model.SimpleType.SCROLL_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
@@ -51,6 +54,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
+import static it.slumdroid.tool.Resources.COMPARE_AVAILABLE;
 import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
 import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
 import it.slumdroid.droidmodels.model.ActivityState;
@@ -65,7 +69,8 @@ public class CompositionalComparator implements Comparator {
 		ACTION_HOME, DIALOG_TITLE, EXPAND_MENU, MENU_ITEM, TOAST, 			// BASIC
 		DATE_PICKER, NUMBER_PICKER, TIME_PICKER, 							// PICKER
 		EMPTY_LIST, LIST_VIEW, PREFERENCE_LIST,								// LIST
-		IMAGE_VIEW, MENU_VIEW, TEXT_VIEW, WEB_VIEW,							// VIEW
+		LINEAR_LAYOUT, RELATIVE_LAYOUT,										// LAYOUT
+		IMAGE_VIEW, MENU_VIEW, SCROLL_VIEW, TEXT_VIEW, WEB_VIEW,			// VIEW
 		PROGRESS_BAR, RATING_BAR, SEARCH_BAR, SEEK_BAR,						// BAR
 		EMPTY_SPINNER, SPINNER, SPINNER_INPUT,								// SPINNER
 		POPUP_MENU, POPUP_WINDOW,											// POPUP
@@ -110,7 +115,8 @@ public class CompositionalComparator implements Comparator {
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());
 		boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
 		boolean compareIndex = otherField.getIndex() == field.getIndex();
-		boolean compareWidget = compareId && compareType && compareAvailable && compareIndex;
+		boolean compareVisible = compareAvailable && compareIndex && COMPARE_AVAILABLE;
+		boolean compareWidget = compareId && compareType && compareVisible;
 		if (compareWidget) {
 			if (field.getSimpleType().equals(TEXT_VIEW)) return field.getValue().isEmpty() == otherField.getValue().isEmpty();
 			if (field.getSimpleType().equals(DIALOG_TITLE)) return otherField.getName().equals(field.getName());
@@ -118,8 +124,8 @@ public class CompositionalComparator implements Comparator {
 			boolean compareMenu = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU);
 			if (compareMenu) return otherField.getCount() == field.getCount();
 			
-			boolean compareList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(PREFERENCE_LIST);
-			if (compareList && COMPARE_LIST_COUNT) return otherField.getCount() == field.getCount();
+			boolean compareList = field.getSimpleType().equals(LIST_VIEW) && COMPARE_LIST_COUNT;
+			if (compareList) return otherField.getCount() == field.getCount();
 			
 			boolean compareCheckBox = field.getSimpleType().equals(CHECKBOX) || field.getType().equals("android.widget.CheckBox"); 
 			if (compareCheckBox && COMPARE_CHECKBOX) return field.getValue().equals(otherField.getValue());
