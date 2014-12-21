@@ -15,9 +15,6 @@
 
 package it.slumdroid.tool.components;
 
-import static it.slumdroid.droidmodels.model.SimpleType.LIST_ITEM;
-import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.tool.utilities.AbstractorUtilities.detectName;
@@ -153,9 +150,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
-		boolean hasList = false;
-		boolean hasPreferenceList = false;
-		int listCount = 0;
 		for (View view: desc) {
 			hasDescription = true;
 			if (!view.isShown()) continue;
@@ -164,21 +158,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 			if (widget.getIndex() == 0 
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
-			}
-			if (hasList && !widget.getId().equals("-1") && listCount != 0) {
-				widget.setSimpleType(LIST_ITEM);
-				listCount--;
-			}
-			if (hasPreferenceList && !widget.getId().equals("-1")) {
-				widget.setSimpleType(LIST_ITEM);
-			}
-			if (widget.getSimpleType().equals(LIST_ITEM) 
-					|| widget.getSimpleType().equals(LIST_VIEW)) {
-				hasList = true;
-				listCount = widget.getCount();
-			}
-			if (widget.getSimpleType().equals(PREFERENCE_LIST)) {
-				hasPreferenceList = true;
 			}
 			if (detectDuplicates && newActivity.hasWidget(widget)) continue;
 			((ElementWrapper) newActivity).appendChild(widget.getElement());
