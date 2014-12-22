@@ -165,6 +165,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				System.gc();
 			}
 			else getStrategy().compareState(theActivity);
 			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
@@ -192,6 +193,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		System.gc();
 		super.tearDown();
 	}
 
