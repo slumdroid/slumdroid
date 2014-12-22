@@ -191,6 +191,7 @@ public class DroidExecutor {
 				view.requestFocus();		
 			}
 		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	// Utility methods

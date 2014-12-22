@@ -42,7 +42,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
 import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
 import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
-import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.tool.Resources.EVENTS;
 import static it.slumdroid.tool.Resources.EXTRA_EVENTS;
@@ -220,7 +219,7 @@ public class Prefs {
 	
 	public static void checkInputs(){
 		if (INPUTS != null) {
-			if (!inputs()) {
+			if (!hasClickAsInputs()) {
 				UserFactory.addInput(CLICK, RADIO, CHECKBOX, CHECKTEXT, TOGGLE_BUTTON, NUMBER_PICKER_BUTTON);
 			}
 		} else {
@@ -240,7 +239,7 @@ public class Prefs {
 		}
 	}
 
-	private static boolean inputs() {
+	private static boolean hasClickAsInputs() {
 		boolean isClick = false;
 		for (String s: INPUTS) {		
 			String[] widgets = s.split("( )?,( )?");
@@ -252,11 +251,11 @@ public class Prefs {
 	
 	public static void checkEvents(){
 		if (EVENTS != null) {
-			if (!events()) {
-				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW);
+			if (!hasClickAsEvents()) {
+				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW);
 			}
 		} else {
-			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TEXT_VIEW);
+			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW);
 		}
 		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW);
 		UserFactory.addEvent(ENTER_TEXT, SEARCH_BAR);
@@ -282,7 +281,7 @@ public class Prefs {
 		}
 	}
 
-	private static boolean events() {
+	private static boolean hasClickAsEvents() {
 		boolean isClick = false;
 		for (String s: EVENTS) {
 			String[] widgets = s.split("( )?,( )?");
