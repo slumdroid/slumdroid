@@ -392,7 +392,8 @@ public class GraphicalEditor extends JFrame {
 
 	private void createComparatorParameters() {
 		if (listComparatorBox.getSelectedIndex() != 1 
-				|| checkComparatorBox.getSelectedIndex() != 1){
+				|| checkComparatorBox.getSelectedIndex() != 1
+				|| availableComparatorBox.getSelectedIndex() != 1){
 			builder.append("<node name=\"comparator\">");
 			builder.append("<map>");
 			if (listComparatorBox.getSelectedIndex() != 1) builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
