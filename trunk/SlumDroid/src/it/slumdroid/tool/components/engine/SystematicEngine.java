@@ -15,6 +15,7 @@
 
 package it.slumdroid.tool.components.engine;
 
+import static it.slumdroid.tool.Resources.PACKAGE_NAME;
 import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
 import static it.slumdroid.tool.Resources.TAG;
@@ -43,11 +44,11 @@ import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.model.UserAdapter;
 import it.slumdroid.tool.utilities.AllPassFilter;
 import it.slumdroid.tool.utilities.Plan;
-import it.slumdroid.tool.utilities.ScreenshotFactory;
 import it.slumdroid.tool.utilities.SessionParams;
 import it.slumdroid.tool.utilities.SimpleTypeDetector;
 import it.slumdroid.tool.utilities.UserFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -128,7 +129,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		this.thePersistenceFactory.setStrategy(strategy);
 		setPersistence (this.thePersistenceFactory.getPersistence());
 		try {
-			if (getAutomation() != null) ScreenshotFactory.setImageCaptor(getAutomation());
 			getAutomation().bind(this);
 			getAutomation().extractState();
 			Activity activity = getAutomation().getActivity();
@@ -146,8 +146,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
 		Log.i(TAG, "Initial Start Activity State saved");
-		if (SCREENSHOT_ENABLED) takeScreenshot (baseActivity);
 		planFirstTests(baseActivity);
+		if (SCREENSHOT_ENABLED) {
+			getAutomation().wait(100);
+			takeScreenshot (baseActivity);
+		}
 	}
 
 	public void testAndCrawl() {
@@ -341,17 +344,21 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		return ACTOR_NAME;
 	}
 
-	public String screenshotName (String stateId) {
-		return stateId + "." + ScreenshotFactory.getFileExtension();
-	}
-
 	private void takeScreenshot(ActivityState theActivity) {
-		if (theActivity.isExit()) return;
-		String fileName = screenshotName(theActivity.getUniqueId());
-		if (ScreenshotFactory.saveScreenshot(fileName)) {
+		if (!theActivity.isExit()) {
+			String fileName = theActivity.getUniqueId() + ".png";
+			try {
+				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
+				Process localProcess  = Runtime.getRuntime().exec(command);
+				localProcess .waitFor();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			theActivity.setScreenshot(fileName);
-			Log.i(TAG,"Saved image on disk: " + fileName);
-		} 
+			Log.i(TAG,"Saved image on disk: " + fileName);	
+		}
 	}
 
 	public Session getNewSession() {
