@@ -35,7 +35,7 @@ public class TraceDispatcher implements Iterable<Task> {
 		this (SchedulerAlgorithm.valueOf(SCHEDULER_ALGORITHM));
 	}
 
-	public TraceDispatcher(SchedulerAlgorithm algorithm) {
+	public TraceDispatcher (SchedulerAlgorithm algorithm) {
 		setScheduler(getTrivialScheduler(algorithm));
 	}
 
@@ -55,7 +55,7 @@ public class TraceDispatcher implements Iterable<Task> {
 		getScheduler().addTasks(task);
 	}
 
-	public TaskScheduler getTrivialScheduler(SchedulerAlgorithm algorithm) {
+	public TaskScheduler getTrivialScheduler (SchedulerAlgorithm algorithm) {
 		TaskScheduler scheduler = new TrivialScheduler(algorithm);
 		scheduler.setTaskList(new ArrayList<Task>());
 		return scheduler;

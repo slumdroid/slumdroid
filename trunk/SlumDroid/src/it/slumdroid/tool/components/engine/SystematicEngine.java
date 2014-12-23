@@ -46,7 +46,6 @@ import it.slumdroid.tool.utilities.AllPassFilter;
 import it.slumdroid.tool.utilities.SessionParams;
 import it.slumdroid.tool.utilities.UserFactory;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -85,7 +84,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
 	}
 
-	private void defineAbstractor(){
+	private void defineAbstractor() {
 		try {
 			GuiTree.setValidation(false);
 			setAbstractor(new GuiTreeAbstractor());
@@ -122,7 +121,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			getPersistence().setContext(activity);
 			ActivityDescription description = getAutomation().describeActivity();
 			getAbstractor().setBaseActivity(description);
-			if (!resume()) setupFirstStart();
+			if (!resume()) {
+				setupFirstStart();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -135,7 +136,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Log.i(TAG, "Initial Start Activity State saved");
 		planFirstTests(baseActivity);
 		if (SCREENSHOT_ENABLED) {
-			getAutomation().wait(1000);
+			try {
+				wait(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 			takeScreenshot (baseActivity);
 		}
 	}
@@ -145,8 +150,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			getStrategy().setTask(theTask);
 			getAutomation().execute(theTask);
 			ActivityDescription description = getAutomation().describeActivity();
-			ActivityState theActivity = getAbstractor().createActivity(description);
-			if (theActivity.isExit()) {
+			ActivityState theState = getAbstractor().createActivity(description);
+			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
 				try {
 					int HomeButton = 3;
@@ -155,20 +160,19 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				System.gc();
 			}
-			else getStrategy().compareState(theActivity);
-			if (SCREENSHOT_ENABLED) takeScreenshot(theActivity);
+			else getStrategy().compareState(theState);
+			if (SCREENSHOT_ENABLED) takeScreenshot(theState);
 			if (SLEEP_AFTER_TASK != 0) getAutomation().wait(SLEEP_AFTER_TASK);
-			getAbstractor().setFinalActivity (theTask, theActivity);
+			getAbstractor().setFinalActivity (theTask, theState);
 			getPersistence().addTask(theTask);
-			if (canPlanTests(theActivity)) planTests(theTask, theActivity);
+			if (canPlanTests(theState)) planTests(theTask, theState);
 			break;
 		}
 	}
 
-	protected boolean canPlanTests (ActivityState theActivity){
-		return !(theActivity.isExit()) && getStrategy().checkForExploration();
+	protected boolean canPlanTests (ActivityState theState){
+		return !(theState.isExit()) && getStrategy().checkForExploration();
 	}
 
 	@Override
@@ -183,7 +187,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
-		System.gc();
 		super.tearDown();
 	}
 
@@ -216,9 +219,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}
 
-	public void importTaskList(ResumingPersistence r) {
+	public void importTaskList(ResumingPersistence resumer) {
 		Session sandboxSession = getNewSession();
-		List<String> entries = r.readTaskFile();
+		List<String> entries = resumer.readTaskFile();
 		List<Task> taskList = new ArrayList<Task>();
 		for (String row: entries) {
 			sandboxSession.parse(row);
@@ -230,12 +233,12 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getScheduler().addTasks(taskList);
 	}
 
-	protected void planFirstTests (ActivityState theActivity) {
-		planTests (null, theActivity);
+	protected void planFirstTests (ActivityState theState) {
+		planTests (null, theState);
 	}
 
-	protected void planTests (Task theTask, ActivityState theActivity) {
-		Plan thePlan = getPlanner().getPlanForActivity(theActivity);
+	protected void planTests (Task theTask, ActivityState theState) {
+		Plan thePlan = getPlanner().getPlanForActivity(theState);
 		planTests (theTask, thePlan);
 	}
 
@@ -343,17 +346,17 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		return ACTOR_NAME;
 	}
 
-	private void takeScreenshot(ActivityState theActivity) {
-		if (!theActivity.isExit()) {
-			String fileName = theActivity.getUniqueId() + ".png";
+	private void takeScreenshot(ActivityState theState) {
+		if (!theState.isExit()) {
 			try {
+				String fileName = theState.getUniqueId() + ".png";
 				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
 				Runtime.getRuntime().exec(command);
-			} catch (IOException e) {
+				theState.setScreenshot(fileName);
+				Log.i(TAG,"Saved image on disk: " + fileName);
+			} catch (Exception e) {
 				e.printStackTrace();
-			} 
-			theActivity.setScreenshot(fileName);
-			Log.i(TAG,"Saved image on disk: " + fileName);	
+			} 	
 		}
 	}
 

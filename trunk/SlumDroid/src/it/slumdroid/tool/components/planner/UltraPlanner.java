@@ -105,25 +105,25 @@ public class UltraPlanner {
 	private void adjacentValues(Plan planner, ActivityState activityState, UserEvent event){
 		ArrayList<List<UserInput>> macroInputs = new ArrayList<List<UserInput>>();
 		int numWidgets = 0;
-		for(WidgetState formWidget: getInputFilter()){
+		for(WidgetState formWidget: getInputFilter()) {
 			List<UserInput> alternatives = getFormFiller().handleInput(formWidget);
-			if(alternatives.size() != 0){                                             
+			if(alternatives.size() != 0) {                                             
 				macroInputs.add(alternatives);
 				numWidgets++;
 			}                                               
 		}
 		Collection<UserInput> inputs = new ArrayList<UserInput>();
-		for(int widget = 0; widget < numWidgets; widget++){
+		for(int widget = 0; widget < numWidgets; widget++) {
 			UserInput input = macroInputs.get(widget).get(0);
 			if (includeInput(input, event)) inputs.add(input);
 		}
 		Transition transition = getAbstractor().createStep(activityState, inputs, event);                          
 		planner.addTask(transition);
-		for(int widget = 0; widget < numWidgets; widget++){                                                                  
-			for(int inPut = 1; inPut <= macroInputs.get(widget).size() - 1; inPut++){
+		for(int widget = 0; widget < numWidgets; widget++) {                                                                  
+			for(int inPut = 1; inPut <= macroInputs.get(widget).size() - 1; inPut++) {
 				Collection<UserInput> combinations = new ArrayList<UserInput>();
-				for(int component = 0; component < numWidgets; component++){
-					if(component == widget){
+				for(int component = 0; component < numWidgets; component++) {
+					if(component == widget) {
 						UserInput input = macroInputs.get(widget).get(inPut);
 						if (includeInput(input, event)) combinations.add(input);
 						continue;
@@ -137,7 +137,7 @@ public class UltraPlanner {
 		}
 	}
 
-	private boolean includeEvent(UserEvent event){
+	private boolean includeEvent(UserEvent event) {
 		if (event.getType().equals(WRITE_TEXT) && EXTRA_INPUTS != null) {
 			for (String s: EXTRA_INPUTS) {
 				String[] widgets = s.split("( )?,( )?");
@@ -149,7 +149,7 @@ public class UltraPlanner {
 		return true;
 	}
 
-	private boolean includeInput(UserInput input, UserEvent event){
+	private boolean includeInput(UserInput input, UserEvent event) {
 		return (input != null) 
 				&& !((input.getWidget().getId().equals(event.getWidget().getId())) 
 						&& (input.getType().equals(event.getType())));

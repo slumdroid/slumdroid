@@ -90,7 +90,7 @@ public class CompositionalComparator {
 		return true; 
 	}
 
-	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity){
+	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity) {
 		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
 			return false;
 		}

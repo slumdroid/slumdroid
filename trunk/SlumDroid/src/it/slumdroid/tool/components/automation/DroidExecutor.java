@@ -130,7 +130,7 @@ public class DroidExecutor {
 	}
 
 	//SlidingDrawer Interactions
-	public static void drag (View view){
+	public static void drag (View view) {
 		if (view.isShown()) solo.setSlidingDrawer((SlidingDrawer) view, Solo.CLOSED);
 		else solo.setSlidingDrawer((SlidingDrawer) view, Solo.OPENED);
 	}

@@ -170,7 +170,8 @@ public class TypeDetector {
 		if (type.endsWith("MenuItemView")) {
 			return MENU_ITEM;
 		}
-		if (view instanceof TextView || type.endsWith("TextView")){
+		if (view instanceof TextView 
+				|| type.endsWith("TextView")) {
 			return detectTextView(view);
 		}
 		if (view instanceof ImageView 
@@ -181,7 +182,7 @@ public class TypeDetector {
 				|| type.endsWith("ListView")) {
 			return detectList(view);
 		}
-		if (view instanceof ScrollView){
+		if (view instanceof ScrollView) {
 			return SCROLL_VIEW;
 		}
 		if (view instanceof WebView 
@@ -195,7 +196,7 @@ public class TypeDetector {
 		if (view instanceof EditText){
 			return detectEdit(view);
 		}
-		if (view instanceof Button){
+		if (view instanceof Button) {
 			return detectButton(view);
 		}
 		if (view instanceof CheckedTextView) {
@@ -205,7 +206,7 @@ public class TypeDetector {
 	}
 
 	private String detectEdit(View view) {
-		if (view instanceof AutoCompleteTextView){
+		if (view instanceof AutoCompleteTextView) {
 			if (type.endsWith("SearchAutoComplete")) {
 				return SEARCH_BAR;
 			}
