@@ -18,7 +18,6 @@ package it.slumdroid.tool.components.persistence;
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.XmlGraph;
-import it.slumdroid.tool.model.ImageStorage;
 import it.slumdroid.tool.model.Persistence;
 
 import java.io.File;
@@ -30,9 +29,8 @@ import java.io.OutputStreamWriter;
 
 import android.app.Activity;
 import android.content.ContextWrapper;
-import android.graphics.Bitmap;
 
-public class DiskPersistence implements Persistence, ImageStorage {
+public class DiskPersistence implements Persistence {
 
 	FileOutputStream fOut = null; 
 	OutputStreamWriter osw = null;
@@ -183,29 +181,6 @@ public class DiskPersistence implements Persistence, ImageStorage {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public void saveImage(Bitmap image, String name) throws IOException {
-		FileOutputStream fileOutput = null;
-		OutputStreamWriter streamWriter = null;
-		try {
-			fileOutput = this.wrapper.openFileOutput(name,ContextWrapper.MODE_PRIVATE);
-			streamWriter = new OutputStreamWriter(fileOutput);
-			if (fileOutput != null) {
-				image.compress(Bitmap.CompressFormat.JPEG, 90, fileOutput);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (fileOutput != null) {
-				streamWriter.close();
-				fileOutput.close();
-			}
-		}
-	}
-
-	public String imageFormat() {
-		return "jpg";
 	}
 
 }

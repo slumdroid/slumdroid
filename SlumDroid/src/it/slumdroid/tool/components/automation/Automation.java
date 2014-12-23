@@ -40,9 +40,9 @@ import static it.slumdroid.tool.components.automation.DroidExecutor.changeOrient
 import static it.slumdroid.tool.components.automation.DroidExecutor.click;
 import static it.slumdroid.tool.components.automation.DroidExecutor.drag;
 import static it.slumdroid.tool.components.automation.DroidExecutor.enterText;
+import static it.slumdroid.tool.components.automation.DroidExecutor.getInstrumentation;
 import static it.slumdroid.tool.components.automation.DroidExecutor.goBack;
 import static it.slumdroid.tool.components.automation.DroidExecutor.longClick;
-import static it.slumdroid.tool.components.automation.DroidExecutor.getInstrumentation;
 import static it.slumdroid.tool.components.automation.DroidExecutor.openMenu;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectListItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectRadioItem;
@@ -58,14 +58,12 @@ import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Executor;
 import it.slumdroid.tool.model.Extractor;
-import it.slumdroid.tool.model.ImageCaptor;
 import it.slumdroid.tool.utilities.AbstractorUtilities;
 import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.View;
@@ -76,7 +74,7 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-public class Automation implements Executor, Extractor, ImageCaptor {
+public class Automation implements Executor, Extractor {
 
 	private TrivialExtractor extractor;
 
@@ -316,10 +314,6 @@ public class Automation implements Executor, Extractor, ImageCaptor {
 
 	public void extractState() {
 		this.getExtractor().extractState();
-	}
-
-	public Bitmap captureImage() {
-		return this.getExtractor().captureImage();	
 	}
 
 	public TrivialExtractor getExtractor() {
