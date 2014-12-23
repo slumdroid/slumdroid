@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities;
+package it.slumdroid.tool.components.abstractor;
 
 import it.slumdroid.droidmodels.model.WidgetState;
 import android.view.View;

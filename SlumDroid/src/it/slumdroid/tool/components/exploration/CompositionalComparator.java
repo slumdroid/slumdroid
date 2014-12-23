@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.components.comparator;
+package it.slumdroid.tool.components.exploration;
 
 import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
 import static it.slumdroid.droidmodels.model.SimpleType.AUTOC_TEXT;
@@ -59,9 +59,8 @@ import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
 import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.tool.model.Comparator;
 
-public class CompositionalComparator implements Comparator {
+public class CompositionalComparator {
 
 	private static String[] WIDGET_TYPES  = {
 		AUTOC_TEXT, CHECKTEXT, EDIT_TEXT, NOEDITABLE_TEXT, 					// TEXT 
@@ -77,7 +76,6 @@ public class CompositionalComparator implements Comparator {
 		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
 	};
 
-	@Override
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
 		if (!compareNameTitle(currentActivity, storedActivity)) {
 			return false;
