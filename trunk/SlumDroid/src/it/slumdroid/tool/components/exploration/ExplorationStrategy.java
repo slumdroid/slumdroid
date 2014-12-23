@@ -13,12 +13,11 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.components.strategy;
+package it.slumdroid.tool.components.exploration;
 
 import static it.slumdroid.tool.Resources.TAG;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.tool.model.Comparator;
 import it.slumdroid.tool.model.StateDiscoveryListener;
 import it.slumdroid.tool.model.Strategy;
 
@@ -28,17 +27,17 @@ import java.util.List;
 
 import android.util.Log;
 
-public class CustomStrategy implements Strategy {
+public class ExplorationStrategy implements Strategy {
 
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
-	private Comparator comparator;
+	private CompositionalComparator comparator;
 	protected boolean positiveComparation = true;
 	private Task theTask;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 	
-	public CustomStrategy (Comparator c) {
+	public ExplorationStrategy (CompositionalComparator comparator) {
 		super();
-		setComparator(c);
+		setComparator(comparator);
 	}
 
 	public void addState(ActivityState newActivity) {
@@ -66,11 +65,11 @@ public class CustomStrategy implements Strategy {
 		return !this.positiveComparation;		
 	}
 
-	public Comparator getComparator() {
+	public CompositionalComparator getComparator() {
 		return this.comparator;
 	}
 
-	public void setComparator(Comparator comparator) {
+	public void setComparator(CompositionalComparator comparator) {
 		this.comparator = comparator;
 	}
 

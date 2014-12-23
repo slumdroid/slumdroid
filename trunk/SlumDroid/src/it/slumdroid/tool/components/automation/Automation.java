@@ -55,11 +55,10 @@ import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.tool.components.abstractor.AbstractorUtilities;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Executor;
 import it.slumdroid.tool.model.Extractor;
-import it.slumdroid.tool.utilities.AbstractorUtilities;
-import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
 

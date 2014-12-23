@@ -17,12 +17,13 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.tool.components.exploration.CompositionalComparator;
 
 public interface Strategy {
 
 	public void addState (ActivityState newActivity);
-	public Comparator getComparator ();
-	public void setComparator (Comparator comparator);
+	public CompositionalComparator getComparator ();
+	public void setComparator (CompositionalComparator comparator);
 	public void compareState (ActivityState theActivity);
 	public boolean checkForExploration ();
 	public void setTask (Task theTask);

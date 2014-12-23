@@ -17,7 +17,6 @@ package it.slumdroid.tool.components.automation;
 
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Extractor;
-import it.slumdroid.tool.utilities.ExtractorUtilities;
 
 import java.util.ArrayList;
 import java.util.Iterator;

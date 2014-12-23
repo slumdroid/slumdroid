@@ -13,12 +13,25 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.model;
+package it.slumdroid.tool.components.automation;
 
+import android.app.Activity;
 import android.view.View;
 
-public interface TypeDetector {
+public class ExtractorUtilities {
 
-	public String getSimpleType (View view);
+	private static Activity theActivity; // Current Activity
+
+	public static Activity getActivity() {
+		return theActivity;
+	}
+
+	public static void setActivity(Activity activity) {
+		theActivity = activity;
+	}
+
+	public static View findViewById (int id) {
+		return getActivity().findViewById(id);
+	}
 
 }

@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.components;
+package it.slumdroid.tool.components.planner;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
 import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
@@ -37,15 +37,13 @@ import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.EventHandler;
 import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.InputHandler;
-import it.slumdroid.tool.model.Planner;
-import it.slumdroid.tool.utilities.Plan;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-public class UltraPlanner implements Planner {
+public class UltraPlanner {
 
 	protected Filter eventFilter, inputFilter;
 	protected EventHandler user;

@@ -26,26 +26,24 @@ import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.xml.XmlGraph;
-import it.slumdroid.tool.components.GuiTreeAbstractor;
-import it.slumdroid.tool.components.UltraPlanner;
+import it.slumdroid.tool.components.abstractor.GuiTreeAbstractor;
+import it.slumdroid.tool.components.abstractor.TypeDetector;
 import it.slumdroid.tool.components.automation.Automation;
-import it.slumdroid.tool.components.comparator.CompositionalComparator;
+import it.slumdroid.tool.components.exploration.CompositionalComparator;
+import it.slumdroid.tool.components.exploration.ExplorationStrategy;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.persistence.ResumingPersistence;
+import it.slumdroid.tool.components.planner.Plan;
+import it.slumdroid.tool.components.planner.UltraPlanner;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
-import it.slumdroid.tool.components.strategy.StrategyFactory;
-import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.Persistence;
-import it.slumdroid.tool.model.Planner;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.model.UserAdapter;
 import it.slumdroid.tool.utilities.AllPassFilter;
-import it.slumdroid.tool.utilities.Plan;
 import it.slumdroid.tool.utilities.SessionParams;
-import it.slumdroid.tool.utilities.SimpleTypeDetector;
 import it.slumdroid.tool.utilities.UserFactory;
 
 import java.io.IOException;
@@ -64,70 +62,59 @@ import android.util.Log;
 public class SystematicEngine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
 
 	public final static String ACTOR_NAME = "SystematicEngine";
-
-	private Automation theAutomation;
-	private Abstractor theAbstractor;
-	private GuiTree theGuiTree;
-	private GuiTreeAbstractor guiAbstractor;
-	private Persistence thePersistence;
-	protected PersistenceFactory thePersistenceFactory;
-	private Planner thePlanner;
-	private Session theSession;
-	private Strategy theStrategy;
-	protected StrategyFactory theStrategyFactory;
-	private TraceDispatcher theScheduler;
-	private UserAdapter user;
-	
 	private final static String PARAM_NAME = "taskId";
 	private int id = 0;
+	
+	private GuiTreeAbstractor theAbstractor;
+	private UserAdapter theAdapter;
+	private Automation theAutomation;
+	private Persistence thePersistence;
+	protected PersistenceFactory thePersistenceFactory;
+	private UltraPlanner thePlanner;
+	private TraceDispatcher theScheduler;
+	private Strategy theStrategy;
 
 	@SuppressWarnings("unchecked")
 	public SystematicEngine () {
 		super(theClass);
 		PersistenceFactory.registerForSavingState(this);
 		setScheduler(new TraceDispatcher());
-		this.theAutomation = new Automation();
-		setAutomation(this.theAutomation);
+		setAutomation(new Automation());
 		defineAbstractor();
 		definePlanner();
-		this.theStrategyFactory = new StrategyFactory(new CompositionalComparator()); 
-		this.thePersistenceFactory = new PersistenceFactory (this.theGuiTree, getScheduler());
+		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
 	}
 	
 	private void defineAbstractor(){
 		try {
 			GuiTree.setValidation(false);
-			this.guiAbstractor = new GuiTreeAbstractor();
-			this.theGuiTree = this.guiAbstractor.getTheSession();
-			this.theGuiTree.setDateTime(new GregorianCalendar().getTime().toString());
+			setAbstractor(new GuiTreeAbstractor());
+			getTheGuiTree().setDateTime(new GregorianCalendar().getTime().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		setAbstractor(this.guiAbstractor);
-		setSession (this.theGuiTree);
 	}
-	
+
 	private void definePlanner() {
 		UltraPlanner planner = new UltraPlanner();
 		Filter inputFilter = new AllPassFilter();
 		planner.setInputFilter (inputFilter);
-		this.guiAbstractor.addFilter (inputFilter);
+		getAbstractor().addFilter (inputFilter);
 		Filter eventFilter = new AllPassFilter();
 		planner.setEventFilter (eventFilter);
-		this.guiAbstractor.addFilter (eventFilter);
-		this.guiAbstractor.setTypeDetector(new SimpleTypeDetector());
-		this.user = UserFactory.getUser(this.guiAbstractor);
-		planner.setUser(this.user);
-		planner.setFormFiller(this.user);
-		planner.setAbstractor(this.guiAbstractor);
+		getAbstractor().addFilter (eventFilter);
+		getAbstractor().setTypeDetector(new TypeDetector());
+		setUserAdapter(UserFactory.getUser(getAbstractor()));
+		planner.setUser(getUserAdapter());
+		planner.setFormFiller(getUserAdapter());
+		planner.setAbstractor(getAbstractor());
 		setPlanner (planner);
 	}
 
 	protected void setUp () {		
-		Strategy strategy = this.theStrategyFactory.getStrategy();
-		setStrategy (strategy);
-		this.thePersistenceFactory.setStrategy(strategy);
-		setPersistence (this.thePersistenceFactory.getPersistence());
+		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
+		getPersistenceFactory().setStrategy(this.theStrategy);
+		setPersistence (getPersistenceFactory().getPersistence());
 		try {
 			getAutomation().bind(this);
 			getAutomation().extractState();
@@ -148,7 +135,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Log.i(TAG, "Initial Start Activity State saved");
 		planFirstTests(baseActivity);
 		if (SCREENSHOT_ENABLED) {
-			getAutomation().wait(100);
+			getAutomation().wait(1000);
 			takeScreenshot (baseActivity);
 		}
 	}
@@ -187,7 +174,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	@Override
 	protected void tearDown() throws Exception {
 		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
-			getSession().addFailedTask(getStrategy().getTask());
+			getTheGuiTree().addFailedTask(getStrategy().getTask());
 		}
 		getPersistence().save();
 		try {
@@ -237,7 +224,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			sandboxSession.parse(row);
 			Element element = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			Task task = getAbstractor().importTask (element);
-			if (task.isFailed()) getSession().addCrashedTask(task);
+			if (task.isFailed()) getTheGuiTree().addCrashedTask(task);
 			else taskList.add(task);
 		}
 		getScheduler().addTasks(taskList);
@@ -282,19 +269,39 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		this.theAutomation = theAutomation;
 	}
 
-	public Abstractor getAbstractor() {
+	public GuiTreeAbstractor getAbstractor() {
 		return this.theAbstractor;
 	}
 
-	public void setAbstractor(Abstractor theAbstractor) {
+	public void setAbstractor(GuiTreeAbstractor theAbstractor) {
 		this.theAbstractor = theAbstractor;
 	}
+	
+	private GuiTree getTheGuiTree() {
+		return getAbstractor().getTheSession();
+	}
+	
+	public Persistence getPersistence() {
+		return this.thePersistence;
+	}
 
-	public Planner getPlanner() {
+	public void setPersistence(Persistence thePersistence) {
+		this.thePersistence = thePersistence;
+	}
+	
+	public PersistenceFactory getPersistenceFactory() {
+		return thePersistenceFactory;
+	}
+
+	public void setPersistenceFactory(PersistenceFactory thePersistenceFactory) {
+		this.thePersistenceFactory = thePersistenceFactory;
+	}
+	
+	public UltraPlanner getPlanner() {
 		return this.thePlanner;
 	}
 
-	public void setPlanner(Planner thePlanner) {
+	public void setPlanner(UltraPlanner thePlanner) {
 		this.thePlanner = thePlanner;
 	}
 
@@ -313,23 +320,15 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void setStrategy(Strategy theStrategy) {
 		this.theStrategy = theStrategy;
 	}
-
-	public Persistence getPersistence() {
-		return this.thePersistence;
+	
+	public UserAdapter getUserAdapter() {
+		return theAdapter;
 	}
 
-	public void setPersistence(Persistence thePersistence) {
-		this.thePersistence = thePersistence;
+	public void setUserAdapter(UserAdapter user) {
+		this.theAdapter = user;
 	}
-
-	public Session getSession() {
-		return this.theSession;
-	}
-
-	public void setSession(Session theSession) {
-		this.theSession = theSession;
-	}
-
+	
 	public int getLastId() {
 		return this.id;
 	}
@@ -349,13 +348,10 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			String fileName = theActivity.getUniqueId() + ".png";
 			try {
 				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
-				Process localProcess  = Runtime.getRuntime().exec(command);
-				localProcess .waitFor();
+				Runtime.getRuntime().exec(command);
 			} catch (IOException e) {
 				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			} 
 			theActivity.setScreenshot(fileName);
 			Log.i(TAG,"Saved image on disk: " + fileName);	
 		}

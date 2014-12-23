@@ -13,7 +13,7 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.utilities;
+package it.slumdroid.tool.components.abstractor;
 
 import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
 import static it.slumdroid.droidmodels.model.SimpleType.AUTOC_TEXT;
@@ -56,7 +56,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
-import it.slumdroid.tool.model.TypeDetector;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
@@ -80,7 +79,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 @SuppressWarnings("deprecation")
-public class SimpleTypeDetector implements TypeDetector {
+public class TypeDetector {
 	
 	private String type = new String(); 
 	

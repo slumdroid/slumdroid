@@ -16,8 +16,8 @@
 package it.slumdroid.tool.components.persistence;
 
 import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.tool.components.exploration.ExplorationStrategy;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
-import it.slumdroid.tool.components.strategy.CustomStrategy;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.Strategy;
@@ -61,8 +61,8 @@ public class PersistenceFactory {
 			resumer.registerListener(saver);
 		}
 		getDispatcher().registerListener(resumer);
-		if (getStrategy() instanceof CustomStrategy) {
-			((CustomStrategy)getStrategy()).registerStateListener(resumer);				
+		if (getStrategy() instanceof ExplorationStrategy) {
+			((ExplorationStrategy)getStrategy()).registerStateListener(resumer);				
 		}
 		thePersistence.setSession(getTheSession());
 		return thePersistence;

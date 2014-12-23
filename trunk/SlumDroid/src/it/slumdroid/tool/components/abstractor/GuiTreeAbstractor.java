@@ -13,14 +13,14 @@
  * Copyright (C) 2014 Gennaro Imparato
  */
 
-package it.slumdroid.tool.components;
+package it.slumdroid.tool.components.abstractor;
 
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
-import static it.slumdroid.tool.utilities.AbstractorUtilities.detectName;
-import static it.slumdroid.tool.utilities.AbstractorUtilities.getType;
-import static it.slumdroid.tool.utilities.AbstractorUtilities.setCount;
-import static it.slumdroid.tool.utilities.AbstractorUtilities.setValue;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.detectName;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.setCount;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.setValue;
 import it.slumdroid.droidmodels.guitree.FinalActivity;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.guitree.StartActivity;
@@ -44,7 +44,6 @@ import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.FilterHandler;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.TypeDetector;
 import it.slumdroid.tool.utilities.SessionParams;
 
 import java.util.Collection;
@@ -64,7 +63,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	private GuiTree theSession;
 	private StartActivity baseActivity;
 	private HashSet<Filter> filters;
-	private TypeDetector detector;
+	private it.slumdroid.tool.components.abstractor.TypeDetector detector;
 	
 	private int eventId = 0;
 	private int inputId = 0;
