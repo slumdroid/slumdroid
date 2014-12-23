@@ -27,5 +27,5 @@ public class Drager extends SimpleInteractorAdapter {
 	public String getInteractionType () {
 		return DRAG;
 	}
-	
+
 }

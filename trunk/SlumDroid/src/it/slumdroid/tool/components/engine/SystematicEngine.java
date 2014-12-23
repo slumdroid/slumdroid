@@ -64,7 +64,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public final static String ACTOR_NAME = "SystematicEngine";
 	private final static String PARAM_NAME = "taskId";
 	private int id = 0;
-	
+
 	private GuiTreeAbstractor theAbstractor;
 	private UserAdapter theAdapter;
 	private Automation theAutomation;
@@ -84,7 +84,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		definePlanner();
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
 	}
-	
+
 	private void defineAbstractor(){
 		try {
 			GuiTree.setValidation(false);
@@ -127,7 +127,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			e.printStackTrace();
 		}
 	}	
-	
+
 	protected void setupFirstStart() {
 		Log.i(TAG, "Ripping starts");
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
@@ -260,7 +260,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void onLoadingState(SessionParams sessionParams) {
 		this.id = sessionParams.getInt(PARAM_NAME);
 	}
-	
+
 	public Automation getAutomation() {
 		return theAutomation;
 	}
@@ -276,11 +276,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void setAbstractor(GuiTreeAbstractor theAbstractor) {
 		this.theAbstractor = theAbstractor;
 	}
-	
+
 	private GuiTree getTheGuiTree() {
 		return getAbstractor().getTheSession();
 	}
-	
+
 	public Persistence getPersistence() {
 		return this.thePersistence;
 	}
@@ -288,7 +288,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void setPersistence(Persistence thePersistence) {
 		this.thePersistence = thePersistence;
 	}
-	
+
 	public PersistenceFactory getPersistenceFactory() {
 		return thePersistenceFactory;
 	}
@@ -296,7 +296,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void setPersistenceFactory(PersistenceFactory thePersistenceFactory) {
 		this.thePersistenceFactory = thePersistenceFactory;
 	}
-	
+
 	public UltraPlanner getPlanner() {
 		return this.thePlanner;
 	}
@@ -320,7 +320,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void setStrategy(Strategy theStrategy) {
 		this.theStrategy = theStrategy;
 	}
-	
+
 	public UserAdapter getUserAdapter() {
 		return theAdapter;
 	}
@@ -328,7 +328,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	public void setUserAdapter(UserAdapter user) {
 		this.theAdapter = user;
 	}
-	
+
 	public int getLastId() {
 		return this.id;
 	}

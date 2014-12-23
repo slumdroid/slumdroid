@@ -210,7 +210,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	public void onTerminate() {
 		this.taskList.clear();
 	}
-	
+
 	private List<String> readFile (String input) {
 		FileInputStream theFile = null;
 		BufferedReader theStream = null;

@@ -34,7 +34,7 @@ public class ExplorationStrategy implements Strategy {
 	protected boolean positiveComparation = true;
 	private Task theTask;
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
-	
+
 	public ExplorationStrategy (CompositionalComparator comparator) {
 		super();
 		setComparator(comparator);
@@ -60,7 +60,7 @@ public class ExplorationStrategy implements Strategy {
 		Log.i(TAG, "Registering activity " + theActivity.getName() + " (id: " + theActivity.getId() + ") as a new found state");
 		addState (theActivity);
 	}
-	
+
 	public final boolean checkForExploration() {		
 		return !this.positiveComparation;		
 	}

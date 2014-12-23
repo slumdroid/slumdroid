@@ -80,9 +80,9 @@ import android.widget.ToggleButton;
 
 @SuppressWarnings("deprecation")
 public class TypeDetector {
-	
+
 	private String type = new String(); 
-	
+
 	public String getSimpleType(View view) {
 		type = view.getClass().getName();
 		if (type.endsWith("TableRow")) {
@@ -143,7 +143,7 @@ public class TypeDetector {
 		}
 		return new String(); // unKnown Widget or Custom Widget
 	}
-	
+
 	private String detectLayout() {
 		if (type.endsWith("LinearLayout")) {
 			return LINEAR_LAYOUT;
@@ -190,7 +190,7 @@ public class TypeDetector {
 		}
 		return "View"; // Generic View
 	}
-	
+
 	private String detectTextView(View view) {
 		if (view instanceof EditText){
 			return detectEdit(view);
@@ -203,7 +203,7 @@ public class TypeDetector {
 		}
 		return TEXT_VIEW;
 	}
-	
+
 	private String detectEdit(View view) {
 		if (view instanceof AutoCompleteTextView){
 			if (type.endsWith("SearchAutoComplete")) {
@@ -229,7 +229,7 @@ public class TypeDetector {
 		}
 		return BUTTON;
 	}
-	
+
 	private String detectList(View view) {
 		if (type.endsWith("RecycleListView")) {
 			return EXPAND_MENU;
@@ -255,7 +255,7 @@ public class TypeDetector {
 		}
 		return SPINNER_INPUT;
 	}
-	
+
 	private String detectPicker() {
 		if (type.endsWith("DatePicker")) {
 			return DATE_PICKER;
@@ -268,7 +268,7 @@ public class TypeDetector {
 		}
 		return "Picker"; // Generic Picker
 	}
-	
+
 	private String detectProgressBar(View view) {
 		if (view instanceof RatingBar 
 				&& (!((RatingBar)view).isIndicator())) {

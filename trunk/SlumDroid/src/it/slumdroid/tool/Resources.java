@@ -22,16 +22,16 @@ public class Resources {
 	public static enum SchedulerAlgorithm {
 		BREADTH_FIRST, DEPTH_FIRST, RANDOM
 	}
-	
+
 	// Main Parameters
 	public static String PACKAGE_NAME = "app.package";
 	public static String CLASS_NAME = "app.package.class";
-	
+
 	public static long RANDOM_SEED = System.currentTimeMillis(); 
 	public static boolean SCREENSHOT_ENABLED = true; // true -> perform an image capture of the screen after processing a task
-	
+
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
-	
+
 	// Automation Parameters
 	public static int SLEEP_AFTER_EVENT = 1000;
 	public static int SLEEP_AFTER_RESTART = 0;
@@ -42,19 +42,19 @@ public class Resources {
 	public static boolean COMPARE_LIST_COUNT = false;
 	public static boolean COMPARE_CHECKBOX = false;
 	public static boolean COMPARE_AVAILABLE = false;
-	
+
 	// Interactions Parameters
 	public static String EVENTS[];
 	public static String INPUTS[];
-	
+
 	public static boolean HASH_VALUES = true; // true -> use Hash Id to generate the text values
-	
+
 	public static String EXTRA_EVENTS[];
 	public static String EXTRA_INPUTS[];
-	
+
 	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
 	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
-		
+
 	public static Class<?> theClass;
 
 	private static void update () {	
@@ -76,7 +76,7 @@ public class Resources {
 	}
 
 }
- 
+
 // Log.d("nofatclips","Sono qui");
 // Log.d("nofatclips","Sono qua");
 // Log.d("nofatclips","Sono quo");

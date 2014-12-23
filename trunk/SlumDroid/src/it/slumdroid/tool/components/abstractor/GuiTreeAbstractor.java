@@ -63,12 +63,12 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	private GuiTree theSession;
 	private StartActivity baseActivity;
 	private HashSet<Filter> filters;
-	private it.slumdroid.tool.components.abstractor.TypeDetector detector;
-	
+	private TypeDetector detector;
+
 	private int eventId = 0;
 	private int inputId = 0;
 	private int activityId = 0;
-	
+
 	public final static String ACTOR_NAME = "GuiTreeAbstractor";
 	private static final String EVENT_PARAM_NAME = "eventId";
 	private static final String INPUT_PARAM_NAME = "inputId";
