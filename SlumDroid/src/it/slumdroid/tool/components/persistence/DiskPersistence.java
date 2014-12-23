@@ -37,7 +37,7 @@ public class DiskPersistence implements Persistence {
 	ContextWrapper wrapper = null;
 	private Session theSession;
 	protected int mode = ContextWrapper.MODE_PRIVATE;
-	
+
 	private final String FILE_NAME = new String("guitree.xml"); 
 
 	public DiskPersistence () {

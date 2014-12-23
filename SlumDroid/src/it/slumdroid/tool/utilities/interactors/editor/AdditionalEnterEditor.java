@@ -19,7 +19,7 @@ import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 
 public class AdditionalEnterEditor extends AdditionalWriteEditor {
-	
+
 	public AdditionalEnterEditor () {
 		this (SEARCH_BAR);
 	}
@@ -27,7 +27,7 @@ public class AdditionalEnterEditor extends AdditionalWriteEditor {
 	public AdditionalEnterEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
-	
+
 	public String getInteractionType() {
 		return ENTER_TEXT;
 	}

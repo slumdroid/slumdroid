@@ -28,10 +28,10 @@ import android.view.View;
 import com.robotium.solo.Solo;
 
 public class TrivialExtractor implements Extractor {
-	
+
 	private SparseArray<View> theViews = new SparseArray<View> ();
 	private ArrayList<View> allViews = new ArrayList<View>();
-	
+
 	public Solo solo;
 
 	public void extractState() {
@@ -71,7 +71,7 @@ public class TrivialExtractor implements Extractor {
 
 		};
 	}
-	
+
 	public SparseArray<View> getWidgets () {
 		return this.theViews;
 	}
@@ -79,12 +79,12 @@ public class TrivialExtractor implements Extractor {
 	public ArrayList<View> getAllWidgets () {
 		return this.allViews;
 	}
-	
+
 	public void clearWidgetList() {
 		this.theViews.clear();
 		this.allViews.clear();		
 	}
-	
+
 	public void retrieveWidgets () {
 		clearWidgetList();
 		ArrayList<View> viewList = this.solo.getViews();

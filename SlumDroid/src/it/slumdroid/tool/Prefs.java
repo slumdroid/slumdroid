@@ -74,7 +74,7 @@ public class Prefs {
 	private Preferences localPrefs;
 	private Class<?> resources;
 	private static String mainNode = Prefs.class.getPackage().getName();
-	
+
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<SimpleInteractorAdapter>();
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<SimpleInteractorAdapter>();
 
@@ -216,7 +216,7 @@ public class Prefs {
 	public static void updateNode (String node) {
 		new Prefs (node).updateResources();
 	}
-	
+
 	public static void checkInputs(){
 		if (INPUTS != null) {
 			if (!hasClickAsInputs()) {
@@ -248,7 +248,7 @@ public class Prefs {
 		}
 		return isClick;
 	}
-	
+
 	public static void checkEvents(){
 		if (EVENTS != null) {
 			if (!hasClickAsEvents()) {

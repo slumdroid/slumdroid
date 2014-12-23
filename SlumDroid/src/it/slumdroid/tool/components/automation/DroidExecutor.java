@@ -48,7 +48,7 @@ public class DroidExecutor {
 	public static Instrumentation getInstrumentation() {
 		return instrum;
 	}
-	
+
 	public static void unLockScreen() {
 		solo.unlockScreen();
 	}

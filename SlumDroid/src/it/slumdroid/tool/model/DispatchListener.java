@@ -20,5 +20,5 @@ import it.slumdroid.droidmodels.model.Task;
 public interface DispatchListener {
 
 	public void onTaskDispatched (Task task);
-	
+
 }

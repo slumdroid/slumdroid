@@ -70,7 +70,7 @@ public class UltraPlanner {
 	private void reductionActions(WidgetState widget , ActivityState activityState) {
 		if (!activityState.getId().equals("a0") // a0 is id of initial START_STATE 
 				&& widget.getSimpleType().equals(TOAST)) {
-				setIncludeMenu(false);
+			setIncludeMenu(false);
 		}
 		if (widget.getSimpleType().equals(DIALOG_TITLE)) {
 			setIncludeMenu(false);
