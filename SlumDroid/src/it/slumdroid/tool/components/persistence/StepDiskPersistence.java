@@ -65,7 +65,7 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		this.count++;
 		if (this.count == this.step) {
 			saveStep();
-			this.count=0;
+			this.count = 0;
 		}
 	}
 

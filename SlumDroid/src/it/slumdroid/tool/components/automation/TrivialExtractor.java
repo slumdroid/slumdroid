@@ -88,7 +88,7 @@ public class TrivialExtractor implements Extractor {
 	public void retrieveWidgets () {
 		clearWidgetList();
 		ArrayList<View> viewList = this.solo.getViews();
-		if (viewList.size() != 0){
+		if (viewList.size() != 0) {
 			for (View view: viewList) {
 				this.allViews.add(view);
 				if (view.getId() > 0) {

@@ -31,7 +31,7 @@ public class AllPassFilter implements Filter {
 	}
 
 	@Override
-	public void loadItem(WidgetState widget) {
+	public void loadItem (WidgetState widget) {
 		this.filteredItems.add(widget);
 	}
 

@@ -33,7 +33,7 @@ public class HashWriteEditor extends SimpleInteractorAdapter {
 		return WRITE_TEXT;
 	}
 
-	public String[] getValues(WidgetState widget){
+	public String[] getValues(WidgetState widget) {
 		String[] values = new String[1];                
 		values[0] = Integer.toString(widget.getId().hashCode() % 100);
 		return values;

@@ -85,7 +85,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	}
 
 	protected UserInput generateInput (WidgetState widget) {
-		return generateInput (widget,"");
+		return generateInput (widget, "");
 	}
 
 	protected UserEvent generateEvent (WidgetState widget, String value) {
@@ -110,7 +110,9 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 
 	protected boolean matchClass (String type) {
 		for (String storedType: this.widgetClasses) {
-			if (storedType.equals(type)) return true;
+			if (storedType.equals(type)) {
+				return true;
+			}
 		}
 		return false;
 	}

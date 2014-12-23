@@ -71,8 +71,8 @@ public class SessionParams implements Serializable {
 		this.values.put(key, String.valueOf(number));
 	}
 
-	public void store (SessionParams p) {
-		this.values.putAll(p.values);
+	public void store (SessionParams params) {
+		this.values.putAll(params.values);
 	}
 
 }
