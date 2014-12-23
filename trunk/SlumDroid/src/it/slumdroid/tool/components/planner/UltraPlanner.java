@@ -16,6 +16,8 @@
 package it.slumdroid.tool.components.planner;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
 import static it.slumdroid.droidmodels.model.InteractionType.PRESS_BACK;
 import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
@@ -62,7 +64,18 @@ public class UltraPlanner {
 			Collection<UserEvent> events = getUser().handleEvent(widget);
 			for (UserEvent event: events) {                           
 				if (event == null) continue;
-				if (includeEvent(event)) adjacentValues(planner, activityState, event);
+				else{
+					if (event.getType().equals(LIST_SELECT) 
+							|| event.getType().equals(LIST_LONG_SELECT)) {
+						Collection<UserInput> inputs = new ArrayList<UserInput>();
+						Transition transition = getAbstractor().createStep(activityState, inputs, event);                          
+						planner.addTask(transition);
+					} else {
+						if (includeEvent(event)) {
+							adjacentValues(planner, activityState, event);
+						}
+					}
+				}
 			}
 		}    
 	}
