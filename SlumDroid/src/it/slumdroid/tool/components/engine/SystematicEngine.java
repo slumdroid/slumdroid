@@ -136,7 +136,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Log.i(TAG, "Initial Start Activity State saved");
 		planFirstTests(baseActivity);
 		if (SCREENSHOT_ENABLED) {
-			getAutomation().wait(1000);
 			takeScreenshot (baseActivity);
 		}
 	}
@@ -158,8 +157,12 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 				}
 			}
 			else getStrategy().compareState(theState);
-			if (SCREENSHOT_ENABLED) takeScreenshot(theState);
-			if (SLEEP_AFTER_TASK != 0) getAutomation().wait(SLEEP_AFTER_TASK);
+			if (SCREENSHOT_ENABLED) {
+				takeScreenshot(theState);
+			}
+			if (SLEEP_AFTER_TASK != 0) {
+				getAutomation().wait(SLEEP_AFTER_TASK);
+			}
 			getAbstractor().setFinalActivity (theTask, theState);
 			getPersistence().addTask(theTask);
 			if (canPlanTests(theState)) planTests(theTask, theState);
@@ -348,11 +351,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 				String fileName = theState.getUniqueId() + ".png";
 				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
 				Runtime.getRuntime().exec(command);
-				theState.setScreenshot(fileName);
 				Log.i(TAG,"Saved image on disk: " + fileName);
 			} catch (Exception e) {
 				e.printStackTrace();
-			} 	
+				theState.setScreenshot(new String());
+			}
 		}
 	}
 
