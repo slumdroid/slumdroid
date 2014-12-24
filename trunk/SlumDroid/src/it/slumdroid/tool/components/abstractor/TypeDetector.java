@@ -232,7 +232,8 @@ public class TypeDetector {
 	}
 
 	private String detectList(View view) {
-		if (type.endsWith("RecycleListView")) {
+		if (type.endsWith("RecycleListView")
+				|| type.endsWith("DropDownListView")) {
 			return EXPAND_MENU;
 		}
 		ListView list = (ListView)view;
