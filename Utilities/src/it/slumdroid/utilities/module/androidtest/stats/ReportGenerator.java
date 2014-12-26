@@ -15,21 +15,28 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.utilities.Resources.BREAK;
 import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
+import static it.slumdroid.utilities.module.AndroidTest.getStateFileName;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.droidmodels.xml.XmlGraph;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.w3c.dom.Element;
 
 public class ReportGenerator extends StatsReport {
 
@@ -42,19 +49,12 @@ public class ReportGenerator extends StatsReport {
 	private int crash = 0;
 	private Set<String> activity;
 	private Set<String> activityStates;
-
-	private Map<String,Integer> widgetTypes;
-	private Map<String,Integer> widgets;
-	private Map<String,Integer> widgetStates;
 	private List<String> actualCrashes;
 
 	public ReportGenerator(GuiTree guiTree) {
 		this.session = guiTree;
 		this.activity = new HashSet<String>();
 		this.activityStates = new HashSet<String>();
-		this.widgetTypes = new Hashtable<String, Integer>();
-		this.widgets = new Hashtable<String,Integer>();
-		this.widgetStates = new Hashtable<String,Integer>();
 		this.actualCrashes = new ArrayList<String>();
 	}
 
@@ -81,16 +81,17 @@ public class ReportGenerator extends StatsReport {
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.taskReport + NEW_LINE);
 		int stateSize = this.activityStates.size() + crash;
-		
+
 		if (actualCrashes.size() != 0) {
 			builder.append("List of Crashed Tasks: " + expandList(this.actualCrashes) + NEW_LINE);
 		}
-		builder.append("Model Information: " + NEW_LINE + 
+		builder.append( "Model Information: " + NEW_LINE + 
 				TAB + "Different Gui States: " + stateSize + NEW_LINE + 
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
 				TAB + "Maximum Depth: " + this.depth +
-				BREAK + this.eventReport);
-		
+				BREAK + this.eventReport + NEW_LINE +
+				"Available Widgets: " + NEW_LINE +
+				expandMap(countWidgetTypes()) );
 		return builder.toString();
 	}
 
@@ -100,19 +101,58 @@ public class ReportGenerator extends StatsReport {
 			crash = 1;
 			return;
 		}
-		int localCount = 0;
 		String key = activity.getName();
 		String key2 = activity.getId();
-		for (WidgetState w: activity) {
-			localCount++;
-			if (! (w.getSimpleType().equals("") || w.getSimpleType().equals("null")) ) {
-				inc (this.widgetTypes, w.getSimpleType());
-			}
-		}	
 		this.activity.add(key);
-		this.widgets.put(key, max(localCount,this.widgets.get(key)));
 		this.activityStates.add(key2);
-		this.widgetStates.put(key2, max(localCount,this.widgetStates.get(key2)));
+	}
+
+	public Map<String, Integer> countWidgetTypes() {
+		HashSet<ActivityState> stateList = new HashSet<ActivityState>();
+		List<String> entries = readFile (getStateFileName());
+		for (String row: entries) {
+			this.session.parse(row);
+			Element element = ((XmlGraph)this.session).getDom().getDocumentElement();
+			ActivityState state = this.session.importState (element);
+			stateList.add(state);
+		}
+		Map<String,Integer> widgetTypes = new Hashtable<String, Integer>();
+		for (ActivityState state: stateList) {
+			for (WidgetState widget: state) {
+				if (widget.getSimpleType().equals(DIALOG_TITLE)){
+					inc (widgetTypes, widget.getSimpleType());	
+				} else {
+					if (widget.isAvailable()){
+						if (widget.isClickable() 
+								|| widget.isLongClickable()){
+							inc (widgetTypes, widget.getSimpleType());	
+						}
+					}
+				}
+			}
+		}
+		return widgetTypes;
+	}
+
+	private List<String> readFile (String input) {
+		BufferedReader theStream = null;
+		String line = new String();
+		List<String> output = new ArrayList<String>();
+		try{
+			theStream = new BufferedReader (new FileReader (input));
+			while ( (line = theStream.readLine()) != null) {
+				output.add(line);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				theStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return output;
 	}
 
 }
