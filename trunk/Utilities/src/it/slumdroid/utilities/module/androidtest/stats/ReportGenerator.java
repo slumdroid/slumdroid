@@ -101,10 +101,8 @@ public class ReportGenerator extends StatsReport {
 			crash = 1;
 			return;
 		}
-		String key = activity.getName();
-		String key2 = activity.getId();
-		this.activity.add(key);
-		this.activityStates.add(key2);
+		this.activity.add(activity.getName());
+		this.activityStates.add(activity.getId());
 	}
 
 	public Map<String, Integer> countWidgetTypes() {
