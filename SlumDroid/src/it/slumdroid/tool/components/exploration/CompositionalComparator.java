@@ -134,6 +134,9 @@ public class CompositionalComparator {
 			if (field.getSimpleType().equals(DIALOG_TITLE)) {
 				return otherField.getName().equals(field.getName());
 			}
+			if (field.getSimpleType().equals(BUTTON)) {
+				return field.getValue().equals(otherField.getValue());   
+			}
 			if (field.getSimpleType().equals(MENU_VIEW) 
 					|| field.getSimpleType().equals(EXPAND_MENU)) {
 				return otherField.getCount() == field.getCount();
@@ -147,7 +150,7 @@ public class CompositionalComparator {
 				if (field.getSimpleType().equals(CHECKBOX)) {
 					return field.getValue().equals(otherField.getValue());
 				}       
-			}
+			} 
 		}
 		return compareWidget;
 	}
