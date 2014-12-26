@@ -29,16 +29,23 @@ public class AndroidTest  {
 	private String reportFileName = new String();
 	private String dotFileName = new String();
 	private String fsmFileName = new String();
+	
 	private static String txtFileName = new String();
+	private static String stateFileName = new String();
+	
 	private GuiTree guiTree;
 
 	public AndroidTest (String inputPath) {
 		if (!inputPath.equals("")){
+			
 			this.inputFileName = inputPath + "\\files\\guitree.xml";
 			this.reportFileName = inputPath + "\\output\\report.txt";
 			this.dotFileName = inputPath + "\\output\\guitree.dot";
 			this.fsmFileName = inputPath + "\\output\\fsm.dot";
+			
 			AndroidTest.txtFileName = inputPath + "\\test.txt";
+			AndroidTest.stateFileName = inputPath + "\\files\\activities.xml";
+			
 			processFile();	
 		}
 	}
@@ -83,6 +90,10 @@ public class AndroidTest  {
 
 	public static String getTxtFileName() {
 		return txtFileName;
-	}
-
+	} 
+	
+	public static String getStateFileName() {
+		return stateFileName;
+	} 
+	
 }
