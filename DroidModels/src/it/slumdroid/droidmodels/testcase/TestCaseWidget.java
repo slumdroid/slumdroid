@@ -136,7 +136,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 
 	public void setIdNameType (String id, String name, String type) {
 		setId (id);
-		setName (name);
+		if (!name.equals("")) setName (name);
 		setType (type);
 	}
 
@@ -158,7 +158,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 		if (!this.getAvailable().equals("")) newOne.setAvailable(this.getAvailable());
 		if (!this.getClickable().equals("")) newOne.setClickable(this.getClickable());
 		if (!this.getLongClickable().equals("")) newOne.setLongClickable(this.getLongClickable());
-		newOne.setValue(this.getValue());
+		if (!this.getValue().equals("")) newOne.setValue(this.getValue());
 		if (this.getCount() != 1) {
 			newOne.setCount(this.getCount());
 		}
