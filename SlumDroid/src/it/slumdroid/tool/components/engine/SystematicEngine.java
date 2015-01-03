@@ -136,6 +136,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Log.i(TAG, "Initial Start Activity State saved");
 		planFirstTests(baseActivity);
 		if (SCREENSHOT_ENABLED) {
+			getAutomation().wait(1000);
 			takeScreenshot (baseActivity);
 		}
 	}
