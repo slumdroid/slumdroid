@@ -20,8 +20,7 @@ import org.w3c.dom.Element;
 public class WidgetAdapter implements WidgetState {
 
 	@Override
-	public void setElement(Element e) {
-	}
+	public void setElement(Element e) {}
 
 	@Override
 	public Element getElement() {
@@ -35,41 +34,42 @@ public class WidgetAdapter implements WidgetState {
 
 	@Override
 	public String getId() {
-		return "";
-	}
-
-	@Override
-	public String getName() {
-		return "";
-	}
-
-	@Override
-	public String getType() {
-		return "";
-	}
-
-	public String getUniqueId() {
-		return "";
+		return new String();
 	}
 
 	public void setId(String id) {}
+
+	@Override
+	public String getName() {
+		return new String();
+	}
+
 	public void setName(String name) {}
+
+	@Override
+	public String getType() {
+		return new String();
+	}
+
 	public void setType(String type) {}
 
-	public WidgetState clone() {
-		return null;
+	public String getUniqueId() {
+		return new String();
 	}
+
+	public void setUniqueId(String id) {}
 
 	public String getSimpleType() {
 		return null;
 	}
+	
+	public void setSimpleType(String simpleType) {}
 
 	public String getTextType() {
 		return null;
 	}
 
 	public void setTextType(String inputType) {}
-	public void setSimpleType(String simpleType) {}
 
 	public boolean isAvailable() {
 		return true;
@@ -87,23 +87,28 @@ public class WidgetAdapter implements WidgetState {
 		return 0;
 	}
 
+	public void setIndex(int index) {}
+
 	public boolean isClickable() {
 		return true;
 	}
 
 	public void setClickable(String c) {}
-
-	public String getValue() {
-		return "";
-	}
-
-	public void setValue(String v) {}
-
+	
 	public boolean isLongClickable() {
 		return false;
 	}
 
 	public void setLongClickable(String lc) {}
-	public void setUniqueId(String id) {}
+
+	public String getValue() {
+		return new String();
+	}
+
+	public void setValue(String v) {}
+	
+	public WidgetState clone() {
+		return null;
+	}
 
 }
