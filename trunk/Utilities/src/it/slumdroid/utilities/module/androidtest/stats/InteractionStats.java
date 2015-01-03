@@ -28,14 +28,18 @@ import java.util.Set;
 
 public class InteractionStats extends StatsReport {
 
-	private Set<String> events;
-	private Set<String> inputs;
+	private int events;
+	private int inputs;
+	private Set<String> diffEvents;
+	private Set<String> diffInputs;
 	private Map<String,Integer> eventTypes;	
 	private Map<String,Integer> inputTypes;
 
 	public InteractionStats () {
-		this.events = new HashSet<String>();
-		this.inputs = new HashSet<String>();
+		this.events = 0;
+		this.inputs = 0;
+		this.diffEvents = new HashSet<String>();
+		this.diffInputs = new HashSet<String>();
 		this.eventTypes = new Hashtable<String, Integer>();
 		this.inputTypes = new Hashtable<String, Integer>();
 	}
@@ -44,11 +48,12 @@ public class InteractionStats extends StatsReport {
 		addEvent(step.getEvent());
 		for (UserInput i: step) {
 			addInput(i);
+			this.inputs++;
 		}
 	}
 
 	public Set<String> getEvents() {
-		return this.events;
+		return this.diffEvents;
 	}
 
 	public void addEvent (UserEvent event) {
@@ -56,14 +61,15 @@ public class InteractionStats extends StatsReport {
 			inc (this.eventTypes, event.getType());
 		}
 		addEvent (event.getId());
+		this.events++;
 	}
 
 	public void addEvent(String event) {
-		this.events.add(event);
+		this.diffEvents.add(event);
 	}
 
 	public Set<String> getInputs() {
-		return this.inputs;
+		return this.diffInputs;
 	}
 
 	public void addInput (UserInput input) {
@@ -74,7 +80,7 @@ public class InteractionStats extends StatsReport {
 	}
 
 	public void addInput(String input) {
-		this.inputs.add(input);
+		this.diffInputs.add(input);
 	}
 
 	public int getDifferentEvents() {
@@ -91,8 +97,10 @@ public class InteractionStats extends StatsReport {
 
 	public String getReport() {
 		return 	"Interactions: " + NEW_LINE +
+				TAB + "Total Events: " + this.events + NEW_LINE +
 				TAB + "Different events: " + getDifferentEvents() + NEW_LINE +
 				expandMap(this.eventTypes) +
+				TAB + "Total Inputs: " + this.inputs + NEW_LINE +
 				TAB + "Different inputs: " + getDifferentInputs() + NEW_LINE +
 				expandMap(this.inputTypes);
 	}
