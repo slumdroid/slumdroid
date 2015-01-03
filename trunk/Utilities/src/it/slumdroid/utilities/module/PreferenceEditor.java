@@ -20,25 +20,25 @@ import static it.slumdroid.utilities.Resources.TOOL;
 import java.util.prefs.Preferences;
 
 public class PreferenceEditor {
-	
+
 	private final String PACKAGE = "PACKAGE_NAME";
 	private final String CLASS = "CLASS_NAME";
 	private final String SEED = "RANDOM_SEED";
-	private Preferences prefs;
 
 	public void preferenceEditor(String[] args){
-		prefs = Preferences.userRoot().node(TOOL);
+		Preferences prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
 		prefs = Preferences.userRoot().node(TOOL);
+		String keyWord = args[1]; 
 		String preferencesPath = args[2];
 		if (new Tools().loadNode (preferencesPath)) {
-			if (args[1].equals("retarget")){
+			if (keyWord.equals("retarget")){
 				prefs.put (PACKAGE, args[3]);
 				prefs.put (CLASS, args[4]);
 			}
-			else if (args[1].equals("randomize")){
+			else if (keyWord.equals("randomize")){
 				prefs.putLong(SEED, new Tools().newSeed(args[3]));
-			} else if (args[1].equals("update")) {
+			} else if (keyWord.equals("update")) {
 				prefs.put(args[3], args[4]);			
 			}
 			new Tools().saveNode (preferencesPath, prefs);

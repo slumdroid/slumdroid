@@ -45,20 +45,20 @@ public class TaskStats extends StatsReport {
 
 	public void analyzeTask (Task theTask) {
 		this.tasks++;
-		ActivityState a = theTask.getFinalTransition().getFinalActivity();
-		String txt;
-		if (a.isFailure()) {
+		ActivityState state = theTask.getFinalTransition().getFinalActivity();
+		String text;
+		if (state.isFailure()) {
 			this.tasksFailed++;
-			txt = theTask.getId();
-			this.failures.add(txt);
-		} else if (a.isCrash()) {
+			text = theTask.getId();
+			this.failures.add(text);
+		} else if (state.isCrash()) {
 			this.tasksCrashed++;
-			txt = theTask.getId();
-			this.crashes.add(txt);
-		} else if (a.isExit()) {
+			text = theTask.getId();
+			this.crashes.add(text);
+		} else if (state.isExit()) {
 			this.tasksExit++;
-			txt = theTask.getId();
-			this.exits.add(txt);
+			text = theTask.getId();
+			this.exits.add(text);
 		}
 	}
 

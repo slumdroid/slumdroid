@@ -81,7 +81,7 @@ public class GraphicalEditor extends JFrame {
 	private static StringBuilder builder = new StringBuilder();
 
 	@SuppressWarnings("unchecked")
-	public GraphicalEditor(final String expPath, String appPack, String appClass) {
+	public GraphicalEditor(String expPath, String appPack, String appClass) {
 		setResizable(false);
 		setTitle("Preference Editor");
 

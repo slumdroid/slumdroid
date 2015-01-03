@@ -38,36 +38,33 @@ public class Utilities {
 	public static void main(String[] args) {
 		try{
 			if (args.length != 0) {
-				if (args[0].equals("androidTest")) new AndroidTest(args[1]);
-				else if (args[0].equals("buildControl")) new Tools().buildControl(args[1]);
-				else if (args[0].contains("coverage")) {
-					if (args[0].equals("coverageG")) new Tools().covGenerator(COV_GENERATOR);  	
-					else if (args[0].equals("coverageI")) new Tools().covGenerator(INCREMENTAL_COV);
-					else if (args[0].equals("coverageText")) new Tools().covTextParsing(args[1]); 
+				String keyWord = args[0];
+				if (keyWord.equals("androidTest")) new AndroidTest(args[1]);
+				else if (keyWord.equals("buildControl")) new Tools().buildControl(args[1]);
+				else if (keyWord.contains("coverage")) {
+					if (keyWord.equals("coverageG")) new Tools().covGenerator(COV_GENERATOR);  	
+					else if (keyWord.equals("coverageI")) new Tools().covGenerator(INCREMENTAL_COV);
+					else if (keyWord.equals("coverageText")) new Tools().covTextParsing(args[1]); 
 				} 	
-				else if (args[0].equals("graphicalEditor")) { 
+				else if (keyWord.equals("graphicalEditor")) {
 					final String expPath = args[1];
 					final String appPackage = args[2];
 					final String appClass = args[3];
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
-							try {
-								final GraphicalEditor frame = new GraphicalEditor(expPath, appPackage, appClass);
-								frame.addWindowListener(new WindowAdapter () {
-									@Override
-									public void windowClosing(WindowEvent e) {
-										frame.resetDefaultValues();
-										frame.saveXML();
-									}
-								});
-								frame.setVisible(true);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
+							final GraphicalEditor frame = new GraphicalEditor(expPath, appPackage, appClass);
+							frame.addWindowListener(new WindowAdapter () {
+								@Override
+								public void windowClosing(WindowEvent e) {
+									frame.resetDefaultValues();
+									frame.saveXML();
+								}
+							});
+							frame.setVisible(true);
 						}
 					});
 				}
-				else if (args[0].equals("guiAnalyzer")) {
+				else if (keyWord.equals("guiAnalyzer")) {
 					EventQueue.invokeLater(new Runnable() {
 						public void run() {
 							try {
@@ -78,23 +75,23 @@ public class Utilities {
 						}
 					});
 				}
-				else if (args[0].equals("mergeGui")) new Tools().mergeG(args[1]); 
-				else if (args[0].equals("retarget")) new Tools().retarget(args[1], args[2]);
-				else if (args[0].equals("splitGui") || args[0].equals("tasklist")) {
+				else if (keyWord.equals("mergeGui")) new Tools().mergeG(args[1]); 
+				else if (keyWord.equals("retarget")) new Tools().retarget(args[1], args[2]);
+				else if (keyWord.equals("splitGui") || keyWord.equals("tasklist")) {
 					if (!new File(DIET_DIR).exists()) new File(DIET_DIR).mkdir();
-					if (args[0].equals("splitGui")) new Tools().split(args[1], GUITREE_DIR, GUITREE, GUITREE_SUB);
-					if (args[0].equals("tasklist")) new UnionTaskListDiet().tasklistDiet(args[1], args[2]); 
+					if (keyWord.equals("splitGui")) new Tools().split(args[1], GUITREE_DIR, GUITREE, GUITREE_SUB);
+					if (keyWord.equals("tasklist")) new UnionTaskListDiet().tasklistDiet(args[1], args[2]); 
 				}
-				else if (args[0].equals("properties")) new Tools().updateProperties(args[1]);
-				else if (args[0].equals("traslate")) new Tools().traslate(args[1], args[2]);
-				else if (args[0].equals("trend")) {
+				else if (keyWord.equals("properties")) new Tools().updateProperties(args[1]);
+				else if (keyWord.equals("traslate")) new Tools().traslate(args[1], args[2]);
+				else if (keyWord.equals("trend")) {
 					String path = new String();
 					if (args.length != 1) {
 						path = new String(args[1]);
 					}
 					new Tools().trendTest(path);
 				}
-				else if (args[0].equals("preferenceEditor")) new PreferenceEditor().preferenceEditor(args);
+				else if (keyWord.equals("preferenceEditor")) new PreferenceEditor().preferenceEditor(args);
 			}
 		}catch(Exception e){
 			e.printStackTrace();

@@ -47,9 +47,9 @@ public class GuiTreeToDot {
 	public String getDot () {
 
 		boolean first = true;
-		for (Task t: this.session) {
-			Transition action = t.getFinalTransition();
-			addTransition(action, first);
+		for (Task theTask: this.session) {
+			Transition theTransition = theTask.getFinalTransition();
+			addTransition(theTransition, first);
 			first = false;
 		}
 		StringBuilder dot = new StringBuilder ();
@@ -115,11 +115,11 @@ public class GuiTreeToDot {
 		return ((id.equals("exit")) || (id.equals("crash")) || (id.equals("fail")));
 	}
 
-	private Node getNode (ActivityState activity) {
-		Node ret = new Node (activity);
-		if (activity.isCrash()) {
+	private Node getNode (ActivityState state) {
+		Node ret = new Node (state);
+		if (state.isCrash()) {
 			ret.setId(getCrashId());
-		} else if (activity.isFailure()) {
+		} else if (state.isFailure()) {
 			ret.setId(getFailId());
 		}
 		return ret;

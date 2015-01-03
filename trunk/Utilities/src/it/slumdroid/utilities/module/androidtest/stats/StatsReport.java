@@ -30,9 +30,9 @@ public abstract class StatsReport {
 		return getReport();
 	}
 
-	public static int max (int a, Integer b) {
-		if (b == null) return a;
-		return Math.max(a, b);
+	public static int max (int value1, Integer value2) {
+		if (value2 == null) return value1;
+		return Math.max(value1, value2);
 	}
 
 	public static int sum (Map<String,Integer> map) {
@@ -57,10 +57,10 @@ public abstract class StatsReport {
 
 	public static String expandMap (Map<String,Integer> map) {
 		StringBuilder builder = new StringBuilder();
-		for (Map.Entry<String,Integer> e:map.entrySet()) {
-			builder.append(TAB + TAB + e.getKey().substring(0,1).toUpperCase() 
-					+ e.getKey().substring(1,e.getKey().length()) 
-					+  ": " + e.getValue() + NEW_LINE);
+		for (Map.Entry<String,Integer> entry: map.entrySet()) {
+			builder.append(TAB + TAB + entry.getKey().substring(0,1).toUpperCase() 
+					+ entry.getKey().substring(1,entry.getKey().length()) 
+					+  ": " + entry.getValue() + NEW_LINE);
 		}
 		return builder.toString();
 	}
@@ -68,8 +68,8 @@ public abstract class StatsReport {
 	public static String expandList (List<String> list) {
 		StringBuilder builder = new StringBuilder();
 		String separator = new String();
-		for (String voice: list) {
-			builder.append(separator + voice);
+		for (String item: list) {
+			builder.append(separator + item);
 			separator = ", ";
 		}
 		return builder.toString();		

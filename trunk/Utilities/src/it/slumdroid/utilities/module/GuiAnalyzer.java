@@ -113,7 +113,7 @@ public class GuiAnalyzer extends JFrame {
 		initComponents();
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
-				if (files.length==0) return;
+				if (files.length == 0) return;
 				theFile = files[0];
 				currentDirectory = files[0].getPath().replace(files[0].getName(), "");
 				createLayout();
@@ -122,12 +122,12 @@ public class GuiAnalyzer extends JFrame {
 	}
 
 	public GuiAnalyzer (String expPath) {
-		setFirstPath(expPath);
+		this.firstPath = new String(expPath);
 		setResizable(false);
 		initComponents();
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
-				if (files.length==0) return;
+				if (files.length == 0) return;
 				theFile = files[0];
 				currentDirectory = files[0].getPath().replace(files[0].getName(), "");
 				createLayout();
@@ -194,7 +194,7 @@ public class GuiAnalyzer extends JFrame {
 	private void createLayout() {
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		resetAll();
-		
+
 		try {
 			pI = new ProcessGuiTree(theFile.toString());
 		} catch (Exception e) {
@@ -315,7 +315,7 @@ public class GuiAnalyzer extends JFrame {
 
 		BufferedReader inputStream1 = null;
 		PrintWriter outputStream1 = null;
-		
+
 		try{
 			inputStream1 = new BufferedReader (new FileReader (preferencesFile));
 			while ((line = inputStream1.readLine()) != null ) {
@@ -348,7 +348,7 @@ public class GuiAnalyzer extends JFrame {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 	private void addPerturbations(StringBuilder builder) {
@@ -357,7 +357,7 @@ public class GuiAnalyzer extends JFrame {
 		int countEvent = 0;
 		for (int i = 0; i < pI.numWidgets; i++){ 
 			String control = (String) jTableInfo.getValueAt(i, 7);
-			if (control!=null){
+			if (control != null){
 				try{
 					if (!control.equals("exclude")){
 						String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturb(control);
@@ -404,10 +404,6 @@ public class GuiAnalyzer extends JFrame {
 				}
 			}
 		}
-	}
-
-	public void setFirstPath(String path) {
-		firstPath = path;
 	}
 
 }

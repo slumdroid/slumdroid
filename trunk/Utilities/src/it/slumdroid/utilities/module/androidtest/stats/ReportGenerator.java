@@ -70,17 +70,17 @@ public class ReportGenerator extends StatsReport {
 			int currentDepth = 0;
 			ActivityState start = null;
 			ActivityState finish = null;
-			for (Transition step: theTask) {
+			for (Transition transition: theTask) {
 				this.transitions++;
 				currentDepth++;
-				eventReport.analyzeInteractions(step);
+				eventReport.analyzeInteractions(transition);
 				if (first) {
-					countWidgets(step.getStartActivity());
+					countWidgets(transition.getStartActivity());
 				} 
-				countWidgets(step.getFinalActivity());
+				countWidgets(transition.getFinalActivity());
 				first = false;
-				start = step.getStartActivity();
-				finish = step.getFinalActivity();
+				start = transition.getStartActivity();
+				finish = transition.getFinalActivity();
 			}
 			this.depth = max(this.depth,currentDepth);
 			Edge edge = new Edge(new Node (start), new Node (finish));
@@ -121,14 +121,14 @@ public class ReportGenerator extends StatsReport {
 		return builder.toString();
 	}
 
-	public void countWidgets (ActivityState activity) {
-		if (activity.isFailure()) return;
-		if (activity.isCrash()){
+	public void countWidgets (ActivityState state) {
+		if (state.isFailure()) return;
+		if (state.isCrash()){
 			crash = 1;
 			return;
 		}
-		this.activity.add(activity.getName());
-		this.activityStates.add(activity.getId());
+		this.activity.add(state.getName());
+		this.activityStates.add(state.getId());
 	}
 
 	public Map<String, Integer> countWidgetTypes() {

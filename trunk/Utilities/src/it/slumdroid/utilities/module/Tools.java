@@ -246,7 +246,7 @@ public class Tools {
 			fileList.add(theFiles);
 			theFiles = new String();	    	
 		}
-		if (fileList.size()>0) {
+		if (fileList.size() > 0) {
 			String[] output = new String [fileList.size()];
 			output = fileList.toArray(output);
 			return output;

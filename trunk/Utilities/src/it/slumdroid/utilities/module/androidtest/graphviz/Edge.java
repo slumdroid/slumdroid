@@ -23,7 +23,7 @@ public class Edge {
 	private String label = new String();
 
 	public Edge (Node from, Node to) {
-		setNodes(from,to);
+		setNodes(from, to);
 	}
 
 	public String getLabel() {

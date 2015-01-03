@@ -44,11 +44,11 @@ public class InteractionStats extends StatsReport {
 		this.inputTypes = new Hashtable<String, Integer>();
 	}
 
-	public void analyzeInteractions(Transition step) {
-		addEvent(step.getEvent());
+	public void analyzeInteractions(Transition transition) {
+		addEvent(transition.getEvent());
 		this.events++;
-		for (UserInput i: step) {
-			addInput(i);
+		for (UserInput input: transition) {
+			addInput(input);
 			this.inputs++;
 		}
 	}
