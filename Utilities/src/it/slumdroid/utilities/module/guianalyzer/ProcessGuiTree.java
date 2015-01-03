@@ -39,8 +39,7 @@ public class ProcessGuiTree {
 
 	public ProcessGuiTree (String inputFileName) {
 		try {
-			File file = new File(inputFileName);
-			guiTree = GuiTree.fromXml(file);
+			guiTree = GuiTree.fromXml(new File(inputFileName));
 			processFile();
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -50,10 +50,10 @@ public class AndroidTest  {
 
 			try {
 				this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
+				processFile();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			processFile();	
 		}
 	}
 
