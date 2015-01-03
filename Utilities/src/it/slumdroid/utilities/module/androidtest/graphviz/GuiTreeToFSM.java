@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2014 Gennaro Imparato
+ * Copyright (C) 2013-2015 Gennaro Imparato
  */
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
@@ -54,7 +54,8 @@ public class GuiTreeToFSM {
 			String userInputs = new String();
 			while(inputs.hasNext()){
 				UserInput input = inputs.next();
-				userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " Value: "+ input.getValue());
+				userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " " + input.getWidget().getSimpleType());
+				if (!input.getValue().equals("")) userInputs = userInputs.concat(" Value: "+ input.getValue());
 			}
 			UserEvent event = action.getEvent();
 			ActivityState end = action.getFinalActivity();

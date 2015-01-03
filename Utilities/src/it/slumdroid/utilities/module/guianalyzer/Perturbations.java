@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2014 Gennaro Imparato
+ * Copyright (C) 2013-2015 Gennaro Imparato
  */
 
 package it.slumdroid.utilities.module.guianalyzer;
@@ -40,17 +40,35 @@ public class Perturbations {
 
 	public String perturb(String type) {
 		String pertubedInputs =  new String();
-		pertubedInputs = pertubedInputs.concat(valueLowerCase); // MO0 - Starter/Valid Inputs 
-		if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(","); // M03 - Empty Input for all Types
+		if (type.equals("") || type.equals("Exclude")) {
+			// do Nothing
+		} else {
+			pertubedInputs = pertubedInputs.concat(valueLowerCase); // MO0 - Starter/Valid Inputs 
+			if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(","); // M03 - Empty Input for all Types
 
-		if (type.equals("Generic")) return pertubedInputs.concat(generic());
-		else if (type.equals("Number")) return pertubedInputs.concat(number());
-		else if (type.equals("Url")) return pertubedInputs.concat(url());
-		else if (type.equals("EMail")) return pertubedInputs.concat(email());
-		else if (type.equals("Zip Code")) return pertubedInputs.concat(zip());
-		else if (type.equals("ISBN")) return pertubedInputs.concat(isbn());
-		else if (type.equals("Credit Card")) return pertubedInputs.concat(creditcard());
-		else return new String();
+			if (type.equals("Generic")) {
+				return pertubedInputs.concat(generic());
+			}
+			if (type.equals("Number")) {
+				return pertubedInputs.concat(number());
+			}
+			if (type.equals("Url")) {
+				return pertubedInputs.concat(url());
+			}
+			if (type.equals("EMail")) {
+				return pertubedInputs.concat(email());
+			}
+			if (type.equals("Zip Code")) {
+				return pertubedInputs.concat(zip());
+			}
+			if (type.equals("ISBN")) {
+				return pertubedInputs.concat(isbn());
+			}
+			if (type.equals("Credit Card")) {
+				return pertubedInputs.concat(creditcard());			
+			}
+		}
+		return pertubedInputs;
 	}
 	
 	// Generic Strings

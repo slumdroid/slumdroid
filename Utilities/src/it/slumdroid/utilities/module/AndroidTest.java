@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2014 Gennaro Imparato
+ * Copyright (C) 2013-2015 Gennaro Imparato
  */
 
 package it.slumdroid.utilities.module;
@@ -29,39 +29,41 @@ public class AndroidTest  {
 	private String reportFileName = new String();
 	private String dotFileName = new String();
 	private String fsmFileName = new String();
-	
+
 	private static String txtFileName = new String();
 	private static String stateFileName = new String();
-	
+
 	private GuiTree guiTree;
 
 	public AndroidTest (String inputPath) {
-		if (!inputPath.equals("")){
-			
+		if (!inputPath.equals("")) {
+
+			// Inputs
 			this.inputFileName = inputPath + "\\files\\guitree.xml";
+			AndroidTest.stateFileName = inputPath + "\\files\\activities.xml";
+			AndroidTest.txtFileName = inputPath + "\\test.txt";
+			
+			// Outputs
 			this.reportFileName = inputPath + "\\output\\report.txt";
 			this.dotFileName = inputPath + "\\output\\guitree.dot";
 			this.fsmFileName = inputPath + "\\output\\fsm.dot";
-			
-			AndroidTest.txtFileName = inputPath + "\\test.txt";
-			AndroidTest.stateFileName = inputPath + "\\files\\activities.xml";
-			
+
+			try {
+				this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			processFile();	
 		}
 	}
 
 	private void processFile() {
-		try {
-			this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot
 		createArtifact(exportToDot(this.guiTree), getDotFileName()); // GuiTreeDot
 		String report = new ReportGenerator(this.guiTree).getReport(); 
 		createArtifact(report, getReportFileName()); // ReportTxt 
 	}
-		
+
 	private void createArtifact(String inputString, String outputFile) {
 		try {
 			PrintWriter autput = new PrintWriter (outputFile);
@@ -91,9 +93,9 @@ public class AndroidTest  {
 	public static String getTxtFileName() {
 		return txtFileName;
 	} 
-	
+
 	public static String getStateFileName() {
 		return stateFileName;
 	} 
-	
+
 }
