@@ -47,11 +47,21 @@ public class StartActivity extends TestCaseActivity {
 	public static StartActivity createActivity (ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
 		StartActivity newActivity = createActivity (dom);
-		newActivity.setName(originalActivity.getName());
-		newActivity.setTitle(originalActivity.getTitle());
-		newActivity.setId(originalActivity.getId());
-		newActivity.setUniqueId(originalActivity.getUniqueId());
-		newActivity.setScreenshot(originalActivity.getScreenshot());
+		if (!originalActivity.getName().equals("")) {
+			newActivity.setName(originalActivity.getName());
+		}
+		if (!originalActivity.getTitle().equals("")) {
+			newActivity.setTitle(originalActivity.getTitle());
+		}
+		if (!originalActivity.getId().equals("")) { 
+			newActivity.setId(originalActivity.getId());
+		}
+		if (!originalActivity.getUniqueId().equals("")) {
+			newActivity.setUniqueId(originalActivity.getUniqueId());	
+		}
+		if(!originalActivity.getScreenshot().equals("")) {
+			newActivity.setScreenshot(originalActivity.getScreenshot());
+		}
 		return newActivity;
 	}
 
