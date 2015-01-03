@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2014 Gennaro Imparato
+ * Copyright (C) 2013-2015 Gennaro Imparato
  */
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
@@ -25,13 +25,15 @@ public class DotUtilities {
 	public static String getCaption (UserEvent event) {
 		String type = event.getType();
 		String target = event.getWidgetName();
-		boolean special = event.getWidgetType().equals("null");
-		if (target.equals(""))
-			target = event.getDescription();
+		boolean special = event.getWidgetType().equals("");
 		if (target.equals(""))
 			target = event.getValue();
 		if (target.equals("")) {
-			target = event.getWidgetType();
+			if (event.getWidget().getSimpleType() != null) {
+				target = event.getWidget().getSimpleType();
+			} else {
+				target = event.getWidgetType();	
+			}
 			if (!(event.getWidgetId().equals(""))) {
 				target = target + " #" + event.getWidgetId();
 			}

@@ -10,13 +10,13 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2014 Gennaro Imparato
+ * Copyright (C) 2013-2015 Gennaro Imparato
  */
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
-import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.BREAK;
+import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
 import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.getCaption;
 import it.slumdroid.droidmodels.guitree.GuiTree;
@@ -52,7 +52,6 @@ public class GuiTreeToDot {
 			addTransition(action, first);
 			first = false;
 		}
-
 		StringBuilder dot = new StringBuilder ();
 		dot.append("digraph GuiTree {" + BREAK);
 
@@ -82,7 +81,8 @@ public class GuiTreeToDot {
 		String userInputs = new String();
 		while(inputs.hasNext()){
 			UserInput input = inputs.next();
-			userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " Value: "+ input.getValue());
+			userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " " + input.getWidget().getSimpleType());
+			if (!input.getValue().equals("")) userInputs = userInputs.concat(" Value: "+ input.getValue());
 		}
 
 		// Add main activity to nodes
@@ -136,5 +136,5 @@ public class GuiTreeToDot {
 		this.failCount++;
 		return ret;
 	}
-
+	
 }
