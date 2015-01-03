@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2014 Gennaro Imparato
+ * Copyright (C) 2013-2015 Gennaro Imparato
  */
 
 package it.slumdroid.tool.utilities.adapters;
