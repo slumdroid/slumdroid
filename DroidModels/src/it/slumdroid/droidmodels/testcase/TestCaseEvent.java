@@ -75,18 +75,6 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 		return getAttribute("id");
 	}
 
-	public void setDescription (String d) {
-		setAttribute("desc",d);
-	}
-
-	public boolean hasDescription () {
-		return hasAttribute("desc");
-	}
-
-	public String getDescription () {
-		return getAttribute("desc");
-	}
-
 	public static TestCaseEvent createEvent(GuiTree theSession) {
 		TestCaseEvent event = new TestCaseEvent(theSession);
 		return event;
@@ -104,9 +92,6 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 			that.setValue(this.getValue());
 		}
 		that.setId(this.getId());
-		if (this.hasDescription()) {
-			that.setDescription(this.getDescription());
-		}
 		try{
 			that.setWidget(this.getWidget().clone());	
 		} catch (Exception e){
