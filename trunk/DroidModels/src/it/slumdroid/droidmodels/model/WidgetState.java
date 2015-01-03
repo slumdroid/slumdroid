@@ -25,7 +25,6 @@ public interface WidgetState extends WrapperInterface {
 	public void setType(String type);
 	public String getTextType();
 	public void setTextType (String inputType);
-	public WidgetState clone();
 	public String getSimpleType();
 	public void setSimpleType(String simpleType);
 	public int getCount();
@@ -37,7 +36,9 @@ public interface WidgetState extends WrapperInterface {
 	public boolean isLongClickable();
 	public void setLongClickable (String lc);
 	public int getIndex();
+	public void setIndex (int index);
 	public String getValue();
 	public void setValue (String v);
+	public WidgetState clone();
 
 }

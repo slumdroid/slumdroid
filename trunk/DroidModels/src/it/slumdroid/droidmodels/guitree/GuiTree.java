@@ -64,7 +64,8 @@ public class GuiTree extends XmlGraph implements Session {
 		}
 	}
 
-	// Sets attributes for the whole graph (not the nodes!) They are stored as attributes of the root node
+	// Sets attributes for the whole graph (not the nodes!) 
+	// They are stored as attributes of the root node
 	public void setAttribute (String key, String value) {
 		this.getDom().getDocumentElement().setAttribute(key, value);
 	}
