@@ -46,62 +46,34 @@ public class InteractionStats extends StatsReport {
 
 	public void analyzeInteractions(Transition step) {
 		addEvent(step.getEvent());
+		this.events++;
 		for (UserInput i: step) {
 			addInput(i);
 			this.inputs++;
 		}
 	}
 
-	public Set<String> getEvents() {
-		return this.diffEvents;
-	}
-
 	public void addEvent (UserEvent event) {
-		if (!getEvents().contains(event.getId())) {
+		if (!this.diffEvents.contains(event.getId())) {
 			inc (this.eventTypes, event.getType());
 		}
-		addEvent (event.getId());
-		this.events++;
-	}
-
-	public void addEvent(String event) {
-		this.diffEvents.add(event);
-	}
-
-	public Set<String> getInputs() {
-		return this.diffInputs;
+		this.diffEvents.add(event.getId());
 	}
 
 	public void addInput (UserInput input) {
-		if (!getInputs().contains(input.getId())) {
+		if (!this.diffInputs.contains(input.getId())) {
 			inc (this.inputTypes, input.getType());
 		}
-		addInput (input.getId());
-	}
-
-	public void addInput(String input) {
-		this.diffInputs.add(input);
-	}
-
-	public int getDifferentEvents() {
-		return getEvents().size();
-	}
-
-	public int getDifferentInputs() {
-		return getInputs().size();
-	}
-
-	public int getDifferentInteractions() {
-		return getDifferentEvents() + getDifferentInputs();
+		this.diffInputs.add(input.getId());
 	}
 
 	public String getReport() {
 		return 	"Interactions: " + NEW_LINE +
 				TAB + "Total Events: " + this.events + NEW_LINE +
-				TAB + "Different events: " + getDifferentEvents() + NEW_LINE +
+				TAB + "Different events: " + this.diffEvents.size() + NEW_LINE +
 				expandMap(this.eventTypes) +
 				TAB + "Total Inputs: " + this.inputs + NEW_LINE +
-				TAB + "Different inputs: " + getDifferentInputs() + NEW_LINE +
+				TAB + "Different inputs: " + this.diffInputs.size() + NEW_LINE +
 				expandMap(this.inputTypes);
 	}
 
