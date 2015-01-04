@@ -19,8 +19,8 @@ import org.w3c.dom.Element;
 
 public interface WrapperInterface extends Cloneable {
 
-	public void setElement (Element e);
+	public void setElement (Element element);
 	public Element getElement ();
-	public WrapperInterface getWrapper (Element e);
+	public WrapperInterface getWrapper (Element element);
 
 }

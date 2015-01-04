@@ -1,4 +1,3 @@
-package it.slumdroid.droidmodels.model;
 /*
  * Copyright (C) 2008 The Android Open Source Project
  *
@@ -14,6 +13,8 @@ package it.slumdroid.droidmodels.model;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+package it.slumdroid.droidmodels.model;
 
 public interface InputType {
 	/**

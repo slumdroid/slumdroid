@@ -22,22 +22,22 @@ import it.slumdroid.droidmodels.xml.XmlGraph;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-public abstract class TestCaseInteraction  extends ElementWrapper {
+public abstract class TestCaseInteraction extends ElementWrapper {
 
 	public TestCaseInteraction () {
 		super();
 	}
 
-	public TestCaseInteraction (Element e) {
-		super (e);
+	public TestCaseInteraction (Element element) {
+		super (element);
 	}
 
-	public TestCaseInteraction (XmlGraph g, String tag) {
-		super (g, tag);
+	public TestCaseInteraction (XmlGraph graph, String tag) {
+		super (graph, tag);
 	}
 
-	public TestCaseInteraction (Document d, String tag) {
-		super (d, tag);
+	public TestCaseInteraction (Document dom, String tag) {
+		super (dom, tag);
 	}
 
 	public WidgetState getWidget() {
@@ -54,24 +54,24 @@ public abstract class TestCaseInteraction  extends ElementWrapper {
 		return getWidget().getName();
 	}
 
-	public void setWidgetName(String n) {
-		getWidget().setName(n);
+	public void setWidgetName(String name) {
+		getWidget().setName(name);
 	}
 
 	public String getWidgetType() {
 		return getWidget().getType();
 	}
 
-	public void setWidgetType(String t) {
-		getWidget().setType(t);
+	public void setWidgetType(String type) {
+		getWidget().setType(type);
 	}
 
 	public String getWidgetId() {
 		return getWidget().getId();
 	}
 
-	public void setWidgetId(String id) {
-		getWidget().setId(id);
+	public void setWidgetId(String widgetId) {
+		getWidget().setId(widgetId);
 	}
 
 }

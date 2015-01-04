@@ -25,12 +25,12 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 	private NodeList items = null;
 	private int currentItem;
 
-	public NodeListIterator (Element e) {
-		this (e.getChildNodes());
+	public NodeListIterator (Element element) {
+		this (element.getChildNodes());
 	}
 
-	public NodeListIterator(NodeList lista) {
-		setItems(lista);
+	public NodeListIterator(NodeList list) {
+		setItems(list);
 	}
 
 	public Iterator<Element> iterator() {
@@ -59,8 +59,8 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 		return null;
 	}
 
-	private void setItems (NodeList items) {
-		this.items = items;
+	private void setItems (NodeList list) {
+		this.items = list;
 		this.currentItem = 0;
 	}
 

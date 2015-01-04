@@ -39,21 +39,21 @@ public abstract class ElementWrapper implements WrapperInterface {
 		super();
 	}
 
-	public ElementWrapper (Element e) {
+	public ElementWrapper (Element element) {
 		super();
-		setElement(e);
+		setElement(element);
 	}
 
-	public ElementWrapper (XmlGraph g, String tag) {
-		this (g.getDom(), tag);
+	public ElementWrapper (XmlGraph graph, String tag) {
+		this (graph.getDom(), tag);
 	}
 
-	public ElementWrapper (Document d, String tag) {
-		this (d.createElement(tag));
+	public ElementWrapper (Document dom, String tag) {
+		this (dom.createElement(tag));
 	}
 
-	public void setElement(Element e) {
-		this.element = e;
+	public void setElement(Element element) {
+		this.element = element;
 	}
 
 	public Element getElement() {

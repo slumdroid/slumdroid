@@ -40,8 +40,7 @@ public class FinalActivity extends TestCaseActivity {
 	}
 
 	public static FinalActivity createActivity (Document dom, String tag) {
-		Element el = dom.createElement(tag);
-		return new FinalActivity (el);
+		return new FinalActivity (dom.createElement(tag));
 	}
 
 	public static FinalActivity createActivity (ActivityState originalActivity) {

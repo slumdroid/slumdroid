@@ -38,8 +38,8 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 		super();
 	}
 
-	public TestCaseTransition (Element transition)	{
-		super(transition);
+	public TestCaseTransition (Element element)	{
+		super(element);
 	}
 
 	public TestCaseTransition (Document dom) {
@@ -50,16 +50,16 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 		return getElement().getChildNodes();
 	}
 
-	public TestCaseTransition getWrapper(Element e) {
-		return new TestCaseTransition(e);
+	public TestCaseTransition getWrapper(Element element) {
+		return new TestCaseTransition(element);
 	}
 
 	public StartActivity getStartActivity() {
 		return new StartActivity ((Element) eventProperties().item(0));
 	}
 
-	public void setStartActivity (ActivityState a) {
-		getElement().replaceChild(a.getElement(), getStartActivity().getElement());
+	public void setStartActivity (ActivityState theState) {
+		getElement().replaceChild(theState.getElement(), getStartActivity().getElement());
 	}	
 
 	public Iterator<UserInput> inputs() {
@@ -70,24 +70,24 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 		return inputs();
 	}
 
-	public void addInput (UserInput i) {
-		eventProperties().item(1).appendChild(i.getElement());
+	public void addInput (UserInput theInput) {
+		eventProperties().item(1).appendChild(theInput.getElement());
 	}
 
 	public TestCaseEvent getEvent() {
 		return new TestCaseEvent ((Element) eventProperties().item(2));
 	}
 
-	public void setEvent (UserEvent e) {
-		getElement().replaceChild(e.getElement(), getEvent().getElement());
+	public void setEvent (UserEvent theEvent) {
+		getElement().replaceChild(theEvent.getElement(), getEvent().getElement());
 	}
 
 	public FinalActivity getFinalActivity() {
 		return new FinalActivity ((Element) eventProperties().item(3));
 	}
 
-	public void setFinalActivity (ActivityState a) {
-		getElement().replaceChild(a.getElement(), getFinalActivity().getElement());
+	public void setFinalActivity (ActivityState theState) {
+		getElement().replaceChild(theState.getElement(), getFinalActivity().getElement());
 	}
 
 	public String getId() {
@@ -95,7 +95,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	}
 
 	public void setId (String id) {
-		getElement().setAttribute("id_transition",id);
+		getElement().setAttribute("id_transition", id);
 	}
 
 	public static TestCaseTransition createTransition (Document dom) {
@@ -114,8 +114,8 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	public TestCaseTransition clone () {
 		TestCaseTransition theTransition = createTransition (this.getElement().getOwnerDocument());
 		theTransition.setStartActivity(this.getStartActivity().clone());
-		for (UserInput i: this) {
-			theTransition.addInput (((TestCaseInput)i).clone());
+		for (UserInput input: this) {
+			theTransition.addInput (((TestCaseInput)input).clone());
 		}
 		theTransition.setEvent(this.getEvent().clone());
 		theTransition.setFinalActivity(this.getFinalActivity().clone());

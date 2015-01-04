@@ -22,8 +22,8 @@ public interface Session extends Iterable<Task> {
 	public String getDateTime ();
 	public Iterator<Task> tasks();
 	public ActivityState getBaseActivity();
-	public void addTask (Task theTrace);
-	public void removeTask (Task theTrace);
+	public void addTask (Task theTask);
+	public void removeTask (Task theTask);
 	public void addFailedTask(Task theTask);
 	public void addCrashedTask (Task theTask);
 	public void parse (String xml);

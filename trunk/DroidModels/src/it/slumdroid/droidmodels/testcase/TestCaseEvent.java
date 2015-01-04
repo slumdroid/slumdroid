@@ -31,28 +31,28 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 		super();
 	}
 
-	public TestCaseEvent (Element e) {
-		super (e);
+	public TestCaseEvent (Element element) {
+		super (element);
 	}
 
-	public TestCaseEvent (XmlGraph g) {
-		super (g, TAG);
+	public TestCaseEvent (XmlGraph graph) {
+		super (graph, TAG);
 	}
 
-	public TestCaseEvent (Document d) {
-		super (d, TAG);
+	public TestCaseEvent (Document dom) {
+		super (dom, TAG);
 	}
 
-	public WrapperInterface getWrapper(Element e) {
-		return new TestCaseEvent (e);
+	public WrapperInterface getWrapper(Element element) {
+		return new TestCaseEvent (element);
 	}
 
 	public String getType() {
 		return getAttribute("type");
 	}
 
-	public void setType(String t) {
-		setAttribute("type",t);
+	public void setType(String type) {
+		setAttribute("type", type);
 	}
 
 	public boolean hasValue() {
@@ -63,12 +63,12 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 		return getAttribute("value");
 	}
 
-	public void setValue(String v) {
-		setAttribute("value",v);
+	public void setValue(String value) {
+		setAttribute("value", value);
 	}
 
 	public void setId (String id) {
-		setAttribute("id",id);
+		setAttribute("id", id);
 	}
 
 	public String getId() {
@@ -76,13 +76,11 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	}
 
 	public static TestCaseEvent createEvent(GuiTree theSession) {
-		TestCaseEvent event = new TestCaseEvent(theSession);
-		return event;
+		return new TestCaseEvent(theSession);
 	}
 
 	public static TestCaseEvent createEvent(Document dom) {
-		TestCaseEvent event = new TestCaseEvent(dom);
-		return event;
+		return new TestCaseEvent(dom);
 	}
 
 	public TestCaseEvent clone () {

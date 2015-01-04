@@ -26,25 +26,25 @@ import org.w3c.dom.NodeList;
 
 public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> {
 	
-	private Iterator<Element> iterator;
-	static Class<Element> elemento = Element.class;
-	private WrapperInterface aWrapper;
-	private Class<E> classe;
-	Constructor<E> costruisci;
+	private Iterator<Element> theIterator;
+	static Class<Element> theElement = Element.class;
+	private WrapperInterface theWrapper;
+	private Class<E> theClassE;
+	Constructor<E> theConstructor;
 
-	public NodeListWrapper (Element parent, Class<E> classe) {
-		this (parent.getChildNodes(), classe);
+	public NodeListWrapper (Element parent, Class<E> theClass) {
+		this (parent.getChildNodes(), theClass);
 	}
 
-	public NodeListWrapper (WrapperInterface parent, Class<E> classe) {
-		this (parent.getElement(), classe);
+	public NodeListWrapper (WrapperInterface parent, Class<E> theClass) {
+		this (parent.getElement(), theClass);
 	}
 
-	public NodeListWrapper (NodeList lista, Class<E> classe) {
-		this.iterator = new NodeListIterator (lista);
-		this.classe = classe;
+	public NodeListWrapper (NodeList list, Class<E> theClass) {
+		this.theIterator = new NodeListIterator (list);
+		this.theClassE = theClass;
 		try {
-			this.costruisci = this.classe.getConstructor(NodeListWrapper.elemento);
+			this.theConstructor = this.theClassE.getConstructor(NodeListWrapper.theElement);
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		} catch (NoSuchMethodException e) {
@@ -60,37 +60,37 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 		this (parent.getElement(), wrapper);
 	}
 
-	public NodeListWrapper (NodeList lista, E wrapper) {
-		this.iterator = new NodeListIterator (lista);
-		this.aWrapper = wrapper;
+	public NodeListWrapper (NodeList list, E wrapper) {
+		this.theIterator = new NodeListIterator (list);
+		this.theWrapper = wrapper;
 	}
 
 	// Delegation
 	public boolean hasNext() {
-		return this.iterator.hasNext();
+		return this.theIterator.hasNext();
 	}
 
 	public E next() {
-		Element unwrapped = this.iterator.next();
+		Element unwrapped = this.theIterator.next();
 		E wrapped = null;
 		try {
 			wrapped = wrap (unwrapped);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return wrapped;
 	}
 
 	public void remove() {
-		this.iterator.remove();
+		this.theIterator.remove();
 	}
 
 	@SuppressWarnings("unchecked")
-	private E wrap (Element e) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-		if (this.aWrapper instanceof WrapperInterface)
-			return ((E) this.aWrapper.getWrapper(e));
-		if (this.classe instanceof Class)
-			return this.costruisci.newInstance (e);
+	private E wrap (Element element) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+		if (this.theWrapper instanceof WrapperInterface)
+			return ((E) this.theWrapper.getWrapper(element));
+		if (this.theClassE instanceof Class)
+			return this.theConstructor.newInstance (element);
 		return null;
 	}
 

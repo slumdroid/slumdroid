@@ -33,20 +33,20 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 		super();
 	}
 
-	public TestCaseInput (Element e) {
-		super (e);
+	public TestCaseInput (Element element) {
+		super (element);
 	}
 
-	public TestCaseInput (XmlGraph g) {
-		super (g, TAG);
+	public TestCaseInput (XmlGraph graph) {
+		super (graph, TAG);
 	}
 
-	public TestCaseInput (Document d) {
-		super (d, TAG);
+	public TestCaseInput (Document dom) {
+		super (dom, TAG);
 	}
 
-	public WrapperInterface getWrapper(Element e) {
-		return new TestCaseInput (e);
+	public WrapperInterface getWrapper(Element element) {
+		return new TestCaseInput (element);
 	}
 
 	public String getType() {
@@ -83,8 +83,7 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	}
 
 	public static TestCaseInput createInput(GuiTree theSession) {
-		TestCaseInput input = new TestCaseInput(theSession);
-		return input;
+		return new TestCaseInput(theSession);
 	}
 
 	public static TestCaseInput createInput(Document theSession) {

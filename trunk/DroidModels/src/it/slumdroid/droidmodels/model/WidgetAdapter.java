@@ -28,7 +28,7 @@ public class WidgetAdapter implements WidgetState {
 	}
 
 	@Override
-	public WrapperInterface getWrapper(Element e) {
+	public WrapperInterface getWrapper(Element element) {
 		return null;
 	}
 
@@ -75,7 +75,7 @@ public class WidgetAdapter implements WidgetState {
 		return true;
 	}
 
-	public void setAvailable(String a) {}
+	public void setAvailable(String value) {}
 
 	public int getCount() {
 		return 1;
@@ -93,19 +93,19 @@ public class WidgetAdapter implements WidgetState {
 		return true;
 	}
 
-	public void setClickable(String c) {}
+	public void setClickable(String value) {}
 	
 	public boolean isLongClickable() {
 		return false;
 	}
 
-	public void setLongClickable(String lc) {}
+	public void setLongClickable(String value) {}
 
 	public String getValue() {
 		return new String();
 	}
 
-	public void setValue(String v) {}
+	public void setValue(String value) {}
 	
 	public WidgetState clone() {
 		return null;

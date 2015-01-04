@@ -40,8 +40,8 @@ public class WidgetType {
 	private String nameLowerCase;
 	private String valueLowerCase;
 
-	public WidgetType (int t, String name, String value) {
-		this.type = new Integer(t);
+	public WidgetType (int type, String name, String value) {
+		this.type = new Integer(type);
 		this.nameLowerCase = new String(name.toLowerCase());
 		this.valueLowerCase =  new String(value.toLowerCase());
 	}
@@ -160,7 +160,7 @@ public class WidgetType {
 		return true;
 	}
 
-	private boolean isPassword (){
+	private boolean isPassword () {
 		if (!isText() 
 				|| ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_PASSWORD)
 				|| ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) ) {
