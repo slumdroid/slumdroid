@@ -56,38 +56,90 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating User objects.
+ */
 public class UserFactory {
 
+	/** The event to type map. */
 	public static HashMap<String,String[]> eventToTypeMap = new HashMap<String,String[]>();
+	
+	/** The input to type map. */
 	public static HashMap<String,String[]> inputToTypeMap = new HashMap<String,String[]>();
 
+	/** The vetoes map. */
 	public static Map<String,List<String>> vetoesMap = new Hashtable<String,List<String>>();
+	
+	/** The overrides map. */
 	public static Map<String,List<String>> overridesMap = new Hashtable<String,List<String>>();
 
+	/**
+	 * Adds the event.
+	 *
+	 * @param eventType the event type
+	 * @param widgetTypes the widget types
+	 */
 	public static void addEvent(String eventType, String ... widgetTypes) {
 		eventToTypeMap.put(eventType, widgetTypes);
 	}
 
+	/**
+	 * Adds the input.
+	 *
+	 * @param inputType the input type
+	 * @param widgetTypes the widget types
+	 */
 	public static void addInput(String inputType, String ... widgetTypes) {
 		inputToTypeMap.put(inputType, widgetTypes);
 	}
 
+	/**
+	 * Types for event.
+	 *
+	 * @param interaction the interaction
+	 * @return the string[]
+	 */
 	public static String[] typesForEvent(String interaction) {
 		return eventToTypeMap.get(interaction);
 	}
 
+	/**
+	 * Types for input.
+	 *
+	 * @param interaction the interaction
+	 * @return the string[]
+	 */
 	public static String[] typesForInput(String interaction) {
 		return inputToTypeMap.get(interaction);
 	}
 
+	/**
+	 * Checks if is required event.
+	 *
+	 * @param interaction the interaction
+	 * @return true, if is required event
+	 */
 	public static boolean isRequiredEvent(String interaction) {
 		return UserFactory.eventToTypeMap.containsKey(interaction);
 	}
 
+	/**
+	 * Checks if is required input.
+	 *
+	 * @param interaction the interaction
+	 * @return true, if is required input
+	 */
 	public static boolean isRequiredInput(String interaction) {
 		return UserFactory.inputToTypeMap.containsKey(interaction);
 	}
 
+	/**
+	 * Gets the user.
+	 *
+	 * @param abstractor the abstractor
+	 * @return the user
+	 */
 	public static UserAdapter getUser (Abstractor abstractor) {
 		UserAdapter userAdapter = new SimpleUserAdapter(abstractor,new Random(RANDOM_SEED));
 		userAdapter.addEvent(new Clicker(typesForEvent(CLICK)));

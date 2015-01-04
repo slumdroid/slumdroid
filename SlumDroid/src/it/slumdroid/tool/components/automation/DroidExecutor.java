@@ -33,46 +33,97 @@ import android.widget.TabHost;
 
 import com.robotium.solo.Solo;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DroidExecutor.
+ */
 @SuppressWarnings("deprecation")
 public class DroidExecutor {
 
+	/** The solo. */
 	static private Solo solo;
+	
+	/** The instrum. */
 	static private Instrumentation instrum;
 
+	/**
+	 * Creates the robotium.
+	 *
+	 * @param test the test
+	 * @return the solo
+	 */
 	public static Solo createRobotium (ActivityInstrumentationTestCase2<?> test) {
 		instrum = test.getInstrumentation();
 		solo = new Solo (instrum, test.getActivity());
 		return solo;
 	}
 
+	/**
+	 * Gets the instrumentation.
+	 *
+	 * @return the instrumentation
+	 */
 	public static Instrumentation getInstrumentation() {
 		return instrum;
 	}
 
+	/**
+	 * Un lock screen.
+	 */
 	public static void unLockScreen() {
 		solo.unlockScreen();
 	}
 
 	// Click interactions
+	/**
+	 * Click.
+	 *
+	 * @param view the view
+	 */
 	public static void click (View view) {
 		assertNotNull(view,"Cannot click: the widget does not exist");
 		solo.clickOnView(view);
 	}
 
+	/**
+	 * Long click.
+	 *
+	 * @param view the view
+	 */
 	public static void longClick (View view) {
 		assertNotNull(view, "Cannot longClick: the widget does not exist");
 		solo.clickLongOnView(view);
 	}
 
 	// List interactions
+	/**
+	 * Select list item.
+	 *
+	 * @param list the list
+	 * @param item the item
+	 */
 	public static void selectListItem (ListView list, String item) {
 		selectListItem (list, item, false);
 	}
 
+	/**
+	 * Select list item.
+	 *
+	 * @param list the list
+	 * @param item the item
+	 * @param longClick the long click
+	 */
 	public static void selectListItem (ListView list, String item, boolean longClick) {
 		selectListItem (list, Integer.valueOf(item), longClick);
 	}
 
+	/**
+	 * Select list item.
+	 *
+	 * @param list the list
+	 * @param num the num
+	 * @param longClick the long click
+	 */
 	public static void selectListItem (ListView list, int num, boolean longClick) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		requestFocus(list);
@@ -97,10 +148,22 @@ public class DroidExecutor {
 	}
 
 	// Spinner interactions
+	/**
+	 * Select spinner item.
+	 *
+	 * @param spinner the spinner
+	 * @param item the item
+	 */
 	public static void selectSpinnerItem (Spinner spinner, String item) {
 		selectSpinnerItem (spinner, Integer.valueOf(item));
 	}
 
+	/**
+	 * Select spinner item.
+	 *
+	 * @param spinner the spinner
+	 * @param num the num
+	 */
 	public static void selectSpinnerItem (final Spinner spinner, int num) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		click(spinner);
@@ -108,21 +171,45 @@ public class DroidExecutor {
 	}
 
 	// Text interactions
+	/**
+	 * Write text.
+	 *
+	 * @param editText the edit text
+	 * @param value the value
+	 */
 	public static void writeText (EditText editText, String value) {
 		solo.clearEditText(editText);
 		if (!value.equals("")) solo.enterText(editText, value);
 	}
 
+	/**
+	 * Enter text.
+	 *
+	 * @param editText the edit text
+	 * @param value the value
+	 */
 	public static void enterText (EditText editText, String value) {
 		writeText (editText, value);
 		solo.sendKey(Solo.ENTER);
 	}
 
 	// Radio Interactions
+	/**
+	 * Select radio item.
+	 *
+	 * @param radioGroup the radio group
+	 * @param value the value
+	 */
 	public static void selectRadioItem (RadioGroup radioGroup, String value) {
 		selectRadioItem (radioGroup, Integer.valueOf(value));
 	}
 
+	/**
+	 * Select radio item.
+	 *
+	 * @param radioGroup the radio group
+	 * @param num the num
+	 */
 	public static void selectRadioItem (final RadioGroup radioGroup, int num) {
 		if (num < 1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
@@ -130,20 +217,34 @@ public class DroidExecutor {
 	}
 
 	//SlidingDrawer Interactions
+	/**
+	 * Drag.
+	 *
+	 * @param view the view
+	 */
 	public static void drag (View view) {
 		if (view.isShown()) solo.setSlidingDrawer((SlidingDrawer) view, Solo.CLOSED);
 		else solo.setSlidingDrawer((SlidingDrawer) view, Solo.OPENED);
 	}
 
 	// Special interactions
+	/**
+	 * Go back.
+	 */
 	public static void goBack() {
 		solo.goBack();
 	}
 
+	/**
+	 * Open menu.
+	 */
 	public static void openMenu() {
 		solo.sendKey(Solo.MENU);
 	}
 
+	/**
+	 * Change orientation.
+	 */
 	public static void changeOrientation() {
 		Display display = ((WindowManager) getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		int angle = display.getRotation();
@@ -152,20 +253,41 @@ public class DroidExecutor {
 	}
 
 	// ActionBar interactions
+	/**
+	 * Action bar home.
+	 */
 	public static void actionBarHome () {
 		solo.clickOnActionBarHomeButton();
 	}
 
 	// Progress Bar interactions
+	/**
+	 * Sets the progress bar.
+	 *
+	 * @param view the view
+	 * @param value the value
+	 */
 	public static void setProgressBar (View view, String value) {
 		solo.setProgressBar((ProgressBar)view, Integer.parseInt(value));
 	}
 
 	// Tab interactions
+	/**
+	 * Swap tab.
+	 *
+	 * @param view the view
+	 * @param tab the tab
+	 */
 	public static void swapTab (View view, String tab) {
 		swapTab ((TabHost)view, Integer.valueOf(tab));
 	}
 
+	/**
+	 * Swap tab.
+	 *
+	 * @param tabHost the tab host
+	 * @param num the num
+	 */
 	public static void swapTab (final TabHost tabHost, int num) {
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
@@ -174,6 +296,11 @@ public class DroidExecutor {
 		click (tabHost.getTabWidget().getChildAt(index));
 	}
 
+	/**
+	 * Request view.
+	 *
+	 * @param view the view
+	 */
 	public static void requestView (final View view) {
 		try {
 			solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
@@ -184,6 +311,11 @@ public class DroidExecutor {
 		}		
 	}		
 
+	/**
+	 * Request focus.
+	 *
+	 * @param view the view
+	 */
 	protected static void requestFocus (final View view) {
 		runOnUiThread(new Runnable() {
 			public void run() {
@@ -194,14 +326,30 @@ public class DroidExecutor {
 	}
 
 	// Utility methods
+	/**
+	 * Run on ui thread.
+	 *
+	 * @param action the action
+	 */
 	protected static void runOnUiThread (Runnable action) {
 		ExtractorUtilities.getActivity().runOnUiThread(action);		
 	}
 
+	/**
+	 * Wait.
+	 *
+	 * @param milli the milli
+	 */
 	public static void wait (int milli) {
 		solo.sleep(milli);
 	}
 
+	/**
+	 * Assert not null.
+	 *
+	 * @param view the view
+	 * @param errorMessage the error message
+	 */
 	protected static void assertNotNull (final View view, String errorMessage) {
 		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, view);
 	}

@@ -59,26 +59,59 @@ import org.w3c.dom.Element;
 import android.view.View;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GuiTreeAbstractor.
+ */
 public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {
 
+	/** The session. */
 	private GuiTree theSession;
+	
+	/** The base activity. */
 	private StartActivity baseActivity;
+	
+	/** The filters. */
 	private HashSet<Filter> filters;
+	
+	/** The detector. */
 	private TypeDetector detector;
 
+	/** The event id. */
 	private int eventId = 0;
+	
+	/** The input id. */
 	private int inputId = 0;
+	
+	/** The activity id. */
 	private int activityId = 0;
 
+	/** The Constant ACTOR_NAME. */
 	public final static String ACTOR_NAME = "GuiTreeAbstractor";
+	
+	/** The Constant EVENT_PARAM_NAME. */
 	private static final String EVENT_PARAM_NAME = "eventId";
+	
+	/** The Constant INPUT_PARAM_NAME. */
 	private static final String INPUT_PARAM_NAME = "inputId";
+	
+	/** The Constant ACTIVITY_PARAM_NAME. */
 	private static final String ACTIVITY_PARAM_NAME = "activityId";
 
+	/**
+	 * Instantiates a new gui tree abstractor.
+	 *
+	 * @throws ParserConfigurationException the parser configuration exception
+	 */
 	public GuiTreeAbstractor () throws ParserConfigurationException {
 		this (new GuiTree());
 	}
 
+	/**
+	 * Instantiates a new gui tree abstractor.
+	 *
+	 * @param s the s
+	 */
 	public GuiTreeAbstractor(GuiTree s) {
 		super();
 		this.filters = new HashSet<Filter>();
@@ -86,27 +119,57 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		PersistenceFactory.registerForSavingState(this);
 	}
 
+	/**
+	 * Gets the the session.
+	 *
+	 * @return the the session
+	 */
 	public GuiTree getTheSession() {
 		return this.theSession;
 	}
 
+	/**
+	 * Sets the the session.
+	 *
+	 * @param theSession the new the session
+	 */
 	public void setTheSession(GuiTree theSession) {
 		this.theSession = theSession;
 	}
 
+	/**
+	 * Gets the type detector.
+	 *
+	 * @return the type detector
+	 */
 	public TypeDetector getTypeDetector () {
 		return this.detector;
 	}
 
+	/**
+	 * Sets the type detector.
+	 *
+	 * @param type the new type detector
+	 */
 	public void setTypeDetector (TypeDetector type) {
 		this.detector = type;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#createActivity(it.slumdroid.tool.model.ActivityDescription)
+	 */
 	public ActivityState createActivity (ActivityDescription desc) {
 		return createActivity (desc,false);
 	}
 
 	// If the boolean parameter is omitted, the overloading method will default to a Final Activity
+	/**
+	 * Creates the activity.
+	 *
+	 * @param desc the desc
+	 * @param start the start
+	 * @return the activity state
+	 */
 	public ActivityState createActivity (ActivityDescription desc, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setUniqueId(getUniqueActivityId());
@@ -127,10 +190,19 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newActivity;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#updateDescription(it.slumdroid.droidmodels.model.ActivityState, it.slumdroid.tool.model.ActivityDescription)
+	 */
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc) {
 		return updateDescription  (newActivity, desc, true);
 	}
 
+	/**
+	 * Creates the widget.
+	 *
+	 * @param view the view
+	 * @return the test case widget
+	 */
 	public TestCaseWidget createWidget (View view) {
 		TestCaseWidget widget = TestCaseWidget.createWidget(getTheSession());
 		String id = String.valueOf(view.getId());
@@ -151,6 +223,14 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return widget;
 	}
 
+	/**
+	 * Update description.
+	 *
+	 * @param newActivity the new activity
+	 * @param desc the desc
+	 * @param detectDuplicates the detect duplicates
+	 * @return true, if successful
+	 */
 	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
 		boolean hasDescription = false;
 		for (View view: desc) {
@@ -171,39 +251,75 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return hasDescription;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#setBaseActivity(it.slumdroid.tool.model.ActivityDescription)
+	 */
 	public void setBaseActivity (ActivityDescription desc) {
 		this.baseActivity = (StartActivity) createActivity(desc,true);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#getBaseActivity()
+	 */
 	public ActivityState getBaseActivity () {
 		return this.baseActivity;
 	}
 
+	/**
+	 * Sets the start activity.
+	 *
+	 * @param theStep the the step
+	 * @param theActivity the the activity
+	 */
 	public void setStartActivity (Transition theStep, ActivityState theActivity) {
 		theStep.setStartActivity (stubActivity(theActivity));
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#setFinalActivity(it.slumdroid.droidmodels.model.Task, it.slumdroid.droidmodels.model.ActivityState)
+	 */
 	public void setFinalActivity (Task theTask, ActivityState theActivity) {
 		theTask.setFinalActivity (stubActivity(theActivity));
 	}
 
+	/**
+	 * Stub activity.
+	 *
+	 * @param theActivity the the activity
+	 * @return the test case activity
+	 */
 	private TestCaseActivity stubActivity (ActivityState theActivity) {
 		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
 		return theStub;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	public Iterator<Filter> iterator() {
 		return this.filters.iterator();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.FilterHandler#addFilter(it.slumdroid.tool.model.Filter)
+	 */
 	public void addFilter(Filter filter) {
 		this.filters.add(filter);
 	}
 
+	/**
+	 * Creates the event.
+	 *
+	 * @param type the type
+	 * @return the user event
+	 */
 	public UserEvent createEvent (String type) {
 		return createEvent (null, type);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#createEvent(it.slumdroid.droidmodels.model.WidgetState, java.lang.String)
+	 */
 	public UserEvent createEvent (WidgetState target, String type) {
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
 		if (target != null) newEvent.setWidget (target.clone());
@@ -212,6 +328,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newEvent;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#createInput(it.slumdroid.droidmodels.model.WidgetState, java.lang.String, java.lang.String)
+	 */
 	public UserInput createInput(WidgetState target, String value, String type) {
 		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
 		newInput.setWidget (target.clone());
@@ -221,6 +340,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return newInput;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#createTask(it.slumdroid.droidmodels.model.Task, it.slumdroid.droidmodels.model.Transition)
+	 */
 	public Task createTask(Task head, Transition tail) {
 		TestCaseTask task;
 		if (head != null) {
@@ -232,6 +354,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return task;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#importTask(org.w3c.dom.Element)
+	 */
 	public Task importTask (Element fromXml) {
 		TestCaseTask imported = new TestCaseTask (getTheSession());
 		Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
@@ -239,10 +364,16 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return imported;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#importState(org.w3c.dom.Element)
+	 */
 	public ActivityState importState (Element fromXml) {
 		return getTheSession().importState(fromXml);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#createStep(it.slumdroid.droidmodels.model.ActivityState, java.util.Collection, it.slumdroid.droidmodels.model.UserEvent)
+	 */
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
 		Transition transition = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
 		try {
@@ -258,24 +389,42 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return transition;
 	}
 
+	/**
+	 * Gets the unique event id.
+	 *
+	 * @return the unique event id
+	 */
 	public String getUniqueEventId () {
 		int ret = this.eventId;
 		this.eventId++;
 		return "e" + ret;
 	}
 
+	/**
+	 * Gets the unique activity id.
+	 *
+	 * @return the unique activity id
+	 */
 	public String getUniqueActivityId () {
 		int ret = this.activityId;
 		this.activityId++;
 		return "a" + ret;
 	}
 
+	/**
+	 * Gets the unique input id.
+	 *
+	 * @return the unique input id
+	 */
 	public String getUniqueInputId () {
 		int ret = this.inputId;
 		this.inputId++;
 		return "i" + ret;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
+	 */
 	public SessionParams onSavingState() {
 		SessionParams state = new SessionParams();
 		state.store(EVENT_PARAM_NAME, this.eventId);
@@ -284,12 +433,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return state;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onLoadingState(it.slumdroid.tool.utilities.SessionParams)
+	 */
 	public void onLoadingState(SessionParams sessionParams) {
 		this.eventId = sessionParams.getInt(EVENT_PARAM_NAME);
 		this.inputId = sessionParams.getInt(INPUT_PARAM_NAME);
 		this.activityId = sessionParams.getInt(ACTIVITY_PARAM_NAME);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
+	 */
 	public String getListenerName() {
 		return ACTOR_NAME;
 	}

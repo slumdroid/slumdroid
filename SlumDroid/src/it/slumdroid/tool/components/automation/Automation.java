@@ -73,15 +73,26 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Automation.
+ */
 public class Automation implements Executor, Extractor {
 
+	/** The extractor. */
 	private TrivialExtractor extractor;
 
+	/**
+	 * Instantiates a new automation.
+	 */
 	public Automation () {
 		setExtractor(new TrivialExtractor()); 
 	}
 
 	// Initializations
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Executor#bind(android.test.ActivityInstrumentationTestCase2)
+	 */
 	public void bind (ActivityInstrumentationTestCase2<?> test) {
 		getExtractor().solo = DroidExecutor.createRobotium (test);
 		unLockScreen();
@@ -89,6 +100,9 @@ public class Automation implements Executor, Extractor {
 		refreshCurrentActivity();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
+	 */
 	public void execute (Task task) {
 		afterRestart();
 		Log.i (TAG, "Playing Task " + task.getId());
@@ -97,6 +111,11 @@ public class Automation implements Executor, Extractor {
 		}
 	}
 
+	/**
+	 * Process.
+	 *
+	 * @param transition the transition
+	 */
 	private void process (Transition transition) {
 		for (UserInput input: transition) {
 			setInput(input);
@@ -104,6 +123,9 @@ public class Automation implements Executor, Extractor {
 		fireEvent (transition.getEvent());		
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Executor#fireEvent(it.slumdroid.droidmodels.model.UserEvent)
+	 */
 	public void fireEvent(UserEvent event) {
 		String eventType = event.getType();
 		if (eventType.equals(PRESS_BACK) 
@@ -132,6 +154,11 @@ public class Automation implements Executor, Extractor {
 		}
 	}
 
+	/**
+	 * Write log info.
+	 *
+	 * @param event the event
+	 */
 	private void writeLogInfo(UserEvent event) {
 		String eventType = event.getType();
 		String eventId = event.getWidgetId();
@@ -144,6 +171,9 @@ public class Automation implements Executor, Extractor {
 		Log.i(TAG, toWrite + extraInfo);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Executor#setInput(it.slumdroid.droidmodels.model.UserInput)
+	 */
 	public void setInput(UserInput input) {
 		int widgetId = Integer.parseInt(input.getWidgetId());
 		String inputType = input.getType();
@@ -159,6 +189,15 @@ public class Automation implements Executor, Extractor {
 		setInput(widgetId, inputType, value, widgetName, widgetType);
 	}
 
+	/**
+	 * Fire event.
+	 *
+	 * @param widgetId the widget id
+	 * @param widgetName the widget name
+	 * @param widgetType the widget type
+	 * @param eventType the event type
+	 * @param value the value
+	 */
 	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
 		View view = getWidget(widgetId, widgetType, widgetName);
 		if (view == null) view = getWidget(widgetId);
@@ -166,6 +205,14 @@ public class Automation implements Executor, Extractor {
 		fireEventOnView(view, eventType, value);
 	}
 
+	/**
+	 * Fire event.
+	 *
+	 * @param widgetName the widget name
+	 * @param widgetType the widget type
+	 * @param eventType the event type
+	 * @param value the value
+	 */
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View view = null;
 		if (widgetType.equals(BUTTON)) view = getExtractor().solo.getButton(widgetName);
@@ -184,6 +231,13 @@ public class Automation implements Executor, Extractor {
 		fireEventOnView(view, eventType, value);
 	}
 
+	/**
+	 * Fire event on view.
+	 *
+	 * @param view the view
+	 * @param eventType the event type
+	 * @param value the value
+	 */
 	private void fireEventOnView (View view, String eventType, String value) {
 		injectInteraction(view, eventType, value);
 		if (SLEEP_AFTER_EVENT != 0) wait(SLEEP_AFTER_EVENT);
@@ -192,6 +246,13 @@ public class Automation implements Executor, Extractor {
 		extractState();
 	}
 
+	/**
+	 * Inject interaction.
+	 *
+	 * @param view the view
+	 * @param interactionType the interaction type
+	 * @param value the value
+	 */
 	private void injectInteraction (View view, String interactionType, String value) {
 		if (view != null) requestView(view);
 
@@ -218,10 +279,22 @@ public class Automation implements Executor, Extractor {
 		else if (interactionType.equals(SWAP_TAB) && (value!=null)) swapTab (view, value);
 	}
 
+	/**
+	 * Refresh current activity.
+	 */
 	private void refreshCurrentActivity() {
 		ExtractorUtilities.setActivity(getExtractor().solo.getCurrentActivity());
 	}
 
+	/**
+	 * Sets the input.
+	 *
+	 * @param widgetId the widget id
+	 * @param inputType the input type
+	 * @param value the value
+	 * @param widgetName the widget name
+	 * @param widgetType the widget type
+	 */
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
 		View view = getWidget(widgetId, widgetType, widgetName);
 		if (view == null) view = getWidget(widgetId);
@@ -238,23 +311,40 @@ public class Automation implements Executor, Extractor {
 		injectInteraction(view, inputType, value);
 	}
 
+	/**
+	 * Request view.
+	 *
+	 * @param view the view
+	 */
 	protected void requestView (View view) {
 		DroidExecutor.requestView(view);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Executor#wait(int)
+	 */
 	public void wait (int milli) {
 		DroidExecutor.wait(milli);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#getActivity()
+	 */
 	public Activity getActivity() {
 		return ExtractorUtilities.getActivity();
 	}
 
+	/**
+	 * After restart.
+	 */
 	public void afterRestart() {
 		if (SLEEP_AFTER_RESTART != 0) wait(SLEEP_AFTER_RESTART);
 		if (SLEEP_ON_THROBBER != 0) waitOnThrobber();
 	}
 
+	/**
+	 * Wait on throbber.
+	 */
 	public void waitOnThrobber() {
 		int sleepTime = SLEEP_ON_THROBBER;
 		boolean flag;
@@ -277,10 +367,21 @@ public class Automation implements Executor, Extractor {
 		getInstrumentation().waitForIdleSync();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#getWidget(int)
+	 */
 	public View getWidget (int id) {
 		return this.getExtractor().getWidget(id);
 	}
 
+	/**
+	 * Gets the widget.
+	 *
+	 * @param theId the the id
+	 * @param theType the the type
+	 * @param theName the the name
+	 * @return the widget
+	 */
 	public View getWidget (int theId, String theType, String theName) {
 		for (View theView: getWidgetsById(theId)) {
 			if (checkWidgetEquivalence(theView, theId, theType, theName)) {
@@ -290,6 +391,15 @@ public class Automation implements Executor, Extractor {
 		return null;
 	}
 
+	/**
+	 * Check widget equivalence.
+	 *
+	 * @param view the view
+	 * @param theId the the id
+	 * @param theType the the type
+	 * @param theName the the name
+	 * @return true, if successful
+	 */
 	public boolean checkWidgetEquivalence (View view, int theId, String theType, String theName) {
 		String widgetType = AbstractorUtilities.getType(view); 
 		if (!(theType.equals(widgetType))) return false;
@@ -297,6 +407,12 @@ public class Automation implements Executor, Extractor {
 		return theName.equals(widgetName) && theId == view.getId();
 	}
 
+	/**
+	 * Gets the widgets by id.
+	 *
+	 * @param id the id
+	 * @return the widgets by id
+	 */
 	public ArrayList<View> getWidgetsById (int id) {
 		ArrayList<View> theList = new ArrayList<View>();
 		for (View theView: getExtractor().getAllWidgets()) {
@@ -307,18 +423,34 @@ public class Automation implements Executor, Extractor {
 		return theList;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#describeActivity()
+	 */
 	public ActivityDescription describeActivity() {
 		return this.getExtractor().describeActivity();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#extractState()
+	 */
 	public void extractState() {
 		this.getExtractor().extractState();
 	}
 
+	/**
+	 * Gets the extractor.
+	 *
+	 * @return the extractor
+	 */
 	public TrivialExtractor getExtractor() {
 		return extractor;
 	}
 
+	/**
+	 * Sets the extractor.
+	 *
+	 * @param extractor the new extractor
+	 */
 	public void setExtractor(TrivialExtractor extractor) {
 		this.extractor = extractor;
 	}

@@ -18,18 +18,39 @@ package it.slumdroid.tool.components.automation;
 import android.app.Activity;
 import android.view.View;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ExtractorUtilities.
+ */
 public class ExtractorUtilities {
 
+	/** The activity. */
 	private static Activity theActivity; // Current Activity
 
+	/**
+	 * Gets the activity.
+	 *
+	 * @return the activity
+	 */
 	public static Activity getActivity() {
 		return theActivity;
 	}
 
+	/**
+	 * Sets the activity.
+	 *
+	 * @param activity the new activity
+	 */
 	public static void setActivity(Activity activity) {
 		theActivity = activity;
 	}
 
+	/**
+	 * Find view by id.
+	 *
+	 * @param id the id
+	 * @return the view
+	 */
 	public static View findViewById (int id) {
 		return getActivity().findViewById(id);
 	}

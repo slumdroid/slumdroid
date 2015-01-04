@@ -17,8 +17,17 @@ package it.slumdroid.tool.model;
 
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface RandomInteractor.
+ */
 public interface RandomInteractor {
 
+	/**
+	 * Sets the random generator.
+	 *
+	 * @param random the new random generator
+	 */
 	public void setRandomGenerator (Random random);
 
 }

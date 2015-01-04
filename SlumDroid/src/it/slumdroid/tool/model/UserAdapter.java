@@ -15,9 +15,24 @@
 
 package it.slumdroid.tool.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface UserAdapter.
+ */
 public interface UserAdapter extends EventHandler, InputHandler {
 
+	/**
+	 * Adds the input.
+	 *
+	 * @param inputs the inputs
+	 */
 	public void addInput (Interactor ... inputs);
+	
+	/**
+	 * Adds the event.
+	 *
+	 * @param events the events
+	 */
 	public void addEvent (Interactor ... events);
 
 }

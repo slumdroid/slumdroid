@@ -17,10 +17,32 @@ package it.slumdroid.tool.model;
 
 import android.view.View;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface ActivityDescription.
+ */
 public interface ActivityDescription extends Iterable<View> {
 
+	/**
+	 * Gets the activity name.
+	 *
+	 * @return the activity name
+	 */
 	public String getActivityName ();
+	
+	/**
+	 * Gets the activity title.
+	 *
+	 * @return the activity title
+	 */
 	public String getActivityTitle ();
+	
+	/**
+	 * Gets the widget index.
+	 *
+	 * @param view the view
+	 * @return the widget index
+	 */
 	public int getWidgetIndex (View view);
 
 }

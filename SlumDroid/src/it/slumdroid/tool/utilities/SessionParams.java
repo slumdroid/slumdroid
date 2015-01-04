@@ -19,58 +19,133 @@ import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SessionParams.
+ */
 public class SessionParams implements Serializable {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2346125751510656206L;
+	
+	/** The values. */
 	protected Map<String,String> values;
 
+	/**
+	 * Instantiates a new session params.
+	 */
 	public SessionParams () {
 		this.values = new Hashtable<String,String>();
 	}
 
+	/**
+	 * Instantiates a new session params.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public SessionParams (String key, String value) {
 		this();
 		store (key,value);
 	}
 
+	/**
+	 * Instantiates a new session params.
+	 *
+	 * @param key the key
+	 * @param number the number
+	 */
 	public SessionParams (String key, int number) {
 		this();
 		store (key, number);
 	}
 
+	/**
+	 * Instantiates a new session params.
+	 *
+	 * @param key the key
+	 * @param number the number
+	 */
 	public SessionParams (String key, long number) {
 		this();
 		store (key, number);
 	}
 
+	/**
+	 * Gets the.
+	 *
+	 * @param key the key
+	 * @return the string
+	 */
 	public String get (String key) {
 		return this.values.get(key);
 	}
 
+	/**
+	 * Gets the int.
+	 *
+	 * @param key the key
+	 * @return the int
+	 */
 	public int getInt (String key) {
 		return Integer.parseInt(this.values.get(key));
 	}
 
+	/**
+	 * Gets the long.
+	 *
+	 * @param key the key
+	 * @return the long
+	 */
 	public long getLong (String key) {
 		return Long.parseLong(this.values.get(key));
 	}
 
+	/**
+	 * Checks for.
+	 *
+	 * @param key the key
+	 * @return true, if successful
+	 */
 	public boolean has (String key) {
 		return this.values.containsKey(key);
 	}
 
+	/**
+	 * Store.
+	 *
+	 * @param key the key
+	 * @param value the value
+	 */
 	public void store (String key, String value) {
 		this.values.put(key, value);
 	}
 
+	/**
+	 * Store.
+	 *
+	 * @param key the key
+	 * @param number the number
+	 */
 	public void store (String key, int number) {
 		this.values.put(key, String.valueOf(number));
 	}
 
+	/**
+	 * Store.
+	 *
+	 * @param key the key
+	 * @param number the number
+	 */
 	public void store (String key, long number) {
 		this.values.put(key, String.valueOf(number));
 	}
 
+	/**
+	 * Store.
+	 *
+	 * @param params the params
+	 */
 	public void store (SessionParams params) {
 		this.values.putAll(params.values);
 	}

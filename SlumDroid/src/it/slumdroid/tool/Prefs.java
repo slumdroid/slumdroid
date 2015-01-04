@@ -67,22 +67,48 @@ import java.util.prefs.Preferences;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Prefs.
+ */
 public class Prefs {
 
+	/** The prefs. */
 	private static Preferences prefs;
+	
+	/** The not found. */
 	private static boolean notFound = false;
+	
+	/** The local prefs. */
 	private Preferences localPrefs;
+	
+	/** The resources. */
 	private Class<?> resources;
+	
+	/** The main node. */
 	private static String mainNode = Prefs.class.getPackage().getName();
 
+	/** The additional events. */
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<SimpleInteractorAdapter>();
+	
+	/** The additional inputs. */
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<SimpleInteractorAdapter>();
 
+	/**
+	 * Instantiates a new prefs.
+	 *
+	 * @param node the node
+	 */
 	public Prefs (String node) {
 		this.localPrefs = loadNode(node);
 		this.resources = Resources.class;
 	}	
 
+	/**
+	 * Gets the main node.
+	 *
+	 * @return the main node
+	 */
 	public static Preferences getMainNode () {
 		if (notFound) return null;
 		if (prefs == null) {
@@ -91,10 +117,18 @@ public class Prefs {
 		return prefs;
 	}
 
+	/**
+	 * Load main node.
+	 */
 	public static void loadMainNode() {
 		loadMainNode (mainNode);
 	}
 
+	/**
+	 * Load main node.
+	 *
+	 * @param node the node
+	 */
 	@SuppressLint("SdCardPath")
 	public static void loadMainNode (String node) {
 		String path = "/data/data/" + mainNode + "/files/preferences.xml";
@@ -112,15 +146,29 @@ public class Prefs {
 		prefs = Preferences.userRoot().node(node);
 	}
 
+	/**
+	 * Load node.
+	 *
+	 * @param localNode the local node
+	 * @return the preferences
+	 */
 	public static Preferences loadNode (String localNode) {
 		if (getMainNode() == null) return null;
 		return getMainNode().node(localNode);
 	}
 
+	/**
+	 * Checks for prefs.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasPrefs() {
 		return this.localPrefs != null;
 	}
 
+	/**
+	 * Update resources.
+	 */
 	public void updateResources() {
 		if (!hasPrefs()) return;
 		for (Field f: this.resources.getFields()) {			
@@ -133,26 +181,72 @@ public class Prefs {
 		}
 	}
 
+	/**
+	 * Gets the int.
+	 *
+	 * @param parameter the parameter
+	 * @return the int
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public int getInt (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.getInt(parameter.getName(), parameter.getInt(parameter));
 	}
 
+	/**
+	 * Gets the long.
+	 *
+	 * @param parameter the parameter
+	 * @return the long
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public long getLong (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.getLong(parameter.getName(), parameter.getLong(parameter));
 	}
 
+	/**
+	 * Gets the boolean.
+	 *
+	 * @param parameter the parameter
+	 * @return the boolean
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public boolean getBoolean (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.getBoolean(parameter.getName(), parameter.getBoolean(parameter));
 	}
 
+	/**
+	 * Gets the string.
+	 *
+	 * @param parameter the parameter
+	 * @return the string
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	public String getString (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.get(parameter.getName(), parameter.get("").toString());
 	}
 
+	/**
+	 * From array.
+	 *
+	 * @param parameter the parameter
+	 * @param index the index
+	 * @return the string
+	 */
 	public static String fromArray (Field parameter, int index) {
 		return parameter.getName() + "[" + index + "]";
 	}
 
+	/**
+	 * Gets the string array.
+	 *
+	 * @param parameter the parameter
+	 * @return the string array
+	 * @throws IllegalArgumentException the illegal argument exception
+	 */
 	public String[] getStringArray (Field parameter) throws IllegalArgumentException {
 		List<String> theList = new ArrayList<String>();
 		int index = 0;
@@ -167,6 +261,13 @@ public class Prefs {
 		return (found)?theList.toArray(tmp):null;
 	}
 
+	/**
+	 * Gets the int array.
+	 *
+	 * @param parameter the parameter
+	 * @return the int array
+	 * @throws IllegalArgumentException the illegal argument exception
+	 */
 	public int[] getIntArray (Field parameter) throws IllegalArgumentException {
 		String[] value = getStringArray (parameter);
 		if (value == null) return null;
@@ -177,10 +278,25 @@ public class Prefs {
 		return ret;
 	}
 
+	/**
+	 * Sets the array.
+	 *
+	 * @param parameter the new array
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	protected void setArray (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		setArray(parameter, parameter.getType());		
 	}
 
+	/**
+	 * Sets the array.
+	 *
+	 * @param parameter the parameter
+	 * @param type the type
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	protected void setArray (Field parameter, Class<?> type) throws IllegalArgumentException, IllegalAccessException {
 		Class<?> component = type.getComponentType();
 		if (component.equals(String.class)) {
@@ -196,6 +312,13 @@ public class Prefs {
 		}
 	}
 
+	/**
+	 * Update value.
+	 *
+	 * @param parameter the parameter
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
 	protected void updateValue (Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		Class<?> type = parameter.getType();
 		if (type.equals(int.class)) {
@@ -213,10 +336,18 @@ public class Prefs {
 		}
 	}
 
+	/**
+	 * Update node.
+	 *
+	 * @param node the node
+	 */
 	public static void updateNode (String node) {
 		new Prefs (node).updateResources();
 	}
 
+	/**
+	 * Check inputs.
+	 */
 	public static void checkInputs(){
 		if (INPUTS != null) {
 			if (!hasClickAsInputs()) {
@@ -239,6 +370,11 @@ public class Prefs {
 		}
 	}
 
+	/**
+	 * Checks for click as inputs.
+	 *
+	 * @return true, if successful
+	 */
 	private static boolean hasClickAsInputs() {
 		boolean isClick = false;
 		for (String s: INPUTS) {		
@@ -249,6 +385,9 @@ public class Prefs {
 		return isClick;
 	}
 
+	/**
+	 * Check events.
+	 */
 	public static void checkEvents(){
 		if (EVENTS != null) {
 			if (!hasClickAsEvents()) {
@@ -281,6 +420,11 @@ public class Prefs {
 		}
 	}
 
+	/**
+	 * Checks for click as events.
+	 *
+	 * @return true, if successful
+	 */
 	private static boolean hasClickAsEvents() {
 		boolean isClick = false;
 		for (String s: EVENTS) {

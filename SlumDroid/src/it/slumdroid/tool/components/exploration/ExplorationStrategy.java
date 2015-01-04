@@ -27,19 +27,40 @@ import java.util.List;
 
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ExplorationStrategy.
+ */
 public class ExplorationStrategy implements Strategy {
 
+	/** The gui nodes. */
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
+	
+	/** The comparator. */
 	private CompositionalComparator comparator;
+	
+	/** The positive comparation. */
 	protected boolean positiveComparation = true;
+	
+	/** The task. */
 	private Task theTask;
+	
+	/** The listeners. */
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 
+	/**
+	 * Instantiates a new exploration strategy.
+	 *
+	 * @param comparator the comparator
+	 */
 	public ExplorationStrategy (CompositionalComparator comparator) {
 		super();
 		setComparator(comparator);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#addState(it.slumdroid.droidmodels.model.ActivityState)
+	 */
 	public void addState(ActivityState newActivity) {
 		for (StateDiscoveryListener listener: getListeners()) {
 			listener.onNewState(newActivity);
@@ -47,6 +68,9 @@ public class ExplorationStrategy implements Strategy {
 		this.guiNodes.add(newActivity);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#compareState(it.slumdroid.droidmodels.model.ActivityState)
+	 */
 	public void compareState(ActivityState theActivity) {
 		this.positiveComparation = true;
 		for (ActivityState stored: this.guiNodes) {
@@ -61,30 +85,55 @@ public class ExplorationStrategy implements Strategy {
 		addState (theActivity);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#checkForExploration()
+	 */
 	public final boolean checkForExploration() {		
 		return !this.positiveComparation;		
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#getComparator()
+	 */
 	public CompositionalComparator getComparator() {
 		return this.comparator;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#setComparator(it.slumdroid.tool.components.exploration.CompositionalComparator)
+	 */
 	public void setComparator(CompositionalComparator comparator) {
 		this.comparator = comparator;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#setTask(it.slumdroid.droidmodels.model.Task)
+	 */
 	public void setTask(Task theTask) {
 		this.theTask = theTask;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Strategy#getTask()
+	 */
 	public Task getTask () {
 		return this.theTask;
 	}
 
+	/**
+	 * Gets the listeners.
+	 *
+	 * @return the listeners
+	 */
 	public List<StateDiscoveryListener> getListeners() {
 		return this.theListeners;
 	}
 
+	/**
+	 * Register state listener.
+	 *
+	 * @param theListener the the listener
+	 */
 	public void registerStateListener(StateDiscoveryListener theListener) {
 		this.theListeners.add(theListener);
 	}

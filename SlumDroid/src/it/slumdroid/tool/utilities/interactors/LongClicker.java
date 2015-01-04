@@ -19,16 +19,31 @@ import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class LongClicker.
+ */
 public class LongClicker extends SimpleInteractorAdapter {
 
+	/**
+	 * Instantiates a new long clicker.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public LongClicker (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public boolean canUseWidget (WidgetState widget) {
 		return widget.isLongClickable() && super.canUseWidget(widget);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType () {
 		return LONG_CLICK;
 	}

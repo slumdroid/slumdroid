@@ -60,8 +60,13 @@ import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class CompositionalComparator.
+ */
 public class CompositionalComparator {
 
+	/** The widget types. */
 	private static String[] WIDGET_TYPES  = {
 		AUTOC_TEXT, CHECKTEXT, EDIT_TEXT, NOEDITABLE_TEXT, 					// TEXT 
 		BUTTON, CHECKBOX, NUMBER_PICKER_BUTTON,	RADIO, TOGGLE_BUTTON, 		// BUTTON
@@ -76,6 +81,13 @@ public class CompositionalComparator {
 		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
 	};
 
+	/**
+	 * Compare.
+	 *
+	 * @param currentActivity the current activity
+	 * @param storedActivity the stored activity
+	 * @return true, if successful
+	 */
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
 		if (!compareNameTitle(currentActivity, storedActivity)) {
 			return false;
@@ -90,6 +102,13 @@ public class CompositionalComparator {
 		return true; 
 	}
 
+	/**
+	 * Compare name title.
+	 *
+	 * @param currentActivity the current activity
+	 * @param storedActivity the stored activity
+	 * @return true, if successful
+	 */
 	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity) {
 		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
 			return false;
@@ -100,6 +119,12 @@ public class CompositionalComparator {
 		return true;
 	}
 
+	/**
+	 * Match class.
+	 *
+	 * @param type the type
+	 * @return true, if successful
+	 */
 	private boolean matchClass (String type) {
 		for (String storedType: WIDGET_TYPES) {
 			if (storedType.equals(type)) {
@@ -109,6 +134,13 @@ public class CompositionalComparator {
 		return false;
 	}
 
+	/**
+	 * Look for.
+	 *
+	 * @param field the field
+	 * @param activity the activity
+	 * @return true, if successful
+	 */
 	private boolean lookFor (WidgetState field, ActivityState activity) {
 		for (WidgetState otherField: activity) {
 			if (matchWidget (otherField, field)) {
@@ -118,6 +150,13 @@ public class CompositionalComparator {
 		return false;
 	}
 
+	/**
+	 * Match widget.
+	 *
+	 * @param field the field
+	 * @param otherField the other field
+	 * @return true, if successful
+	 */
 	private boolean matchWidget (WidgetState field, WidgetState otherField) {       
 		boolean compareId = otherField.getId().equals(field.getId());
 		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());

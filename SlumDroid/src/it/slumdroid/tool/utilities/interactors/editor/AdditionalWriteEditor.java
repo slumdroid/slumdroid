@@ -29,23 +29,45 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdditionalWriteEditor.
+ */
 public class AdditionalWriteEditor extends SimpleInteractorAdapter {
 
+	/** The id value pairs. */
 	private Map<String,ArrayList<String>> idValuePairs = new Hashtable<String,ArrayList<String>>();
 
+	/**
+	 * Instantiates a new additional write editor.
+	 */
 	public AdditionalWriteEditor () {
 		this (EDIT_TEXT, AUTOC_TEXT, SEARCH_BAR);
 	}
 
+	/**
+	 * Instantiates a new additional write editor.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public AdditionalWriteEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public boolean canUseWidget(WidgetState widget) {
 		return super.canUseWidget(widget) && hasId(widget.getId());
 	}
 
+	/**
+	 * Checks for id.
+	 *
+	 * @param id the id
+	 * @return true, if successful
+	 */
 	public boolean hasId (String id) {
 		for (Map.Entry<String,ArrayList<String>> entry: this.idValuePairs.entrySet()) {
 			if (id.equals(entry.getKey())) return true;
@@ -53,6 +75,9 @@ public class AdditionalWriteEditor extends SimpleInteractorAdapter {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getEvents(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public List<UserEvent> getEvents (WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
@@ -65,6 +90,9 @@ public class AdditionalWriteEditor extends SimpleInteractorAdapter {
 		return events;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInputs(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public List<UserInput> getInputs (WidgetState widget) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
@@ -77,14 +105,29 @@ public class AdditionalWriteEditor extends SimpleInteractorAdapter {
 		return inputs;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return WRITE_TEXT;
 	}
 
+	/**
+	 * Sets the id value pairs.
+	 *
+	 * @param pairs the pairs
+	 */
 	public void setIdValuePairs (Map<String,ArrayList<String>> pairs) {
 		this.idValuePairs = pairs;
 	}
 
+	/**
+	 * Adds the id value pair.
+	 *
+	 * @param id the id
+	 * @param values the values
+	 * @return the additional write editor
+	 */
 	public AdditionalWriteEditor addIdValuePair (String id, String ... values) {
 		ArrayList<String> valuesForId;
 		if (!hasId(id)) {

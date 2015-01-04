@@ -17,9 +17,22 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.WidgetState;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Filter.
+ */
 public interface Filter extends Iterable<WidgetState> {
 
+	/**
+	 * Load item.
+	 *
+	 * @param widget the widget
+	 */
 	public void loadItem (WidgetState widget);
+	
+	/**
+	 * Clear.
+	 */
 	public void clear ();
 
 }

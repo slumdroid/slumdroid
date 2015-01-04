@@ -17,8 +17,25 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.ActivityState;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving stateDiscovery events.
+ * The class that is interested in processing a stateDiscovery
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addStateDiscoveryListener<code> method. When
+ * the stateDiscovery event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see StateDiscoveryEvent
+ */
 public interface StateDiscoveryListener {
 
+	/**
+	 * On new state.
+	 *
+	 * @param newState the new state
+	 */
 	public void onNewState (ActivityState newState);
 
 }

@@ -23,26 +23,50 @@ import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HashWriteEditor.
+ */
 public class HashWriteEditor extends SimpleInteractorAdapter {
 
+	/**
+	 * Instantiates a new hash write editor.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public HashWriteEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return WRITE_TEXT;
 	}
 
+	/**
+	 * Gets the values.
+	 *
+	 * @param widget the widget
+	 * @return the values
+	 */
 	public String[] getValues(WidgetState widget) {
 		String[] values = new String[1];                
 		values[0] = Integer.toString(widget.getId().hashCode() % 100);
 		return values;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getEvents(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public List<UserEvent> getEvents (WidgetState widget) {
 		return getEvents (widget, getValues(widget));
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInputs(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public List<UserInput> getInputs (WidgetState widget) {
 		return getInputs (widget, getValues(widget));
 	}

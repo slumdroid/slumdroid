@@ -26,18 +26,103 @@ import java.util.Collection;
 
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Abstractor.
+ */
 public interface Abstractor {
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param desc the desc
+	 * @return the activity state
+	 */
 	public ActivityState createActivity (ActivityDescription desc);
+	
+	/**
+	 * Update description.
+	 *
+	 * @param theActivity the the activity
+	 * @param theDescription the the description
+	 * @return true, if successful
+	 */
 	public boolean updateDescription (ActivityState theActivity, ActivityDescription theDescription);
+	
+	/**
+	 * Sets the base activity.
+	 *
+	 * @param desc the new base activity
+	 */
 	public void setBaseActivity (ActivityDescription desc);
+	
+	/**
+	 * Gets the base activity.
+	 *
+	 * @return the base activity
+	 */
 	public ActivityState getBaseActivity ();
+	
+	/**
+	 * Creates the event.
+	 *
+	 * @param target the target
+	 * @param type the type
+	 * @return the user event
+	 */
 	public UserEvent createEvent (WidgetState target, String type);
+	
+	/**
+	 * Creates the input.
+	 *
+	 * @param target the target
+	 * @param value the value
+	 * @param type the type
+	 * @return the user input
+	 */
 	public UserInput createInput (WidgetState target, String value, String type);
+	
+	/**
+	 * Creates the task.
+	 *
+	 * @param prototype the prototype
+	 * @param appendix the appendix
+	 * @return the task
+	 */
 	public Task createTask (Task prototype, Transition appendix);
+	
+	/**
+	 * Creates the step.
+	 *
+	 * @param start the start
+	 * @param inputs the inputs
+	 * @param event the event
+	 * @return the transition
+	 */
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
+	
+	/**
+	 * Import task.
+	 *
+	 * @param element the element
+	 * @return the task
+	 */
 	public Task importTask (Element element);
+	
+	/**
+	 * Import state.
+	 *
+	 * @param fromXml the from xml
+	 * @return the activity state
+	 */
 	public ActivityState importState (Element fromXml);
+	
+	/**
+	 * Sets the final activity.
+	 *
+	 * @param theTask the the task
+	 * @param theActivity the the activity
+	 */
 	public void setFinalActivity (Task theTask, ActivityState theActivity);
 
 }

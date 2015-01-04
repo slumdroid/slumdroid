@@ -17,10 +17,39 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.tool.utilities.SessionParams;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving saveState events.
+ * The class that is interested in processing a saveState
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addSaveStateListener<code> method. When
+ * the saveState event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see SaveStateEvent
+ */
 public interface SaveStateListener {
 
+	/**
+	 * Gets the listener name.
+	 *
+	 * @return the listener name
+	 */
 	public String getListenerName ();
+	
+	/**
+	 * On saving state.
+	 *
+	 * @return the session params
+	 */
 	public SessionParams onSavingState ();
+	
+	/**
+	 * On loading state.
+	 *
+	 * @param sessionParams the session params
+	 */
 	public void onLoadingState (SessionParams sessionParams);
 
 }

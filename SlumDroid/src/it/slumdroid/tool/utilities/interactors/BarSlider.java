@@ -19,21 +19,39 @@ import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class BarSlider.
+ */
 public class BarSlider extends RandomInteractorAdapter {
 
+	/**
+	 * Instantiates a new bar slider.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public BarSlider (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return SET_BAR;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter#getMin()
+	 */
 	@Override
 	public int getMin () {
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter#getMax(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public int getMax(WidgetState widget) {
 		return widget.getCount();

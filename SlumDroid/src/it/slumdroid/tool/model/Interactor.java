@@ -21,15 +21,73 @@ import it.slumdroid.droidmodels.model.WidgetState;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Interactor.
+ */
 public interface Interactor {
 
+	/**
+	 * Can use widget.
+	 *
+	 * @param widget the widget
+	 * @return true, if successful
+	 */
 	public boolean canUseWidget (WidgetState widget);
+	
+	/**
+	 * Gets the events.
+	 *
+	 * @param widget the widget
+	 * @return the events
+	 */
 	public List<UserEvent> getEvents (WidgetState widget);
+	
+	/**
+	 * Gets the inputs.
+	 *
+	 * @param widget the widget
+	 * @return the inputs
+	 */
 	public List<UserInput> getInputs (WidgetState widget);
+	
+	/**
+	 * Gets the events.
+	 *
+	 * @param widget the widget
+	 * @param values the values
+	 * @return the events
+	 */
 	public List<UserEvent> getEvents (WidgetState widget, String ... values);
+	
+	/**
+	 * Gets the inputs.
+	 *
+	 * @param widget the widget
+	 * @param values the values
+	 * @return the inputs
+	 */
 	public List<UserInput> getInputs (WidgetState widget, String ... values);
+	
+	/**
+	 * Gets the abstractor.
+	 *
+	 * @return the abstractor
+	 */
 	public Abstractor getAbstractor ();
+	
+	/**
+	 * Sets the abstractor.
+	 *
+	 * @param abstractor the new abstractor
+	 */
 	public void setAbstractor (Abstractor abstractor);
+	
+	/**
+	 * Gets the interaction type.
+	 *
+	 * @return the interaction type
+	 */
 	public String getInteractionType ();
 
 }

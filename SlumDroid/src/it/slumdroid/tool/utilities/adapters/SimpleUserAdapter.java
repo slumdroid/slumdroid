@@ -27,13 +27,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SimpleUserAdapter.
+ */
 public class SimpleUserAdapter implements UserAdapter {
 
+	/** The abs. */
 	private Abstractor abs;
+	
+	/** The random generator. */
 	private Random randomGenerator;
+	
+	/** The event types. */
 	private List<Interactor> eventTypes;
+	
+	/** The input types. */
 	private List<Interactor> inputTypes;
 
+	/**
+	 * Instantiates a new simple user adapter.
+	 *
+	 * @param abstractor the abstractor
+	 * @param random the random
+	 */
 	public SimpleUserAdapter (Abstractor abstractor, Random random) {
 		this.eventTypes = new ArrayList<Interactor>();
 		this.inputTypes = new ArrayList<Interactor>();		
@@ -41,6 +58,9 @@ public class SimpleUserAdapter implements UserAdapter {
 		setAbstractor(abstractor);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.EventHandler#handleEvent(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public List<UserEvent> handleEvent(WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		for (Interactor eventAdapter: getEventTypes()) {
@@ -49,6 +69,9 @@ public class SimpleUserAdapter implements UserAdapter {
 		return events;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.InputHandler#handleInput(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public List<UserInput> handleInput(WidgetState widget) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		for (Interactor inputAdapter: getInputTypes()) {
@@ -57,22 +80,45 @@ public class SimpleUserAdapter implements UserAdapter {
 		return inputs;
 	}
 
+	/**
+	 * Gets the abstractor.
+	 *
+	 * @return the abstractor
+	 */
 	public Abstractor getAbstractor() {
 		return this.abs;
 	}
 
+	/**
+	 * Sets the abstractor.
+	 *
+	 * @param abs the new abstractor
+	 */
 	public void setAbstractor(Abstractor abs) {
 		this.abs = abs;
 	}
 
+	/**
+	 * Gets the random generator.
+	 *
+	 * @return the random generator
+	 */
 	public Random getRandomGenerator() {
 		return this.randomGenerator;
 	}
 
+	/**
+	 * Sets the random generator.
+	 *
+	 * @param randomGenerator the new random generator
+	 */
 	public void setRandomGenerator(Random randomGenerator) {
 		this.randomGenerator = randomGenerator;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.UserAdapter#addEvent(it.slumdroid.tool.model.Interactor[])
+	 */
 	public void addEvent (Interactor ... events) {
 		for (Interactor e: events) {
 			e.setAbstractor(getAbstractor());
@@ -80,10 +126,18 @@ public class SimpleUserAdapter implements UserAdapter {
 		}
 	}
 
+	/**
+	 * Gets the event types.
+	 *
+	 * @return the event types
+	 */
 	public Iterable<Interactor> getEventTypes () {
 		return this.eventTypes;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.UserAdapter#addInput(it.slumdroid.tool.model.Interactor[])
+	 */
 	public void addInput (Interactor ... inputs) {
 		for (Interactor i: inputs) {
 			i.setAbstractor(getAbstractor());
@@ -94,6 +148,11 @@ public class SimpleUserAdapter implements UserAdapter {
 		}
 	}
 
+	/**
+	 * Gets the input types.
+	 *
+	 * @return the input types
+	 */
 	public Iterable<Interactor> getInputTypes () {
 		return this.inputTypes;
 	}
