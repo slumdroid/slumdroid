@@ -18,16 +18,32 @@ package it.slumdroid.tool.utilities.interactors.selector;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import it.slumdroid.droidmodels.model.WidgetState;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ListLongSelector.
+ */
 public class ListLongSelector extends ListSelector {
 
+	/**
+	 * Instantiates a new list long selector.
+	 *
+	 * @param maxItems the max items
+	 * @param simpleTypes the simple types
+	 */
 	public ListLongSelector (int maxItems, String ... simpleTypes) {
 		super (maxItems, simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.interactors.selector.ListSelector#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public boolean canUseWidget (WidgetState widget) {
 		return widget.isLongClickable() && super.canUseWidget(widget);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.interactors.selector.ListSelector#getInteractionType()
+	 */
 	public String getInteractionType () {
 		return LIST_LONG_SELECT;
 	}

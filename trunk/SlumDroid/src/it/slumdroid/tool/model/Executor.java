@@ -20,12 +20,45 @@ import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import android.test.ActivityInstrumentationTestCase2;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Executor.
+ */
 public interface Executor {
 
+	/**
+	 * Bind.
+	 *
+	 * @param engine the engine
+	 */
 	public void bind (ActivityInstrumentationTestCase2<?> engine);
+	
+	/**
+	 * Execute.
+	 *
+	 * @param task the task
+	 */
 	public void execute (Task task);
+	
+	/**
+	 * Fire event.
+	 *
+	 * @param event the event
+	 */
 	public void fireEvent (UserEvent event);
+	
+	/**
+	 * Sets the input.
+	 *
+	 * @param input the new input
+	 */
 	public void setInput (UserInput input);
+	
+	/**
+	 * Wait.
+	 *
+	 * @param milli the milli
+	 */
 	public void wait (int milli);
 
 }

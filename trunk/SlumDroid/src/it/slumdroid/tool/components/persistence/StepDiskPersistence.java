@@ -21,44 +21,90 @@ import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.utilities.SessionParams;
 import android.content.ContextWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StepDiskPersistence.
+ */
 public class StepDiskPersistence extends DiskPersistence implements SaveStateListener {
 
+	/** The step. */
 	private int step = 1;
+	
+	/** The count. */
 	private int count = 0;
+	
+	/** The footer. */
 	private String footer = new String();
+	
+	/** The first. */
 	private boolean first = true;
+	
+	/** The last. */
 	private boolean last = false;
 
+	/** The actor name. */
 	public final String ACTOR_NAME = "StepDiskPersistence";
+	
+	/** The param name. */
 	public final String PARAM_NAME = "footer";
 
+	/** The xml body begin. */
 	private final String XML_BODY_BEGIN = "    <TASK";
+	
+	/** The xml body end. */
 	private final String XML_BODY_END = "/TASK>";
 
+	/**
+	 * Instantiates a new step disk persistence.
+	 */
 	public StepDiskPersistence () {
 		super();
 		PersistenceFactory.registerForSavingState(this);
 	}
 
+	/**
+	 * Instantiates a new step disk persistence.
+	 *
+	 * @param theSession the the session
+	 */
 	public StepDiskPersistence (Session theSession) {
 		super(theSession);
 		PersistenceFactory.registerForSavingState(this);
 	}
 
+	/**
+	 * Instantiates a new step disk persistence.
+	 *
+	 * @param theStep the the step
+	 */
 	public StepDiskPersistence (int theStep) {
 		this();
 		setStep(theStep);
 	}
 
+	/**
+	 * Instantiates a new step disk persistence.
+	 *
+	 * @param theSession the the session
+	 * @param theStep the the step
+	 */
 	public StepDiskPersistence (Session theSession, int theStep) {
 		this (theSession);
 		setStep (theStep);
 	}
 
+	/**
+	 * Sets the step.
+	 *
+	 * @param theStep the new step
+	 */
 	public void setStep (int theStep) {
 		this.step = theStep;		
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.components.persistence.DiskPersistence#addTask(it.slumdroid.droidmodels.model.Task)
+	 */
 	@Override
 	public void addTask (Task task) {
 		super.addTask (task);
@@ -69,11 +115,19 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.components.persistence.DiskPersistence#generate()
+	 */
 	@Override
 	public String generate() {
 		return generateXML() + System.getProperty("line.separator");
 	}
 
+	/**
+	 * Generate xml.
+	 *
+	 * @return the string
+	 */
 	public String generateXML () {
 		String graph = super.generate();
 		// Session is smaller than the step: fall back to DiskPersistence behavior and save all
@@ -98,6 +152,9 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		return graph.substring(bodyBegin,bodyEnd);
 	}
 
+	/**
+	 * Save step.
+	 */
 	public void saveStep () {
 		save(isLast());
 		for (Task t: getSession()) {
@@ -106,43 +163,76 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 		setNotFirst();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.components.persistence.DiskPersistence#save()
+	 */
 	@Override
 	public void save () {
 		save (true);
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param last the last
+	 */
 	public void save (boolean last) {
 		if (!isFirst()) this.mode = ContextWrapper.MODE_APPEND;
 		if (last) setLast();		
 		super.save();
 	}
 
+	/**
+	 * Checks if is first.
+	 *
+	 * @return true, if is first
+	 */
 	public boolean isFirst () {
 		return this.first;
 	}
 
+	/**
+	 * Checks if is last.
+	 *
+	 * @return true, if is last
+	 */
 	public boolean isLast () {
 		return this.last;
 	}
 
+	/**
+	 * Sets the not first.
+	 */
 	public void setNotFirst () {
 		this.first = false;
 	}
 
+	/**
+	 * Sets the last.
+	 */
 	public void setLast () {
 		this.last = true;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
+	 */
 	@Override
 	public String getListenerName() {
 		return ACTOR_NAME;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
+	 */
 	@Override
 	public SessionParams onSavingState() {
 		return new SessionParams(PARAM_NAME, this.footer);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onLoadingState(it.slumdroid.tool.utilities.SessionParams)
+	 */
 	@Override
 	public void onLoadingState(SessionParams sessionParams) {
 		this.footer = sessionParams.get(PARAM_NAME);

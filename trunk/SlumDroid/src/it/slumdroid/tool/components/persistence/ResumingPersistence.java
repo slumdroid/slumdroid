@@ -42,39 +42,79 @@ import java.util.Map.Entry;
 
 import android.content.ContextWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ResumingPersistence.
+ */
 public class ResumingPersistence extends StepDiskPersistence implements DispatchListener, StateDiscoveryListener {
 
+	/** The task list. */
 	private List<Task> taskList;
+	
+	/** The activity file. */
 	private String activityFile;
+	
+	/** The task list file. */
 	private String taskListFile;
+	
+	/** The parameters file. */
 	private String parametersFile;
+	
+	/** The task file. */
 	private FileOutputStream taskFile;
+	
+	/** The task stream. */
 	private OutputStreamWriter taskStream;
+	
+	/** The state file. */
 	private FileOutputStream stateFile;
+	
+	/** The state stream. */
 	private OutputStreamWriter stateStream;
+	
+	/** The parameters. */
 	private Map<String, SessionParams> parameters = new Hashtable<String, SessionParams>();
+	
+	/** The listeners. */
 	private Hashtable<String,SaveStateListener> theListeners = new Hashtable<String,SaveStateListener>();
 
+	/**
+	 * Instantiates a new resuming persistence.
+	 */
 	public ResumingPersistence () {
 		super(1);
 	}
 
+	/**
+	 * Instantiates a new resuming persistence.
+	 *
+	 * @param theSession the the session
+	 */
 	public ResumingPersistence (Session theSession) {
 		super(theSession, 1);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#addTask(it.slumdroid.droidmodels.model.Task)
+	 */
 	@Override 
 	public void addTask (Task t) {
 		t.setFailed(false);
 		super.addTask(t);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.DispatchListener#onTaskDispatched(it.slumdroid.droidmodels.model.Task)
+	 */
 	public void onTaskDispatched(Task task) {
 		task.setFailed(true);
 		saveTaskList();
 		saveParameters();
 	}
 
+	/**
+	 * Save task list.
+	 */
 	public void saveTaskList() {
 		if (noTasks()) {
 			delete (getTaskListFileName());
@@ -101,6 +141,11 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/**
+	 * Can has resume.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean canHasResume () {
 		if (!exists(getFileName())) {
 			return false; 
@@ -118,18 +163,37 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		return true;
 	}
 
+	/**
+	 * Backup file.
+	 *
+	 * @param fileName the file name
+	 */
 	public void backupFile (String fileName) {
 		copy(fileName,backup(fileName));
 	}
 
+	/**
+	 * Restore file.
+	 *
+	 * @param fileName the file name
+	 */
 	public void restoreFile (String fileName) {
 		copy(backup(fileName),fileName);
 	}	
 
+	/**
+	 * Backup.
+	 *
+	 * @param original the original
+	 * @return the string
+	 */
 	public String backup (String original) {
 		return original + ".bak";
 	}
 
+	/**
+	 * Save parameters.
+	 */
 	public void saveParameters() {
 		parameters.clear();
 		FileOutputStream theFile = null;
@@ -152,6 +216,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/**
+	 * Load parameters.
+	 */
 	@SuppressWarnings("unchecked")
 	public void loadParameters() {
 		FileInputStream theFile = null;
@@ -175,6 +242,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.StateDiscoveryListener#onNewState(it.slumdroid.droidmodels.model.ActivityState)
+	 */
 	public void onNewState(ActivityState newState) {
 		if (exists(getActivityFileName())) {
 			backupFile (getActivityFileName());
@@ -189,6 +259,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#save()
+	 */
 	public void save() {
 		super.save();
 		saveParameters();
@@ -202,15 +275,27 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#isLast()
+	 */
 	@Override
 	public boolean isLast() {
 		return super.isLast() && noTasks();
 	}
 
+	/**
+	 * On terminate.
+	 */
 	public void onTerminate() {
 		this.taskList.clear();
 	}
 
+	/**
+	 * Read file.
+	 *
+	 * @param input the input
+	 * @return the list
+	 */
 	private List<String> readFile (String input) {
 		FileInputStream theFile = null;
 		BufferedReader theStream = null;
@@ -235,14 +320,27 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		return output;
 	} 
 
+	/**
+	 * Read task file.
+	 *
+	 * @return the list
+	 */
 	public List<String> readTaskFile () {
 		return readFile(getTaskListFileName());
 	}
 
+	/**
+	 * Read state file.
+	 *
+	 * @return the list
+	 */
 	public List<String> readStateFile () {
 		return readFile(getActivityFileName());
 	}
 
+	/**
+	 * Open task file.
+	 */
 	public void openTaskFile () {
 		try{
 			this.taskFile = wrapper.openFileOutput(getTaskListFileName(), ContextWrapper.MODE_PRIVATE);
@@ -253,10 +351,18 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/**
+	 * Open state file.
+	 */
 	public void openStateFile () {
 		openStateFile (true);
 	}
 
+	/**
+	 * Open state file.
+	 *
+	 * @param append the append
+	 */
 	public void openStateFile (boolean append) {
 		try{
 			this.stateFile = wrapper.openFileOutput(getActivityFileName(), (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
@@ -267,54 +373,117 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		}
 	}
 
+	/**
+	 * Write on task file.
+	 *
+	 * @param graph the graph
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void writeOnTaskFile (String graph) throws IOException {
 		writeOnFile (this.taskStream, graph);
 	}
 
+	/**
+	 * Write on state file.
+	 *
+	 * @param graph the graph
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void writeOnStateFile (String graph) throws IOException {
 		writeOnFile (this.stateStream, graph);
 	}
 
+	/**
+	 * Close task file.
+	 */
 	public void closeTaskFile () {
 		closeFile(this.taskFile, this.taskStream);
 	}
 
+	/**
+	 * Close state file.
+	 */
 	public void closeStateFile () {
 		closeFile(this.stateFile, this.stateStream);
 	}
 
+	/**
+	 * No tasks.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean noTasks() {
 		return this.taskList.size() == 0;
 	}
 
+	/**
+	 * Sets the task list.
+	 *
+	 * @param taskList the new task list
+	 */
 	public void setTaskList(List<Task> taskList) {
 		this.taskList = taskList;
 	}
 
+	/**
+	 * Gets the activity file name.
+	 *
+	 * @return the activity file name
+	 */
 	public String getActivityFileName() {
 		return activityFile;
 	}
 
+	/**
+	 * Sets the activity file.
+	 *
+	 * @param activityFile the new activity file
+	 */
 	public void setActivityFile(String activityFile) {
 		this.activityFile = activityFile;
 	}
 
+	/**
+	 * Gets the parameters file name.
+	 *
+	 * @return the parameters file name
+	 */
 	public String getParametersFileName() {
 		return parametersFile;
 	}
 
+	/**
+	 * Sets the parameters file.
+	 *
+	 * @param name the new parameters file
+	 */
 	public void setParametersFile(String name) {
 		this.parametersFile = name;
 	}
 
+	/**
+	 * Gets the task list file name.
+	 *
+	 * @return the task list file name
+	 */
 	public String getTaskListFileName() {
 		return taskListFile;
 	}
 
+	/**
+	 * Sets the task list file.
+	 *
+	 * @param taskListFile the new task list file
+	 */
 	public void setTaskListFile(String taskListFile) {
 		this.taskListFile = taskListFile;
 	}
 
+	/**
+	 * Register listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void registerListener (SaveStateListener listener) {
 		theListeners.put(listener.getListenerName(), listener);
 	}

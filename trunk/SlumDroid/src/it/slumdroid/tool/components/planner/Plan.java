@@ -21,30 +21,65 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Plan.
+ */
 public class Plan implements Iterable<Transition> {
 
+	/** The tasks. */
 	private List<Transition> tasks = new ArrayList<Transition> ();
 
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	public Iterator<Transition> iterator() {
 		return this.tasks.iterator();
 	}
 
+	/**
+	 * Adds the task.
+	 *
+	 * @param transition the transition
+	 * @return true, if successful
+	 */
 	public boolean addTask (Transition transition) {
 		return this.tasks.add(transition);
 	}
 
+	/**
+	 * Size.
+	 *
+	 * @return the int
+	 */
 	public int size () {
 		return this.tasks.size();
 	}
 
+	/**
+	 * Gets the task.
+	 *
+	 * @param task the task
+	 * @return the task
+	 */
 	public Transition getTask (int task) {
 		return this.tasks.get(task);
 	}
 
+	/**
+	 * Removes the task.
+	 *
+	 * @param task the task
+	 */
 	public void removeTask (int task) {
 		this.tasks.remove(task);
 	}
 
+	/**
+	 * Checks if is empty.
+	 *
+	 * @return true, if is empty
+	 */
 	public boolean isEmpty () {
 		return size() == 0;
 	}

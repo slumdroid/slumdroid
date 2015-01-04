@@ -26,49 +26,103 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TraceDispatcher.
+ */
 public class TraceDispatcher implements Iterable<Task> {
 
+	/** The scheduler. */
 	private TaskScheduler scheduler;
+	
+	/** The listeners. */
 	List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
 
+	/**
+	 * Instantiates a new trace dispatcher.
+	 */
 	public TraceDispatcher () {
 		this (SchedulerAlgorithm.valueOf(SCHEDULER_ALGORITHM));
 	}
 
+	/**
+	 * Instantiates a new trace dispatcher.
+	 *
+	 * @param algorithm the algorithm
+	 */
 	public TraceDispatcher (SchedulerAlgorithm algorithm) {
 		setScheduler(getTrivialScheduler(algorithm));
 	}
 
+	/**
+	 * Sets the scheduler.
+	 *
+	 * @param taskScheduler the new scheduler
+	 */
 	public void setScheduler (TaskScheduler taskScheduler) {
 		this.scheduler = taskScheduler;
 	}
 
+	/**
+	 * Adds the planned tasks.
+	 *
+	 * @param tasks the tasks
+	 */
 	public void addPlannedTasks (List<Task> tasks) {
 		getScheduler().addPlannedTasks(tasks);
 	}
 
+	/**
+	 * Adds the tasks.
+	 *
+	 * @param tasks the tasks
+	 */
 	public void addTasks (Collection<Task> tasks) {
 		getScheduler().addTasks(tasks);
 	}
 
+	/**
+	 * Adds the tasks.
+	 *
+	 * @param task the task
+	 */
 	public void addTasks (Task task) {
 		getScheduler().addTasks(task);
 	}
 
+	/**
+	 * Gets the trivial scheduler.
+	 *
+	 * @param algorithm the algorithm
+	 * @return the trivial scheduler
+	 */
 	public TaskScheduler getTrivialScheduler (SchedulerAlgorithm algorithm) {
 		TaskScheduler scheduler = new TrivialScheduler(algorithm);
 		scheduler.setTaskList(new ArrayList<Task>());
 		return scheduler;
 	}
 
+	/**
+	 * Gets the scheduler.
+	 *
+	 * @return the scheduler
+	 */
 	public TaskScheduler getScheduler() {
 		return this.scheduler;
 	}
 
+	/**
+	 * Register listener.
+	 *
+	 * @param theListener the the listener
+	 */
 	public void registerListener(DispatchListener theListener) {
 		this.theListeners.add(theListener);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	public Iterator<Task> iterator() {
 		return new Iterator<Task> () {
 

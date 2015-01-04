@@ -18,11 +18,37 @@ package it.slumdroid.tool.model;
 import android.app.Activity;
 import android.view.View;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Extractor.
+ */
 public interface Extractor {
 
+	/**
+	 * Describe activity.
+	 *
+	 * @return the activity description
+	 */
 	public ActivityDescription describeActivity ();
+	
+	/**
+	 * Gets the activity.
+	 *
+	 * @return the activity
+	 */
 	public Activity getActivity ();
+	
+	/**
+	 * Extract state.
+	 */
 	public void extractState ();
+	
+	/**
+	 * Gets the widget.
+	 *
+	 * @param key the key
+	 * @return the widget
+	 */
 	public View getWidget (int key);
 
 }

@@ -18,11 +18,25 @@ package it.slumdroid.tool.utilities.interactors.selector;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SpinnerSelector.
+ */
 public class SpinnerSelector extends IterativeInteractorAdapter {
 
+	/**
+	 * Instantiates a new spinner selector.
+	 *
+	 * @param maxItems the max items
+	 * @param simpleTypes the simple types
+	 */
 	public SpinnerSelector (int maxItems, String ... simpleTypes) {
 		super (maxItems, simpleTypes);
 	}
+	
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType () {
 		return SPINNER_SELECT;
 	}

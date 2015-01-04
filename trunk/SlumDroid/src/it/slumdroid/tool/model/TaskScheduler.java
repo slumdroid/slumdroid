@@ -20,15 +20,66 @@ import it.slumdroid.droidmodels.model.Task;
 import java.util.Collection;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface TaskScheduler.
+ */
 public interface TaskScheduler {
 
+	/**
+	 * Next task.
+	 *
+	 * @return the task
+	 */
 	public Task nextTask ();
+	
+	/**
+	 * Adds the tasks.
+	 *
+	 * @param newTasks the new tasks
+	 */
 	public void addTasks (Collection<Task> newTasks);
+	
+	/**
+	 * Adds the planned tasks.
+	 *
+	 * @param newTasks the new tasks
+	 */
 	public void addPlannedTasks (List<Task> newTasks);
+	
+	/**
+	 * Sets the task list.
+	 *
+	 * @param theList the new task list
+	 */
 	public void setTaskList (List<Task> theList);
+	
+	/**
+	 * Checks for more.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean hasMore ();
+	
+	/**
+	 * Removes the.
+	 *
+	 * @param task the task
+	 */
 	public void remove (Task task);
+	
+	/**
+	 * Adds the tasks.
+	 *
+	 * @param task the task
+	 */
 	public void addTasks (Task task);
+	
+	/**
+	 * Gets the task list.
+	 *
+	 * @return the task list
+	 */
 	public List<Task> getTaskList ();
 
 }

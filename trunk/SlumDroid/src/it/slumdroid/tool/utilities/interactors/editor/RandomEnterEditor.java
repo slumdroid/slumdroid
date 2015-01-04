@@ -18,12 +18,24 @@ package it.slumdroid.tool.utilities.interactors.editor;
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RandomEnterEditor.
+ */
 public class RandomEnterEditor extends RandomInteractorAdapter {
 
+	/**
+	 * Instantiates a new random enter editor.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public RandomEnterEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return ENTER_TEXT;
 	}

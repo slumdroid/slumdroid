@@ -18,12 +18,24 @@ package it.slumdroid.tool.utilities.interactors;
 import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Drager.
+ */
 public class Drager extends SimpleInteractorAdapter {
 
+	/**
+	 * Instantiates a new drager.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public Drager (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType () {
 		return DRAG;
 	}

@@ -27,25 +27,45 @@ import android.view.View;
 
 import com.robotium.solo.Solo;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TrivialExtractor.
+ */
 public class TrivialExtractor implements Extractor {
 
+	/** The views. */
 	private SparseArray<View> theViews = new SparseArray<View> ();
+	
+	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
 
+	/** The solo. */
 	public Solo solo;
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#extractState()
+	 */
 	public void extractState() {
 		retrieveWidgets();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#getWidget(int)
+	 */
 	public View getWidget (int key) {
 		return getWidgets().get(key);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#getActivity()
+	 */
 	public Activity getActivity() {
 		return ExtractorUtilities.getActivity();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Extractor#describeActivity()
+	 */
 	public ActivityDescription describeActivity() {
 		return new ActivityDescription() {
 
@@ -72,19 +92,35 @@ public class TrivialExtractor implements Extractor {
 		};
 	}
 
+	/**
+	 * Gets the widgets.
+	 *
+	 * @return the widgets
+	 */
 	public SparseArray<View> getWidgets () {
 		return this.theViews;
 	}
 
+	/**
+	 * Gets the all widgets.
+	 *
+	 * @return the all widgets
+	 */
 	public ArrayList<View> getAllWidgets () {
 		return this.allViews;
 	}
 
+	/**
+	 * Clear widget list.
+	 */
 	public void clearWidgetList() {
 		this.theViews.clear();
 		this.allViews.clear();		
 	}
 
+	/**
+	 * Retrieve widgets.
+	 */
 	public void retrieveWidgets () {
 		clearWidgetList();
 		ArrayList<View> viewList = this.solo.getViews();

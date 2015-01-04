@@ -25,31 +25,70 @@ import it.slumdroid.tool.model.Strategy;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * A factory for creating Persistence objects.
+ */
 public class PersistenceFactory {
 
+	/** The activity list file name. */
 	private final String ACTIVITY_LIST_FILE_NAME = new String("activities.xml"); 
+	
+	/** The parameters file name. */
 	private final String PARAMETERS_FILE_NAME = new String("parameters.obj"); 
+	
+	/** The task list file name. */
 	private final String TASK_LIST_FILE_NAME = new String("tasklist.xml");
 
+	/** The session. */
 	private Session theSession;
+	
+	/** The scheduler. */
 	private TraceDispatcher scheduler;
+	
+	/** The strategy. */
 	private Strategy theStrategy;
+	
+	/** The state savers. */
 	static List<SaveStateListener> stateSavers = new ArrayList<SaveStateListener>();
 
+	/**
+	 * Instantiates a new persistence factory.
+	 *
+	 * @param theSession the the session
+	 */
 	public PersistenceFactory(Session theSession) {
 		setTheSession(theSession);
 	}
 
+	/**
+	 * Instantiates a new persistence factory.
+	 *
+	 * @param theSession the the session
+	 * @param scheduler the scheduler
+	 */
 	public PersistenceFactory(Session theSession, TraceDispatcher scheduler) {
 		this (theSession);
 		setDispatcher(scheduler);
 	}
 
+	/**
+	 * Instantiates a new persistence factory.
+	 *
+	 * @param theSession the the session
+	 * @param scheduler the scheduler
+	 * @param theStrategy the the strategy
+	 */
 	public PersistenceFactory(Session theSession, TraceDispatcher scheduler, Strategy theStrategy) {
 		this (theSession, scheduler);
 		setStrategy(theStrategy);
 	}
 
+	/**
+	 * Gets the persistence.
+	 *
+	 * @return the persistence
+	 */
 	public Persistence getPersistence () {
 		ResumingPersistence resumer = new ResumingPersistence();
 		Persistence thePersistence = resumer;
@@ -68,30 +107,65 @@ public class PersistenceFactory {
 		return thePersistence;
 	}
 
+	/**
+	 * Gets the the session.
+	 *
+	 * @return the the session
+	 */
 	public Session getTheSession() {
 		return this.theSession;
 	}
 
+	/**
+	 * Sets the the session.
+	 *
+	 * @param theSession the new the session
+	 */
 	public void setTheSession(Session theSession) {
 		this.theSession = theSession;
 	}
 
+	/**
+	 * Gets the dispatcher.
+	 *
+	 * @return the dispatcher
+	 */
 	public TraceDispatcher getDispatcher() {
 		return this.scheduler;
 	}
 
+	/**
+	 * Sets the dispatcher.
+	 *
+	 * @param scheduler the new dispatcher
+	 */
 	public void setDispatcher(TraceDispatcher scheduler) {
 		this.scheduler = scheduler;
 	}
 
+	/**
+	 * Gets the strategy.
+	 *
+	 * @return the strategy
+	 */
 	public Strategy getStrategy() {
 		return this.theStrategy;
 	}
 
+	/**
+	 * Sets the strategy.
+	 *
+	 * @param theStrategy the new strategy
+	 */
 	public void setStrategy(Strategy theStrategy) {
 		this.theStrategy = theStrategy;
 	}
 
+	/**
+	 * Register for saving state.
+	 *
+	 * @param s the s
+	 */
 	public static void registerForSavingState (SaveStateListener s) {
 		stateSavers.add(s);
 	}

@@ -20,8 +20,18 @@ import it.slumdroid.droidmodels.model.WidgetState;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface InputHandler.
+ */
 public interface InputHandler {
 
+	/**
+	 * Handle input.
+	 *
+	 * @param widget the widget
+	 * @return the list
+	 */
 	public List<UserInput> handleInput (WidgetState widget);
 
 }

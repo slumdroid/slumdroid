@@ -21,19 +21,38 @@ import it.slumdroid.droidmodels.model.WidgetState;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class IterativeInteractorAdapter.
+ */
 public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter {
 
+	/** The max events per widget. */
 	private int maxEventsPerWidget = 0;
 
+	/**
+	 * Instantiates a new iterative interactor adapter.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public IterativeInteractorAdapter (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/**
+	 * Instantiates a new iterative interactor adapter.
+	 *
+	 * @param maxItems the max items
+	 * @param simpleTypes the simple types
+	 */
 	public IterativeInteractorAdapter (int maxItems, String ... simpleTypes) {
 		this (simpleTypes);
 		setMaxEventsPerWidget(maxItems);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getEvents(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public List<UserEvent> getEvents (WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
@@ -48,18 +67,42 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 		return events;
 	}
 
+	/**
+	 * Gets the to item.
+	 *
+	 * @param widget the widget
+	 * @param fromItem the from item
+	 * @param toItem the to item
+	 * @return the to item
+	 */
 	public int getToItem(WidgetState widget, int fromItem, int toItem) {
 		return (getMaxEventsPerWidget(widget) > 0)?Math.min (fromItem + getMaxEventsPerWidget(widget) - 1, toItem):toItem;
 	}
 
+	/**
+	 * Gets the max events per widget.
+	 *
+	 * @return the max events per widget
+	 */
 	public int getMaxEventsPerWidget() {
 		return this.maxEventsPerWidget;
 	}
 
+	/**
+	 * Gets the max events per widget.
+	 *
+	 * @param widget the widget
+	 * @return the max events per widget
+	 */
 	public int getMaxEventsPerWidget(WidgetState widget) {
 		return getMaxEventsPerWidget();
 	}
 
+	/**
+	 * Sets the max events per widget.
+	 *
+	 * @param maxEventsPerWidget the new max events per widget
+	 */
 	public void setMaxEventsPerWidget(int maxEventsPerWidget) {
 		this.maxEventsPerWidget = maxEventsPerWidget;
 	}

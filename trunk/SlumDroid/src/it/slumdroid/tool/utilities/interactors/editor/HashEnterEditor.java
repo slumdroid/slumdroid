@@ -17,12 +17,24 @@ package it.slumdroid.tool.utilities.interactors.editor;
 
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class HashEnterEditor.
+ */
 public class HashEnterEditor extends HashWriteEditor {
 
+	/**
+	 * Instantiates a new hash enter editor.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public HashEnterEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.interactors.editor.HashWriteEditor#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return ENTER_TEXT;
 	}

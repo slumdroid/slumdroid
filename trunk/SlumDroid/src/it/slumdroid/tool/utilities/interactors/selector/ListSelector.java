@@ -21,12 +21,25 @@ import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ListSelector.
+ */
 public class ListSelector extends IterativeInteractorAdapter {
 
+	/**
+	 * Instantiates a new list selector.
+	 *
+	 * @param maxItems the max items
+	 * @param simpleTypes the simple types
+	 */
 	public ListSelector (int maxItems, String ... simpleTypes) {
 		super (maxItems, simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter#getToItem(it.slumdroid.droidmodels.model.WidgetState, int, int)
+	 */
 	@Override
 	public int getToItem (WidgetState widget, int fromItem, int toItem) {
 		if (widget.getSimpleType().equals(PREFERENCE_LIST) 
@@ -36,10 +49,16 @@ public class ListSelector extends IterativeInteractorAdapter {
 		return super.getToItem (widget,fromItem,toItem);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	public boolean canUseWidget (WidgetState widget) {
 		return widget.isClickable() && super.canUseWidget(widget);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType () {
 		return LIST_SELECT;
 	}

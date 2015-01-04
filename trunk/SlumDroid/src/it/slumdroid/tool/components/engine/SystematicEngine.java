@@ -57,22 +57,49 @@ import org.w3c.dom.Element;
 import android.app.Activity;
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class SystematicEngine.
+ */
 @SuppressWarnings("rawtypes")
 public class SystematicEngine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
 
+	/** The Constant ACTOR_NAME. */
 	public final static String ACTOR_NAME = "SystematicEngine";
+	
+	/** The Constant PARAM_NAME. */
 	private final static String PARAM_NAME = "taskId";
+	
+	/** The id. */
 	private int id = 0;
 
+	/** The abstractor. */
 	private GuiTreeAbstractor theAbstractor;
+	
+	/** The adapter. */
 	private UserAdapter theAdapter;
+	
+	/** The automation. */
 	private Automation theAutomation;
+	
+	/** The persistence. */
 	private Persistence thePersistence;
+	
+	/** The persistence factory. */
 	protected PersistenceFactory thePersistenceFactory;
+	
+	/** The planner. */
 	private UltraPlanner thePlanner;
+	
+	/** The scheduler. */
 	private TraceDispatcher theScheduler;
+	
+	/** The strategy. */
 	private Strategy theStrategy;
 
+	/**
+	 * Instantiates a new systematic engine.
+	 */
 	@SuppressWarnings("unchecked")
 	public SystematicEngine () {
 		super(theClass);
@@ -84,6 +111,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
 	}
 
+	/**
+	 * Define abstractor.
+	 */
 	private void defineAbstractor() {
 		try {
 			GuiTree.setValidation(false);
@@ -94,6 +124,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}
 
+	/**
+	 * Define planner.
+	 */
 	private void definePlanner() {
 		UltraPlanner planner = new UltraPlanner();
 		Filter inputFilter = new AllPassFilter();
@@ -110,6 +143,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		setPlanner (planner);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.test.ActivityInstrumentationTestCase2#setUp()
+	 */
 	protected void setUp () {		
 		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
 		getPersistenceFactory().setStrategy(this.theStrategy);
@@ -129,6 +165,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}	
 
+	/**
+	 * Setup first start.
+	 */
 	protected void setupFirstStart() {
 		Log.i(TAG, "Ripping starts");
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
@@ -141,6 +180,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}
 
+	/**
+	 * Test and crawl.
+	 */
 	public void testAndCrawl() {
 		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
@@ -171,10 +213,19 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}
 
+	/**
+	 * Can plan tests.
+	 *
+	 * @param theState the the state
+	 * @return true, if successful
+	 */
 	protected boolean canPlanTests (ActivityState theState){
 		return !(theState.isExit()) && getStrategy().checkForExploration();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.test.ActivityInstrumentationTestCase2#tearDown()
+	 */
 	@Override
 	protected void tearDown() throws Exception {
 		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
@@ -190,6 +241,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		super.tearDown();
 	}
 
+	/**
+	 * Resume.
+	 *
+	 * @return true, if successful
+	 */
 	public boolean resume() {
 		if (!(getPersistence() instanceof ResumingPersistence)) {
 			return false;
@@ -204,6 +260,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		return true;
 	}
 
+	/**
+	 * Import activitiy list.
+	 *
+	 * @param resumer the resumer
+	 */
 	public void importActivitiyList(ResumingPersistence resumer) {
 		Session sandboxSession = getNewSession();
 		List<String> entries = resumer.readStateFile();
@@ -219,6 +280,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}
 
+	/**
+	 * Import task list.
+	 *
+	 * @param resumer the resumer
+	 */
 	public void importTaskList(ResumingPersistence resumer) {
 		Session sandboxSession = getNewSession();
 		List<String> entries = resumer.readTaskFile();
@@ -233,15 +299,32 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getScheduler().addTasks(taskList);
 	}
 
+	/**
+	 * Plan first tests.
+	 *
+	 * @param theState the the state
+	 */
 	protected void planFirstTests (ActivityState theState) {
 		planTests (null, theState);
 	}
 
+	/**
+	 * Plan tests.
+	 *
+	 * @param theTask the the task
+	 * @param theState the the state
+	 */
 	protected void planTests (Task theTask, ActivityState theState) {
 		Plan thePlan = getPlanner().getPlanForActivity(theState);
 		planTests (theTask, thePlan);
 	}
 
+	/**
+	 * Plan tests.
+	 *
+	 * @param baseTask the base task
+	 * @param thePlan the the plan
+	 */
 	protected void planTests (Task baseTask, Plan thePlan) {
 		List<Task> tasks = new ArrayList<Task>();
 		for (Transition transition: thePlan) {
@@ -250,102 +333,218 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getScheduler().addPlannedTasks(tasks);
 	}
 
+	/**
+	 * Gets the new task.
+	 *
+	 * @param theTask the the task
+	 * @param t the t
+	 * @return the new task
+	 */
 	protected Task getNewTask (Task theTask, Transition t) {
 		Task newTask = getAbstractor().createTask(theTask, t);
 		newTask.setId(nextId());
 		return newTask;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
+	 */
 	public SessionParams onSavingState () {
 		return new SessionParams (PARAM_NAME, this.id);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onLoadingState(it.slumdroid.tool.utilities.SessionParams)
+	 */
 	public void onLoadingState(SessionParams sessionParams) {
 		this.id = sessionParams.getInt(PARAM_NAME);
 	}
 
+	/**
+	 * Gets the automation.
+	 *
+	 * @return the automation
+	 */
 	public Automation getAutomation() {
 		return theAutomation;
 	}
 
+	/**
+	 * Sets the automation.
+	 *
+	 * @param theAutomation the new automation
+	 */
 	public void setAutomation(Automation theAutomation) {
 		this.theAutomation = theAutomation;
 	}
 
+	/**
+	 * Gets the abstractor.
+	 *
+	 * @return the abstractor
+	 */
 	public GuiTreeAbstractor getAbstractor() {
 		return this.theAbstractor;
 	}
 
+	/**
+	 * Sets the abstractor.
+	 *
+	 * @param theAbstractor the new abstractor
+	 */
 	public void setAbstractor(GuiTreeAbstractor theAbstractor) {
 		this.theAbstractor = theAbstractor;
 	}
 
+	/**
+	 * Gets the the gui tree.
+	 *
+	 * @return the the gui tree
+	 */
 	private GuiTree getTheGuiTree() {
 		return getAbstractor().getTheSession();
 	}
 
+	/**
+	 * Gets the persistence.
+	 *
+	 * @return the persistence
+	 */
 	public Persistence getPersistence() {
 		return this.thePersistence;
 	}
 
+	/**
+	 * Sets the persistence.
+	 *
+	 * @param thePersistence the new persistence
+	 */
 	public void setPersistence(Persistence thePersistence) {
 		this.thePersistence = thePersistence;
 	}
 
+	/**
+	 * Gets the persistence factory.
+	 *
+	 * @return the persistence factory
+	 */
 	public PersistenceFactory getPersistenceFactory() {
 		return thePersistenceFactory;
 	}
 
+	/**
+	 * Sets the persistence factory.
+	 *
+	 * @param thePersistenceFactory the new persistence factory
+	 */
 	public void setPersistenceFactory(PersistenceFactory thePersistenceFactory) {
 		this.thePersistenceFactory = thePersistenceFactory;
 	}
 
+	/**
+	 * Gets the planner.
+	 *
+	 * @return the planner
+	 */
 	public UltraPlanner getPlanner() {
 		return this.thePlanner;
 	}
 
+	/**
+	 * Sets the planner.
+	 *
+	 * @param thePlanner the new planner
+	 */
 	public void setPlanner(UltraPlanner thePlanner) {
 		this.thePlanner = thePlanner;
 	}
 
+	/**
+	 * Gets the scheduler.
+	 *
+	 * @return the scheduler
+	 */
 	public TraceDispatcher getScheduler () {
 		return this.theScheduler;
 	}
 
+	/**
+	 * Sets the scheduler.
+	 *
+	 * @param theScheduler the new scheduler
+	 */
 	public void setScheduler (TraceDispatcher theScheduler) {
 		this.theScheduler = theScheduler;
 	}
 
+	/**
+	 * Gets the strategy.
+	 *
+	 * @return the strategy
+	 */
 	public Strategy getStrategy() {
 		return this.theStrategy;
 	}
 
+	/**
+	 * Sets the strategy.
+	 *
+	 * @param theStrategy the new strategy
+	 */
 	public void setStrategy(Strategy theStrategy) {
 		this.theStrategy = theStrategy;
 	}
 
+	/**
+	 * Gets the user adapter.
+	 *
+	 * @return the user adapter
+	 */
 	public UserAdapter getUserAdapter() {
 		return theAdapter;
 	}
 
+	/**
+	 * Sets the user adapter.
+	 *
+	 * @param user the new user adapter
+	 */
 	public void setUserAdapter(UserAdapter user) {
 		this.theAdapter = user;
 	}
 
+	/**
+	 * Gets the last id.
+	 *
+	 * @return the last id
+	 */
 	public int getLastId() {
 		return this.id;
 	}
 
+	/**
+	 * Next id.
+	 *
+	 * @return the string
+	 */
 	protected String nextId () {
 		int num = id;
 		id++;
 		return String.valueOf(num);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
+	 */
 	public String getListenerName () {
 		return ACTOR_NAME;
 	}
 
+	/**
+	 * Take screenshot.
+	 *
+	 * @param theState the the state
+	 */
 	private void takeScreenshot(ActivityState theState) {
 		if (!theState.isExit()) {
 			try {
@@ -360,6 +559,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		}
 	}
 
+	/**
+	 * Gets the new session.
+	 *
+	 * @return the new session
+	 */
 	public Session getNewSession() {
 		try {
 			return new GuiTree();

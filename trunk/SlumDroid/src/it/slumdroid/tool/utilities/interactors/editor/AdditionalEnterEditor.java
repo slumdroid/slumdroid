@@ -18,16 +18,31 @@ package it.slumdroid.tool.utilities.interactors.editor;
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AdditionalEnterEditor.
+ */
 public class AdditionalEnterEditor extends AdditionalWriteEditor {
 
+	/**
+	 * Instantiates a new additional enter editor.
+	 */
 	public AdditionalEnterEditor () {
 		this (SEARCH_BAR);
 	}
 
+	/**
+	 * Instantiates a new additional enter editor.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public AdditionalEnterEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.interactors.editor.AdditionalWriteEditor#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return ENTER_TEXT;
 	}

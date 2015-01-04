@@ -15,8 +15,17 @@
 
 package it.slumdroid.tool.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface FilterHandler.
+ */
 public interface FilterHandler extends Iterable<Filter> {
 
+	/**
+	 * Adds the filter.
+	 *
+	 * @param filter the filter
+	 */
 	public void addFilter (Filter filter);
 
 }

@@ -20,24 +20,45 @@ import static it.slumdroid.tool.Resources.TAB_EVENTS_START_ONLY;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TabSwapper.
+ */
 public class TabSwapper extends IterativeInteractorAdapter {
 
+	/** The first. */
 	private boolean first = true;
 
+	/**
+	 * Instantiates a new tab swapper.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public TabSwapper (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType () {
 		this.first = false;
 		return SWAP_TAB;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public boolean canUseWidget(WidgetState widget) {
 		return super.canUseWidget(widget) && (isFirst() || !TAB_EVENTS_START_ONLY);
 	}
 
+	/**
+	 * Checks if is first.
+	 *
+	 * @return true, if is first
+	 */
 	private boolean isFirst() {
 		return this.first;
 	}

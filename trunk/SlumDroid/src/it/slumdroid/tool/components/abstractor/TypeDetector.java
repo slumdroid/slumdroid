@@ -78,11 +78,22 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TypeDetector.
+ */
 @SuppressWarnings("deprecation")
 public class TypeDetector {
 
+	/** The type. */
 	private String type = new String(); 
 
+	/**
+	 * Gets the simple type.
+	 *
+	 * @param view the view
+	 * @return the simple type
+	 */
 	public String getSimpleType(View view) {
 		type = view.getClass().getName();
 		if (type.endsWith("TableRow")) {
@@ -144,6 +155,11 @@ public class TypeDetector {
 		return new String(); // unKnown Widget or Custom Widget
 	}
 
+	/**
+	 * Detect layout.
+	 *
+	 * @return the string
+	 */
 	private String detectLayout() {
 		if (type.endsWith("LinearLayout")) {
 			return LINEAR_LAYOUT;
@@ -157,6 +173,12 @@ public class TypeDetector {
 		return "Layout"; // Generic Layout
 	}
 
+	/**
+	 * Detect view.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectView(View view) {
 		if (type.endsWith("ExpandedMenuView")) {
 			return EXPAND_MENU;
@@ -192,6 +214,12 @@ public class TypeDetector {
 		return "View"; // Generic View
 	}
 
+	/**
+	 * Detect text view.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectTextView(View view) {
 		if (view instanceof EditText){
 			return detectEdit(view);
@@ -205,6 +233,12 @@ public class TypeDetector {
 		return TEXT_VIEW;
 	}
 
+	/**
+	 * Detect edit.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectEdit(View view) {
 		if (view instanceof AutoCompleteTextView) {
 			if (type.endsWith("SearchAutoComplete")) {
@@ -218,6 +252,12 @@ public class TypeDetector {
 		return EDIT_TEXT;
 	}
 
+	/**
+	 * Detect button.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectButton(View view) {
 		if (view instanceof CheckBox) {
 			return CHECKBOX;
@@ -231,6 +271,12 @@ public class TypeDetector {
 		return BUTTON;
 	}
 
+	/**
+	 * Detect list.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectList(View view) {
 		if (type.endsWith("RecycleListView")
 				|| type.endsWith("DropDownListView")) {
@@ -246,6 +292,12 @@ public class TypeDetector {
 		return LIST_VIEW;
 	}
 
+	/**
+	 * Detect spinner.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectSpinner(View view) {
 		if (((Spinner)view).getCount() == 0) {
 			return EMPTY_SPINNER;
@@ -258,6 +310,11 @@ public class TypeDetector {
 		return SPINNER_INPUT;
 	}
 
+	/**
+	 * Detect picker.
+	 *
+	 * @return the string
+	 */
 	private String detectPicker() {
 		if (type.endsWith("DatePicker")) {
 			return DATE_PICKER;
@@ -271,6 +328,12 @@ public class TypeDetector {
 		return "Picker"; // Generic Picker
 	}
 
+	/**
+	 * Detect progress bar.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	private String detectProgressBar(View view) {
 		if (view instanceof RatingBar 
 				&& (!((RatingBar)view).isIndicator())) {

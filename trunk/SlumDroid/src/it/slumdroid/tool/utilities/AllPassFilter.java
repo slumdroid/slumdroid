@@ -21,20 +21,34 @@ import it.slumdroid.tool.model.Filter;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AllPassFilter.
+ */
 public class AllPassFilter implements Filter {
 
+	/** The filtered items. */
 	private ArrayList<WidgetState> filteredItems = new ArrayList<WidgetState>();
 
+	/* (non-Javadoc)
+	 * @see java.lang.Iterable#iterator()
+	 */
 	@Override
 	public Iterator<WidgetState> iterator() {
 		return this.filteredItems.iterator();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Filter#loadItem(it.slumdroid.droidmodels.model.WidgetState)
+	 */
 	@Override
 	public void loadItem (WidgetState widget) {
 		this.filteredItems.add(widget);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Filter#clear()
+	 */
 	@Override
 	public void clear () {
 		this.filteredItems.clear();

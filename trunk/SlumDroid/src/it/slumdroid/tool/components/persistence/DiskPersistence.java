@@ -30,49 +30,98 @@ import java.io.OutputStreamWriter;
 import android.app.Activity;
 import android.content.ContextWrapper;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DiskPersistence.
+ */
 public class DiskPersistence implements Persistence {
 
+	/** The out. */
 	FileOutputStream fOut = null; 
+	
+	/** The osw. */
 	OutputStreamWriter osw = null;
+	
+	/** The wrapper. */
 	ContextWrapper wrapper = null;
+	
+	/** The session. */
 	private Session theSession;
+	
+	/** The mode. */
 	protected int mode = ContextWrapper.MODE_PRIVATE;
 
+	/** The file name. */
 	private final String FILE_NAME = new String("guitree.xml"); 
 
+	/**
+	 * Instantiates a new disk persistence.
+	 */
 	public DiskPersistence () {
 		// do nothing
 	}
 
+	/**
+	 * Instantiates a new disk persistence.
+	 *
+	 * @param theSession the the session
+	 */
 	public DiskPersistence (Session theSession) {
 		this();
 		setSession(theSession);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Persistence#setSession(it.slumdroid.droidmodels.model.Session)
+	 */
 	public void setSession(Session session) {
 		this.theSession = session;
 	}
 
+	/**
+	 * Gets the session.
+	 *
+	 * @return the session
+	 */
 	public Session getSession() {
 		return this.theSession;
 	}
 
+	/**
+	 * Gets the file name.
+	 *
+	 * @return the file name
+	 */
 	public String getFileName () {
 		return this.FILE_NAME;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Persistence#setContext(android.app.Activity)
+	 */
 	public void setContext(Activity activity) {
 		this.wrapper = new ContextWrapper(activity);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Persistence#addTask(it.slumdroid.droidmodels.model.Task)
+	 */
 	public void addTask(Task task) {
 		this.theSession.addTask(task);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Persistence#save()
+	 */
 	public void save() {
 		save (this.FILE_NAME);
 	}
 
+	/**
+	 * Generate.
+	 *
+	 * @return the string
+	 */
 	protected String generate () {
 		String graph = new String();
 		try {
@@ -87,6 +136,11 @@ public class DiskPersistence implements Persistence {
 		return graph;
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @param fileName the file name
+	 */
 	protected void save (String fileName) {
 		String graph = generate();
 		openFile(fileName);
@@ -99,14 +153,32 @@ public class DiskPersistence implements Persistence {
 		}
 	}
 
+	/**
+	 * Write on file.
+	 *
+	 * @param graph the graph
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void writeOnFile (String graph) throws IOException {
 		writeOnFile (this.osw, graph);
 	}
 
+	/**
+	 * Write on file.
+	 *
+	 * @param output the output
+	 * @param graph the graph
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	public void writeOnFile (OutputStreamWriter output, String graph) throws IOException {
 		output.write(graph);
 	}
 
+	/**
+	 * Open file.
+	 *
+	 * @param fileName the file name
+	 */
 	public void openFile (String fileName) {
 		try{
 			this.fOut = this.wrapper.openFileOutput(fileName, this.mode);
@@ -117,15 +189,30 @@ public class DiskPersistence implements Persistence {
 		}
 	}
 
+	/**
+	 * Delete.
+	 *
+	 * @param fileName the file name
+	 * @return true, if successful
+	 */
 	public boolean delete (String fileName) {
 		return this.wrapper.deleteFile(fileName);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Persistence#exists(java.lang.String)
+	 */
 	public boolean exists (String filename) {
 		File file = this.wrapper.getFileStreamPath(filename);
 		return file.exists();
 	}
 
+	/**
+	 * Copy.
+	 *
+	 * @param from the from
+	 * @param to the to
+	 */
 	public void copy (String from, String to) {
 		FileInputStream in = null;
 		FileOutputStream out = null;
@@ -149,10 +236,19 @@ public class DiskPersistence implements Persistence {
 		}
 	}
 
+	/**
+	 * Close file.
+	 */
 	public void closeFile () {
 		closeFile (this.fOut, this.osw);
 	}
 
+	/**
+	 * Close file.
+	 *
+	 * @param theFile the the file
+	 * @param theStream the the stream
+	 */
 	public void closeFile (FileOutputStream theFile, OutputStreamWriter theStream) {
 		try {
 			theStream.flush();
@@ -168,6 +264,12 @@ public class DiskPersistence implements Persistence {
 		}
 	}
 
+	/**
+	 * Close file.
+	 *
+	 * @param theFile the the file
+	 * @param theStream the the stream
+	 */
 	public void closeFile (OutputStream theFile, OutputStream theStream) {
 		try {
 			theStream.flush();

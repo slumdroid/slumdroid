@@ -18,12 +18,24 @@ package it.slumdroid.tool.utilities.interactors.editor;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RandomWriteEditor.
+ */
 public class RandomWriteEditor extends RandomInteractorAdapter {
 
+	/**
+	 * Instantiates a new random write editor.
+	 *
+	 * @param simpleTypes the simple types
+	 */
 	public RandomWriteEditor (String ... simpleTypes) {
 		super (simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType() {
 		return WRITE_TEXT;
 	}

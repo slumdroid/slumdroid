@@ -45,16 +45,39 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UltraPlanner.
+ */
 public class UltraPlanner {
 
+	/** The input filter. */
 	protected Filter eventFilter, inputFilter;
+	
+	/** The user. */
 	protected EventHandler user;
+	
+	/** The form filler. */
 	protected InputHandler formFiller;
+	
+	/** The abstractor. */
 	protected Abstractor abstractor;
+	
+	/** The include action. */
 	protected boolean includeAction;
+	
+	/** The include menu. */
 	protected boolean includeMenu;
+	
+	/** The include rotation. */
 	protected boolean includeRotation;
 
+	/**
+	 * Adds the plan for activity widgets.
+	 *
+	 * @param planner the planner
+	 * @param activityState the activity state
+	 */
 	private void addPlanForActivityWidgets (Plan planner, ActivityState activityState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
@@ -80,6 +103,12 @@ public class UltraPlanner {
 		}    
 	}
 
+	/**
+	 * Reduction actions.
+	 *
+	 * @param widget the widget
+	 * @param activityState the activity state
+	 */
 	private void reductionActions(WidgetState widget , ActivityState activityState) {
 		if (!activityState.getId().equals("a0") // a0 is id of initial START_STATE 
 				&& widget.getSimpleType().equals(TOAST)) {
@@ -102,6 +131,13 @@ public class UltraPlanner {
 		}	
 	}
 
+	/**
+	 * Adjacent values.
+	 *
+	 * @param planner the planner
+	 * @param activityState the activity state
+	 * @param event the event
+	 */
 	private void adjacentValues(Plan planner, ActivityState activityState, UserEvent event){
 		ArrayList<List<UserInput>> macroInputs = new ArrayList<List<UserInput>>();
 		int numWidgets = 0;
@@ -137,6 +173,12 @@ public class UltraPlanner {
 		}
 	}
 
+	/**
+	 * Include event.
+	 *
+	 * @param event the event
+	 * @return true, if successful
+	 */
 	private boolean includeEvent(UserEvent event) {
 		if (event.getType().equals(WRITE_TEXT) && EXTRA_INPUTS != null) {
 			for (String s: EXTRA_INPUTS) {
@@ -149,12 +191,25 @@ public class UltraPlanner {
 		return true;
 	}
 
+	/**
+	 * Include input.
+	 *
+	 * @param input the input
+	 * @param event the event
+	 * @return true, if successful
+	 */
 	private boolean includeInput(UserInput input, UserEvent event) {
 		return (input != null) 
 				&& !((input.getWidget().getId().equals(event.getWidget().getId())) 
 						&& (input.getType().equals(event.getType())));
 	}  
 
+	/**
+	 * Gets the plan for activity.
+	 *
+	 * @param activityState the activity state
+	 * @return the plan for activity
+	 */
 	public Plan getPlanForActivity (ActivityState activityState) {
 		Plan planner = new Plan();
 		addPlanForActivityWidgets(planner, activityState);
@@ -181,66 +236,146 @@ public class UltraPlanner {
 		return planner;
 	}
 
+	/**
+	 * Gets the event filter.
+	 *
+	 * @return the event filter
+	 */
 	public Filter getEventFilter() {
 		return this.eventFilter;
 	}
 
+	/**
+	 * Sets the event filter.
+	 *
+	 * @param eventFilter the new event filter
+	 */
 	public void setEventFilter(Filter eventFilter) {
 		this.eventFilter = eventFilter;
 	}
 
+	/**
+	 * Gets the input filter.
+	 *
+	 * @return the input filter
+	 */
 	public Filter getInputFilter() {
 		return this.inputFilter;
 	}
 
+	/**
+	 * Sets the input filter.
+	 *
+	 * @param inputFilter the new input filter
+	 */
 	public void setInputFilter(Filter inputFilter) {
 		this.inputFilter = inputFilter;
 	}
 
+	/**
+	 * Gets the user.
+	 *
+	 * @return the user
+	 */
 	public EventHandler getUser() {
 		return this.user;
 	}
 
+	/**
+	 * Sets the user.
+	 *
+	 * @param user the new user
+	 */
 	public void setUser(EventHandler user) {
 		this.user = user;
 	}
 
+	/**
+	 * Gets the form filler.
+	 *
+	 * @return the form filler
+	 */
 	public InputHandler getFormFiller() {
 		return this.formFiller;
 	}
 
+	/**
+	 * Sets the form filler.
+	 *
+	 * @param formFiller the new form filler
+	 */
 	public void setFormFiller(InputHandler formFiller) {
 		this.formFiller = formFiller;
 	}
 
+	/**
+	 * Gets the abstractor.
+	 *
+	 * @return the abstractor
+	 */
 	public Abstractor getAbstractor() {
 		return this.abstractor;
 	}
 
+	/**
+	 * Sets the abstractor.
+	 *
+	 * @param abstractor the new abstractor
+	 */
 	public void setAbstractor(Abstractor abstractor) {
 		this.abstractor = abstractor;
 	}
 
+	/**
+	 * Checks if is include action.
+	 *
+	 * @return true, if is include action
+	 */
 	public boolean isIncludeAction() {
 		return includeAction;
 	}
 
+	/**
+	 * Sets the include action.
+	 *
+	 * @param includeAction the new include action
+	 */
 	public void setIncludeAction(boolean includeAction) {
 		this.includeAction = includeAction;
 	}
 
+	/**
+	 * Checks if is include menu.
+	 *
+	 * @return true, if is include menu
+	 */
 	public boolean isIncludeMenu() {
 		return includeMenu;
 	}
 
+	/**
+	 * Sets the include menu.
+	 *
+	 * @param includeMenu the new include menu
+	 */
 	public void setIncludeMenu(boolean includeMenu) {
 		this.includeMenu = includeMenu;
 	}
 
+	/**
+	 * Checks if is include rotation.
+	 *
+	 * @return true, if is include rotation
+	 */
 	public boolean isIncludeRotation() {
 		return includeRotation;
 	}
 
+	/**
+	 * Sets the include rotation.
+	 *
+	 * @param includeRotation the new include rotation
+	 */
 	public void setIncludeRotation(boolean includeRotation) {
 		this.includeRotation = includeRotation;
 	}

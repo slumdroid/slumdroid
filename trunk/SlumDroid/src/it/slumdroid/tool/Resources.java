@@ -15,48 +15,101 @@
 
 package it.slumdroid.tool;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Resources.
+ */
 public class Resources {
 
 	// Support Variables
+	/** The Constant TAG. */
 	public final static String TAG = "slumdroid";	
+
+	/**
+	 * The Enum SchedulerAlgorithm.
+	 */
 	public static enum SchedulerAlgorithm {
-		BREADTH_FIRST, DEPTH_FIRST, RANDOM
+
+		/** The breadth first. */
+		BREADTH_FIRST, 
+		/** The depth first. */
+		DEPTH_FIRST, 
+		/** The random first. */
+		RANDOM_FIRST
 	}
 
 	// Main Parameters
+	/** The package name. */
 	public static String PACKAGE_NAME = "app.package";
+
+	/** The class name. */
 	public static String CLASS_NAME = "app.package.class";
 
+	/** The random seed. */
 	public static long RANDOM_SEED = System.currentTimeMillis(); 
-	public static boolean SCREENSHOT_ENABLED = true; // true -> perform an image capture of the screen after processing a task
 
+	/** The screenshot enabled. */
+	/** true -> perform an image capture of the screen after processing a task */
+	public static boolean SCREENSHOT_ENABLED = true; 
+
+	/** The scheduler algorithm. */
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 
 	// Automation Parameters
+	/** The sleep after event. */
 	public static int SLEEP_AFTER_EVENT = 1000;
+
+	/** The sleep after restart. */
 	public static int SLEEP_AFTER_RESTART = 0;
+
+	/** The sleep after task. */
 	public static int SLEEP_AFTER_TASK = 0;
-	public static int SLEEP_ON_THROBBER = 1000; // How long to wait on spinning wheels (in ms -- 0 = don't wait)
+
+	/** The sleep on throbber. */
+	/**  How long to wait on spinning wheels (in ms -- 0 = don't wait) */
+	public static int SLEEP_ON_THROBBER = 1000; 
 
 	// Comparator Parameters
+	/** The compare list count. */
 	public static boolean COMPARE_LIST_COUNT = false;
+
+	/** The compare checkbox. */
 	public static boolean COMPARE_CHECKBOX = false;
+
+	/** The compare available. */
 	public static boolean COMPARE_AVAILABLE = false;
 
 	// Interactions Parameters
+	/** The events. */
 	public static String EVENTS[];
+
+	/** The inputs. */
 	public static String INPUTS[];
 
-	public static boolean HASH_VALUES = true; // true -> use Hash Id to generate the text values
+	/** The hash values. */
+	/** true -> use Hash Id to generate the text values */
+	public static boolean HASH_VALUES = true; 
 
+	/** The extra events. */
 	public static String EXTRA_EVENTS[];
+
+	/** The extra inputs. */
 	public static String EXTRA_INPUTS[];
 
-	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; // For ListView, Spinner and RadioGroup (0 = try all items in the list)
-	public static boolean TAB_EVENTS_START_ONLY = false; // true -> click on tabs only on the start activity
+	/** The max num events per selector. */
+	/** For ListView, Spinner and RadioGroup (0 = try all items in the list) */
+	public static int MAX_NUM_EVENTS_PER_SELECTOR = 3; 
 
+	/** The tab events start only. */
+	/** true -> click on tabs only on the start activity */
+	public static boolean TAB_EVENTS_START_ONLY = false; 
+
+	/** The class. */
 	public static Class<?> theClass;
 
+	/**
+	 * Update.
+	 */
 	private static void update () {	
 		Prefs.updateNode(""); 				// Main Node
 		Prefs.updateNode("automation");		// Automation Node

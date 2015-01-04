@@ -20,8 +20,18 @@ import it.slumdroid.droidmodels.model.WidgetState;
 
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface EventHandler.
+ */
 public interface EventHandler {
 
+	/**
+	 * Handle event.
+	 *
+	 * @param widget the widget
+	 * @return the list
+	 */
 	public List<UserEvent> handleEvent (WidgetState widget);
 
 }

@@ -27,8 +27,18 @@ import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class AbstractorUtilities.
+ */
 public class AbstractorUtilities {
 
+	/**
+	 * Detect name.
+	 *
+	 * @param view the view
+	 * @return the string
+	 */
 	public static String detectName (View view) {
 		String name = new String();
 		if (view instanceof TextView) {
@@ -54,6 +64,12 @@ public class AbstractorUtilities {
 		return name;
 	}
 
+	/**
+	 * Sets the count.
+	 *
+	 * @param view the view
+	 * @param widget the widget
+	 */
 	public static void setCount (View view, WidgetState widget) {
 		// For lists, the count is set to the number of rows in the list (inactive rows - e.g. separators - count as well)
 		if (view instanceof AdapterView) {
@@ -82,6 +98,12 @@ public class AbstractorUtilities {
 		}
 	}
 
+	/**
+	 * Sets the value.
+	 *
+	 * @param view the view
+	 * @param widget the widget
+	 */
 	public static void setValue (View view, WidgetState widget) {
 
 		// CheckBoxes, Radio Buttons and Toggle Buttons -> the value is the checked state (true or false)
@@ -101,6 +123,12 @@ public class AbstractorUtilities {
 		}
 	}
 
+	/**
+	 * Gets the type.
+	 *
+	 * @param view the view
+	 * @return the type
+	 */
 	public static String getType (View view) {
 		return view.getClass().getName();
 	}

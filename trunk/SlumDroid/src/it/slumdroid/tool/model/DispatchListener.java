@@ -17,8 +17,25 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.Task;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The listener interface for receiving dispatch events.
+ * The class that is interested in processing a dispatch
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addDispatchListener<code> method. When
+ * the dispatch event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see DispatchEvent
+ */
 public interface DispatchListener {
 
+	/**
+	 * On task dispatched.
+	 *
+	 * @param task the task
+	 */
 	public void onTaskDispatched (Task task);
 
 }

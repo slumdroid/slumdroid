@@ -18,12 +18,25 @@ package it.slumdroid.tool.utilities.interactors.selector;
 import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RadioSelector.
+ */
 public class RadioSelector extends IterativeInteractorAdapter {
 
+	/**
+	 * Instantiates a new radio selector.
+	 *
+	 * @param maxItems the max items
+	 * @param simpleTypes the simple types
+	 */
 	public RadioSelector (int maxItems, String ... simpleTypes) {
 		super (maxItems, simpleTypes);
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
+	 */
 	public String getInteractionType () {
 		return RADIO_SELECT;
 	}
