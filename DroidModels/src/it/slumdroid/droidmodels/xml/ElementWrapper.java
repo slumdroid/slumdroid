@@ -30,40 +30,85 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ElementWrapper.
+ */
 public abstract class ElementWrapper implements WrapperInterface {
 	
+	/** The element. */
 	protected Element element;
+	
+	/** The trasformer. */
 	protected static Transformer trasformer;
 
+	/**
+	 * Instantiates a new element wrapper.
+	 */
 	public ElementWrapper() {
 		super();
 	}
 
+	/**
+	 * Instantiates a new element wrapper.
+	 *
+	 * @param element the element
+	 */
 	public ElementWrapper (Element element) {
 		super();
 		setElement(element);
 	}
 
+	/**
+	 * Instantiates a new element wrapper.
+	 *
+	 * @param graph the graph
+	 * @param tag the tag
+	 */
 	public ElementWrapper (XmlGraph graph, String tag) {
 		this (graph.getDom(), tag);
 	}
 
+	/**
+	 * Instantiates a new element wrapper.
+	 *
+	 * @param dom the dom
+	 * @param tag the tag
+	 */
 	public ElementWrapper (Document dom, String tag) {
 		this (dom.createElement(tag));
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WrapperInterface#setElement(org.w3c.dom.Element)
+	 */
 	public void setElement(Element element) {
 		this.element = element;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WrapperInterface#getElement()
+	 */
 	public Element getElement() {
 		return this.element;
 	}
 
+	/**
+	 * Sets the attribute.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 */
 	public void setAttribute(String name, String value) {
 		getElement().setAttribute(name, value);
 	}
 
+	/**
+	 * Gets the attribute.
+	 *
+	 * @param name the name
+	 * @return the attribute
+	 */
 	public String getAttribute (String name) {
 		try{
 			return getElement().getAttribute(name);
@@ -73,18 +118,41 @@ public abstract class ElementWrapper implements WrapperInterface {
 		}
 	}
 
+	/**
+	 * Checks for attribute.
+	 *
+	 * @param name the name
+	 * @return true, if successful
+	 */
 	public boolean hasAttribute (String name) {
 		return getElement().hasAttribute(name);
 	}
 
+	/**
+	 * Append child.
+	 *
+	 * @param child the child
+	 */
 	public void appendChild (Element child) {
 		getElement().appendChild(child);
 	}
 
+	/**
+	 * Append child.
+	 *
+	 * @param child the child
+	 */
 	public void appendChild (ElementWrapper child) {
 		getElement().appendChild(child.getElement());
 	}
 
+	/**
+	 * To xml.
+	 *
+	 * @return the string
+	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
+	 * @throws TransformerException the transformer exception
+	 */
 	public String toXml () throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(getElement());
 		StringWriter autput = new StringWriter();
@@ -92,6 +160,13 @@ public abstract class ElementWrapper implements WrapperInterface {
 		return autput.toString();
 	}
 
+	/**
+	 * Gets the transformer.
+	 *
+	 * @return the transformer
+	 * @throws TransformerConfigurationException the transformer configuration exception
+	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
+	 */
 	protected Transformer getTransformer() throws TransformerConfigurationException, TransformerFactoryConfigurationError {
 		if (trasformer instanceof Transformer) return trasformer;
 		trasformer = TransformerFactory.newInstance().newTransformer();

@@ -17,10 +17,32 @@ package it.slumdroid.droidmodels.model;
 
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface WrapperInterface.
+ */
 public interface WrapperInterface extends Cloneable {
 
+	/**
+	 * Sets the element.
+	 *
+	 * @param element the new element
+	 */
 	public void setElement (Element element);
+	
+	/**
+	 * Gets the element.
+	 *
+	 * @return the element
+	 */
 	public Element getElement ();
+	
+	/**
+	 * Gets the wrapper.
+	 *
+	 * @param element the element
+	 * @return the wrapper
+	 */
 	public WrapperInterface getWrapper (Element element);
 
 }

@@ -16,6 +16,10 @@
 
 package it.slumdroid.droidmodels.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface InputType.
+ */
 public interface InputType {
 	/**
 	 * Mask of bits that determine the overall class

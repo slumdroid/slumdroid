@@ -31,31 +31,75 @@ import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class XmlGraph.
+ */
 public abstract class XmlGraph {
 	
+	/** The doctype system. */
 	protected String doctypeSystem = new String();
+	
+	/** The doctype public. */
 	protected String doctypePublic = new String();
+	
+	/** The indent. */
 	protected String indent = "yes";
+	
+	/** The indent amount. */
 	protected int indentAmount = 4;
+	
+	/** The method. */
 	protected String method = "xml";
+	
+	/** The validation. */
 	static boolean validation = true;
+	
+	/** The builder. */
 	static private DocumentBuilder builder = null;
 
+	/**
+	 * Gets the dom.
+	 *
+	 * @return the dom
+	 */
 	public abstract Document getDom ();
 
+	/**
+	 * Instantiates a new xml graph.
+	 */
 	public XmlGraph () {
 		this ("","");
 	}
 
+	/**
+	 * Instantiates a new xml graph.
+	 *
+	 * @param systemId the system id
+	 * @param publicId the public id
+	 */
 	public XmlGraph (String systemId, String publicId) {
 		this.setDoctype(systemId, publicId);
 	}
 
+	/**
+	 * Sets the doctype.
+	 *
+	 * @param systemId the system id
+	 * @param publicId the public id
+	 */
 	public void setDoctype (String systemId, String publicId) {
 		this.doctypePublic = publicId;
 		this.doctypeSystem = systemId;
 	}
 
+	/**
+	 * To xml.
+	 *
+	 * @return the string
+	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
+	 * @throws TransformerException the transformer exception
+	 */
 	public String toXml () throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(this.getDom());
 		StringWriter autput = new StringWriter();
@@ -69,6 +113,12 @@ public abstract class XmlGraph {
 		return autput.toString();
 	}
 
+	/**
+	 * Gets the builder.
+	 *
+	 * @return the builder
+	 * @throws ParserConfigurationException the parser configuration exception
+	 */
 	static protected DocumentBuilder getBuilder () throws ParserConfigurationException {
 		if (builder instanceof DocumentBuilder)
 			return builder;
@@ -94,10 +144,20 @@ public abstract class XmlGraph {
 		return builder;
 	}
 
+	/**
+	 * Checks if is validation.
+	 *
+	 * @return true, if is validation
+	 */
 	public static boolean isValidation() {
 		return validation;
 	}
 
+	/**
+	 * Sets the validation.
+	 *
+	 * @param value the new validation
+	 */
 	public static void setValidation(boolean value) {
 		validation = value;
 	}

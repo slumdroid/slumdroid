@@ -17,15 +17,66 @@ package it.slumdroid.droidmodels.model;
 
 import java.util.Iterator;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface Session.
+ */
 public interface Session extends Iterable<Task> {
 
+	/**
+	 * Gets the date time.
+	 *
+	 * @return the date time
+	 */
 	public String getDateTime ();
+	
+	/**
+	 * Tasks.
+	 *
+	 * @return the iterator
+	 */
 	public Iterator<Task> tasks();
+	
+	/**
+	 * Gets the base activity.
+	 *
+	 * @return the base activity
+	 */
 	public ActivityState getBaseActivity();
+	
+	/**
+	 * Adds the task.
+	 *
+	 * @param theTask the the task
+	 */
 	public void addTask (Task theTask);
+	
+	/**
+	 * Removes the task.
+	 *
+	 * @param theTask the the task
+	 */
 	public void removeTask (Task theTask);
+	
+	/**
+	 * Adds the failed task.
+	 *
+	 * @param theTask the the task
+	 */
 	public void addFailedTask(Task theTask);
+	
+	/**
+	 * Adds the crashed task.
+	 *
+	 * @param theTask the the task
+	 */
 	public void addCrashedTask (Task theTask);
+	
+	/**
+	 * Parses the.
+	 *
+	 * @param xml the xml
+	 */
 	public void parse (String xml);
 
 }

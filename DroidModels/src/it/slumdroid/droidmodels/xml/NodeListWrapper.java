@@ -24,22 +24,55 @@ import java.util.Iterator;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NodeListWrapper.
+ *
+ * @param <E> the element type
+ */
 public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> {
 	
+	/** The iterator. */
 	private Iterator<Element> theIterator;
+	
+	/** The element. */
 	static Class<Element> theElement = Element.class;
+	
+	/** The wrapper. */
 	private WrapperInterface theWrapper;
+	
+	/** The class e. */
 	private Class<E> theClassE;
+	
+	/** The constructor. */
 	Constructor<E> theConstructor;
 
+	/**
+	 * Instantiates a new node list wrapper.
+	 *
+	 * @param parent the parent
+	 * @param theClass the the class
+	 */
 	public NodeListWrapper (Element parent, Class<E> theClass) {
 		this (parent.getChildNodes(), theClass);
 	}
 
+	/**
+	 * Instantiates a new node list wrapper.
+	 *
+	 * @param parent the parent
+	 * @param theClass the the class
+	 */
 	public NodeListWrapper (WrapperInterface parent, Class<E> theClass) {
 		this (parent.getElement(), theClass);
 	}
 
+	/**
+	 * Instantiates a new node list wrapper.
+	 *
+	 * @param list the list
+	 * @param theClass the the class
+	 */
 	public NodeListWrapper (NodeList list, Class<E> theClass) {
 		this.theIterator = new NodeListIterator (list);
 		this.theClassE = theClass;
@@ -52,24 +85,48 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 		}
 	}
 
+	/**
+	 * Instantiates a new node list wrapper.
+	 *
+	 * @param parent the parent
+	 * @param wrapper the wrapper
+	 */
 	public NodeListWrapper (Element parent, E wrapper) {
 		this (parent.getChildNodes(), wrapper);
 	}
 
+	/**
+	 * Instantiates a new node list wrapper.
+	 *
+	 * @param parent the parent
+	 * @param wrapper the wrapper
+	 */
 	public NodeListWrapper (WrapperInterface parent, E wrapper) {
 		this (parent.getElement(), wrapper);
 	}
 
+	/**
+	 * Instantiates a new node list wrapper.
+	 *
+	 * @param list the list
+	 * @param wrapper the wrapper
+	 */
 	public NodeListWrapper (NodeList list, E wrapper) {
 		this.theIterator = new NodeListIterator (list);
 		this.theWrapper = wrapper;
 	}
 
 	// Delegation
+	/* (non-Javadoc)
+	 * @see java.util.Iterator#hasNext()
+	 */
 	public boolean hasNext() {
 		return this.theIterator.hasNext();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Iterator#next()
+	 */
 	public E next() {
 		Element unwrapped = this.theIterator.next();
 		E wrapped = null;
@@ -81,10 +138,23 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 		return wrapped;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Iterator#remove()
+	 */
 	public void remove() {
 		this.theIterator.remove();
 	}
 
+	/**
+	 * Wrap.
+	 *
+	 * @param element the element
+	 * @return the e
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 */
 	@SuppressWarnings("unchecked")
 	private E wrap (Element element) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		if (this.theWrapper instanceof WrapperInterface)

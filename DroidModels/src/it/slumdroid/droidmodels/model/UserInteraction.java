@@ -15,15 +15,66 @@
 
 package it.slumdroid.droidmodels.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface UserInteraction.
+ */
 public interface UserInteraction extends WrapperInterface {
 
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public String getType();
+	
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType (String type);
+	
+	/**
+	 * Gets the widget id.
+	 *
+	 * @return the widget id
+	 */
 	public String getWidgetId();
+	
+	/**
+	 * Sets the widget id.
+	 *
+	 * @param widgetId the new widget id
+	 */
 	public void setWidgetId (String widgetId);
+	
+	/**
+	 * Gets the value.
+	 *
+	 * @return the value
+	 */
 	public String getValue();
+	
+	/**
+	 * Sets the value.
+	 *
+	 * @param value the new value
+	 */
 	public void setValue (String value);
+	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public String getId();
+	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId (String id);
 
 }
