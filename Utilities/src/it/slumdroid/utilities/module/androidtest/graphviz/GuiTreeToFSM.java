@@ -30,16 +30,33 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GuiTreeToFSM.
+ */
 public class GuiTreeToFSM {
 
+	/** The session. */
 	private GuiTree session;
+	
+	/** The nodes. */
 	private TreeSet<String> nodes;
 
+	/**
+	 * Instantiates a new gui tree to fsm.
+	 *
+	 * @param session the session
+	 */
 	public GuiTreeToFSM (GuiTree session) {
 		this.session = session;
 		this.nodes = new TreeSet<String>();
 	}
 
+	/**
+	 * Gets the dot.
+	 *
+	 * @return the dot
+	 */
 	public String getDot () {
 		ArrayList<String> insertedEvents = new ArrayList<String>();
 

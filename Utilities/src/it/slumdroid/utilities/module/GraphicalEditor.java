@@ -35,51 +35,119 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GraphicalEditor.
+ */
 @SuppressWarnings("rawtypes")
 public class GraphicalEditor extends JFrame {
 
+	/** The content pane. */
 	private JPanel contentPane;
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The path. */
 	private static String path = System.getProperty("user.dir") + "/../data/preferences.xml";
+	
+	/** The app package. */
 	private static String appPackage = new String();
+	
+	/** The app package class. */
 	private static String appPackageClass = new String();
 	
+	/** The screenshot box. */
 	private static JComboBox screenshotBox;
+	
+	/** The scheduler box. */
 	private static JComboBox schedulerBox;
+	
+	/** The max event selector box. */
 	private static JComboBox maxEventSelectorBox;
+	
+	/** The tab events box. */
 	private static JComboBox tabEventsBox;
 
+	/** The waiting event field. */
 	private static JFormattedTextField waitingEventField;
+	
+	/** The waiting restart field. */
 	private static JFormattedTextField waitingRestartField;
+	
+	/** The waiting task field. */
 	private static JFormattedTextField waitingTaskField;
+	
+	/** The waiting throbber field. */
 	private static JFormattedTextField waitingThrobberField;
 
+	/** The chckbx input pertubation. */
 	private JCheckBox chckbxInputPertubation;
 
+	/** The list comparator box. */
 	private static JComboBox listComparatorBox;
+	
+	/** The check comparator box. */
 	private static JComboBox checkComparatorBox;
+	
+	/** The available comparator box. */
 	private static JComboBox availableComparatorBox;
 
+	/** The edit text box. */
 	private static JComboBox editTextBox;
+	
+	/** The auto complete box. */
 	private static JComboBox autoCompleteBox;
+	
+	/** The sliding box. */
 	private static JComboBox slidingBox;
+	
+	/** The check box. */
 	private static JComboBox checkBox;
+	
+	/** The toggle box. */
 	private static JComboBox toggleBox;
+	
+	/** The input text box. */
 	private static JComboBox inputTextBox;
 
+	/** The btn default values. */
 	private static JButton btnDefaultValues;
+	
+	/** The btn save. */
 	private static JButton btnSave;
 
-	private static String[] algorithm = {"Breadth (BFS)","Depth (DFS)", "Random"};
+	/** The algorithm. */
+	private static String[] algorithm = {"Breadth (BFS)","Depth (DFS)", "Random (RFS)"};
+	
+	/** The bool. */
 	private static String[] bool = {"true", "false"};
+	
+	/** The inputs. */
 	private static String[] inputs = {"hash values", "random values"};
+	
+	/** The interactions. */
 	private static String[] interactions = {"event", "input", "both", "none"};
+	
+	/** The drag. */
 	private static String[] drag = {"event", "none"};
+	
+	/** The max event selector. */
 	private static String[] maxEventSelector = {"no limit", "1", "2", "3", "4", "5"};
+	
+	/** The first path. */
 	private static String firstPath = new String();
+	
+	/** The builder. */
 	private static StringBuilder builder = new StringBuilder();
 
+	/**
+	 * Instantiates a new graphical editor.
+	 *
+	 * @param expPath the exp path
+	 * @param appPack the app pack
+	 * @param appClass the app class
+	 */
 	@SuppressWarnings("unchecked")
 	public GraphicalEditor(String expPath, String appPack, String appClass) {
 		setResizable(false);
@@ -318,6 +386,9 @@ public class GraphicalEditor extends JFrame {
 		resetDefaultValues();
 	}
 
+	/**
+	 * Save xml.
+	 */
 	public void saveXML() {
 		if(!validateField()){
 			JOptionPane.showMessageDialog(null, "Automation Parameters don't valid", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -330,6 +401,9 @@ public class GraphicalEditor extends JFrame {
 		}
 	}
 
+	/**
+	 * Creates the general parameters.
+	 */
 	private void createGeneralParameters() {
 		builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>");
 		builder.append("<!DOCTYPE preferences SYSTEM \"http://java.sun.com/dtd/preferences.dtd\">");
@@ -353,7 +427,7 @@ public class GraphicalEditor extends JFrame {
 			scheduler_algorithm = "DEPTH_FIRST";
 			break;
 		case 2:
-			scheduler_algorithm = "RANDOM";
+			scheduler_algorithm = "RANDOM_FIRST";
 			break;
 		}
 		if (schedulerBox.getSelectedIndex() != 0) {
@@ -362,6 +436,9 @@ public class GraphicalEditor extends JFrame {
 		builder.append("</map>");
 	}
 
+	/**
+	 * Creates the automation parameters.
+	 */
 	private void createAutomationParameters() {
 		int automation = 0;
 		if (waitingEventField.getText().equals("1000")) automation++;
@@ -390,6 +467,9 @@ public class GraphicalEditor extends JFrame {
 		}
 	}
 
+	/**
+	 * Creates the comparator parameters.
+	 */
 	private void createComparatorParameters() {
 		if (listComparatorBox.getSelectedIndex() != 1 
 				|| checkComparatorBox.getSelectedIndex() != 1
@@ -404,6 +484,9 @@ public class GraphicalEditor extends JFrame {
 		}
 	}
 
+	/**
+	 * Creates the interactions parameters.
+	 */
 	private void createInteractionsParameters() {
 		String events = new String();
 		String inputs = new String();
@@ -481,6 +564,11 @@ public class GraphicalEditor extends JFrame {
 		
 	}
 
+	/**
+	 * Finalize xml.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean finalizeXml() {
 		builder.append("</node>");
 		builder.append("</root>");
@@ -512,6 +600,11 @@ public class GraphicalEditor extends JFrame {
 		return true;
 	}
 
+	/**
+	 * Validate field.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean validateField() {
 		if (!controlValue(waitingEventField.getText())){
 			return false;
@@ -528,6 +621,12 @@ public class GraphicalEditor extends JFrame {
 		return true;
 	}
 
+	/**
+	 * Control value.
+	 *
+	 * @param value the value
+	 * @return true, if successful
+	 */
 	private boolean controlValue(String value){
 		try{
 			return ((Integer.valueOf(value) >= 0) && (Integer.valueOf(value) <= 10000));
@@ -537,6 +636,9 @@ public class GraphicalEditor extends JFrame {
 		}
 	}
 
+	/**
+	 * Reset default values.
+	 */
 	public void resetDefaultValues() {
 		chckbxInputPertubation.setSelected(false);
 		
@@ -564,22 +666,47 @@ public class GraphicalEditor extends JFrame {
 		toggleBox.setSelectedIndex(1);
 	}
 
+	/**
+	 * Sets the first path.
+	 *
+	 * @param s the new first path
+	 */
 	public static void setFirstPath(String s) {
 		firstPath = s;
 	}
 
+	/**
+	 * Gets the app package.
+	 *
+	 * @return the app package
+	 */
 	public static String getAppPackage() {
 		return appPackage;
 	}
 
+	/**
+	 * Sets the app package.
+	 *
+	 * @param value the new app package
+	 */
 	public static void setAppPackage(String value) {
 		appPackage = value;
 	}
 
+	/**
+	 * Gets the app package class.
+	 *
+	 * @return the app package class
+	 */
 	public static String getAppPackageClass() {
 		return appPackageClass;
 	}
 
+	/**
+	 * Sets the app package class.
+	 *
+	 * @param value the new app package class
+	 */
 	public static void setAppPackageClass(String value) {
 		appPackageClass = value;
 	}

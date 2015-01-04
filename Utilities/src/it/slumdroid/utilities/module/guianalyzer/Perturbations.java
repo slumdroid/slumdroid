@@ -17,6 +17,7 @@ package it.slumdroid.utilities.module.guianalyzer;
 
 import nl.flotsam.xeger.Xeger;
 
+// TODO: Auto-generated Javadoc
 /**
  * Perturbations on Text Input
  * Perturbations rules:
@@ -25,19 +26,34 @@ import nl.flotsam.xeger.Xeger;
  * MO2: Disorder the sequence of sets in a regular expression
  * MO3: Insert invalid and dangerous characters, such as an empty string,
  *      strings with starting period, and extremely long strings, into a regular
- *      expression
+ *      expression.
  */
 
 public class Perturbations {
 
+	/** The value lower case. */
 	private String valueLowerCase;
+	
+	/** The type. */
 	private String type;
 
+	/**
+	 * Instantiates a new perturbations.
+	 *
+	 * @param colValue the col value
+	 * @param colType the col type
+	 */
 	public Perturbations (Object colValue, Object colType) {
 		this.valueLowerCase = colType.toString().toLowerCase();
 		this.type = colValue.toString();
 	}
 
+	/**
+	 * Perturb.
+	 *
+	 * @param type the type
+	 * @return the string
+	 */
 	public String perturb(String type) {
 		String pertubedInputs =  new String();
 		if (type.equals("") || type.equals("Exclude")) {
@@ -72,6 +88,11 @@ public class Perturbations {
 	}
 	
 	// Generic Strings
+	/**
+	 * Generic.
+	 *
+	 * @return the string
+	 */
 	private String generic () {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Inputs
@@ -85,6 +106,11 @@ public class Perturbations {
 	// Decimal: [0-9]+\\.[0-9]+
 	// Signed: (\\-|+)[0-9]+
 	// Number: [0-9]+
+	/**
+	 * Number.
+	 *
+	 * @return the string
+	 */
 	private String number () {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Input == 0
@@ -102,6 +128,11 @@ public class Perturbations {
 	}
 
 	// URL: https?://[\\-a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)+(:[0-9]+){1}(/[a-zA-Z0-9]+(\\.[a-zA-Z0-9]+)+)+\\?[0-9A-Za-z]+=[0-9A-Za-z+&\\@\\#/%=~_\\(\\)|]+
+	/**
+	 * Url.
+	 *
+	 * @return the string
+	 */
 	private String url () {
 		String pertubedInputs =  new String();
 		// MO1 - Remove the Mandatory Sets
@@ -118,6 +149,11 @@ public class Perturbations {
 	}
 
 	// Email: [0-9A-Za-z-\\.]+\\@([0-9A-Za-z-]+\\.)+[A-Za-z-]{2,4}
+	/**
+	 * Email.
+	 *
+	 * @return the string
+	 */
 	private String email () {
 		String pertubedInputs =  new String();	
 		// MO1 - Remove the Mandatory Sets
@@ -133,6 +169,11 @@ public class Perturbations {
 	}
 
 	// ZIP: [0-9]{5}([-]{1}[0-9]{4})?
+	/**
+	 * Zip.
+	 *
+	 * @return the string
+	 */
 	private String zip () {
 		String pertubedInputs =  new String();	
 		// MO0 - Valid Input
@@ -148,6 +189,11 @@ public class Perturbations {
 	}
 
 	// ISBN: [0-9]+[- ][0-9]+[- ][0-9]+[- ][0-9]*[- ]*[xX0-9]
+	/**
+	 * Isbn.
+	 *
+	 * @return the string
+	 */
 	private String isbn () {
 		String pertubedInputs =  new String();
 		// MO0 - Valid input
@@ -164,6 +210,11 @@ public class Perturbations {
 	}
 
 	// Credit card: ((4[0-9]{3})|(5[1-5][0-9]{2})|(6011)|(34[0-9]{1})|(37[0-9]{1}))-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}|3[4,7][0-9-]{15}
+	/**
+	 * Creditcard.
+	 *
+	 * @return the string
+	 */
 	private String creditcard () {
 		String pertubedInputs =  new String();	
 		// MO0 - Valid Input
@@ -177,6 +228,12 @@ public class Perturbations {
 		return pertubedInputs;		
 	}
 	
+	/**
+	 * Creates the reg ex.
+	 *
+	 * @param regex the regex
+	 * @return the string
+	 */
 	private String createRegEx (String regex) {
 		return new Xeger(regex).generate();
 	}

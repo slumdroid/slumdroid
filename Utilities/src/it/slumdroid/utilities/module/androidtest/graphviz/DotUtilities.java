@@ -20,8 +20,18 @@ import it.slumdroid.droidmodels.model.UserEvent;
 
 import java.util.Locale;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class DotUtilities.
+ */
 public class DotUtilities {
 
+	/**
+	 * Gets the caption.
+	 *
+	 * @param event the event
+	 * @return the caption
+	 */
 	public static String getCaption (UserEvent event) {
 		String type = event.getType();
 		String target = event.getWidgetName();
@@ -42,6 +52,12 @@ public class DotUtilities {
 		return nodeDesc;
 	}
 
+	/**
+	 * Escape dot.
+	 *
+	 * @param string the string
+	 * @return the string
+	 */
 	public static String escapeDot (String string) {
 		if (string == null) {
 			return null;
@@ -100,14 +116,32 @@ public class DotUtilities {
 		return out.toString();
 	}
 
+	/**
+	 * Hex.
+	 *
+	 * @param character the character
+	 * @return the string
+	 */
 	public static String hex(char character) {
 		return Integer.toHexString(character).toUpperCase(Locale.ENGLISH);
 	}
 
+	/**
+	 * Export to dot.
+	 *
+	 * @param xml the xml
+	 * @return the string
+	 */
 	public static String exportToDot (GuiTree xml) {
 		return new GuiTreeToDot (xml).getDot();
 	}
 
+	/**
+	 * Export to fsm.
+	 *
+	 * @param xml the xml
+	 * @return the string
+	 */
 	public static String exportToFsm (GuiTree xml){
 		return new GuiTreeToFSM (xml).getDot();
 	}	   	

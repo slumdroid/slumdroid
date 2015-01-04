@@ -19,12 +19,26 @@ import static it.slumdroid.utilities.Resources.TOOL;
 
 import java.util.prefs.Preferences;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PreferenceEditor.
+ */
 public class PreferenceEditor {
 
+	/** The package. */
 	private final String PACKAGE = "PACKAGE_NAME";
+	
+	/** The class. */
 	private final String CLASS = "CLASS_NAME";
+	
+	/** The seed. */
 	private final String SEED = "RANDOM_SEED";
 
+	/**
+	 * Preference editor.
+	 *
+	 * @param args the args
+	 */
 	public void preferenceEditor(String[] args){
 		Preferences prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);

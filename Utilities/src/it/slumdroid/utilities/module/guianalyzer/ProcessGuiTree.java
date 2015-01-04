@@ -27,16 +27,38 @@ import it.slumdroid.droidmodels.model.WidgetState;
 import java.io.File;
 import java.util.HashMap;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProcessGuiTree.
+ */
 public class ProcessGuiTree {
 
+	/** The widget classes. */
 	protected String[] widgetClasses;
+	
+	/** The num widgets. */
 	public int numWidgets = 0;
+	
+	/** The num perturbated widgets. */
 	public int numPerturbatedWidgets = 0;
+	
+	/** The Widgets. */
 	private HashMap<String, WidgetState> Widgets = null;
+	
+	/** The Interactions. */
 	private HashMap<String, String> Interactions = null;
+	
+	/** The Screens. */
 	private HashMap<String, String> Screens = null;
+	
+	/** The gui tree. */
 	private GuiTree guiTree = null;
 
+	/**
+	 * Instantiates a new process gui tree.
+	 *
+	 * @param inputFileName the input file name
+	 */
 	public ProcessGuiTree (String inputFileName) {
 		try {
 			guiTree = GuiTree.fromXml(new File(inputFileName));
@@ -46,6 +68,11 @@ public class ProcessGuiTree {
 		}
 	}
 
+	/**
+	 * Process file.
+	 *
+	 * @throws Exception the exception
+	 */
 	private void processFile () throws Exception {
 		Widgets = new HashMap<String, WidgetState>();
 		Screens = new HashMap<String, String>();
@@ -88,14 +115,29 @@ public class ProcessGuiTree {
 		numWidgets = Widgets.size();
 	}
 
+	/**
+	 * Gets the widgets.
+	 *
+	 * @return the widgets
+	 */
 	public HashMap<String, WidgetState> getWidgets () {
 		return Widgets;
 	}
 
+	/**
+	 * Gets the screens.
+	 *
+	 * @return the screens
+	 */
 	public HashMap<String, String> getScreens () {
 		return Screens;  
 	}
 
+	/**
+	 * Gets the interactions.
+	 *
+	 * @return the interactions
+	 */
 	public HashMap<String, String> getInteractions () {
 		return Interactions;  
 	}

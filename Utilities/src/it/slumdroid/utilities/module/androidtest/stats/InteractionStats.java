@@ -26,15 +26,33 @@ import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class InteractionStats.
+ */
 public class InteractionStats extends StatsReport {
 
+	/** The events. */
 	private int events;
+	
+	/** The inputs. */
 	private int inputs;
+	
+	/** The diff events. */
 	private Set<String> diffEvents;
+	
+	/** The diff inputs. */
 	private Set<String> diffInputs;
+	
+	/** The event types. */
 	private Map<String,Integer> eventTypes;	
+	
+	/** The input types. */
 	private Map<String,Integer> inputTypes;
 
+	/**
+	 * Instantiates a new interaction stats.
+	 */
 	public InteractionStats () {
 		this.events = 0;
 		this.inputs = 0;
@@ -44,6 +62,11 @@ public class InteractionStats extends StatsReport {
 		this.inputTypes = new Hashtable<String, Integer>();
 	}
 
+	/**
+	 * Analyze interactions.
+	 *
+	 * @param transition the transition
+	 */
 	public void analyzeInteractions(Transition transition) {
 		addEvent(transition.getEvent());
 		this.events++;
@@ -53,6 +76,11 @@ public class InteractionStats extends StatsReport {
 		}
 	}
 
+	/**
+	 * Adds the event.
+	 *
+	 * @param event the event
+	 */
 	public void addEvent (UserEvent event) {
 		if (!this.diffEvents.contains(event.getId())) {
 			inc (this.eventTypes, event.getType());
@@ -60,6 +88,11 @@ public class InteractionStats extends StatsReport {
 		this.diffEvents.add(event.getId());
 	}
 
+	/**
+	 * Adds the input.
+	 *
+	 * @param input the input
+	 */
 	public void addInput (UserInput input) {
 		if (!this.diffInputs.contains(input.getId())) {
 			inc (this.inputTypes, input.getType());
@@ -67,6 +100,9 @@ public class InteractionStats extends StatsReport {
 		this.diffInputs.add(input.getId());
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.utilities.module.androidtest.stats.StatsReport#getReport()
+	 */
 	public String getReport() {
 		return 	"Interactions: " + NEW_LINE +
 				TAB + "Total Events: " + this.events + NEW_LINE +

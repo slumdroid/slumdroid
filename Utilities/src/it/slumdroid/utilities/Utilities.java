@@ -33,8 +33,17 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Utilities.
+ */
 public class Utilities {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		try{
 			if (args.length != 0) {

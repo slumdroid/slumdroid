@@ -22,15 +22,32 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ImagePanel.
+ */
 public class ImagePanel extends JPanel {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The image. */
 	private Image image;
 
+	/**
+	 * Instantiates a new image panel.
+	 *
+	 * @param image the image
+	 */
 	public ImagePanel (String image) {
 		this(new ImageIcon(image).getImage());
 	}
 
+	/**
+	 * Instantiates a new image panel.
+	 *
+	 * @param image the image
+	 */
 	public ImagePanel (Image image) {
 		this.image = image;
 		Dimension size = new Dimension(image.getWidth(null), image.getHeight(null));
@@ -41,6 +58,9 @@ public class ImagePanel extends JPanel {
 		setLayout(null);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	 */
 	@Override
 	public void paintComponent (Graphics g) {
 		g.drawImage(image, 0, 0, null);

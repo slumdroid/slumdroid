@@ -63,15 +63,31 @@ import javax.swing.table.DefaultTableModel;
 
 import net.iharder.dnd.FileDrop;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GuiAnalyzer.
+ */
 public class GuiAnalyzer extends JFrame {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The ProcessGuiTree object. */
 	private ProcessGuiTree pI;
 
+	/** The current directory. */
 	private String currentDirectory = new String();
+	
+	/** The first path. */
 	private String firstPath = new String();
+	
+	/** The screenshots directory. */
 	private String screenshotsDirectory = "\\..\\screenshots\\";
+	
+	/** The preferences path. */
 	private String preferencesPath = "\\..\\data\\preferences.xml";
+	
+	/** The combo values. */
 	private String[] comboValues = {
 			"",
 			"Generic",
@@ -84,30 +100,72 @@ public class GuiAnalyzer extends JFrame {
 			"Exclude"
 	};
 
+	/** The file. */
 	private File theFile;
+	
+	/** The tabel model. */
 	private DefaultTableModel tabelModel;
 
+	/** The combo box. */
 	private JComboBox<?> comboBox;
+	
+	/** The j menu file. */
 	private JMenu jMenuFile;
+	
+	/** The j menu bar. */
 	private JMenuBar jMenuBar;
+	
+	/** The j menu open. */
 	private JMenuItem jMenuOpen;
+	
+	/** The j menu save. */
 	private JMenuItem jMenuSave;
+	
+	/** The j menu exit. */
 	private JMenuItem jMenuExit;
+	
+	/** The j panel widgets. */
 	private JPanel jPanelWidgets;
+	
+	/** The j panel image. */
 	private JPanel jPanelImage;
+	
+	/** The j scroll pane. */
 	private JScrollPane jScrollPane;
+	
+	/** The j tabbed widget. */
 	private JTabbedPane jTabbedWidget;
+	
+	/** The j table info. */
 	private JTable jTableInfo;
 
+	/** The col id. */
 	private Object[] colId;
+	
+	/** The col widgets. */
 	private Object[] colWidgets;
+	
+	/** The col name. */
 	private Object[] colName;
+	
+	/** The col value. */
 	private Object[] colValue;
+	
+	/** The col type. */
 	private Object[] colType;
+	
+	/** The col screen. */
 	private Object[] colScreen;
+	
+	/** The col interaction. */
 	private Object[] colInteraction;
+	
+	/** The col simple type. */
 	private Object[] colSimpleType;
 
+	/**
+	 * Instantiates a new gui analyzer.
+	 */
 	public GuiAnalyzer () {
 		setResizable(false);
 		initComponents();
@@ -121,6 +179,11 @@ public class GuiAnalyzer extends JFrame {
 		});
 	}
 
+	/**
+	 * Instantiates a new gui analyzer.
+	 *
+	 * @param expPath the exp path
+	 */
 	public GuiAnalyzer (String expPath) {
 		this.firstPath = new String(expPath);
 		setResizable(false);
@@ -135,6 +198,9 @@ public class GuiAnalyzer extends JFrame {
 		});
 	}
 
+	/**
+	 * Inits the components.
+	 */
 	private void initComponents() {
 		jTabbedWidget = new JTabbedPane();
 		jPanelWidgets = new JPanel();
@@ -191,6 +257,9 @@ public class GuiAnalyzer extends JFrame {
 		pack();
 	}
 
+	/**
+	 * Creates the layout.
+	 */
 	private void createLayout() {
 		this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		resetAll();
@@ -260,18 +329,29 @@ public class GuiAnalyzer extends JFrame {
 		});	
 	}
 
+	/**
+	 * Reset all.
+	 */
 	private void resetAll () {
 		tabelModel = (DefaultTableModel) jTableInfo.getModel();
 		tabelModel.setRowCount(0);
 		tabelModel.setColumnCount(0);
 	}
 
+	/**
+	 * Change widget info.
+	 */
 	private void changeWidgetInfo () {
 		int row = jTableInfo.getSelectedRow();
 		Object value = ((JButton) jTableInfo.getValueAt(row, 8)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
 	}
 
+	/**
+	 * Adds the image.
+	 *
+	 * @param image the image
+	 */
 	private void addImage (String image) {
 		try{
 			jPanelWidgets.remove(jPanelImage);
@@ -285,6 +365,9 @@ public class GuiAnalyzer extends JFrame {
 		jPanelWidgets.revalidate();
 	}
 
+	/**
+	 * Open.
+	 */
 	private void open () {
 		JFileChooser toLoad = new JFileChooser();
 		toLoad.setFileFilter(new FileNameExtensionFilter("XML GUI Tree", "xml"));
@@ -297,6 +380,11 @@ public class GuiAnalyzer extends JFrame {
 		}
 	}
 
+	/**
+	 * Save.
+	 *
+	 * @return true, if successful
+	 */
 	private boolean save(){
 		try {
 			String place = System.getProperty("user.dir");
@@ -308,6 +396,11 @@ public class GuiAnalyzer extends JFrame {
 		return true;
 	}
 
+	/**
+	 * Creates the xml.
+	 *
+	 * @param preferencesFile the preferences file
+	 */
 	private void createXml(String preferencesFile) {
 		StringBuilder builder =  new StringBuilder();
 		String line = new String();
@@ -351,6 +444,11 @@ public class GuiAnalyzer extends JFrame {
 
 	}
 
+	/**
+	 * Adds the perturbations.
+	 *
+	 * @param builder the builder
+	 */
 	private void addPerturbations(StringBuilder builder) {
 		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
 		int countInput = 0;

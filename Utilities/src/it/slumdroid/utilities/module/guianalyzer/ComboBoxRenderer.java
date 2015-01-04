@@ -21,13 +21,25 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ComboBoxRenderer.
+ */
 @SuppressWarnings("serial")
 public class ComboBoxRenderer extends JComboBox<Object> implements TableCellRenderer {
 
+	/**
+	 * Instantiates a new combo box renderer.
+	 *
+	 * @param items the items
+	 */
 	public ComboBoxRenderer (String[] items) {
 		super(items);
 	}
 
+	/* (non-Javadoc)
+	 * @see javax.swing.table.TableCellRenderer#getTableCellRendererComponent(javax.swing.JTable, java.lang.Object, boolean, boolean, int, int)
+	 */
 	@Override
 	public Component getTableCellRendererComponent (JTable table, Object value, 
 			boolean isSelected, boolean hasFocus, 

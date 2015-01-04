@@ -38,23 +38,48 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UnionTaskListDiet.
+ */
 public class UnionTaskListDiet {
 
+	/** The prefs. */
 	private static Preferences prefs;
 
+	/** The Constant SCHEDULER. */
 	private static final String SCHEDULER ="SCHEDULER_ALGORITHM";
+	
+	/** The Constant BREADTH. */
 	private static final String BREADTH = "BREADTH_FIRST";
+	
+	/** The Constant DEPTH. */
 	private static final String DEPTH = "DEPTH_FIRST";
 	
+	/** The Constant FAKE_TASK_IDENTIFIER. */
 	private static final String FAKE_TASK_IDENTIFIER = "!_FAKE_TASK_!";
+	
+	/** The Constant FAKE_TASK. */
 	private static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\"" + FAKE_TASK_IDENTIFIER + "\" id=\"_ID_\"/>";
 	
+	/** The Constant ID. */
 	private static final String ID = "id";
+	
+	/** The Constant TAG. */
 	private static final String TAG = "TASK";
 	
+	/** The Constant TASKLIST_DIET_XML. */
 	private static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
+	
+	/** The tasklist xml. */
 	private static String TASKLIST_XML = new String();
 	
+	/**
+	 * Tasklist diet.
+	 *
+	 * @param filePath the file path
+	 * @param preferencesPath the preferences path
+	 */
 	public void tasklistDiet(String filePath, String preferencesPath) {
 		TASKLIST_XML = filePath + "/tasklist.xml";
 		if (returnAlgorithm(preferencesPath) == null 
@@ -69,6 +94,12 @@ public class UnionTaskListDiet {
 		}
 	}
 	
+	/**
+	 * Return algorithm.
+	 *
+	 * @param path the path
+	 * @return the string
+	 */
 	private static String returnAlgorithm (String path) {
 		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
@@ -78,6 +109,9 @@ public class UnionTaskListDiet {
 		return prefs.get(SCHEDULER, BREADTH);
 	}
 
+	/**
+	 * Merge tasklists depth.
+	 */
 	private static void mergeTasklistsDepth() {
 		try {
 			ArrayList<String> tasklist_diet = readAndDeleteTasklistDietFile();        
@@ -110,6 +144,12 @@ public class UnionTaskListDiet {
 		}
 	}
 
+	/**
+	 * Handle depth out tasklist.
+	 *
+	 * @param outTasklist the out tasklist
+	 * @param tasklist the tasklist
+	 */
 	private static void handleDepthOutTasklist(PrintWriter outTasklist, ArrayList<String> tasklist) {
 		Integer id_fake = Integer.parseInt( getID( tasklist.get(tasklist.size()-1) ) ) + 1;
 		outTasklist.println(FAKE_TASK.replace("_ID_", id_fake.toString())); 
@@ -118,6 +158,13 @@ public class UnionTaskListDiet {
 		outTasklist.println(lastString);
 	}
 
+	/**
+	 * Handle depht.
+	 *
+	 * @param tasklist_diet the tasklist_diet
+	 * @param tasklist_xml the tasklist_xml
+	 * @return the array list
+	 */
 	private static ArrayList<String> handleDepht(ArrayList<String> tasklist_diet, ArrayList<String> tasklist_xml) {
 		ArrayList<String> ret = new ArrayList<String>();
 		int fakeTracePosition = getFakeTracePosition(tasklist_xml);
@@ -127,6 +174,11 @@ public class UnionTaskListDiet {
 		return ret;
 	}
 
+	/**
+	 * Read and delete tasklist file.
+	 *
+	 * @return the array list
+	 */
 	private static ArrayList<String> readAndDeleteTasklistFile() {
 		ArrayList<String> tasklist_xml = new ArrayList<String>();
 		if (new File(TASKLIST_XML).exists()) {            
@@ -151,6 +203,12 @@ public class UnionTaskListDiet {
 		else return null;
 	}
 
+	/**
+	 * Gets the fake trace position.
+	 *
+	 * @param tasklist the tasklist
+	 * @return the fake trace position
+	 */
 	private static int getFakeTracePosition(ArrayList<String> tasklist) {
 		for (int i = 0; i < tasklist.size(); i++){
 			if (tasklist.get(i).contains(FAKE_TASK_IDENTIFIER)){
@@ -160,6 +218,9 @@ public class UnionTaskListDiet {
 		return -1;
 	}
 
+	/**
+	 * Merge tasklists breadth.
+	 */
 	private static void mergeTasklistsBreadth() {
 		boolean tasklist_diet_xml_found = false;
 		boolean previous_track_found = false;
@@ -241,6 +302,9 @@ public class UnionTaskListDiet {
 		}
 	}
 	
+	/**
+	 * Extract random task.
+	 */
 	private static void extractRandomTask() {
 		boolean tasklist_diet_xml_found = false;
 		boolean previous_track_found = false;
@@ -324,6 +388,12 @@ public class UnionTaskListDiet {
 		}
 	}
 
+	/**
+	 * Gets the id.
+	 *
+	 * @param line the line
+	 * @return the id
+	 */
 	private static String getID(String line) {
 		if (!(line != null && line.equals(""))) {
 			try {
@@ -345,6 +415,13 @@ public class UnionTaskListDiet {
 		return null;
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param line the line
+	 * @param newID the new id
+	 * @return the string
+	 */
 	private static String setID(String line, int newID) {
 		if (!(line != null && line.equals(""))) {
 			try {
@@ -367,6 +444,11 @@ public class UnionTaskListDiet {
 		return null;
 	}
 
+	/**
+	 * Read and delete tasklist diet file.
+	 *
+	 * @return the array list
+	 */
 	private static ArrayList<String> readAndDeleteTasklistDietFile() {
 		ArrayList<String> ret = new ArrayList<String>();
 		if (new File(TASKLIST_DIET_XML).exists()) {
