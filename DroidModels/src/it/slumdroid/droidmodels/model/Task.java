@@ -22,8 +22,8 @@ public interface Task extends Iterable<Transition>, WrapperInterface {
 	public String getId ();
 	public void setId (String id);
 	public Iterator<Transition> transitions();
-	public void addTransition(Transition tail);
-	public void setFinalActivity(ActivityState theActivity);
+	public void addTransition(Transition theTransition);
+	public void setFinalActivity(ActivityState theState);
 	public Transition getFinalTransition ();
 	public boolean isFailed();
 	public void setFailed (boolean failure);

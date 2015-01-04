@@ -24,19 +24,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class TestCaseWidget extends ElementWrapper implements WidgetState {
-	
+
 	public final static String TAG = "WIDGET";
 
 	public TestCaseWidget () {
 		super();
 	}
 
-	public TestCaseWidget (Element e) {
-		super(e);
+	public TestCaseWidget (Element element) {
+		super(element);
 	}
 
-	public WrapperInterface getWrapper(Element e) {
-		return new TestCaseWidget (e);
+	public WrapperInterface getWrapper(Element element) {
+		return new TestCaseWidget (element);
 	}
 
 	public String getId() {
@@ -99,35 +99,35 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	}
 
 	public void setName(String name) {
-		setAttribute("name",name);
+		setAttribute("name", name);
 	}
 
 	public void setValue (String value) {
 		setAttribute("value", value);
 	}
 
-	public void setAvailable (String a) {
-		setAttribute("available", a);
+	public void setAvailable (String value) {
+		setAttribute("available", value);
 	}
 
-	public void setClickable (String c) {
-		setAttribute("clickable", c);
+	public void setClickable (String value) {
+		setAttribute("clickable", value);
 	}
 
-	public void setLongClickable (String c) {
-		setAttribute("long_clickable", c);
+	public void setLongClickable (String value) {
+		setAttribute("long_clickable", value);
 	}
 
 	public void setType(String type) {
-		setAttribute("type",type);
+		setAttribute("type", type);
 	}
 
 	public void setSimpleType(String type) {
-		setAttribute("simple_type",type);
+		setAttribute("simple_type", type);
 	}
 
 	public void setTextType(String inputType) {
-		setAttribute("text_type",inputType);
+		setAttribute("text_type", inputType);
 	}
 
 	public void setCount(int count) {
@@ -141,8 +141,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	}
 
 	public static TestCaseWidget createWidget (Document dom) {
-		Element el = dom.createElement(TAG);
-		return new TestCaseWidget (el);		
+		return new TestCaseWidget (dom.createElement(TAG));		
 	}
 
 	public static TestCaseWidget createWidget (GuiTree session) {

@@ -32,12 +32,12 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 		super();
 	}
 
-	public TestCaseActivity (Element e) {
-		super(e);
+	public TestCaseActivity (Element element) {
+		super(element);
 	}
 
-	public TestCaseActivity getWrapper(Element e) {
-		return new TestCaseActivity(e);
+	public TestCaseActivity getWrapper(Element element) {
+		return new TestCaseActivity(element);
 	}
 
 	public Iterator<WidgetState> iterator() {
@@ -85,8 +85,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	}
 
 	public static TestCaseActivity createActivity (Document dom, String tag) {
-		Element el = dom.createElement(tag);
-		return new TestCaseActivity (el);		
+		return new TestCaseActivity (dom.createElement(tag));		
 	}
 
 	public static TestCaseActivity createActivity (Document dom) {
@@ -97,7 +96,8 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 		return createActivity (session.getDom());
 	}
 
-	// The main purpose of this method is to create the start activity of a transition from the final activity of the previous one
+	// The main purpose of this method is to create the start activity  
+	// of a transition from the final activity of the previous one
 	public static TestCaseActivity createActivity (ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
 		TestCaseActivity newActivity = createActivity (dom);		

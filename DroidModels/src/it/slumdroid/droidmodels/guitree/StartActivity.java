@@ -40,8 +40,7 @@ public class StartActivity extends TestCaseActivity {
 	}
 
 	public static StartActivity createActivity (Document dom, String tag) {
-		Element el = dom.createElement(tag);
-		return new StartActivity (el);		
+		return new StartActivity (dom.createElement(tag));		
 	}
 
 	public static StartActivity createActivity (ActivityState originalActivity) {

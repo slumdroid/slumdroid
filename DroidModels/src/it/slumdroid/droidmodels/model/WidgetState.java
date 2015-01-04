@@ -30,15 +30,15 @@ public interface WidgetState extends WrapperInterface {
 	public int getCount();
 	public void setCount(int count);
 	public boolean isAvailable();
-	public void setAvailable (String a);
+	public void setAvailable (String value);
 	public boolean isClickable();
-	public void setClickable (String c);
+	public void setClickable (String value);
 	public boolean isLongClickable();
-	public void setLongClickable (String lc);
+	public void setLongClickable (String value);
 	public int getIndex();
 	public void setIndex (int index);
 	public String getValue();
-	public void setValue (String v);
+	public void setValue (String value);
 	public WidgetState clone();
 
 }

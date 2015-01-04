@@ -15,7 +15,11 @@
 
 package it.slumdroid.droidmodels.guitree;
 
-import it.slumdroid.droidmodels.model.*;
+import static it.slumdroid.droidmodels.model.ActivityState.CRASH;
+import static it.slumdroid.droidmodels.model.ActivityState.FAILURE;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.testcase.TestCaseActivity;
 import it.slumdroid.droidmodels.testcase.TestCaseTask;
 import it.slumdroid.droidmodels.xml.NodeListWrapper;
@@ -28,7 +32,8 @@ import java.util.Iterator;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -48,8 +53,8 @@ public class GuiTree extends XmlGraph implements Session {
 		return this.guiTree;
 	}
 
-	public void parse(File f) throws SAXException, IOException, ParserConfigurationException {
-		this.guiTree = getBuilder().parse(f);
+	public void parse(File file) throws SAXException, IOException, ParserConfigurationException {
+		this.guiTree = getBuilder().parse(file);
 	}
 
 	public void parse(String xml) {
@@ -74,44 +79,44 @@ public class GuiTree extends XmlGraph implements Session {
 		return this.getDom().getDocumentElement().getAttribute("date_time");
 	}
 
-	public void setDateTime (String d) {
-		getDom().getDocumentElement().setAttribute("date_time", d);
+	public void setDateTime (String date) {
+		getDom().getDocumentElement().setAttribute("date_time", date);
 	}
 
 	public ActivityState getBaseActivity () {
 		return tasks().next().transitions().next().getStartActivity();
 	}
 
-	public static GuiTree fromXml (File f) throws ParserConfigurationException, SAXException, IOException {
+	public static GuiTree fromXml (File file) throws ParserConfigurationException, SAXException, IOException {
 		GuiTree guiT = new GuiTree();
-		guiT.parse(f);
+		guiT.parse(file);
 		return guiT;
 	}
 
-	public void addTask (Task t) {
-		getDom().getDocumentElement().appendChild(t.getElement());
+	public void addTask (Task task) {
+		getDom().getDocumentElement().appendChild(task.getElement());
 	}
 
-	public void addCrashedTask (Task t) {
-		addFailedTask (t,ActivityState.CRASH);
+	public void addCrashedTask (Task task) {
+		addFailedTask (task, CRASH);
 	}
 
-	public void addFailedTask (Task t) {
-		addFailedTask (t,ActivityState.FAILURE);
+	public void addFailedTask (Task task) {
+		addFailedTask (task, FAILURE);
 	}
 
-	protected void addFailedTask (Task t, String failType) {
-		t.setFailed(true);
+	protected void addFailedTask (Task task, String failType) {
+		task.setFailed(true);
 		FinalActivity fail = FinalActivity.createActivity(this);
 		fail.setName(failType);
 		fail.setId(failType);
 		fail.setTitle(failType);
-		t.setFinalActivity(fail);
-		addTask(t);
+		task.setFinalActivity(fail);
+		addTask(task);
 	}
 
-	public void removeTask (Task t) {
-		getDom().getDocumentElement().removeChild(t.getElement());
+	public void removeTask (Task task) {
+		getDom().getDocumentElement().removeChild(task.getElement());
 	}
 
 	// Iterator Methods

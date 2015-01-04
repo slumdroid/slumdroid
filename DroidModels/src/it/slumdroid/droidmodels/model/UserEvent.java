@@ -18,10 +18,10 @@ package it.slumdroid.droidmodels.model;
 public interface UserEvent extends UserInteraction {
 
 	public WidgetState getWidget();
-	public void setWidget(WidgetState w);
+	public void setWidget(WidgetState widget);
 	public String getWidgetName();
-	public void setWidgetName(String n);
+	public void setWidgetName(String name);
 	public String getWidgetType();
-	public void setWidgetType(String t);
+	public void setWidgetType(String type);
 
 }

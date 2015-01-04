@@ -52,7 +52,7 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	}
 
 	public void setId (String id) {
-		setAttribute("id",id);
+		setAttribute("id", id);
 	}
 
 	public boolean isFailed() {
@@ -72,8 +72,8 @@ public class TestCaseTask extends ElementWrapper implements Task {
 		return getAttribute("fail");
 	}
 
-	public TestCaseTask getWrapper(Element e) {
-		return new TestCaseTask (e);
+	public TestCaseTask getWrapper(Element element) {
+		return new TestCaseTask (element);
 	}
 
 	// Iterator Methods
@@ -89,8 +89,8 @@ public class TestCaseTask extends ElementWrapper implements Task {
 		return transitions();
 	}
 
-	public void addTransition(Transition tail) {
-		appendChild(tail.getElement());
+	public void addTransition(Transition theTransition) {
+		appendChild(theTransition.getElement());
 	}
 
 	@Override
@@ -104,17 +104,17 @@ public class TestCaseTask extends ElementWrapper implements Task {
 		return task;
 	}
 
-	public void setFinalActivity(ActivityState theActivity) {
+	public void setFinalActivity(ActivityState theState) {
 		Transition lastTransition = getFinalTransition();
 		if (lastTransition != null) {
-			lastTransition.setFinalActivity(theActivity);
+			lastTransition.setFinalActivity(theState);
 		}
 	}
 
 	public Transition getFinalTransition() {
 		Transition lastTransition = null;
-		for (Transition t: this) {
-			lastTransition = t;
+		for (Transition transition: this) {
+			lastTransition = transition;
 		}
 		return lastTransition;
 	}

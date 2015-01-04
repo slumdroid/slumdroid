@@ -98,8 +98,8 @@ public abstract class XmlGraph {
 		return validation;
 	}
 
-	public static void setValidation(boolean v) {
-		validation = v;
+	public static void setValidation(boolean value) {
+		validation = value;
 	}
 
 }
