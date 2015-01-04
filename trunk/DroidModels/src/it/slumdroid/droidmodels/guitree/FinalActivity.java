@@ -21,28 +21,67 @@ import it.slumdroid.droidmodels.testcase.TestCaseActivity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class FinalActivity.
+ */
 public class FinalActivity extends TestCaseActivity {
 
+	/**
+	 * Instantiates a new final activity.
+	 *
+	 * @param item the item
+	 */
 	public FinalActivity(Element item) {
 		super (item);
 	}
 
+	/**
+	 * Gets the tag.
+	 *
+	 * @return the tag
+	 */
 	public final static String getTag () {
 		return "FINAL_STATE";
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param session the session
+	 * @return the final activity
+	 */
 	public static FinalActivity createActivity (GuiTree session) {
 		return createActivity (session.getDom());
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param dom the dom
+	 * @return the final activity
+	 */
 	public static FinalActivity createActivity (Document dom) {
 		return createActivity (dom, getTag());
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param dom the dom
+	 * @param tag the tag
+	 * @return the final activity
+	 */
 	public static FinalActivity createActivity (Document dom, String tag) {
 		return new FinalActivity (dom.createElement(tag));
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param originalActivity the original activity
+	 * @return the final activity
+	 */
 	public static FinalActivity createActivity (ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
 		FinalActivity newActivity = createActivity (dom);
@@ -64,6 +103,9 @@ public class FinalActivity extends TestCaseActivity {
 		return newActivity;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.testcase.TestCaseActivity#clone()
+	 */
 	public FinalActivity clone () {
 		return createActivity(this);
 	}

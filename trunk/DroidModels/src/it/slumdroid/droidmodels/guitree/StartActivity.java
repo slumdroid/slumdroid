@@ -21,28 +21,67 @@ import it.slumdroid.droidmodels.testcase.TestCaseActivity;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StartActivity.
+ */
 public class StartActivity extends TestCaseActivity {
 
+	/**
+	 * Instantiates a new start activity.
+	 *
+	 * @param item the item
+	 */
 	public StartActivity(Element item) {
 		super (item);
 	}
 
+	/**
+	 * Gets the tag.
+	 *
+	 * @return the tag
+	 */
 	public final static String getTag () {
 		return "START_STATE";
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param session the session
+	 * @return the start activity
+	 */
 	public static StartActivity createActivity (GuiTree session) {
 		return createActivity (session.getDom());
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param dom the dom
+	 * @return the start activity
+	 */
 	public static StartActivity createActivity (Document dom) {
 		return createActivity (dom, getTag());
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param dom the dom
+	 * @param tag the tag
+	 * @return the start activity
+	 */
 	public static StartActivity createActivity (Document dom, String tag) {
 		return new StartActivity (dom.createElement(tag));		
 	}
 
+	/**
+	 * Creates the activity.
+	 *
+	 * @param originalActivity the original activity
+	 * @return the start activity
+	 */
 	public static StartActivity createActivity (ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
 		StartActivity newActivity = createActivity (dom);
@@ -64,6 +103,9 @@ public class StartActivity extends TestCaseActivity {
 		return newActivity;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.testcase.TestCaseActivity#clone()
+	 */
 	public StartActivity clone () {
 		return createActivity(this);
 	}

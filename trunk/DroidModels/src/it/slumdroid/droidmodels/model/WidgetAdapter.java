@@ -17,96 +17,188 @@ package it.slumdroid.droidmodels.model;
 
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WidgetAdapter.
+ */
 public class WidgetAdapter implements WidgetState {
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WrapperInterface#setElement(org.w3c.dom.Element)
+	 */
 	@Override
 	public void setElement(Element e) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WrapperInterface#getElement()
+	 */
 	@Override
 	public Element getElement() {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WrapperInterface#getWrapper(org.w3c.dom.Element)
+	 */
 	@Override
 	public WrapperInterface getWrapper(Element element) {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getId()
+	 */
 	@Override
 	public String getId() {
 		return new String();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setId(java.lang.String)
+	 */
 	public void setId(String id) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getName()
+	 */
 	@Override
 	public String getName() {
 		return new String();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setName(java.lang.String)
+	 */
 	public void setName(String name) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getType()
+	 */
 	@Override
 	public String getType() {
 		return new String();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setType(java.lang.String)
+	 */
 	public void setType(String type) {}
 
+	/**
+	 * Gets the unique id.
+	 *
+	 * @return the unique id
+	 */
 	public String getUniqueId() {
 		return new String();
 	}
 
+	/**
+	 * Sets the unique id.
+	 *
+	 * @param id the new unique id
+	 */
 	public void setUniqueId(String id) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getSimpleType()
+	 */
 	public String getSimpleType() {
 		return null;
 	}
 	
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setSimpleType(java.lang.String)
+	 */
 	public void setSimpleType(String simpleType) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getTextType()
+	 */
 	public String getTextType() {
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setTextType(java.lang.String)
+	 */
 	public void setTextType(String inputType) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#isAvailable()
+	 */
 	public boolean isAvailable() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setAvailable(java.lang.String)
+	 */
 	public void setAvailable(String value) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getCount()
+	 */
 	public int getCount() {
 		return 1;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setCount(int)
+	 */
 	public void setCount(int count) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getIndex()
+	 */
 	public int getIndex() {
 		return 0;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setIndex(int)
+	 */
 	public void setIndex(int index) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#isClickable()
+	 */
 	public boolean isClickable() {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setClickable(java.lang.String)
+	 */
 	public void setClickable(String value) {}
 	
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#isLongClickable()
+	 */
 	public boolean isLongClickable() {
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setLongClickable(java.lang.String)
+	 */
 	public void setLongClickable(String value) {}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#getValue()
+	 */
 	public String getValue() {
 		return new String();
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.droidmodels.model.WidgetState#setValue(java.lang.String)
+	 */
 	public void setValue(String value) {}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	public WidgetState clone() {
 		return null;
 	}

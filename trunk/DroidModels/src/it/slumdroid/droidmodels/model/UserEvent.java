@@ -15,13 +15,52 @@
 
 package it.slumdroid.droidmodels.model;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Interface UserEvent.
+ */
 public interface UserEvent extends UserInteraction {
 
+	/**
+	 * Gets the widget.
+	 *
+	 * @return the widget
+	 */
 	public WidgetState getWidget();
+	
+	/**
+	 * Sets the widget.
+	 *
+	 * @param widget the new widget
+	 */
 	public void setWidget(WidgetState widget);
+	
+	/**
+	 * Gets the widget name.
+	 *
+	 * @return the widget name
+	 */
 	public String getWidgetName();
+	
+	/**
+	 * Sets the widget name.
+	 *
+	 * @param name the new widget name
+	 */
 	public void setWidgetName(String name);
+	
+	/**
+	 * Gets the widget type.
+	 *
+	 * @return the widget type
+	 */
 	public String getWidgetType();
+	
+	/**
+	 * Sets the widget type.
+	 *
+	 * @param type the new widget type
+	 */
 	public void setWidgetType(String type);
 
 }

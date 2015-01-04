@@ -34,18 +34,39 @@ import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_POSTA
 import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_URI;
 import static it.slumdroid.droidmodels.model.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class WidgetType.
+ */
 public class WidgetType {
 
+	/** The type. */
 	private final int type;
+	
+	/** The name lower case. */
 	private String nameLowerCase;
+	
+	/** The value lower case. */
 	private String valueLowerCase;
 
+	/**
+	 * Instantiates a new widget type.
+	 *
+	 * @param type the type
+	 * @param name the name
+	 * @param value the value
+	 */
 	public WidgetType (int type, String name, String value) {
 		this.type = new Integer(type);
 		this.nameLowerCase = new String(name.toLowerCase());
 		this.valueLowerCase =  new String(value.toLowerCase());
 	}
 
+	/**
+	 * Convert.
+	 *
+	 * @return the string
+	 */
 	public String convert () {
 		String output = "";
 		if (isText()) {
@@ -85,6 +106,11 @@ public class WidgetType {
 		return output;
 	}
 
+	/**
+	 * Checks if is text.
+	 *
+	 * @return true, if is text
+	 */
 	private boolean isText () {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_TEXT) {
 			return false;
@@ -92,6 +118,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is number.
+	 *
+	 * @return true, if is number
+	 */
 	private boolean isNumber () {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_NUMBER) {
 			return false;
@@ -99,6 +130,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is datetime.
+	 *
+	 * @return true, if is datetime
+	 */
 	private boolean isDatetime () {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_DATETIME) {
 			return false;
@@ -106,6 +142,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is phone.
+	 *
+	 * @return true, if is phone
+	 */
 	private boolean isPhone () {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_PHONE) {
 			return false;
@@ -113,6 +154,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is text multiline.
+	 *
+	 * @return true, if is text multiline
+	 */
 	private boolean isTextMultiline () {
 		if (!isText() 
 				|| ((this.type & TYPE_MASK_FLAGS) != TYPE_TEXT_FLAG_MULTI_LINE)
@@ -122,6 +168,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is text email address.
+	 *
+	 * @return true, if is text email address
+	 */
 	private boolean isTextEmailAddress () {
 		if (this.nameLowerCase.contains("e-mail")
 				|| this.nameLowerCase.contains("mail")
@@ -133,6 +184,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is text postal address.
+	 *
+	 * @return true, if is text postal address
+	 */
 	private boolean isTextPostalAddress () {
 		if (!isText() || ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_POSTAL_ADDRESS)) {
 			return false;
@@ -140,6 +196,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is text uri.
+	 *
+	 * @return true, if is text uri
+	 */
 	private boolean isTextURI () {
 		if (this.valueLowerCase.contains("http")
 				|| this.valueLowerCase.contains("www")
@@ -153,6 +214,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is person name.
+	 *
+	 * @return true, if is person name
+	 */
 	private boolean isPersonName () {
 		if (!isText() || ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_PERSON_NAME)) {
 			return false;
@@ -160,6 +226,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is password.
+	 *
+	 * @return true, if is password
+	 */
 	private boolean isPassword () {
 		if (!isText() 
 				|| ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_PASSWORD)
@@ -169,6 +240,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is number signed.
+	 *
+	 * @return true, if is number signed
+	 */
 	private boolean isNumberSigned () {
 		if (!isNumber() || ((this.type & TYPE_MASK_FLAGS) != TYPE_NUMBER_FLAG_SIGNED)) {
 			return false;
@@ -176,6 +252,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is number decimal.
+	 *
+	 * @return true, if is number decimal
+	 */
 	private boolean isNumberDecimal () {
 		if (!isNumber() || ((this.type & TYPE_MASK_FLAGS) != TYPE_NUMBER_FLAG_DECIMAL)) {
 			return false;
@@ -183,6 +264,11 @@ public class WidgetType {
 		return true;
 	}
 
+	/**
+	 * Checks if is number password.
+	 *
+	 * @return true, if is number password
+	 */
 	private boolean isNumberPassword () {
 		if (!isNumber() || ((this.type & TYPE_MASK_VARIATION) != TYPE_NUMBER_VARIATION_PASSWORD)) {
 			return false;
