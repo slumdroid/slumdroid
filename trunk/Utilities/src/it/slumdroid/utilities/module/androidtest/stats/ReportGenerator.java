@@ -40,21 +40,47 @@ import java.util.Set;
 
 import org.w3c.dom.Element;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReportGenerator.
+ */
 public class ReportGenerator extends StatsReport {
 
+	/** The session. */
 	private GuiTree session;
 	
+	/** The task report. */
 	private TaskStats taskReport = new TaskStats();
+	
+	/** The event report. */
 	private InteractionStats eventReport = new InteractionStats();
 
+	/** The depth. */
 	private int depth = 0;
+	
+	/** The branch. */
 	private int branch = 0;
+	
+	/** The crash. */
 	private int crash = 0;
+	
+	/** The transitions. */
 	private int transitions = 0;
+	
+	/** The activity. */
 	private Set<String> activity;
+	
+	/** The activity states. */
 	private Set<String> activityStates;
+	
+	/** The actual crashes. */
 	private List<String> actualCrashes;
 
+	/**
+	 * Instantiates a new report generator.
+	 *
+	 * @param guiTree the gui tree
+	 */
 	public ReportGenerator(GuiTree guiTree) {
 		this.session = guiTree;
 		this.activity = new HashSet<String>();
@@ -62,6 +88,9 @@ public class ReportGenerator extends StatsReport {
 		this.actualCrashes = new ArrayList<String>();
 	}
 
+	/**
+	 * Evaluate.
+	 */
 	public void evaluate() {
 		ArrayList<Edge> edges = new ArrayList<Edge>();
 		for (Task theTask: this.session) {
@@ -100,6 +129,9 @@ public class ReportGenerator extends StatsReport {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.utilities.module.androidtest.stats.StatsReport#getReport()
+	 */
 	public String getReport () {
 		evaluate();
 		StringBuilder builder = new StringBuilder();
@@ -121,6 +153,11 @@ public class ReportGenerator extends StatsReport {
 		return builder.toString();
 	}
 
+	/**
+	 * Count widgets.
+	 *
+	 * @param state the state
+	 */
 	public void countWidgets (ActivityState state) {
 		if (state.isFailure()) return;
 		if (state.isCrash()){
@@ -131,6 +168,11 @@ public class ReportGenerator extends StatsReport {
 		this.activityStates.add(state.getId());
 	}
 
+	/**
+	 * Count widget types.
+	 *
+	 * @return the map
+	 */
 	public Map<String, Integer> countWidgetTypes() {
 		HashSet<ActivityState> stateList = new HashSet<ActivityState>();
 		List<String> entries = readFile (getStateFileName());
@@ -158,6 +200,12 @@ public class ReportGenerator extends StatsReport {
 		return widgetTypes;
 	}
 
+	/**
+	 * Read file.
+	 *
+	 * @param input the input
+	 * @return the list
+	 */
 	private List<String> readFile (String input) {
 		BufferedReader theStream = null;
 		String line = new String();

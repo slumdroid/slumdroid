@@ -22,23 +22,54 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StatsReport.
+ */
 public abstract class StatsReport {
 
+	/**
+	 * Gets the report.
+	 *
+	 * @return the report
+	 */
 	public abstract String getReport();
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString () {
 		return getReport();
 	}
 
+	/**
+	 * Max.
+	 *
+	 * @param value1 the value1
+	 * @param value2 the value2
+	 * @return the int
+	 */
 	public static int max (int value1, Integer value2) {
 		if (value2 == null) return value1;
 		return Math.max(value1, value2);
 	}
 
+	/**
+	 * Sum.
+	 *
+	 * @param map the map
+	 * @return the int
+	 */
 	public static int sum (Map<String,Integer> map) {
 		return sum (map.values());
 	}
 
+	/**
+	 * Sum.
+	 *
+	 * @param collection the collection
+	 * @return the int
+	 */
 	public static int sum (Collection<Integer> collection) {
 		int sum = 0;
 		for (Integer i: collection) {
@@ -47,6 +78,12 @@ public abstract class StatsReport {
 		return sum;
 	}
 
+	/**
+	 * Inc.
+	 *
+	 * @param table the table
+	 * @param key the key
+	 */
 	public static void inc (Map<String,Integer> table, String key) {
 		if (table.containsKey(key)) {
 			table.put(key, table.get(key) + 1);
@@ -55,6 +92,12 @@ public abstract class StatsReport {
 		}
 	}
 
+	/**
+	 * Expand map.
+	 *
+	 * @param map the map
+	 * @return the string
+	 */
 	public static String expandMap (Map<String,Integer> map) {
 		StringBuilder builder = new StringBuilder();
 		for (Map.Entry<String,Integer> entry: map.entrySet()) {
@@ -65,6 +108,12 @@ public abstract class StatsReport {
 		return builder.toString();
 	}
 
+	/**
+	 * Expand list.
+	 *
+	 * @param list the list
+	 * @return the string
+	 */
 	public static String expandList (List<String> list) {
 		StringBuilder builder = new StringBuilder();
 		String separator = new String();

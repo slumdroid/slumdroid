@@ -27,22 +27,47 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class TaskStats.
+ */
 public class TaskStats extends StatsReport {
 
+	/** The tasks. */
 	private int tasks = 0;
+	
+	/** The tasks failed. */
 	private int tasksFailed = 0;
+	
+	/** The tasks crashed. */
 	private int tasksCrashed = 0;
+	
+	/** The tasks exit. */
 	private int tasksExit = 0;
+	
+	/** The crashes. */
 	private List<String> crashes;
+	
+	/** The failures. */
 	private List<String> failures;
+	
+	/** The exits. */
 	private List<String> exits;
 
+	/**
+	 * Instantiates a new task stats.
+	 */
 	public TaskStats() {
 		crashes = new ArrayList<String>();
 		failures = new ArrayList<String>();
 		exits = new ArrayList<String>();
 	}
 
+	/**
+	 * Analyze task.
+	 *
+	 * @param theTask the the task
+	 */
 	public void analyzeTask (Task theTask) {
 		this.tasks++;
 		ActivityState state = theTask.getFinalTransition().getFinalActivity();
@@ -62,26 +87,55 @@ public class TaskStats extends StatsReport {
 		}
 	}
 
+	/**
+	 * Gets the tasks.
+	 *
+	 * @return the tasks
+	 */
 	public int getTasks() {
 		return tasks;
 	}
 
+	/**
+	 * Gets the tasks failed.
+	 *
+	 * @return the tasks failed
+	 */
 	public int getTasksFailed() {
 		return tasksFailed;
 	}
 
+	/**
+	 * Gets the tasks exit.
+	 *
+	 * @return the tasks exit
+	 */
 	public int getTasksExit() {
 		return tasksExit;
 	}
 
+	/**
+	 * Gets the tasks crashed.
+	 *
+	 * @return the tasks crashed
+	 */
 	public int getTasksCrashed() {
 		return tasksCrashed;
 	}
 
+	/**
+	 * Prints the list.
+	 *
+	 * @param list the list
+	 * @return the string
+	 */
 	public String printList (List<String> list) {
 		return ((list.size() > 0)?(TAB + TAB + "Tasks: " + expandList(list) + NEW_LINE):"");
 	}
 
+	/* (non-Javadoc)
+	 * @see it.slumdroid.utilities.module.androidtest.stats.StatsReport#getReport()
+	 */
 	public String getReport() {
 		return "Performed Tasks: " + getTasks() + NEW_LINE + 
 				TAB + "Failures: " + getTasksFailed() + NEW_LINE + 
@@ -92,6 +146,11 @@ public class TaskStats extends StatsReport {
 				TAB + "Time: " + getRippingTime() + NEW_LINE;
 	}
 
+	/**
+	 * Gets the ripping time.
+	 *
+	 * @return the ripping time
+	 */
 	private String getRippingTime() {
 		double seconds = 0;
 		BufferedReader inputStream1 = null;

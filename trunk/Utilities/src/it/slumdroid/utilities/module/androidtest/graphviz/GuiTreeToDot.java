@@ -30,20 +30,43 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class GuiTreeToDot.
+ */
 public class GuiTreeToDot {
 
+	/** The session. */
 	private GuiTree session;
+	
+	/** The nodes. */
 	private List<Node> nodes;
+	
+	/** The edges. */
 	private List<Edge> edges;
+	
+	/** The crash count. */
 	private int crashCount = 0;
+	
+	/** The fail count. */
 	private int failCount = 0;
 
+	/**
+	 * Instantiates a new gui tree to dot.
+	 *
+	 * @param session the session
+	 */
 	public GuiTreeToDot (GuiTree session) {
 		this.session = session;
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
 	}
 
+	/**
+	 * Gets the dot.
+	 *
+	 * @return the dot
+	 */
 	public String getDot () {
 
 		boolean first = true;
@@ -72,6 +95,12 @@ public class GuiTreeToDot {
 		return dot.toString();
 	}
 
+	/**
+	 * Adds the transition.
+	 *
+	 * @param action the action
+	 * @param first the first
+	 */
 	private void addTransition(Transition action, boolean first) {
 		Node start = getNode(action.getStartActivity()); 
 		Node finish = getNode(action.getFinalActivity()); 
@@ -101,6 +130,12 @@ public class GuiTreeToDot {
 		this.edges.add(e);
 	}
 
+	/**
+	 * Creates the label.
+	 *
+	 * @param state the state
+	 * @return the string
+	 */
 	private String createLabel (Node state) {
 		String label = state.getLabel();
 		String id = state.getId();
@@ -111,10 +146,22 @@ public class GuiTreeToDot {
 		return id + " = " + label;
 	}
 
+	/**
+	 * Abnormal state.
+	 *
+	 * @param id the id
+	 * @return true, if successful
+	 */
 	protected boolean abnormalState (String id) {
 		return ((id.equals("exit")) || (id.equals("crash")) || (id.equals("fail")));
 	}
 
+	/**
+	 * Gets the node.
+	 *
+	 * @param state the state
+	 * @return the node
+	 */
 	private Node getNode (ActivityState state) {
 		Node ret = new Node (state);
 		if (state.isCrash()) {
@@ -125,12 +172,22 @@ public class GuiTreeToDot {
 		return ret;
 	}
 
+	/**
+	 * Gets the crash id.
+	 *
+	 * @return the crash id
+	 */
 	private String getCrashId() {
 		String ret = "crash" + this.crashCount;
 		this.crashCount++;
 		return ret;
 	}
 
+	/**
+	 * Gets the fail id.
+	 *
+	 * @return the fail id
+	 */
 	private String getFailId() {
 		String ret = "failure" + this.failCount;
 		this.failCount++;

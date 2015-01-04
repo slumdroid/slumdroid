@@ -57,11 +57,21 @@ import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Tools.
+ */
 public class Tools {
 
+	/** The metadata. */
 	private static String metadata = new String();
 
 	// Preference Editor Utilities
+	/**
+	 * Clean node.
+	 *
+	 * @param prefs the prefs
+	 */
 	public void cleanNode (Preferences prefs) {
 		try {
 			prefs.removeNode();
@@ -70,6 +80,12 @@ public class Tools {
 		}
 	}
 
+	/**
+	 * Load node.
+	 *
+	 * @param path the path
+	 * @return true, if successful
+	 */
 	public boolean loadNode (String path) {
 		InputStream is = null;
 		try {
@@ -82,6 +98,12 @@ public class Tools {
 		return true;
 	}
 
+	/**
+	 * Save node.
+	 *
+	 * @param args the args
+	 * @param prefs the prefs
+	 */
 	public void saveNode(String args, Preferences prefs) {
 		FileOutputStream fos;
 		try {
@@ -92,12 +114,24 @@ public class Tools {
 		}
 	}
 
+	/**
+	 * New seed.
+	 *
+	 * @param seed the seed
+	 * @return the long
+	 */
 	public long newSeed (String seed) {
 		Random Rs = new Random(Long.parseLong(seed));
 		Long generatedSeed = Rs.nextLong();
 		return generatedSeed;
 	}
 
+	/**
+	 * Dir list by ascending date.
+	 *
+	 * @param folder the folder
+	 * @return the file[]
+	 */
 	public File[] dirListByAscendingDate(File folder) {
 		if (!folder.isDirectory()) {
 			return null;
@@ -113,10 +147,23 @@ public class Tools {
 	}
 	
 	// XML Utilities
+	/**
+	 * Xml writer.
+	 *
+	 * @param path the path
+	 * @param builder the builder
+	 */
 	public void xmlWriter(String path, StringBuilder builder){
 		xmlWriter(path, builder, path);
 	}
 	
+	/**
+	 * Xml writer.
+	 *
+	 * @param path the path
+	 * @param builder the builder
+	 * @param output the output
+	 */
 	public void xmlWriter(String path, StringBuilder builder, String output){
 		Document doc = null;	
 		try {
@@ -151,6 +198,14 @@ public class Tools {
 	}
 	
 	// Split Utilities
+	/**
+	 * Split.
+	 *
+	 * @param path the path
+	 * @param folder the folder
+	 * @param output the output
+	 * @param suboutput the suboutput
+	 */
 	public void split(String path, String folder, String output, String suboutput) {
 		if (!new File(folder).exists()) new File(folder).mkdir();
 		String guitreeXml = path.concat(output);
@@ -164,6 +219,11 @@ public class Tools {
 	}
 	
 	// Coverage Text Parsing Utilities
+	/**
+	 * Cov text parsing.
+	 *
+	 * @param path the path
+	 */
 	public void covTextParsing(String path) {
 		BufferedReader inputStream1 = null;
 		try {
@@ -190,6 +250,11 @@ public class Tools {
 	}
 	
 	//Coverage Generator Utilities
+	/**
+	 * Cov generator.
+	 *
+	 * @param header the header
+	 */
 	public void covGenerator(String header){
 		try {
 			PrintWriter out = new PrintWriter ("../coverage/Copertura.bat");
@@ -202,6 +267,12 @@ public class Tools {
 		}	
 	}
 	
+	/**
+	 * Coverage.
+	 *
+	 * @param out the out
+	 * @return the string
+	 */
 	private String coverage(PrintWriter out){
 		int esCounter = 0;
 		String[] theFiles = showFiles();	
@@ -219,6 +290,11 @@ public class Tools {
 		return esFiles;
 	}
 	
+	/**
+	 * Show files.
+	 *
+	 * @return the string[]
+	 */
 	private static String[] showFiles() {
 		ArrayList<String> fileList = new ArrayList<String>();
 		int counter = 0;
@@ -255,6 +331,11 @@ public class Tools {
 	}
 		
 	// BuildControl Utilities
+	/**
+	 * Control the Building.
+	 *
+	 * @param path the path
+	 */
 	public void buildControl(String path){
 		try {
 			boolean success = false;
@@ -279,6 +360,12 @@ public class Tools {
 	}
 	
 	// ReTargeting Utilities
+	/**
+	 * Retarget.
+	 *
+	 * @param fileName the file name
+	 * @param targetPackage the target package
+	 */
 	public void retarget(String fileName, String targetPackage) {
 
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -314,6 +401,14 @@ public class Tools {
 
 	}
 	
+	/**
+	 * To xml.
+	 *
+	 * @param dom the dom
+	 * @return the string
+	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
+	 * @throws TransformerException the transformer exception
+	 */
 	private String toXml (Element dom) throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(dom);
 		StringWriter autput = new StringWriter();
@@ -323,6 +418,13 @@ public class Tools {
 		return autput.toString();
 	}
 	
+	/**
+	 * Xml to string.
+	 *
+	 * @param doc the doc
+	 * @return the string
+	 * @throws Exception the exception
+	 */
 	public String xmlToString(Document doc) throws Exception {
 		try {
 			StringWriter stw = new StringWriter();
@@ -336,6 +438,12 @@ public class Tools {
 	}
 	
 	// TrasformActivity Utilities
+	/**
+	 * Traslate.
+	 *
+	 * @param path the path
+	 * @param output the output
+	 */
 	public void traslate(String path, String output) {
 
 		String xmlHead = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
@@ -359,12 +467,23 @@ public class Tools {
 	}
 	
 	// Merge Utilities
+	/**
+	 * Merge g.
+	 *
+	 * @param path the path
+	 */
 	public void mergeG(String path) {
 		String guitreeXml = path.concat(GUITREE);
 		File dir = new File(GUITREE_DIR);
 		if (dir.exists() && dir.isDirectory()) merge(guitreeXml, GUITREE_DIR);
 	}
 	
+	/**
+	 * Merge.
+	 *
+	 * @param xml the xml
+	 * @param dir the dir
+	 */
 	private void merge(String xml, String dir){
 		int count = 0;
 		boolean session_found = false;
@@ -396,6 +515,11 @@ public class Tools {
 	}
 
 	// UpdateProperties Utilities 
+	/**
+	 * Update properties.
+	 *
+	 * @param autPath the aut path
+	 */
 	public void updateProperties(String autPath) {
 		String path = new String(autPath.concat("/project.properties"));
 		String target = new String("target=android-");
@@ -417,6 +541,11 @@ public class Tools {
 	}
 	
 	// Trend Utilities
+	/**
+	 * Trend test.
+	 *
+	 * @param inputPath the input path
+	 */
 	public void trendTest(String inputPath) {
 		
 		if (inputPath.equals("")) {
@@ -507,26 +636,56 @@ public class Tools {
 		}		
 	}
 	
+	/**
+	 * The Class Stats.
+	 */
 	protected class Stats {
 
+		/** The task id. */
 		private int taskID;
+		
+		/** The actual time. */
 		private int actualTime;
+		
+		/** The Lo c. */
 		private String LoC;
 		
+		/**
+		 * Instantiates a new stats.
+		 *
+		 * @param id the id
+		 * @param actual the actual
+		 * @param coverage the coverage
+		 */
 		public Stats(int id, int actual, String coverage){
 			this.taskID = id;
 			this.actualTime = actual;
 			this.LoC = new String(coverage);
 		}
 		
+		/**
+		 * Gets the task id.
+		 *
+		 * @return the task id
+		 */
 		public int getTaskID() {
 			return taskID;
 		}
 		
+		/**
+		 * Gets the actual time.
+		 *
+		 * @return the actual time
+		 */
 		public int getActualTime() {
 			return actualTime;
 		}
 		
+		/**
+		 * Gets the Lines of Code Coverage.
+		 *
+		 * @return the Lines of Code Coverage
+		 */
 		public String getLoC() {
 			return LoC;
 		}
