@@ -220,8 +220,12 @@ public class Automation implements Executor, Extractor {
 	 */
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View view = null;
-		if (widgetType.equals(BUTTON)) view = getExtractor().solo.getButton(widgetName);
-		else if (widgetType.equals(MENU_ITEM)) view = getExtractor().solo.getText(widgetName);
+		if (widgetType.equals(BUTTON)) {
+			view = getExtractor().solo.getButton(widgetName);
+		}
+		if (widgetType.equals(MENU_ITEM)) {
+			view = getExtractor().solo.getText(widgetName);
+		}
 		if (view == null) {
 			for (View theView: getExtractor().getAllWidgets()) {
 				if (theView instanceof Button) {
