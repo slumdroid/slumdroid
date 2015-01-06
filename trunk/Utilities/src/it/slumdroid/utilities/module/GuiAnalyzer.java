@@ -171,7 +171,9 @@ public class GuiAnalyzer extends JFrame {
 		initComponents();
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
-				if (files.length == 0) return;
+				if (files.length == 0) {
+					return;
+				}
 				theFile = files[0];
 				currentDirectory = files[0].getPath().replace(files[0].getName(), "");
 				createLayout();
@@ -190,7 +192,9 @@ public class GuiAnalyzer extends JFrame {
 		initComponents();
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
 			public void filesDropped(File[] files ) {
-				if (files.length == 0) return;
+				if (files.length == 0) {
+					return;
+				}
 				theFile = files[0];
 				currentDirectory = files[0].getPath().replace(files[0].getName(), "");
 				createLayout();
@@ -237,8 +241,11 @@ public class GuiAnalyzer extends JFrame {
 		jMenuSave.setText("Save");
 		jMenuSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				if (!save()) JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
-				else System.exit(NORMAL);
+				if (!save()) {
+					JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
+				} else {
+					System.exit(NORMAL);
+				}
 			}
 		});
 		jMenuFile.add(jMenuSave);
@@ -281,18 +288,18 @@ public class GuiAnalyzer extends JFrame {
 		colInteraction = new Object[pI.numWidgets];
 		colSimpleType = new Object[pI.numWidgets];
 
-		int i = 0;
+		int item = 0;
 		Collection<WidgetState> WidgetsColl = pI.getWidgets().values();
 		for (WidgetState widget: WidgetsColl) {
-			colId[i] = widget.getId();
-			colWidgets[i] = widget.getType();
-			colName[i] = widget.getName();
-			colValue[i] = widget.getValue();
-			colType[i] = widget.getTextType();
-			colInteraction[i] = pI.getInteractions().get(widget.getId());
-			colSimpleType[i] = widget.getSimpleType();
-			colScreen[i] = new JButton(pI.getScreens().get(widget.getId()));
-			i++;
+			colId[item] = widget.getId();
+			colWidgets[item] = widget.getType();
+			colName[item] = widget.getName();
+			colValue[item] = widget.getValue();
+			colType[item] = widget.getTextType();
+			colInteraction[item] = pI.getInteractions().get(widget.getId());
+			colSimpleType[item] = widget.getSimpleType();
+			colScreen[item] = new JButton(pI.getScreens().get(widget.getId()));
+			item++;
 		}
 
 		tabelModel.addColumn("Id", colId);	
@@ -312,7 +319,7 @@ public class GuiAnalyzer extends JFrame {
 
 		comboBox.addItemListener(new ItemListener() {
 			@Override
-			public void itemStateChanged (ItemEvent e) {
+			public void itemStateChanged (ItemEvent event) {
 				changeWidgetInfo();
 			}
 		});
@@ -385,7 +392,7 @@ public class GuiAnalyzer extends JFrame {
 	 *
 	 * @return true, if successful
 	 */
-	private boolean save(){
+	private boolean save() {
 		try {
 			String place = System.getProperty("user.dir");
 			createXml(place + preferencesPath);
@@ -424,8 +431,10 @@ public class GuiAnalyzer extends JFrame {
 			inputStream1.close();
 			new Tools().xmlWriter(preferencesFile, builder);
 
-			if (!firstPath.equals("")){
-				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
+			if (!firstPath.equals("")) {
+				if (!new File(firstPath).exists()) {
+					new File(firstPath).mkdir();
+				}
 				outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
 				outputStream1.write("firstboot");
 				outputStream1.close();	
@@ -455,18 +464,18 @@ public class GuiAnalyzer extends JFrame {
 		int countEvent = 0;
 		for (int i = 0; i < pI.numWidgets; i++){ 
 			String control = (String) jTableInfo.getValueAt(i, 7);
-			if (control != null){
+			if (control != null) {
 				try{
-					if (!control.equals("exclude")){
-						String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturb(control);
-						if (!pertubedInput.equals("")){
+					if (!control.equals("exclude")) {
+						String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturbe(control);
+						if (!pertubedInput.equals("")) {
 							if (jTableInfo.getValueAt(i, 6).equals("Input")){
 								builder.append(data
 										.replace("INDEX", String.valueOf(countInput))
 										.replace("ID",  String.valueOf(colId[i]))
 										.replace("PERTUBATIONS", pertubedInput));
 								countInput++;
-							} else if (jTableInfo.getValueAt(i, 6).equals("Event")){
+							} else if (jTableInfo.getValueAt(i, 6).equals("Event")) {
 								if (((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
 									builder.append(data
 											.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
@@ -474,7 +483,7 @@ public class GuiAnalyzer extends JFrame {
 											.replace("ID",  String.valueOf(colId[i]))
 											.replace("writeText", "enterText")
 											.replace("PERTUBATIONS", pertubedInput));
-								} else{
+								} else {
 									builder.append(data
 											.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
 											.replace("INDEX", String.valueOf(countEvent))
@@ -482,7 +491,7 @@ public class GuiAnalyzer extends JFrame {
 											.replace("PERTUBATIONS", pertubedInput));	
 								}
 								countEvent++;
-							} else if (jTableInfo.getValueAt(i, 6).equals("Input & Event")){
+							} else if (jTableInfo.getValueAt(i, 6).equals("Input & Event")) {
 								builder.append(data
 										.replace("INDEX", String.valueOf(countInput))
 										.replace("ID",  String.valueOf(colId[i]))
@@ -497,7 +506,7 @@ public class GuiAnalyzer extends JFrame {
 							}
 						}
 					}	
-				}catch (Exception e){
+				}catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

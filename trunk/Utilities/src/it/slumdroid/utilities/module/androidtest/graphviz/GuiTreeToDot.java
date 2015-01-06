@@ -108,10 +108,12 @@ public class GuiTreeToDot {
 		
 		Iterator<UserInput> inputs = action.iterator();
 		String userInputs = new String();
-		while(inputs.hasNext()){
+		while(inputs.hasNext()) {
 			UserInput input = inputs.next();
 			userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " " + input.getWidget().getSimpleType());
-			if (!input.getValue().equals("")) userInputs = userInputs.concat(" Value: "+ input.getValue());
+			if (!input.getValue().equals("")) {
+				userInputs = userInputs.concat(" Value: "+ input.getValue());
+			}
 		}
 
 		// Add main activity to nodes
@@ -139,10 +141,18 @@ public class GuiTreeToDot {
 	private String createLabel (Node state) {
 		String label = state.getLabel();
 		String id = state.getId();
-		if (label.equals(state.getId())) return label;
-		if (abnormalState(label)) return label;
-		if (id.equals("")) return label;
-		if (label.equals("")) return id;
+		if (label.equals(state.getId())) {
+			return label;
+		}
+		if (abnormalState(label)) {
+			return label;
+		}
+		if (id.equals("")) {
+			return label;
+		}
+		if (label.equals("")) {
+			return id;
+		}
 		return id + " = " + label;
 	}
 
@@ -153,7 +163,7 @@ public class GuiTreeToDot {
 	 * @return true, if successful
 	 */
 	protected boolean abnormalState (String id) {
-		return ((id.equals("exit")) || (id.equals("crash")) || (id.equals("fail")));
+		return id.equals("exit") || id.equals("crash") || id.equals("fail");
 	}
 
 	/**
@@ -166,7 +176,8 @@ public class GuiTreeToDot {
 		Node ret = new Node (state);
 		if (state.isCrash()) {
 			ret.setId(getCrashId());
-		} else if (state.isFailure()) {
+		} 
+		if (state.isFailure()) {
 			ret.setId(getFailId());
 		}
 		return ret;
