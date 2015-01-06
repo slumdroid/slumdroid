@@ -429,8 +429,8 @@ public class Automation implements Executor, Extractor {
 						oldId = newId;
 					}
 					flag = true;
-					wait(500);
-					sleepTime-=500;
+					wait(50);
+					sleepTime-=50;
 				}
 			}
 		} while (flag && (sleepTime > 0));
