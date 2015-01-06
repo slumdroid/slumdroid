@@ -27,7 +27,6 @@ import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.tool.components.abstractor.GuiTreeAbstractor;
-import it.slumdroid.tool.components.abstractor.TypeDetector;
 import it.slumdroid.tool.components.automation.Automation;
 import it.slumdroid.tool.components.exploration.CompositionalComparator;
 import it.slumdroid.tool.components.exploration.ExplorationStrategy;
@@ -135,7 +134,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Filter eventFilter = new AllPassFilter();
 		planner.setEventFilter (eventFilter);
 		getAbstractor().addFilter (eventFilter);
-		getAbstractor().setTypeDetector(new TypeDetector());
 		setUserAdapter(UserFactory.getUser(getAbstractor()));
 		planner.setUser(getUserAdapter());
 		planner.setFormFiller(getUserAdapter());
@@ -300,8 +298,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			sandboxSession.parse(row);
 			Element element = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
 			Task task = getAbstractor().importTask (element);
-			if (task.isFailed()) getTheGuiTree().addCrashedTask(task);
-			else taskList.add(task);
+			if (task.isFailed()) {
+				getTheGuiTree().addCrashedTask(task);
+			} else {
+				taskList.add(task);
+			}
 		}
 		getScheduler().addTasks(taskList);
 	}
