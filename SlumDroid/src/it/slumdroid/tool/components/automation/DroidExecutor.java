@@ -42,7 +42,7 @@ public class DroidExecutor {
 
 	/** The solo. */
 	static private Solo solo;
-	
+
 	/** The instrum. */
 	static private Instrumentation instrum;
 
@@ -143,8 +143,11 @@ public class DroidExecutor {
 			solo.sendKey(Solo.DOWN);
 		}
 		View view = list.getSelectedView();
-		if (longClick) longClick(view);
-		else click (view);
+		if (longClick) {
+			longClick(view);
+		} else {
+			click (view);
+		}
 	}
 
 	// Spinner interactions
@@ -179,7 +182,9 @@ public class DroidExecutor {
 	 */
 	public static void writeText (EditText editText, String value) {
 		solo.clearEditText(editText);
-		if (!value.equals("")) solo.enterText(editText, value);
+		if (!value.equals("")) {
+			solo.enterText(editText, value);
+		}
 	}
 
 	/**
@@ -211,7 +216,9 @@ public class DroidExecutor {
 	 * @param num the num
 	 */
 	public static void selectRadioItem (final RadioGroup radioGroup, int num) {
-		if (num < 1) assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
+		if (num < 1) {
+			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
+		}
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
 		click(radioGroup.getChildAt(num - 1));
 	}
@@ -223,8 +230,12 @@ public class DroidExecutor {
 	 * @param view the view
 	 */
 	public static void drag (View view) {
-		if (view.isShown()) solo.setSlidingDrawer((SlidingDrawer) view, Solo.CLOSED);
-		else solo.setSlidingDrawer((SlidingDrawer) view, Solo.OPENED);
+		if (view.isShown()) {
+			solo.setSlidingDrawer((SlidingDrawer) view, Solo.CLOSED);
+		}
+		else {
+			solo.setSlidingDrawer((SlidingDrawer) view, Solo.OPENED);
+		}
 	}
 
 	// Special interactions

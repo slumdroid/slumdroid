@@ -39,7 +39,7 @@ public interface Abstractor {
 	 * @return the activity state
 	 */
 	public ActivityState createActivity (ActivityDescription desc);
-	
+
 	/**
 	 * Update description.
 	 *
@@ -48,21 +48,21 @@ public interface Abstractor {
 	 * @return true, if successful
 	 */
 	public boolean updateDescription (ActivityState theActivity, ActivityDescription theDescription);
-	
+
 	/**
 	 * Sets the base activity.
 	 *
 	 * @param desc the new base activity
 	 */
 	public void setBaseActivity (ActivityDescription desc);
-	
+
 	/**
 	 * Gets the base activity.
 	 *
 	 * @return the base activity
 	 */
 	public ActivityState getBaseActivity ();
-	
+
 	/**
 	 * Creates the event.
 	 *
@@ -71,7 +71,7 @@ public interface Abstractor {
 	 * @return the user event
 	 */
 	public UserEvent createEvent (WidgetState target, String type);
-	
+
 	/**
 	 * Creates the input.
 	 *
@@ -81,7 +81,7 @@ public interface Abstractor {
 	 * @return the user input
 	 */
 	public UserInput createInput (WidgetState target, String value, String type);
-	
+
 	/**
 	 * Creates the task.
 	 *
@@ -90,7 +90,7 @@ public interface Abstractor {
 	 * @return the task
 	 */
 	public Task createTask (Task prototype, Transition appendix);
-	
+
 	/**
 	 * Creates the step.
 	 *
@@ -100,7 +100,7 @@ public interface Abstractor {
 	 * @return the transition
 	 */
 	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
-	
+
 	/**
 	 * Import task.
 	 *
@@ -108,7 +108,7 @@ public interface Abstractor {
 	 * @return the task
 	 */
 	public Task importTask (Element element);
-	
+
 	/**
 	 * Import state.
 	 *
@@ -116,7 +116,7 @@ public interface Abstractor {
 	 * @return the activity state
 	 */
 	public ActivityState importState (Element fromXml);
-	
+
 	/**
 	 * Sets the final activity.
 	 *

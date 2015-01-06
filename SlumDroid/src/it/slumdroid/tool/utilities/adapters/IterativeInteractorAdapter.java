@@ -59,7 +59,9 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 		if (canUseWidget(widget)) {
 			final int fromItem = 1; 
 			final int toItem = getToItem(widget, fromItem, widget.getCount()); 
-			if (toItem < fromItem) return events;
+			if (toItem < fromItem) {
+				return events;
+			}
 			for (int item = fromItem; item <= toItem; item++) {
 				events.add(generateEvent(widget, String.valueOf(item)));
 			}

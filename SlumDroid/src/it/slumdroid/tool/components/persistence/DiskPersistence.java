@@ -38,16 +38,16 @@ public class DiskPersistence implements Persistence {
 
 	/** The out. */
 	FileOutputStream fOut = null; 
-	
+
 	/** The osw. */
 	OutputStreamWriter osw = null;
-	
+
 	/** The wrapper. */
 	ContextWrapper wrapper = null;
-	
+
 	/** The session. */
 	private Session theSession;
-	
+
 	/** The mode. */
 	protected int mode = ContextWrapper.MODE_PRIVATE;
 
@@ -58,7 +58,7 @@ public class DiskPersistence implements Persistence {
 	 * Instantiates a new disk persistence.
 	 */
 	public DiskPersistence () {
-		// do nothing
+		// do Nothing
 	}
 
 	/**

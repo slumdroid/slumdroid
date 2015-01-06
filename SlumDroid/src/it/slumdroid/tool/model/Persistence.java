@@ -29,28 +29,28 @@ public interface Persistence {
 	 * Save.
 	 */
 	public void save ();
-	
+
 	/**
 	 * Sets the session.
 	 *
 	 * @param session the new session
 	 */
 	public void setSession (Session session);
-	
+
 	/**
 	 * Adds the task.
 	 *
 	 * @param task the task
 	 */
 	public void addTask (Task task);
-	
+
 	/**
 	 * Sets the context.
 	 *
 	 * @param activity the new context
 	 */
 	public void setContext (Activity activity);
-	
+
 	/**
 	 * Exists.
 	 *

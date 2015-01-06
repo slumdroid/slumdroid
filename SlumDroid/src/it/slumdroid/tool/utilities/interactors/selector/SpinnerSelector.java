@@ -33,7 +33,7 @@ public class SpinnerSelector extends IterativeInteractorAdapter {
 	public SpinnerSelector (int maxItems, String ... simpleTypes) {
 		super (maxItems, simpleTypes);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
 	 */

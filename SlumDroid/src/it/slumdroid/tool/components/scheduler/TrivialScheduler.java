@@ -31,7 +31,7 @@ public class TrivialScheduler implements TaskScheduler {
 
 	/** The tasks. */
 	private List<Task> tasks;
-	
+
 	/** The algorithm. */
 	private SchedulerAlgorithm algorithm;
 

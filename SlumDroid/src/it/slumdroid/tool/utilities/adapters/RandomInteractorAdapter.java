@@ -32,10 +32,10 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 
 	/** The random. */
 	private Random random = new Random(RANDOM_SEED);
-	
+
 	/** The min. */
 	private int min=0;
-	
+
 	/** The max. */
 	private int max=99;
 

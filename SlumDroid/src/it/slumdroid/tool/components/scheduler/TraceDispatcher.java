@@ -34,7 +34,7 @@ public class TraceDispatcher implements Iterable<Task> {
 
 	/** The scheduler. */
 	private TaskScheduler scheduler;
-	
+
 	/** The listeners. */
 	List<DispatchListener> theListeners = new ArrayList<DispatchListener>();
 

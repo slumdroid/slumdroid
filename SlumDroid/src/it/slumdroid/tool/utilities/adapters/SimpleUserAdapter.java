@@ -35,13 +35,13 @@ public class SimpleUserAdapter implements UserAdapter {
 
 	/** The abs. */
 	private Abstractor abs;
-	
+
 	/** The random generator. */
 	private Random randomGenerator;
-	
+
 	/** The event types. */
 	private List<Interactor> eventTypes;
-	
+
 	/** The input types. */
 	private List<Interactor> inputTypes;
 
@@ -120,9 +120,9 @@ public class SimpleUserAdapter implements UserAdapter {
 	 * @see it.slumdroid.tool.model.UserAdapter#addEvent(it.slumdroid.tool.model.Interactor[])
 	 */
 	public void addEvent (Interactor ... events) {
-		for (Interactor e: events) {
-			e.setAbstractor(getAbstractor());
-			this.eventTypes.add(e);
+		for (Interactor event: events) {
+			event.setAbstractor(getAbstractor());
+			this.eventTypes.add(event);
 		}
 	}
 
@@ -139,12 +139,12 @@ public class SimpleUserAdapter implements UserAdapter {
 	 * @see it.slumdroid.tool.model.UserAdapter#addInput(it.slumdroid.tool.model.Interactor[])
 	 */
 	public void addInput (Interactor ... inputs) {
-		for (Interactor i: inputs) {
-			i.setAbstractor(getAbstractor());
-			if (i instanceof RandomInteractor) {
-				((RandomInteractor) i).setRandomGenerator(getRandomGenerator());
+		for (Interactor input: inputs) {
+			input.setAbstractor(getAbstractor());
+			if (input instanceof RandomInteractor) {
+				((RandomInteractor) input).setRandomGenerator(getRandomGenerator());
 			}
-			this.inputTypes.add(i);
+			this.inputTypes.add(input);
 		}
 	}
 

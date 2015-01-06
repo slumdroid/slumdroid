@@ -37,14 +37,14 @@ public interface SaveStateListener {
 	 * @return the listener name
 	 */
 	public String getListenerName ();
-	
+
 	/**
 	 * On saving state.
 	 *
 	 * @return the session params
 	 */
 	public SessionParams onSavingState ();
-	
+
 	/**
 	 * On loading state.
 	 *

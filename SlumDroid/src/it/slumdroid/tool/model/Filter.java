@@ -29,7 +29,7 @@ public interface Filter extends Iterable<WidgetState> {
 	 * @param widget the widget
 	 */
 	public void loadItem (WidgetState widget);
-	
+
 	/**
 	 * Clear.
 	 */

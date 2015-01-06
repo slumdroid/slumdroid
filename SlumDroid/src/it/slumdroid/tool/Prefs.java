@@ -75,22 +75,22 @@ public class Prefs {
 
 	/** The prefs. */
 	private static Preferences prefs;
-	
+
 	/** The not found. */
 	private static boolean notFound = false;
-	
+
 	/** The local prefs. */
 	private Preferences localPrefs;
-	
+
 	/** The resources. */
 	private Class<?> resources;
-	
+
 	/** The main node. */
 	private static String mainNode = Prefs.class.getPackage().getName();
 
 	/** The additional events. */
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_EVENTS = new ArrayList<SimpleInteractorAdapter>();
-	
+
 	/** The additional inputs. */
 	public static ArrayList<SimpleInteractorAdapter> ADDITIONAL_INPUTS = new ArrayList<SimpleInteractorAdapter>();
 
@@ -110,7 +110,9 @@ public class Prefs {
 	 * @return the main node
 	 */
 	public static Preferences getMainNode () {
-		if (notFound) return null;
+		if (notFound) {
+			return null;
+		}
 		if (prefs == null) {
 			loadMainNode();
 		}
@@ -153,7 +155,9 @@ public class Prefs {
 	 * @return the preferences
 	 */
 	public static Preferences loadNode (String localNode) {
-		if (getMainNode() == null) return null;
+		if (getMainNode() == null) {
+			return null;
+		}
 		return getMainNode().node(localNode);
 	}
 
@@ -170,7 +174,9 @@ public class Prefs {
 	 * Update resources.
 	 */
 	public void updateResources() {
-		if (!hasPrefs()) return;
+		if (!hasPrefs()) {
+			return;
+		}
 		for (Field f: this.resources.getFields()) {			
 			if (Modifier.isFinal(f.getModifiers())) continue;
 			try {
@@ -270,7 +276,9 @@ public class Prefs {
 	 */
 	public int[] getIntArray (Field parameter) throws IllegalArgumentException {
 		String[] value = getStringArray (parameter);
-		if (value == null) return null;
+		if (value == null) {
+			return null;
+		}
 		int[] ret = new int[value.length];
 		for (int i = 0; i < value.length; i++) {
 			ret[i] = Integer.parseInt(value[i]);
@@ -348,7 +356,7 @@ public class Prefs {
 	/**
 	 * Check inputs.
 	 */
-	public static void checkInputs(){
+	public static void checkInputs() {
 		if (INPUTS != null) {
 			if (!hasClickAsInputs()) {
 				UserFactory.addInput(CLICK, RADIO, CHECKBOX, CHECKTEXT, TOGGLE_BUTTON, NUMBER_PICKER_BUTTON);
@@ -362,7 +370,7 @@ public class Prefs {
 			ADDITIONAL_INPUTS.clear();
 			for (String s: EXTRA_INPUTS) {
 				String[] widgets = s.split(",");
-				if (widgets[0].equals(WRITE_TEXT)){
+				if (widgets[0].equals(WRITE_TEXT)) {
 					SimpleInteractorAdapter interactor = new AdditionalWriteEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
 					ADDITIONAL_INPUTS.add(interactor);
 				}
@@ -377,9 +385,11 @@ public class Prefs {
 	 */
 	private static boolean hasClickAsInputs() {
 		boolean isClick = false;
-		for (String s: INPUTS) {		
-			String[] widgets = s.split("( )?,( )?");
-			if (widgets[0].equals(CLICK)) isClick = true;
+		for (String input: INPUTS) {		
+			String[] widgets = input.split("( )?,( )?");
+			if (widgets[0].equals(CLICK)) {
+				isClick = true;
+			}
 			UserFactory.addInput(widgets[0], Arrays.copyOfRange(widgets, 1, widgets.length));		
 		}
 		return isClick;
@@ -388,7 +398,7 @@ public class Prefs {
 	/**
 	 * Check events.
 	 */
-	public static void checkEvents(){
+	public static void checkEvents() {
 		if (EVENTS != null) {
 			if (!hasClickAsEvents()) {
 				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW);
@@ -405,13 +415,13 @@ public class Prefs {
 		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
-			for (String s: EXTRA_EVENTS) {
-				String[] widgets = s.split(",");
-				if (widgets[0].equals(WRITE_TEXT)){
+			for (String event: EXTRA_EVENTS) {
+				String[] widgets = event.split(",");
+				if (widgets[0].equals(WRITE_TEXT)) {
 					SimpleInteractorAdapter interactor = new AdditionalWriteEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
 					ADDITIONAL_EVENTS.add(interactor);
 				} else {
-					if (widgets[0].equals(ENTER_TEXT)){
+					if (widgets[0].equals(ENTER_TEXT)) {
 						SimpleInteractorAdapter interactor = new AdditionalEnterEditor().addIdValuePair(widgets[1], Arrays.copyOfRange(widgets, 2, widgets.length));
 						ADDITIONAL_EVENTS.add(interactor);
 					}
@@ -427,9 +437,11 @@ public class Prefs {
 	 */
 	private static boolean hasClickAsEvents() {
 		boolean isClick = false;
-		for (String s: EVENTS) {
-			String[] widgets = s.split("( )?,( )?");
-			if (widgets[0].equals(CLICK)) isClick = true;
+		for (String event: EVENTS) {
+			String[] widgets = event.split("( )?,( )?");
+			if (widgets[0].equals(CLICK)) {
+				isClick = true;
+			}
 			UserFactory.addEvent(widgets[0], Arrays.copyOfRange(widgets, 1, widgets.length));
 		}
 		return isClick;

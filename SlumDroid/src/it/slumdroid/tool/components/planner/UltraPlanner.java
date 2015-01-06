@@ -53,22 +53,22 @@ public class UltraPlanner {
 
 	/** The input filter. */
 	protected Filter eventFilter, inputFilter;
-	
+
 	/** The user. */
 	protected EventHandler user;
-	
+
 	/** The form filler. */
 	protected InputHandler formFiller;
-	
+
 	/** The abstractor. */
 	protected Abstractor abstractor;
-	
+
 	/** The include action. */
 	protected boolean includeAction;
-	
+
 	/** The include menu. */
 	protected boolean includeMenu;
-	
+
 	/** The include rotation. */
 	protected boolean includeRotation;
 
@@ -86,8 +86,9 @@ public class UltraPlanner {
 			reductionActions(widget, activityState);
 			Collection<UserEvent> events = getUser().handleEvent(widget);
 			for (UserEvent event: events) {                           
-				if (event == null) continue;
-				else{
+				if (event == null) {
+					continue;
+				} else {
 					if (event.getType().equals(LIST_SELECT) 
 							|| event.getType().equals(LIST_LONG_SELECT)) {
 						Collection<UserInput> inputs = new ArrayList<UserInput>();
@@ -121,12 +122,12 @@ public class UltraPlanner {
 			setIncludeMenu(false);
 			setIncludeRotation(false);
 		}
-		if (widget.getSimpleType().equals(EXPAND_MENU)){
+		if (widget.getSimpleType().equals(EXPAND_MENU)) {
 			setIncludeRotation(false);
 		}
 		if (widget.getSimpleType().equals(ACTION_HOME) 
 				&& widget.isClickable() 
-				&& widget.isAvailable()){
+				&& widget.isAvailable()) {
 			setIncludeAction(true);
 		}	
 	}
@@ -151,7 +152,9 @@ public class UltraPlanner {
 		Collection<UserInput> inputs = new ArrayList<UserInput>();
 		for(int widget = 0; widget < numWidgets; widget++) {
 			UserInput input = macroInputs.get(widget).get(0);
-			if (includeInput(input, event)) inputs.add(input);
+			if (includeInput(input, event)) {
+				inputs.add(input);
+			}
 		}
 		Transition transition = getAbstractor().createStep(activityState, inputs, event);                          
 		planner.addTask(transition);
@@ -161,11 +164,15 @@ public class UltraPlanner {
 				for(int component = 0; component < numWidgets; component++) {
 					if(component == widget) {
 						UserInput input = macroInputs.get(widget).get(inPut);
-						if (includeInput(input, event)) combinations.add(input);
+						if (includeInput(input, event)) {
+							combinations.add(input);
+						}
 						continue;
 					}
 					UserInput input = macroInputs.get(component).get(0);
-					if (includeInput(input, event)) combinations.add(((TestCaseInput) input).clone());
+					if (includeInput(input, event)) {
+						combinations.add(((TestCaseInput) input).clone());
+					}
 				}
 				transition = getAbstractor().createStep(activityState, combinations,((TestCaseEvent) event).clone());                                        
 				planner.addTask(transition);                           
@@ -207,31 +214,31 @@ public class UltraPlanner {
 	/**
 	 * Gets the plan for activity.
 	 *
-	 * @param activityState the activity state
+	 * @param theState the activity state
 	 * @return the plan for activity
 	 */
-	public Plan getPlanForActivity (ActivityState activityState) {
+	public Plan getPlanForActivity (ActivityState theState) {
 		Plan planner = new Plan();
-		addPlanForActivityWidgets(planner, activityState);
+		addPlanForActivityWidgets(planner, theState);
 		UserEvent event;
 		Transition transition;
 		if (isIncludeMenu()) {
 			event = getAbstractor().createEvent(null, PRESS_MENU);
-			transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
 		if (isIncludeAction()) {
 			event = getAbstractor().createEvent(null, PRESS_ACTION);
-			transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
-			transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
 		event = getAbstractor().createEvent(null, PRESS_BACK);
-		transition = getAbstractor().createStep(activityState, new HashSet<UserInput>(), event);
+		transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
 		planner.addTask(transition);
 		return planner;
 	}

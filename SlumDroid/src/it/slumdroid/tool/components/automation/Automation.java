@@ -18,6 +18,7 @@ package it.slumdroid.tool.components.automation;
 import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
 import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
@@ -200,8 +201,12 @@ public class Automation implements Executor, Extractor {
 	 */
 	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
 		View view = getWidget(widgetId, widgetType, widgetName);
-		if (view == null) view = getWidget(widgetId);
-		if (view == null) view = ExtractorUtilities.findViewById(widgetId);
+		if (view == null) {
+			view = getWidget(widgetId);
+		}
+		if (view == null) {
+			view = ExtractorUtilities.findViewById(widgetId);
+		}
 		fireEventOnView(view, eventType, value);
 	}
 
@@ -225,7 +230,9 @@ public class Automation implements Executor, Extractor {
 						view = candidate;
 					}
 				}
-				if (view != null) break;
+				if (view != null) {
+					break;
+				}
 			}
 		}
 		fireEventOnView(view, eventType, value);
@@ -240,8 +247,12 @@ public class Automation implements Executor, Extractor {
 	 */
 	private void fireEventOnView (View view, String eventType, String value) {
 		injectInteraction(view, eventType, value);
-		if (SLEEP_AFTER_EVENT != 0) wait(SLEEP_AFTER_EVENT);
-		if (SLEEP_ON_THROBBER != 0) waitOnThrobber();
+		if (SLEEP_AFTER_EVENT != 0) {
+			wait(SLEEP_AFTER_EVENT);
+		}
+		if (SLEEP_ON_THROBBER != 0) {
+			waitOnThrobber();
+		}
 		refreshCurrentActivity();
 		extractState();
 	}
@@ -254,29 +265,76 @@ public class Automation implements Executor, Extractor {
 	 * @param value the value
 	 */
 	private void injectInteraction (View view, String interactionType, String value) {
-		if (view != null) requestView(view);
-
-		if (interactionType.equals(CLICK)) click (view);
-		else if (interactionType.equals(LONG_CLICK)) longClick(view);
-		else if (interactionType.endsWith("Item")){
-			if (interactionType.equals(LIST_SELECT)) selectListItem((ListView)view, value);
-			else if (interactionType.equals(LIST_LONG_SELECT)) selectListItem((ListView)view, value, true);
-			else if (interactionType.equals(SPINNER_SELECT)) selectSpinnerItem((Spinner)view, value);
-			else if (interactionType.equals(RADIO_SELECT)) selectRadioItem((RadioGroup)view, value);	
+		if (view != null) {
+			requestView(view);
+		}
+		if (interactionType.equals(CLICK)) {
+			click (view);
+			return;
+		}
+		if (interactionType.equals(LONG_CLICK)) {
+			longClick(view);
+			return;
+		}
+		if (interactionType.endsWith("Item")) {
+			if (interactionType.equals(LIST_SELECT)) {
+				selectListItem((ListView)view, value);
+				return;
+			}
+			if (interactionType.equals(LIST_LONG_SELECT)) {
+				selectListItem((ListView)view, value, true);
+				return;
+			}
+			if (interactionType.equals(SPINNER_SELECT)) {
+				selectSpinnerItem((Spinner)view, value);
+				return;
+			}
+			if (interactionType.equals(RADIO_SELECT)) {
+				selectRadioItem((RadioGroup)view, value);
+				return;
+			}
 		} 
-		else if (interactionType.endsWith("Text")){
-			if (interactionType.equals(WRITE_TEXT)) writeText((EditText)view, value);
-			else enterText((EditText)view, value);	
+		if (interactionType.endsWith("Text")){
+			if (interactionType.equals(WRITE_TEXT)) {
+				writeText((EditText)view, value);
+				return;
+			}
+			if (interactionType.equals(ENTER_TEXT)) {
+				enterText((EditText)view, value);
+				return;
+			}
 		}
-		else if (interactionType.contains("press")){
-			if (interactionType.equals(PRESS_BACK)) goBack();
-			else if (interactionType.equals(PRESS_MENU)) openMenu();
-			else if (interactionType.equals(PRESS_ACTION)) actionBarHome();
+		if (interactionType.contains("press")) {
+			if (interactionType.equals(PRESS_BACK)) {
+				goBack();
+				return;
+			}
+			if (interactionType.equals(PRESS_MENU)) {
+				openMenu();
+				return;
+			}
+			if (interactionType.equals(PRESS_ACTION)) {
+				actionBarHome();
+				return;
+			}
 		}
-		else if (interactionType.equals(CHANGE_ORIENTATION)) changeOrientation();
-		else if (interactionType.equals(SET_BAR)) setProgressBar(view, value);
-		else if (interactionType.equals(DRAG)) drag(view);	
-		else if (interactionType.equals(SWAP_TAB) && (value!=null)) swapTab (view, value);
+		if (interactionType.equals(CHANGE_ORIENTATION)) {
+			changeOrientation();
+			return;
+		}
+		if (interactionType.equals(SET_BAR)) {
+			setProgressBar(view, value);
+			return;
+		}
+		if (interactionType.equals(DRAG)) {
+			drag(view);	
+			return;
+		}
+		if (interactionType.equals(SWAP_TAB) 
+				&& (value != null)) {
+			swapTab (view, value);
+			return;
+		}
 	}
 
 	/**
@@ -297,15 +355,23 @@ public class Automation implements Executor, Extractor {
 	 */
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
 		View view = getWidget(widgetId, widgetType, widgetName);
-		if (view == null) view = getWidget(widgetId);
-		if (view == null) view = ExtractorUtilities.findViewById(widgetId);
+		if (view == null) {
+			view = getWidget(widgetId);
+		}
+		if (view == null) {
+			view = ExtractorUtilities.findViewById(widgetId);
+		}
 		if (view == null) {
 			for (View theView: getExtractor().getAllWidgets()) {
 				if (theView instanceof Button || theView instanceof RadioGroup) {
-					if (!AbstractorUtilities.getType(theView).equals(widgetType)) continue;
+					if (!AbstractorUtilities.getType(theView).equals(widgetType)) {
+						continue;
+					}
 					view = (AbstractorUtilities.detectName(theView).equals(widgetName))?theView:null;
 				}
-				if (view != null) break;
+				if (view != null) {
+					break;
+				}
 			}
 		}
 		injectInteraction(view, inputType, value);
@@ -338,8 +404,12 @@ public class Automation implements Executor, Extractor {
 	 * After restart.
 	 */
 	public void afterRestart() {
-		if (SLEEP_AFTER_RESTART != 0) wait(SLEEP_AFTER_RESTART);
-		if (SLEEP_ON_THROBBER != 0) waitOnThrobber();
+		if (SLEEP_AFTER_RESTART != 0) {
+			wait(SLEEP_AFTER_RESTART);
+		}
+		if (SLEEP_ON_THROBBER != 0) {
+			waitOnThrobber();
+		}
 	}
 
 	/**
@@ -402,7 +472,9 @@ public class Automation implements Executor, Extractor {
 	 */
 	public boolean checkWidgetEquivalence (View view, int theId, String theType, String theName) {
 		String widgetType = AbstractorUtilities.getType(view); 
-		if (!(theType.equals(widgetType))) return false;
+		if (!(theType.equals(widgetType))) {
+			return false;
+		}
 		String widgetName = AbstractorUtilities.detectName(view);
 		return theName.equals(widgetName) && theId == view.getId();
 	}

@@ -33,22 +33,22 @@ public class PersistenceFactory {
 
 	/** The activity list file name. */
 	private final String ACTIVITY_LIST_FILE_NAME = new String("activities.xml"); 
-	
+
 	/** The parameters file name. */
 	private final String PARAMETERS_FILE_NAME = new String("parameters.obj"); 
-	
+
 	/** The task list file name. */
 	private final String TASK_LIST_FILE_NAME = new String("tasklist.xml");
 
 	/** The session. */
 	private Session theSession;
-	
+
 	/** The scheduler. */
 	private TraceDispatcher scheduler;
-	
+
 	/** The strategy. */
 	private Strategy theStrategy;
-	
+
 	/** The state savers. */
 	static List<SaveStateListener> stateSavers = new ArrayList<SaveStateListener>();
 
@@ -164,10 +164,10 @@ public class PersistenceFactory {
 	/**
 	 * Register for saving state.
 	 *
-	 * @param s the s
+	 * @param listener the listener
 	 */
-	public static void registerForSavingState (SaveStateListener s) {
-		stateSavers.add(s);
+	public static void registerForSavingState (SaveStateListener listener) {
+		stateSavers.add(listener);
 	}
 
 }
