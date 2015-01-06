@@ -115,6 +115,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	public GuiTreeAbstractor(GuiTree theSession) {
 		super();
 		this.filters = new HashSet<Filter>();
+		this.detector = new TypeDetector();
 		setTheSession(theSession);
 		PersistenceFactory.registerForSavingState(this);
 	}
@@ -144,15 +145,6 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	 */
 	public TypeDetector getTypeDetector () {
 		return this.detector;
-	}
-
-	/**
-	 * Sets the type detector.
-	 *
-	 * @param type the new type detector
-	 */
-	public void setTypeDetector (TypeDetector type) {
-		this.detector = type;
 	}
 
 	/* (non-Javadoc)
