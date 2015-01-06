@@ -52,8 +52,8 @@ public class AbstractorUtilities {
 			RadioGroup group = (RadioGroup)view;
 			int max = group.getChildCount();
 			String text = new String();
-			for (int i = 0; i < max; i++) {
-				View child = group.getChildAt(i);
+			for (int item = 0; item < max; item++) {
+				View child = group.getChildAt(item);
 				text = detectName (child);
 				if (!text.equals("")) {
 					name = text;

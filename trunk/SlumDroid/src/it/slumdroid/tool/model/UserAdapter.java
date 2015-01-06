@@ -27,7 +27,7 @@ public interface UserAdapter extends EventHandler, InputHandler {
 	 * @param inputs the inputs
 	 */
 	public void addInput (Interactor ... inputs);
-	
+
 	/**
 	 * Adds the event.
 	 *

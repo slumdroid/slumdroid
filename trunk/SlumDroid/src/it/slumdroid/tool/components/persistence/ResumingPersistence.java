@@ -50,31 +50,31 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 
 	/** The task list. */
 	private List<Task> taskList;
-	
+
 	/** The activity file. */
 	private String activityFile;
-	
+
 	/** The task list file. */
 	private String taskListFile;
-	
+
 	/** The parameters file. */
 	private String parametersFile;
-	
+
 	/** The task file. */
 	private FileOutputStream taskFile;
-	
+
 	/** The task stream. */
 	private OutputStreamWriter taskStream;
-	
+
 	/** The state file. */
 	private FileOutputStream stateFile;
-	
+
 	/** The state stream. */
 	private OutputStreamWriter stateStream;
-	
+
 	/** The parameters. */
 	private Map<String, SessionParams> parameters = new Hashtable<String, SessionParams>();
-	
+
 	/** The listeners. */
 	private Hashtable<String,SaveStateListener> theListeners = new Hashtable<String,SaveStateListener>();
 
@@ -150,7 +150,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		if (!exists(getFileName())) {
 			return false; 
 		}
-		if (!exists(getActivityFileName())) throw new Error("Cannot resume previous session: state list not found.");
+		if (!exists(getActivityFileName())) {
+			throw new Error("Cannot resume previous session: state list not found.");
+		}
 		if (exists(backup(getTaskListFileName()))) {
 			restoreFile(getTaskListFileName());
 			if (exists(backup(getActivityFileName()))) {

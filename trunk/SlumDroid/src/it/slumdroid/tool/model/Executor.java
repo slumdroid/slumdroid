@@ -32,28 +32,28 @@ public interface Executor {
 	 * @param engine the engine
 	 */
 	public void bind (ActivityInstrumentationTestCase2<?> engine);
-	
+
 	/**
 	 * Execute.
 	 *
 	 * @param task the task
 	 */
 	public void execute (Task task);
-	
+
 	/**
 	 * Fire event.
 	 *
 	 * @param event the event
 	 */
 	public void fireEvent (UserEvent event);
-	
+
 	/**
 	 * Sets the input.
 	 *
 	 * @param input the new input
 	 */
 	public void setInput (UserInput input);
-	
+
 	/**
 	 * Wait.
 	 *

@@ -34,7 +34,7 @@ public interface Interactor {
 	 * @return true, if successful
 	 */
 	public boolean canUseWidget (WidgetState widget);
-	
+
 	/**
 	 * Gets the events.
 	 *
@@ -42,7 +42,7 @@ public interface Interactor {
 	 * @return the events
 	 */
 	public List<UserEvent> getEvents (WidgetState widget);
-	
+
 	/**
 	 * Gets the inputs.
 	 *
@@ -50,7 +50,7 @@ public interface Interactor {
 	 * @return the inputs
 	 */
 	public List<UserInput> getInputs (WidgetState widget);
-	
+
 	/**
 	 * Gets the events.
 	 *
@@ -59,7 +59,7 @@ public interface Interactor {
 	 * @return the events
 	 */
 	public List<UserEvent> getEvents (WidgetState widget, String ... values);
-	
+
 	/**
 	 * Gets the inputs.
 	 *
@@ -68,21 +68,21 @@ public interface Interactor {
 	 * @return the inputs
 	 */
 	public List<UserInput> getInputs (WidgetState widget, String ... values);
-	
+
 	/**
 	 * Gets the abstractor.
 	 *
 	 * @return the abstractor
 	 */
 	public Abstractor getAbstractor ();
-	
+
 	/**
 	 * Sets the abstractor.
 	 *
 	 * @param abstractor the new abstractor
 	 */
 	public void setAbstractor (Abstractor abstractor);
-	
+
 	/**
 	 * Gets the interaction type.
 	 *

@@ -29,28 +29,28 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 
 	/** The step. */
 	private int step = 1;
-	
+
 	/** The count. */
 	private int count = 0;
-	
+
 	/** The footer. */
 	private String footer = new String();
-	
+
 	/** The first. */
 	private boolean first = true;
-	
+
 	/** The last. */
 	private boolean last = false;
 
 	/** The actor name. */
 	public final String ACTOR_NAME = "StepDiskPersistence";
-	
+
 	/** The param name. */
 	public final String PARAM_NAME = "footer";
 
 	/** The xml body begin. */
 	private final String XML_BODY_BEGIN = "    <TASK";
-	
+
 	/** The xml body end. */
 	private final String XML_BODY_END = "/TASK>";
 
@@ -157,8 +157,8 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	 */
 	public void saveStep () {
 		save(isLast());
-		for (Task t: getSession()) {
-			getSession().removeTask(t);
+		for (Task task: getSession()) {
+			getSession().removeTask(task);
 		}
 		setNotFirst();
 	}
@@ -177,8 +177,12 @@ public class StepDiskPersistence extends DiskPersistence implements SaveStateLis
 	 * @param last the last
 	 */
 	public void save (boolean last) {
-		if (!isFirst()) this.mode = ContextWrapper.MODE_APPEND;
-		if (last) setLast();		
+		if (!isFirst()) {
+			this.mode = ContextWrapper.MODE_APPEND;
+		}
+		if (last) {
+			setLast();		
+		}
 		super.save();
 	}
 

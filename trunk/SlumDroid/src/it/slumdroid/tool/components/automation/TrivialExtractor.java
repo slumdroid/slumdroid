@@ -35,7 +35,7 @@ public class TrivialExtractor implements Extractor {
 
 	/** The views. */
 	private SparseArray<View> theViews = new SparseArray<View> ();
-	
+
 	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
 

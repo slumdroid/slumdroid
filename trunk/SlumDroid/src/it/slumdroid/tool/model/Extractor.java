@@ -30,19 +30,19 @@ public interface Extractor {
 	 * @return the activity description
 	 */
 	public ActivityDescription describeActivity ();
-	
+
 	/**
 	 * Gets the activity.
 	 *
 	 * @return the activity
 	 */
 	public Activity getActivity ();
-	
+
 	/**
 	 * Extract state.
 	 */
 	public void extractState ();
-	
+
 	/**
 	 * Gets the widget.
 	 *

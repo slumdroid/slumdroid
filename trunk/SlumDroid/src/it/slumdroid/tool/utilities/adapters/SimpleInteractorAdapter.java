@@ -33,7 +33,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 
 	/** The widget classes. */
 	protected HashSet<String> widgetClasses = new HashSet<String>();
-	
+
 	/** The abstractor. */
 	private Abstractor theAbstractor;
 

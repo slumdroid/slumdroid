@@ -67,34 +67,34 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 
 	/** The session. */
 	private GuiTree theSession;
-	
+
 	/** The base activity. */
 	private StartActivity baseActivity;
-	
+
 	/** The filters. */
 	private HashSet<Filter> filters;
-	
+
 	/** The detector. */
 	private TypeDetector detector;
 
 	/** The event id. */
 	private int eventId = 0;
-	
+
 	/** The input id. */
 	private int inputId = 0;
-	
+
 	/** The activity id. */
 	private int activityId = 0;
 
 	/** The Constant ACTOR_NAME. */
 	public final static String ACTOR_NAME = "GuiTreeAbstractor";
-	
+
 	/** The Constant EVENT_PARAM_NAME. */
 	private static final String EVENT_PARAM_NAME = "eventId";
-	
+
 	/** The Constant INPUT_PARAM_NAME. */
 	private static final String INPUT_PARAM_NAME = "inputId";
-	
+
 	/** The Constant ACTIVITY_PARAM_NAME. */
 	private static final String ACTIVITY_PARAM_NAME = "activityId";
 
@@ -110,12 +110,12 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	/**
 	 * Instantiates a new gui tree abstractor.
 	 *
-	 * @param s the s
+	 * @param theSession the session
 	 */
-	public GuiTreeAbstractor(GuiTree s) {
+	public GuiTreeAbstractor(GuiTree theSession) {
 		super();
 		this.filters = new HashSet<Filter>();
-		setTheSession(s);
+		setTheSession(theSession);
 		PersistenceFactory.registerForSavingState(this);
 	}
 
@@ -213,7 +213,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		setValue (view,widget);
 		if (view instanceof TextView) {
 			int type = ((TextView)view).getInputType();
-			if (type != 0){
+			if (type != 0) {
 				widget.setTextType(new WidgetType(type, name, widget.getValue()).convert());
 			}	
 		}
@@ -235,14 +235,18 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		boolean hasDescription = false;
 		for (View view: desc) {
 			hasDescription = true;
-			if (!view.isShown()) continue;
+			if (!view.isShown()) {
+				continue;
+			}
 			TestCaseWidget widget = createWidget (view);
 			widget.setIndex(desc.getWidgetIndex(view));
 			if (widget.getIndex() == 0 
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
 			}
-			if (detectDuplicates && newActivity.hasWidget(widget)) continue;
+			if (detectDuplicates && newActivity.hasWidget(widget)) {
+				continue;
+			}
 			((ElementWrapper) newActivity).appendChild(widget.getElement());
 			for (Filter f: this.filters) {
 				f.loadItem(widget);
@@ -322,7 +326,9 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	 */
 	public UserEvent createEvent (WidgetState target, String type) {
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
-		if (target != null) newEvent.setWidget (target.clone());
+		if (target != null) {
+			newEvent.setWidget (target.clone());
+		}
 		newEvent.setType(type);
 		newEvent.setId(getUniqueEventId());
 		return newEvent;

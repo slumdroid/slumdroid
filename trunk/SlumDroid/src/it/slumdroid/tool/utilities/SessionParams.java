@@ -27,7 +27,7 @@ public class SessionParams implements Serializable {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 2346125751510656206L;
-	
+
 	/** The values. */
 	protected Map<String,String> values;
 

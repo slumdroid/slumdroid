@@ -29,14 +29,14 @@ public interface ActivityDescription extends Iterable<View> {
 	 * @return the activity name
 	 */
 	public String getActivityName ();
-	
+
 	/**
 	 * Gets the activity title.
 	 *
 	 * @return the activity title
 	 */
 	public String getActivityTitle ();
-	
+
 	/**
 	 * Gets the widget index.
 	 *

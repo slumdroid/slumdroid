@@ -66,34 +66,34 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 
 	/** The Constant ACTOR_NAME. */
 	public final static String ACTOR_NAME = "SystematicEngine";
-	
+
 	/** The Constant PARAM_NAME. */
 	private final static String PARAM_NAME = "taskId";
-	
+
 	/** The id. */
 	private int id = 0;
 
 	/** The abstractor. */
 	private GuiTreeAbstractor theAbstractor;
-	
+
 	/** The adapter. */
 	private UserAdapter theAdapter;
-	
+
 	/** The automation. */
 	private Automation theAutomation;
-	
+
 	/** The persistence. */
 	private Persistence thePersistence;
-	
+
 	/** The persistence factory. */
 	protected PersistenceFactory thePersistenceFactory;
-	
+
 	/** The planner. */
 	private UltraPlanner thePlanner;
-	
+
 	/** The scheduler. */
 	private TraceDispatcher theScheduler;
-	
+
 	/** The strategy. */
 	private Strategy theStrategy;
 
@@ -199,7 +199,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 					e.printStackTrace();
 				}
 			}
-			else getStrategy().compareState(theState);
+			else {
+				getStrategy().compareState(theState);
+			}
 			if (SCREENSHOT_ENABLED) {
 				takeScreenshot(theState);
 			}
@@ -208,7 +210,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			}
 			getAbstractor().setFinalActivity (theTask, theState);
 			getPersistence().addTask(theTask);
-			if (canPlanTests(theState)) planTests(theTask, theState);
+			if (canPlanTests(theState)) {
+				planTests(theTask, theState);
+			}
 			break;
 		}
 	}
@@ -228,7 +232,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 */
 	@Override
 	protected void tearDown() throws Exception {
-		if ((getStrategy().getTask() != null) && (getStrategy().getTask().isFailed())) {
+		if ((getStrategy().getTask() != null) 
+				&& (getStrategy().getTask().isFailed())) {
 			getTheGuiTree().addFailedTask(getStrategy().getTask());
 		}
 		getPersistence().save();
@@ -251,7 +256,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			return false;
 		}
 		ResumingPersistence resumer = (ResumingPersistence)getPersistence();
-		if (!resumer.canHasResume()) return false;
+		if (!resumer.canHasResume()) {
+			return false;
+		}
 		importTaskList(resumer);		
 		importActivitiyList(resumer);
 		resumer.loadParameters();
@@ -302,7 +309,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/**
 	 * Plan first tests.
 	 *
-	 * @param theState the the state
+	 * @param theState the state
 	 */
 	protected void planFirstTests (ActivityState theState) {
 		planTests (null, theState);
@@ -311,8 +318,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/**
 	 * Plan tests.
 	 *
-	 * @param theTask the the task
-	 * @param theState the the state
+	 * @param theTask the task
+	 * @param theState the state
 	 */
 	protected void planTests (Task theTask, ActivityState theState) {
 		Plan thePlan = getPlanner().getPlanForActivity(theState);
@@ -323,7 +330,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * Plan tests.
 	 *
 	 * @param baseTask the base task
-	 * @param thePlan the the plan
+	 * @param thePlan the plan
 	 */
 	protected void planTests (Task baseTask, Plan thePlan) {
 		List<Task> tasks = new ArrayList<Task>();
@@ -336,12 +343,12 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/**
 	 * Gets the new task.
 	 *
-	 * @param theTask the the task
-	 * @param t the t
+	 * @param theTask the task
+	 * @param transition the transition
 	 * @return the new task
 	 */
-	protected Task getNewTask (Task theTask, Transition t) {
-		Task newTask = getAbstractor().createTask(theTask, t);
+	protected Task getNewTask (Task theTask, Transition transition) {
+		Task newTask = getAbstractor().createTask(theTask, transition);
 		newTask.setId(nextId());
 		return newTask;
 	}
@@ -397,9 +404,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	}
 
 	/**
-	 * Gets the the gui tree.
+	 * Gets the gui tree.
 	 *
-	 * @return the the gui tree
+	 * @return the gui tree
 	 */
 	private GuiTree getTheGuiTree() {
 		return getAbstractor().getTheSession();
@@ -543,7 +550,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/**
 	 * Take screenshot.
 	 *
-	 * @param theState the the state
+	 * @param theState the state
 	 */
 	private void takeScreenshot(ActivityState theState) {
 		if (!theState.isExit()) {
