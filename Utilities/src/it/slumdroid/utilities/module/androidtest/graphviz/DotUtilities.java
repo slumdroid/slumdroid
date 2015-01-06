@@ -36,15 +36,16 @@ public class DotUtilities {
 		String type = event.getType();
 		String target = event.getWidgetName();
 		boolean special = event.getWidgetType().equals("");
-		if (target.equals(""))
+		if (target.equals("")) {
 			target = event.getValue();
+		}
 		if (target.equals("")) {
 			if (event.getWidget().getSimpleType() != null) {
 				target = event.getWidget().getSimpleType();
 			} else {
 				target = event.getWidgetType();	
 			}
-			if (!(event.getWidgetId().equals(""))) {
+			if (!event.getWidgetId().equals("")) {
 				target = target + " #" + event.getWidgetId();
 			}
 		}
@@ -142,7 +143,7 @@ public class DotUtilities {
 	 * @param xml the xml
 	 * @return the string
 	 */
-	public static String exportToFsm (GuiTree xml){
+	public static String exportToFsm (GuiTree xml) {
 		return new GuiTreeToFSM (xml).getDot();
 	}	   	
 

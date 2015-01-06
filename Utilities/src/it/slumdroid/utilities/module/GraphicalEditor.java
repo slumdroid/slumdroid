@@ -118,7 +118,7 @@ public class GraphicalEditor extends JFrame {
 	private static JButton btnSave;
 
 	/** The algorithm. */
-	private static String[] algorithm = {"Breadth (BFS)","Depth (DFS)", "Random (RFS)"};
+	private static String[] algorithm = {"Breadth (BFS)", "Depth (DFS)", "Random (RFS)"};
 	
 	/** The bool. */
 	private static String[] bool = {"true", "false"};
@@ -390,14 +390,16 @@ public class GraphicalEditor extends JFrame {
 	 * Save xml.
 	 */
 	public void saveXML() {
-		if(!validateField()){
+		if(!validateField()) {
 			JOptionPane.showMessageDialog(null, "Automation Parameters don't valid", "Information", JOptionPane.INFORMATION_MESSAGE);
 		} else{
 			createGeneralParameters();
 			createAutomationParameters();
 			createComparatorParameters();
 			createInteractionsParameters();
-			if (!finalizeXml()) JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
+			if (!finalizeXml()) {
+				JOptionPane.showMessageDialog(null, "Error\nPreferences.xml was not created");
+			}
 		}
 	}
 
@@ -415,10 +417,10 @@ public class GraphicalEditor extends JFrame {
 		builder.append("<entry key=\"PACKAGE_NAME\" value=\""+ getAppPackage() +"\"/>");
 		builder.append("<entry key=\"CLASS_NAME\"   value=\"" + getAppPackageClass() + "\"/>");
 
-		if (screenshotBox.getSelectedIndex()!=0){
+		if (screenshotBox.getSelectedIndex() != 0){
 			builder.append("<entry key=\"SCREENSHOT_ENABLED\" value=\"false\"/>");
 		}
-		String scheduler_algorithm= new String();
+		String scheduler_algorithm = new String();
 		switch (schedulerBox.getSelectedIndex()) {
 		case 0:
 			scheduler_algorithm = "BREADTH_FIRST";
@@ -441,27 +443,34 @@ public class GraphicalEditor extends JFrame {
 	 */
 	private void createAutomationParameters() {
 		int automation = 0;
-		if (waitingEventField.getText().equals("1000")) automation++;
-		if (waitingRestartField.getText().equals("0")) automation++;
-		if (waitingTaskField.getText().equals("0")) automation++;
-		if (waitingThrobberField.getText().equals("1000")) automation++;
-		if (automation!=4) {
+		if (waitingEventField.getText().equals("1000")) {
+			automation++;
+		}
+		if (waitingRestartField.getText().equals("0")) {
+			automation++;
+		}
+		if (waitingTaskField.getText().equals("0")) {
+			automation++;
+		}
+		if (waitingThrobberField.getText().equals("1000")) {
+			automation++;
+		}
+		if (automation != 4) {
 			builder.append("<node name=\"automation\">");
 			builder.append("<map>");
 
-			if (!waitingEventField.getText().equals("1000")){
+			if (!waitingEventField.getText().equals("1000")) {
 				builder.append("<entry key=\"SLEEP_AFTER_EVENT\" value=\""+ Integer.valueOf(waitingEventField.getText()) +"\"/>");
 			}
-			if (!waitingRestartField.getText().equals("0")){
+			if (!waitingRestartField.getText().equals("0")) {
 				builder.append("<entry key=\"SLEEP_AFTER_RESTART\" value=\""+ Integer.valueOf(waitingRestartField.getText()) +"\"/>");
 			}
-			if (!waitingTaskField.getText().equals("0")){
+			if (!waitingTaskField.getText().equals("0")) {
 				builder.append("<entry key=\"SLEEP_AFTER_TASK\" value=\""+ Integer.valueOf(waitingTaskField.getText()) +"\"/>");
 			}
-			if (!waitingThrobberField.getText().equals("1000")){
+			if (!waitingThrobberField.getText().equals("1000")) {
 				builder.append("<entry key=\"SLEEP_ON_THROBBER\" value=\""+ Integer.valueOf(waitingThrobberField.getText()) +"\"/>");
 			}
-
 			builder.append("</map>");
 			builder.append("</node>");	
 		}
@@ -473,12 +482,18 @@ public class GraphicalEditor extends JFrame {
 	private void createComparatorParameters() {
 		if (listComparatorBox.getSelectedIndex() != 1 
 				|| checkComparatorBox.getSelectedIndex() != 1
-				|| availableComparatorBox.getSelectedIndex() != 1){
+				|| availableComparatorBox.getSelectedIndex() != 1) {
 			builder.append("<node name=\"comparator\">");
 			builder.append("<map>");
-			if (listComparatorBox.getSelectedIndex() != 1) builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
-			if (checkComparatorBox.getSelectedIndex() != 1) builder.append("<entry key=\"COMPARE_CHECKBOX\" value=\"true\"/>");
-			if (availableComparatorBox.getSelectedIndex() != 1) builder.append("<entry key=\"COMPARE_AVAILABLE\" value=\"true\"/>");
+			if (listComparatorBox.getSelectedIndex() != 1) {
+				builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
+			}
+			if (checkComparatorBox.getSelectedIndex() != 1) {
+				builder.append("<entry key=\"COMPARE_CHECKBOX\" value=\"true\"/>");
+			}
+			if (availableComparatorBox.getSelectedIndex() != 1) {
+				builder.append("<entry key=\"COMPARE_AVAILABLE\" value=\"true\"/>");
+			}
 			builder.append("</map>");
 			builder.append("</node>");
 		}
@@ -496,25 +511,29 @@ public class GraphicalEditor extends JFrame {
 		builder.append("<node name=\"interactions\">");
 		builder.append("<map>");
 
-		if (editTextBox.getSelectedIndex() == 0 || editTextBox.getSelectedIndex() == 2){
+		if (editTextBox.getSelectedIndex() == 0 
+				|| editTextBox.getSelectedIndex() == 2) {
 			events = events.concat(", editText");
 		}
-		if (editTextBox.getSelectedIndex() == 1 || editTextBox.getSelectedIndex() == 2){
+		if (editTextBox.getSelectedIndex() == 1 
+				|| editTextBox.getSelectedIndex() == 2) {
 			inputs = inputs.concat(", editText");
 		}
 
-		if (autoCompleteBox.getSelectedIndex() == 0 || autoCompleteBox.getSelectedIndex() == 2){
+		if (autoCompleteBox.getSelectedIndex() == 0 
+				|| autoCompleteBox.getSelectedIndex() == 2) {
 			events = events.concat(", autoCText");
 		}
-		if (autoCompleteBox.getSelectedIndex() == 1 || autoCompleteBox.getSelectedIndex() == 2){
+		if (autoCompleteBox.getSelectedIndex() == 1 
+				|| autoCompleteBox.getSelectedIndex() == 2) {
 			inputs = inputs.concat(", autoCText");
 		}
 
-		if (!events.equals("")){
+		if (!events.equals("")) {
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"writeText" + events + "\"/>");
 			countEvent++;
 		}
-		if (!inputs.equals("")){
+		if (!inputs.equals("")) {
 			builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"writeText" + inputs + "\"/>");
 			countInput++;
 		}
@@ -523,45 +542,49 @@ public class GraphicalEditor extends JFrame {
 		inputs = new String();
 		int countButton = 0;
 
-		if (checkBox.getSelectedIndex() == 0 || checkBox.getSelectedIndex() == 2){
+		if (checkBox.getSelectedIndex() == 0 
+				|| checkBox.getSelectedIndex() == 2) {
 			events = events.concat(", check");
 		}
-		if (checkBox.getSelectedIndex() == 1 || checkBox.getSelectedIndex() == 2){
+		if (checkBox.getSelectedIndex() == 1 
+				|| checkBox.getSelectedIndex() == 2) {
 			inputs = inputs.concat(", check");
 			countButton++;
 		}
 
-		if (toggleBox.getSelectedIndex() == 0 || toggleBox.getSelectedIndex() == 2){
+		if (toggleBox.getSelectedIndex() == 0 
+				|| toggleBox.getSelectedIndex() == 2) {
 			events = events.concat(", toggle");
 		}
-		if (toggleBox.getSelectedIndex() == 1 || toggleBox.getSelectedIndex() == 2){
+		if (toggleBox.getSelectedIndex() == 1 
+				|| toggleBox.getSelectedIndex() == 2) {
 			inputs = inputs.concat(", toggle");
 			countButton++;
 		}
 		
-		if (!events.equals("")){
+		if (!events.equals("")) {
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, image, linearLayout" + events + "\"/>");
 		}
-		if (slidingBox.getSelectedIndex() != 1){
+		if (slidingBox.getSelectedIndex() != 1) {
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"drag, slidingDrawer\"/>");
 		}
-		if (!inputs.equals("")){
-			if (countButton!=2)	builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"click, numberPickerButton" + inputs + "\"/>");
+		if (!inputs.equals("")) {
+			if (countButton != 2) {
+				builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"click, numberPickerButton" + inputs + "\"/>");
+			}
 		}
 		
-		if (inputTextBox.getSelectedIndex() != 0){
+		if (inputTextBox.getSelectedIndex() != 0) {
 			builder.append("<entry key=\"HASH_VALUES\" value=\"false\"/>");
 		}
-		if (maxEventSelectorBox.getSelectedIndex() != 3){
+		if (maxEventSelectorBox.getSelectedIndex() != 3) {
 			builder.append("<entry key=\"MAX_NUM_EVENTS_PER_SELECTOR\" value=\""+ maxEventSelectorBox.getSelectedIndex() + "\"/>");
 		}
-		if (tabEventsBox.getSelectedIndex() != 1){
+		if (tabEventsBox.getSelectedIndex() != 1) {
 			builder.append("<entry key=\"TAB_EVENTS_START_ONLY\" value=\"true\"/>");
 		}
-		
 		builder.append("</map>");
 		builder.append("</node>");
-		
 	}
 
 	/**
@@ -577,7 +600,7 @@ public class GraphicalEditor extends JFrame {
 			String folder = System.getProperty("user.dir") + "/../data";
 			if (!new File(folder).exists()) new File(folder).mkdir();
 			new Tools().xmlWriter(path, builder);
-			if (!chckbxInputPertubation.isSelected()){
+			if (!chckbxInputPertubation.isSelected()) {
 				if (!new File(firstPath).exists()) new File(firstPath).mkdir();
 				PrintWriter outputStream1 = new PrintWriter (firstPath.concat("/firstboot.txt"));
 				outputStream1.write("firstboot");
@@ -606,16 +629,16 @@ public class GraphicalEditor extends JFrame {
 	 * @return true, if successful
 	 */
 	private boolean validateField() {
-		if (!controlValue(waitingEventField.getText())){
+		if (!controlValue(waitingEventField.getText())) {
 			return false;
 		}
-		if (!controlValue(waitingRestartField.getText())){
+		if (!controlValue(waitingRestartField.getText())) {
 			return false;
 		}
-		if (!controlValue(waitingTaskField.getText())){
+		if (!controlValue(waitingTaskField.getText())) {
 			return false;
 		}
-		if (!controlValue(waitingThrobberField.getText())){
+		if (!controlValue(waitingThrobberField.getText())) {
 			return false;
 		}
 		return true;
@@ -627,7 +650,7 @@ public class GraphicalEditor extends JFrame {
 	 * @param value the value
 	 * @return true, if successful
 	 */
-	private boolean controlValue(String value){
+	private boolean controlValue(String value) {
 		try{
 			return ((Integer.valueOf(value) >= 0) && (Integer.valueOf(value) <= 10000));
 		}catch (Exception e){
@@ -669,10 +692,10 @@ public class GraphicalEditor extends JFrame {
 	/**
 	 * Sets the first path.
 	 *
-	 * @param s the new first path
+	 * @param value the new first path
 	 */
-	public static void setFirstPath(String s) {
-		firstPath = s;
+	public static void setFirstPath(String value) {
+		firstPath = value;
 	}
 
 	/**

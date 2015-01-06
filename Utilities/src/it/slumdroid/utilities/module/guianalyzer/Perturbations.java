@@ -49,12 +49,12 @@ public class Perturbations {
 	}
 
 	/**
-	 * Perturb.
+	 * Perturbe.
 	 *
 	 * @param type the type
 	 * @return the string
 	 */
-	public String perturb(String type) {
+	public String perturbe(String type) {
 		String pertubedInputs =  new String();
 		if (type.equals("") || type.equals("Exclude")) {
 			// do Nothing
@@ -117,13 +117,16 @@ public class Perturbations {
 		pertubedInputs = pertubedInputs.concat(",0");
 		if (type.contains("Decimal") && type.contains("Signed")) {
 			pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
+			if (type.contains("Decimal")) {
+				pertubedInputs = pertubedInputs.concat(",."); // MO1 - Remove the Mandatory Sets
+				pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
+			}
+			if (type.contains("Signed")) {
+				pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{30,}")); // MO3 - Dangerous Inputs
+			}
+		} else {
+			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}")); // MO3 - Dangerous Inputs
 		}
-		else if (type.contains("Decimal")) {
-			pertubedInputs = pertubedInputs.concat(",."); // MO1 - Remove the Mandatory Sets
-			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
-		}
-		else if (type.contains("Signed")) pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{30,}")); // MO3 - Dangerous Inputs
-		else pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}")); // MO3 - Dangerous Inputs
 		return pertubedInputs;
 	}
 

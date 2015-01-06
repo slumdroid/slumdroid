@@ -50,7 +50,9 @@ public abstract class StatsReport {
 	 * @return the int
 	 */
 	public static int max (int value1, Integer value2) {
-		if (value2 == null) return value1;
+		if (value2 == null) {
+			return value1;
+		}
 		return Math.max(value1, value2);
 	}
 

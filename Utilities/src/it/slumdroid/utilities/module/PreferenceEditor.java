@@ -39,18 +39,18 @@ public class PreferenceEditor {
 	 *
 	 * @param args the args
 	 */
-	public void preferenceEditor(String[] args){
+	public void preferenceEditor(String[] args) {
 		Preferences prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
 		prefs = Preferences.userRoot().node(TOOL);
 		String keyWord = args[1]; 
 		String preferencesPath = args[2];
 		if (new Tools().loadNode (preferencesPath)) {
-			if (keyWord.equals("retarget")){
+			if (keyWord.equals("retarget")) {
 				prefs.put (PACKAGE, args[3]);
 				prefs.put (CLASS, args[4]);
 			}
-			else if (keyWord.equals("randomize")){
+			else if (keyWord.equals("randomize")) {
 				prefs.putLong(SEED, new Tools().newSeed(args[3]));
 			} else if (keyWord.equals("update")) {
 				prefs.put(args[3], args[4]);			

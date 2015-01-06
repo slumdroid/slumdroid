@@ -42,10 +42,7 @@ public class AndroidTest  {
 	private String fsmFileName = new String();
 
 	/** The txt file name. */
-	private static String txtFileName = new String();
-	
-	/** The state file name. */
-	private static String stateFileName = new String();
+	private String txtFileName = new String();
 
 	/** The gui tree. */
 	private GuiTree guiTree;
@@ -60,8 +57,7 @@ public class AndroidTest  {
 
 			// Inputs
 			this.inputFileName = inputPath + "\\files\\guitree.xml";
-			AndroidTest.stateFileName = inputPath + "\\files\\activities.xml";
-			AndroidTest.txtFileName = inputPath + "\\test.txt";
+			this.txtFileName = inputPath + "\\test.txt";
 			
 			// Outputs
 			this.reportFileName = inputPath + "\\output\\report.txt";
@@ -83,7 +79,7 @@ public class AndroidTest  {
 	private void processFile() {
 		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot
 		createArtifact(exportToDot(this.guiTree), getDotFileName()); // GuiTreeDot
-		String report = new ReportGenerator(this.guiTree).getReport(); 
+		String report = new ReportGenerator(this.guiTree, getTxtFileName()).getReport(); 
 		createArtifact(report, getReportFileName()); // ReportTxt 
 	}
 
@@ -95,9 +91,9 @@ public class AndroidTest  {
 	 */
 	private void createArtifact(String inputString, String outputFile) {
 		try {
-			PrintWriter autput = new PrintWriter (outputFile);
-			autput.println(inputString);
-			autput.close();
+			PrintWriter output = new PrintWriter (outputFile);
+			output.println(inputString);
+			output.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -144,17 +140,8 @@ public class AndroidTest  {
 	 *
 	 * @return the txt file name
 	 */
-	public static String getTxtFileName() {
+	public String getTxtFileName() {
 		return txtFileName;
 	} 
-
-	/**
-	 * Gets the state file name.
-	 *
-	 * @return the state file name
-	 */
-	public static String getStateFileName() {
-		return stateFileName;
-	} 
-
+	
 }

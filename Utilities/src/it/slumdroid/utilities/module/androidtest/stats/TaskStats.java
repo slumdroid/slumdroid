@@ -17,7 +17,6 @@ package it.slumdroid.utilities.module.androidtest.stats;
 
 import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
-import static it.slumdroid.utilities.module.AndroidTest.getTxtFileName;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 
@@ -53,14 +52,20 @@ public class TaskStats extends StatsReport {
 	
 	/** The exits. */
 	private List<String> exits;
+	
+	/** The txt file name. */
+	private String txtFileName;
 
 	/**
 	 * Instantiates a new task stats.
+	 * 
+ 	 * @param txtFile the txt file name
 	 */
-	public TaskStats() {
-		crashes = new ArrayList<String>();
-		failures = new ArrayList<String>();
-		exits = new ArrayList<String>();
+	public TaskStats(String txtFile) {
+		this.crashes = new ArrayList<String>();
+		this.failures = new ArrayList<String>();
+		this.exits = new ArrayList<String>();
+		this.txtFileName = new String(txtFile);
 	}
 
 	/**
@@ -88,48 +93,12 @@ public class TaskStats extends StatsReport {
 	}
 
 	/**
-	 * Gets the tasks.
-	 *
-	 * @return the tasks
-	 */
-	public int getTasks() {
-		return tasks;
-	}
-
-	/**
-	 * Gets the tasks failed.
-	 *
-	 * @return the tasks failed
-	 */
-	public int getTasksFailed() {
-		return tasksFailed;
-	}
-
-	/**
-	 * Gets the tasks exit.
-	 *
-	 * @return the tasks exit
-	 */
-	public int getTasksExit() {
-		return tasksExit;
-	}
-
-	/**
-	 * Gets the tasks crashed.
-	 *
-	 * @return the tasks crashed
-	 */
-	public int getTasksCrashed() {
-		return tasksCrashed;
-	}
-
-	/**
 	 * Prints the list.
 	 *
 	 * @param list the list
 	 * @return the string
 	 */
-	public String printList (List<String> list) {
+	private String printList (List<String> list) {
 		return ((list.size() > 0)?(TAB + TAB + "Tasks: " + expandList(list) + NEW_LINE):"");
 	}
 
@@ -173,6 +142,52 @@ public class TaskStats extends StatsReport {
 		}
 		String round = String.valueOf(seconds).replace("."," ").split(" ")[0];
 		return new String("about " + round + " seconds");
+	}
+	
+
+	/**
+	 * Gets the tasks.
+	 *
+	 * @return the tasks
+	 */
+	private int getTasks() {
+		return tasks;
+	}
+
+	/**
+	 * Gets the tasks failed.
+	 *
+	 * @return the tasks failed
+	 */
+	private int getTasksFailed() {
+		return tasksFailed;
+	}
+
+	/**
+	 * Gets the tasks exit.
+	 *
+	 * @return the tasks exit
+	 */
+	private int getTasksExit() {
+		return tasksExit;
+	}
+
+	/**
+	 * Gets the tasks crashed.
+	 *
+	 * @return the tasks crashed
+	 */
+	private int getTasksCrashed() {
+		return tasksCrashed;
+	}
+	
+	/**
+	 * Gets the txt file name.
+	 *
+	 * @return the txt file name
+	 */
+	private String getTxtFileName() {
+		return txtFileName;
 	}
 
 }

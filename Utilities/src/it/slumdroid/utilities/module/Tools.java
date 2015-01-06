@@ -139,8 +139,7 @@ public class Tools {
 		File files[] = folder.listFiles();
 		Arrays.sort(files, new Comparator<Object>() {
 			public int compare(final Object o1, final Object o2) {
-				return new Long(((File) o1).lastModified()).compareTo(new Long(
-						((File) o2).lastModified()));
+				return new Long(((File) o1).lastModified()).compareTo(new Long(((File) o2).lastModified()));
 			}
 		});
 		return files;
@@ -183,8 +182,12 @@ public class Tools {
 			
 			DocumentType doctype = doc.getDoctype();
 	        if(doctype != null) {
-	        	if (doctype.getPublicId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
-	        	if (doctype.getSystemId() != null) transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+	        	if (doctype.getPublicId() != null) {
+	        		transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+	        	}
+	        	if (doctype.getSystemId() != null) {
+	        		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+	        	}
 	        }
 
 			DOMSource domSource = new DOMSource(doc);
@@ -207,10 +210,14 @@ public class Tools {
 	 * @param suboutput the suboutput
 	 */
 	public void split(String path, String folder, String output, String suboutput) {
-		if (!new File(folder).exists()) new File(folder).mkdir();
+		if (!new File(folder).exists()) {
+			new File(folder).mkdir();
+		}
 		String guitreeXml = path.concat(output);
 		File file = new File(guitreeXml);
-		if (file.exists()) file.renameTo(new File(new File(folder), suboutput + System.currentTimeMillis() + ".xml"));
+		if (file.exists()) {
+			file.renameTo(new File(new File(folder), suboutput + System.currentTimeMillis() + ".xml"));
+		}
 		try {
 			new File(guitreeXml).createNewFile();
 		} catch (Exception e) {
@@ -302,7 +309,9 @@ public class Tools {
 		try{
 			File[] candidates = new File("../coverage/").listFiles();
 			for (File file : candidates) {
-				if (file.isDirectory()) continue;
+				if (file.isDirectory()) {
+					continue;
+				}
 				if (file.getName().endsWith(".em")) {
 					metadata = file.getName();
 				} else if (file.getName().endsWith(".ec")) {
@@ -336,7 +345,7 @@ public class Tools {
 	 *
 	 * @param path the path
 	 */
-	public void buildControl(String path){
+	public void buildControl(String path) {
 		try {
 			boolean success = false;
 			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
@@ -345,7 +354,9 @@ public class Tools {
 			while ((line = inputStream1.readLine()) != null ) {
 				if (line.contains("[exec] Success")) {
 					count++;
-					if (count == 2) success = true;  
+					if (count == 2) {
+						success = true;  
+					}
 				}
 			}
 			inputStream1.close();
@@ -390,11 +401,11 @@ public class Tools {
 			e.printStackTrace();
 		}
 
-		PrintWriter autput;
+		PrintWriter output;
 		try {
-			autput = new PrintWriter (fileName);
-			autput.println(newManifest);
-			autput.close();
+			output = new PrintWriter (fileName);
+			output.println(newManifest);
+			output.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -411,11 +422,11 @@ public class Tools {
 	 */
 	private String toXml (Element dom) throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(dom);
-		StringWriter autput = new StringWriter();
+		StringWriter output = new StringWriter();
 		Transformer t = TransformerFactory.newInstance().newTransformer();
 		t.setOutputProperty(OutputKeys.METHOD, "xml");
-		t.transform(theDom, new StreamResult(autput));
-		return autput.toString();
+		t.transform(theDom, new StreamResult(output));
+		return output.toString();
 	}
 	
 	/**
@@ -445,7 +456,6 @@ public class Tools {
 	 * @param output the output
 	 */
 	public void traslate(String path, String output) {
-
 		String xmlHead = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 		StringBuilder builder = new StringBuilder();
 		builder.append(xmlHead + "<ACTIVITY_STATES>");
@@ -463,7 +473,6 @@ public class Tools {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	// Merge Utilities
@@ -475,7 +484,9 @@ public class Tools {
 	public void mergeG(String path) {
 		String guitreeXml = path.concat(GUITREE);
 		File dir = new File(GUITREE_DIR);
-		if (dir.exists() && dir.isDirectory()) merge(guitreeXml, GUITREE_DIR);
+		if (dir.exists() && dir.isDirectory()) {
+			merge(guitreeXml, GUITREE_DIR);
+		}
 	}
 	
 	/**
@@ -484,7 +495,7 @@ public class Tools {
 	 * @param xml the xml
 	 * @param dir the dir
 	 */
-	private void merge(String xml, String dir){
+	private void merge(String xml, String dir) {
 		int count = 0;
 		boolean session_found = false;
 		try{
@@ -492,26 +503,32 @@ public class Tools {
 		if (fl.length > 0){
 			FileWriter outFile = new FileWriter(xml, false);
 			PrintWriter out = new PrintWriter(outFile);	
-			for (File f : fl){
+			for (File f : fl) {
 				FileReader inFile = new FileReader(f); 
 				BufferedReader in = new BufferedReader(inFile);
 				String s = null; 
 				while((s = in.readLine()) != null) {
 					if (!s.equals("")) {
 						count++;
-						if (s.contains("</SESSION>")) session_found = true;
+						if (s.contains("</SESSION>")) {
+							session_found = true;
+						}
 						out.println(s);
 					}
 				}
 				inFile.close(); 
 			}
-			if (!session_found) out.println("</SESSION>");
+			if (!session_found) {
+				out.println("</SESSION>");
+			}
 			out.close();
 		}
 		} catch (Exception e){
 			e.printStackTrace();
 		}
-		if (count == 0) new File(xml).delete();
+		if (count == 0) {
+			new File(xml).delete();
+		}
 	}
 
 	// UpdateProperties Utilities 
@@ -528,8 +545,11 @@ public class Tools {
 			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
 			String line = new String();
 			while ((line = inputStream1.readLine()) != null ) {
-				if (line.contains(target)) builder.append(target + TOOL_TARGET + NEW_LINE);	 
-				else builder.append(line + NEW_LINE);	
+				if (line.contains(target)) {
+					builder.append(target + TOOL_TARGET + NEW_LINE);	 
+				} else {
+					builder.append(line + NEW_LINE);	
+				}
 			}
 			inputStream1.close();
 			PrintWriter outputStream1 = new PrintWriter (path);
@@ -547,11 +567,9 @@ public class Tools {
 	 * @param inputPath the input path
 	 */
 	public void trendTest(String inputPath) {
-		
 		if (inputPath.equals("")) {
 			inputPath = new String(System.getProperty("user.dir"));
 		}
-		
 		final String TASK = new String("Playing Task "); 
 		final String TIME = new String("Time: ");
 		final String ACTUAL = new String("Actual Coverage is");
@@ -605,7 +623,7 @@ public class Tools {
 				e.printStackTrace();
 			}
 		}
-		if (time != 0){
+		if (time != 0) {
 			item = new Stats(task, time, coverage); // Last Task
 			list.add(item);
 			PrintWriter outputStream1 = null;

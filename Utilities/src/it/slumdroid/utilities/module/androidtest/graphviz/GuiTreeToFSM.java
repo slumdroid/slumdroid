@@ -59,20 +59,20 @@ public class GuiTreeToFSM {
 	 */
 	public String getDot () {
 		ArrayList<String> insertedEvents = new ArrayList<String>();
-
 		StringBuilder dot = new StringBuilder ();
 		dot.append("digraph finite_state_machine {" + BREAK);
 		dot.append("\trankdir=LR;" + NEW_LINE + "\tnode [shape = circle];" + BREAK);
-
 		for (Task theTask: this.session) {
 			Transition theTransition = theTask.getFinalTransition();
 			ActivityState start = theTransition.getStartActivity();
 			Iterator<UserInput> inputs = theTransition.iterator();
 			String userInputs = new String();
-			while(inputs.hasNext()){
+			while(inputs.hasNext()) {
 				UserInput input = inputs.next();
 				userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " " + input.getWidget().getSimpleType());
-				if (!input.getValue().equals("")) userInputs = userInputs.concat(" Value: "+ input.getValue());
+				if (!input.getValue().equals("")) {
+					userInputs = userInputs.concat(" Value: "+ input.getValue());
+				}
 			}
 			UserEvent event = theTransition.getEvent();
 			ActivityState end = theTransition.getFinalActivity();
@@ -82,7 +82,6 @@ public class GuiTreeToFSM {
 			this.nodes.add(endnode);
 			insertedEvents.add(event.getId());
 		}
-
 		dot.append(NEW_LINE);
 		for (String node: this.nodes) {
 			dot.append(TAB + node + " [label=\"" + node + "\"];" + NEW_LINE);

@@ -15,30 +15,20 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
-import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.utilities.Resources.BREAK;
 import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
-import static it.slumdroid.utilities.module.AndroidTest.getStateFileName;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
-import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.utilities.module.androidtest.graphviz.Edge;
 import it.slumdroid.utilities.module.androidtest.graphviz.Node;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-
-import org.w3c.dom.Element;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -50,10 +40,10 @@ public class ReportGenerator extends StatsReport {
 	private GuiTree session;
 	
 	/** The task report. */
-	private TaskStats taskReport = new TaskStats();
+	private TaskStats taskReport;
 	
 	/** The event report. */
-	private InteractionStats eventReport = new InteractionStats();
+	private InteractionStats eventReport;
 
 	/** The depth. */
 	private int depth = 0;
@@ -63,9 +53,6 @@ public class ReportGenerator extends StatsReport {
 	
 	/** The crash. */
 	private int crash = 0;
-	
-	/** The transitions. */
-	private int transitions = 0;
 	
 	/** The activity. */
 	private Set<String> activity;
@@ -80,12 +67,15 @@ public class ReportGenerator extends StatsReport {
 	 * Instantiates a new report generator.
 	 *
 	 * @param guiTree the gui tree
+	 * @param txtFile the txt file name
 	 */
-	public ReportGenerator(GuiTree guiTree) {
+	public ReportGenerator(GuiTree guiTree, String txtFile) {
 		this.session = guiTree;
 		this.activity = new HashSet<String>();
 		this.activityStates = new HashSet<String>();
 		this.actualCrashes = new ArrayList<String>();
+		this.taskReport = new TaskStats(txtFile);
+		this.eventReport = new InteractionStats();
 	}
 
 	/**
@@ -100,7 +90,6 @@ public class ReportGenerator extends StatsReport {
 			ActivityState start = null;
 			ActivityState finish = null;
 			for (Transition transition: theTask) {
-				this.transitions++;
 				currentDepth++;
 				eventReport.analyzeInteractions(transition);
 				if (first) {
@@ -118,8 +107,8 @@ public class ReportGenerator extends StatsReport {
 		
 		String from = new String();
 		int currentBranch = 0;
-		for (Edge edge:edges){
-			if (from.equals(edge.getFrom().getId())){
+		for (Edge edge:edges) {
+			if (from.equals(edge.getFrom().getId())) {
 				currentBranch++;
 				this.branch = max(this.branch, currentBranch);
 			} else {
@@ -146,10 +135,7 @@ public class ReportGenerator extends StatsReport {
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
 				TAB + "Max Reached Depth: " + this.depth + NEW_LINE +
 				TAB + "Max Reached Branch: " + this.branch + NEW_LINE +
-				TAB + "Total Transitions: " + this.transitions +
-				BREAK + this.eventReport + NEW_LINE +
-				TAB + "Available Widgets: " + NEW_LINE +
-				expandMap(countWidgetTypes()) );
+				BREAK + this.eventReport);
 		return builder.toString();
 	}
 
@@ -158,73 +144,16 @@ public class ReportGenerator extends StatsReport {
 	 *
 	 * @param state the state
 	 */
-	public void countWidgets (ActivityState state) {
-		if (state.isFailure()) return;
-		if (state.isCrash()){
+	private void countWidgets (ActivityState state) {
+		if (state.isFailure()) {
+			return;
+		}
+		if (state.isCrash()) {
 			crash = 1;
 			return;
 		}
 		this.activity.add(state.getName());
 		this.activityStates.add(state.getId());
-	}
-
-	/**
-	 * Count widget types.
-	 *
-	 * @return the map
-	 */
-	public Map<String, Integer> countWidgetTypes() {
-		HashSet<ActivityState> stateList = new HashSet<ActivityState>();
-		List<String> entries = readFile (getStateFileName());
-		for (String row: entries) {
-			this.session.parse(row);
-			Element element = ((XmlGraph)this.session).getDom().getDocumentElement();
-			ActivityState state = this.session.importState (element);
-			stateList.add(state);
-		}
-		Map<String,Integer> widgetTypes = new Hashtable<String, Integer>();
-		for (ActivityState state: stateList) {
-			for (WidgetState widget: state) {
-				if (widget.getSimpleType().equals(DIALOG_TITLE)){
-					inc (widgetTypes, widget.getSimpleType());	
-				} else {
-					if (widget.isAvailable()){
-						if (widget.isClickable() 
-								|| widget.isLongClickable()){
-							inc (widgetTypes, widget.getSimpleType());	
-						}
-					}
-				}
-			}
-		}
-		return widgetTypes;
-	}
-
-	/**
-	 * Read file.
-	 *
-	 * @param input the input
-	 * @return the list
-	 */
-	private List<String> readFile (String input) {
-		BufferedReader theStream = null;
-		String line = new String();
-		List<String> output = new ArrayList<String>();
-		try{
-			theStream = new BufferedReader (new FileReader (input));
-			while ( (line = theStream.readLine()) != null) {
-				output.add(line);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				theStream.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		return output;
 	}
 
 }
