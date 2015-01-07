@@ -69,7 +69,7 @@ public class GuiTreeToFSM {
 			String userInputs = new String();
 			while(inputs.hasNext()) {
 				UserInput input = inputs.next();
-				userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " " + input.getWidget().getSimpleType());
+				userInputs = userInputs.concat(" Input: " + input.getType() + " " + input.getWidget().getSimpleType());
 				if (!input.getValue().equals("")) {
 					userInputs = userInputs.concat(" Value: "+ input.getValue());
 				}
@@ -78,7 +78,7 @@ public class GuiTreeToFSM {
 			ActivityState end = theTransition.getFinalActivity();
 			String startnode = start.getId().equals("a0")?"start":start.getId();
 			String endnode = end.getId().equals("a0")?"start":end.getId();
-			dot.append("\t" + startnode + " -> " + endnode + " [label=\"" + event.getId().replace("e", "Event") + ": " + getCaption(event) + userInputs + "\"];" + NEW_LINE);
+			dot.append("\t" + startnode + " -> " + endnode + " [label=\"" + getCaption(event) + userInputs + "\"];" + NEW_LINE);
 			this.nodes.add(endnode);
 			insertedEvents.add(event.getId());
 		}
