@@ -108,23 +108,23 @@ public class TypeDetector {
 		if (type.endsWith("NumberPickerButton")) {
 			return NUMBER_PICKER_BUTTON;
 		}
-		if (type.endsWith("Layout")){
+		if (type.endsWith("Layout")) {
 			return detectLayout();
 		}
-		if (type.endsWith("View")){
+		if (type.endsWith("View")) {
 			return detectView(view);
 		}
-		if (view instanceof TextView){
+		if (view instanceof TextView) {
 			return detectTextView(view);
 		}
 		if (view instanceof ImageButton 
 				|| type.endsWith("Button")) {
 			return BUTTON;
 		}
-		if (view instanceof Spinner){
+		if (view instanceof Spinner) {
 			return detectSpinner(view);
 		}
-		if (type.endsWith("Picker")){
+		if (type.endsWith("Picker")) {
 			return detectPicker();
 		}
 		if (type.endsWith("PopupMenu") 
