@@ -15,6 +15,7 @@
 
 package it.slumdroid.utilities.module.androidtest.stats;
 
+import static it.slumdroid.utilities.Resources.BREAK;
 import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
 import it.slumdroid.droidmodels.guitree.GuiTree;
@@ -133,7 +134,7 @@ public class ReportGenerator extends StatsReport {
 				TAB + "Different GUI States: " + stateSize + NEW_LINE + 
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
 				TAB + "Max Reached Depth: " + this.depth + NEW_LINE +
-				TAB + "Max Reached Branch: " + this.branch + NEW_LINE 
+				TAB + "Max Reached Branch: " + this.branch + BREAK 
 				+ this.eventReport);
 		return builder.toString();
 	}

@@ -79,7 +79,7 @@ public class GuiTreeToDot {
 		dot.append("digraph GuiTree {" + BREAK);
 
 		for (Edge edge: this.edges) {
-			dot.append(TAB + edge + " [label=\"" + edge.getId().replace("e", "Event") + ": " + edge.getLabel() + "\"];" + NEW_LINE);
+			dot.append(TAB + edge + " [label=\"" + edge.getLabel() + "\"];" + NEW_LINE);
 		}
 		dot.append(NEW_LINE);
 		for (Node node: this.nodes) {
@@ -110,7 +110,7 @@ public class GuiTreeToDot {
 		String userInputs = new String();
 		while(inputs.hasNext()) {
 			UserInput input = inputs.next();
-			userInputs = userInputs.concat(" Input" + input.getId().replace("i", "") + ": " + input.getType() + " " + input.getWidget().getSimpleType());
+			userInputs = userInputs.concat(" Input: " + input.getType() + " " + input.getWidget().getSimpleType());
 			if (!input.getValue().equals("")) {
 				userInputs = userInputs.concat(" Value: "+ input.getValue());
 			}
