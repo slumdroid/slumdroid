@@ -98,9 +98,9 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#addTask(it.slumdroid.droidmodels.model.Task)
 	 */
 	@Override 
-	public void addTask (Task t) {
-		t.setFailed(false);
-		super.addTask(t);
+	public void addTask (Task task) {
+		task.setFailed(false);
+		super.addTask(task);
 	}
 
 	/* (non-Javadoc)
@@ -212,7 +212,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			if (theFile!=null && theStream!=null) {
+			if (theFile != null && theStream != null) {
 				closeFile(theFile, theStream);
 			}
 		}
@@ -347,8 +347,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		try{
 			this.taskFile = wrapper.openFileOutput(getTaskListFileName(), ContextWrapper.MODE_PRIVATE);
 			this.taskStream = new OutputStreamWriter(this.taskFile);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -369,8 +368,7 @@ public class ResumingPersistence extends StepDiskPersistence implements Dispatch
 		try{
 			this.stateFile = wrapper.openFileOutput(getActivityFileName(), (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
 			this.stateStream = new OutputStreamWriter(this.stateFile);
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -61,8 +61,8 @@ public class TrivialScheduler implements TaskScheduler {
 	 * @see it.slumdroid.tool.model.TaskScheduler#addTasks(java.util.Collection)
 	 */
 	public void addTasks(Collection<Task> newTasks) {
-		for (Task t: newTasks) {
-			this.tasks.add(t);
+		for (Task task: newTasks) {
+			this.tasks.add(task);
 		}				
 	}
 

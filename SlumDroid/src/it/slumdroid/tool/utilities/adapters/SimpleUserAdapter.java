@@ -33,8 +33,8 @@ import java.util.Random;
  */
 public class SimpleUserAdapter implements UserAdapter {
 
-	/** The abs. */
-	private Abstractor abs;
+	/** The abstractor. */
+	private Abstractor abstractor;
 
 	/** The random generator. */
 	private Random randomGenerator;
@@ -86,16 +86,16 @@ public class SimpleUserAdapter implements UserAdapter {
 	 * @return the abstractor
 	 */
 	public Abstractor getAbstractor() {
-		return this.abs;
+		return this.abstractor;
 	}
 
 	/**
 	 * Sets the abstractor.
 	 *
-	 * @param abs the new abstractor
+	 * @param abstractor the new abstractor
 	 */
-	public void setAbstractor(Abstractor abs) {
-		this.abs = abs;
+	public void setAbstractor(Abstractor abstractor) {
+		this.abstractor = abstractor;
 	}
 
 	/**

@@ -70,7 +70,9 @@ public class AdditionalWriteEditor extends SimpleInteractorAdapter {
 	 */
 	public boolean hasId (String id) {
 		for (Map.Entry<String,ArrayList<String>> entry: this.idValuePairs.entrySet()) {
-			if (id.equals(entry.getKey())) return true;
+			if (id.equals(entry.getKey())) {
+				return true;
+			}
 		}
 		return false;
 	}

@@ -196,8 +196,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			else {
+			} else {
 				getStrategy().compareState(theState);
 			}
 			if (SCREENSHOT_ENABLED) {
