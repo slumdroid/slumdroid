@@ -35,18 +35,7 @@ import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.components.automation.DroidExecutor.changeOrientation;
-import static it.slumdroid.tool.components.automation.DroidExecutor.click;
-import static it.slumdroid.tool.components.automation.DroidExecutor.enterText;
 import static it.slumdroid.tool.components.automation.DroidExecutor.getInstrumentation;
-import static it.slumdroid.tool.components.automation.DroidExecutor.longClick;
-import static it.slumdroid.tool.components.automation.DroidExecutor.selectListItem;
-import static it.slumdroid.tool.components.automation.DroidExecutor.selectLongListItem;
-import static it.slumdroid.tool.components.automation.DroidExecutor.selectRadioItem;
-import static it.slumdroid.tool.components.automation.DroidExecutor.selectSpinnerItem;
-import static it.slumdroid.tool.components.automation.DroidExecutor.setProgressBar;
-import static it.slumdroid.tool.components.automation.DroidExecutor.swapTab;
-import static it.slumdroid.tool.components.automation.DroidExecutor.writeText;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
@@ -80,11 +69,14 @@ public class Automation implements Executor, Extractor {
 	/** The extractor. */
 	private TrivialExtractor extractor;
 
+	/** The executor. */
+	private static DroidExecutor executor;
+
 	/**
 	 * Instantiates a new automation.
 	 */
 	public Automation () {
-		setExtractor(new TrivialExtractor()); 
+		this.extractor = new TrivialExtractor(); 
 	}
 
 	// Initializations
@@ -92,8 +84,8 @@ public class Automation implements Executor, Extractor {
 	 * @see it.slumdroid.tool.model.Executor#bind(android.test.ActivityInstrumentationTestCase2)
 	 */
 	public void bind (ActivityInstrumentationTestCase2<?> test) {
-		getExtractor().solo = DroidExecutor.createRobotium (test);
-		getExtractor().solo.unlockScreen();
+		executor = new DroidExecutor(test);
+		getRobotium().unlockScreen();
 		afterRestart();
 		refreshCurrentActivity();
 	}
@@ -218,11 +210,11 @@ public class Automation implements Executor, Extractor {
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View view = null;
 		if (widgetType.equals(BUTTON)) {
-			getExtractor().solo.clickOnButton(widgetName);
+			getRobotium().clickOnButton(widgetName);
 			return;
 		}
 		if (widgetType.equals(MENU_ITEM)) {
-			view = getExtractor().solo.getText(widgetName);
+			view = getRobotium().getText(widgetName);
 		}
 		if (view == null) {
 			for (View theView: getExtractor().getAllWidgets()) {
@@ -271,66 +263,66 @@ public class Automation implements Executor, Extractor {
 			requestView(view);
 		}
 		if (interactionType.equals(CLICK)) {
-			click (view);
+			getExecutor().click (view);
 			return;
 		}
 		if (interactionType.equals(LONG_CLICK)) {
-			longClick(view);
+			getExecutor().longClick(view);
 			return;
 		}
 		if (interactionType.endsWith("Item")) {
 			if (interactionType.equals(LIST_SELECT)) {
-				selectListItem((ListView)view, value);
+				getExecutor().selectListItem((ListView)view, value);
 				return;
 			}
 			if (interactionType.equals(LIST_LONG_SELECT)) {
-				selectLongListItem((ListView)view, value);
+				getExecutor().selectLongListItem((ListView)view, value);
 				return;
 			}
 			if (interactionType.equals(SPINNER_SELECT)) {
-				selectSpinnerItem((Spinner)view, value);
+				getExecutor().selectSpinnerItem((Spinner)view, value);
 				return;
 			}
 			if (interactionType.equals(RADIO_SELECT)) {
-				selectRadioItem((RadioGroup)view, value);
+				getExecutor().selectRadioItem((RadioGroup)view, value);
 				return;
 			}
 		} 
 		if (interactionType.endsWith("Text")){
 			if (interactionType.equals(WRITE_TEXT)) {
-				writeText((EditText)view, value);
+				getExecutor().writeText((EditText)view, value);
 				return;
 			}
 			if (interactionType.equals(ENTER_TEXT)) {
-				enterText((EditText)view, value);
+				getExecutor().enterText((EditText)view, value);
 				return;
 			}
 		}
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
-				getExtractor().solo.goBack();
+				getRobotium().goBack();
 				return;
 			}
 			if (interactionType.equals(PRESS_MENU)) {
-				getExtractor().solo.sendKey(Solo.MENU);
+				getRobotium().sendKey(Solo.MENU);
 				return;
 			}
 			if (interactionType.equals(PRESS_ACTION)) {
-				getExtractor().solo.clickOnActionBarHomeButton();
+				getRobotium().clickOnActionBarHomeButton();
 				return;
 			}
 		}
 		if (interactionType.equals(CHANGE_ORIENTATION)) {
-			changeOrientation();
+			getExecutor().changeOrientation();
 			return;
 		}
 		if (interactionType.equals(SET_BAR)) {
-			setProgressBar(view, value);
+			getExecutor().setProgressBar(view, value);
 			return;
 		}
 		if (interactionType.equals(SWAP_TAB) 
 				&& (value != null)) {
-			swapTab (view, value);
+			getExecutor().swapTab (view, value);
 			return;
 		}
 	}
@@ -339,7 +331,7 @@ public class Automation implements Executor, Extractor {
 	 * Refresh current activity.
 	 */
 	private void refreshCurrentActivity() {
-		ExtractorUtilities.setActivity(getExtractor().solo.getCurrentActivity());
+		ExtractorUtilities.setActivity(getRobotium().getCurrentActivity());
 	}
 
 	/**
@@ -381,14 +373,14 @@ public class Automation implements Executor, Extractor {
 	 * @param view the view
 	 */
 	protected void requestView (View view) {
-		DroidExecutor.requestView(view);
+		getExecutor().requestView(view);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#wait(int)
 	 */
 	public void wait (int milli) {
-		DroidExecutor.wait(milli);
+		getExecutor().wait(milli);
 	}
 
 	/* (non-Javadoc)
@@ -419,7 +411,7 @@ public class Automation implements Executor, Extractor {
 		do {
 			flag = false;
 			int oldId = 0;
-			ArrayList<ProgressBar> bars = getExtractor().solo.getCurrentViews(ProgressBar.class);
+			ArrayList<ProgressBar> bars = getRobotium().getCurrentViews(ProgressBar.class);
 			for (ProgressBar bar: bars) {
 				if (bar.isShown() &&  bar.isIndeterminate()) {
 					int newId = bar.getId();
@@ -517,12 +509,16 @@ public class Automation implements Executor, Extractor {
 	}
 
 	/**
-	 * Sets the extractor.
+	 * Gets the executor.
 	 *
-	 * @param extractor the new extractor
+	 * @return the executor
 	 */
-	public void setExtractor(TrivialExtractor extractor) {
-		this.extractor = extractor;
+	public static DroidExecutor getExecutor() {
+		return executor;
+	}
+	
+	public static Solo getRobotium() {
+		return getExecutor().getRobotium();
 	}
 
 }

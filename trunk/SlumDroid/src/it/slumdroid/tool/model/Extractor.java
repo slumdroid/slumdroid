@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.model;
 
-import android.app.Activity;
 import android.view.View;
 
 // TODO: Auto-generated Javadoc
@@ -30,13 +29,6 @@ public interface Extractor {
 	 * @return the activity description
 	 */
 	public ActivityDescription describeActivity ();
-
-	/**
-	 * Gets the activity.
-	 *
-	 * @return the activity
-	 */
-	public Activity getActivity ();
 
 	/**
 	 * Extract state.

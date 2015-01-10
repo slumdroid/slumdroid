@@ -38,31 +38,15 @@ import com.robotium.solo.Solo;
  */
 public class DroidExecutor {
 
-	/** The solo. */
-	static private Solo solo;
+	/** The robotium. */
+	private static Solo robotium;
 
-	/** The instrum. */
-	static private Instrumentation instrum;
-
-	/**
-	 * Creates the robotium.
-	 *
-	 * @param test the test
-	 * @return the solo
-	 */
-	public static Solo createRobotium (ActivityInstrumentationTestCase2<?> test) {
-		instrum = test.getInstrumentation();
-		solo = new Solo (instrum, test.getActivity());
-		return solo;
-	}
-
-	/**
-	 * Gets the instrumentation.
-	 *
-	 * @return the instrumentation
-	 */
-	public static Instrumentation getInstrumentation() {
-		return instrum;
+	/** The instrumentation. */
+	private static Instrumentation instrumentation;
+	
+	public DroidExecutor(ActivityInstrumentationTestCase2<?> test) {
+		instrumentation = test.getInstrumentation();
+		robotium = new Solo (instrumentation, test.getActivity());
 	}
 
 	/**
@@ -70,9 +54,9 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public static void click (View view) {
+	public void click (View view) {
 		assertNotNull(view,"Cannot click: the widget does not exist");
-		solo.clickOnView(view);
+		getRobotium().clickOnView(view);
 	}
 
 	/**
@@ -80,9 +64,9 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public static void longClick (View view) {
+	public void longClick (View view) {
 		assertNotNull(view, "Cannot longClick: the widget does not exist");
-		solo.clickLongOnView(view);
+		getRobotium().clickLongOnView(view);
 	}
 
 	/**
@@ -91,10 +75,10 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param item the item
 	 */
-	public static void selectListItem (ListView list, String item) {
+	public void selectListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		requestFocus(list);
-		solo.clickInList(Integer.valueOf(item));
+		getRobotium().clickInList(Integer.valueOf(item));
 	}
 
 	/**
@@ -104,10 +88,10 @@ public class DroidExecutor {
 	 * @param item the item
 	 * @param longClick the long click
 	 */
-	public static void selectLongListItem (ListView list, String item) {
+	public void selectLongListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
 		requestFocus(list);
-		solo.clickLongInList(Integer.valueOf(item));
+		getRobotium().clickLongInList(Integer.valueOf(item));
 	}
 
 	/**
@@ -116,10 +100,10 @@ public class DroidExecutor {
 	 * @param spinner the spinner
 	 * @param item the item
 	 */
-	public static void selectSpinnerItem (Spinner spinner, String item) {
+	public void selectSpinnerItem (Spinner spinner, String item) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		click(spinner);
-		selectListItem(solo.getCurrentViews(ListView.class).get(0), item);
+		selectListItem(getRobotium().getCurrentViews(ListView.class).get(0), item);
 	}
 
 	/**
@@ -128,10 +112,10 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public static void writeText (EditText editText, String value) {
-		solo.clearEditText(editText);
+	public void writeText (EditText editText, String value) {
+		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
-			solo.typeText(editText, value);
+			getRobotium().typeText(editText, value);
 		}
 	}
 
@@ -141,9 +125,9 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public static void enterText (EditText editText, String value) {
+	public void enterText (EditText editText, String value) {
 		writeText (editText, value);
-		solo.sendKey(Solo.ENTER);
+		getRobotium().sendKey(Solo.ENTER);
 	}
 
 	/**
@@ -152,7 +136,7 @@ public class DroidExecutor {
 	 * @param radioGroup the radio group
 	 * @param item the item
 	 */
-	public static void selectRadioItem (final RadioGroup radioGroup, String value) {
+	public void selectRadioItem (final RadioGroup radioGroup, String value) {
 		int item = Integer.valueOf(value);
 		if (item < 1) {
 			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
@@ -164,11 +148,11 @@ public class DroidExecutor {
 	/**
 	 * Change orientation.
 	 */
-	public static void changeOrientation() {
+	public void changeOrientation() {
 		Display display = ((WindowManager) getInstrumentation().getContext().getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 		int angle = display.getRotation();
 		int newAngle = ((angle == ROTATION_0) || (angle == ROTATION_180))?Solo.LANDSCAPE:Solo.PORTRAIT;
-		solo.setActivityOrientation(newAngle);
+		getRobotium().setActivityOrientation(newAngle);
 	}
 
 	/**
@@ -177,8 +161,8 @@ public class DroidExecutor {
 	 * @param view the view
 	 * @param value the value
 	 */
-	public static void setProgressBar (View view, String value) {
-		solo.setProgressBar((ProgressBar)view, Integer.parseInt(value));
+	public void setProgressBar (View view, String value) {
+		getRobotium().setProgressBar((ProgressBar)view, Integer.parseInt(value));
 	}
 
 	/**
@@ -187,7 +171,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 * @param tab the tab
 	 */
-	public static void swapTab (View view, String tab) {
+	public void swapTab (View view, String tab) {
 		TabHost tabHost = (TabHost)view; 
 		int item = Integer.valueOf(tab);
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
@@ -202,10 +186,10 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public static void requestView (final View view) {
+	public void requestView (final View view) {
 		try {
-			solo.sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
-			solo.waitForView(view, 1000, true);
+			getRobotium().sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
+			getRobotium().waitForView(view, 1000, true);
 			requestFocus(view);	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,7 +210,6 @@ public class DroidExecutor {
 		getInstrumentation().waitForIdleSync();
 	}
 
-	// Utility methods
 	/**
 	 * Run on ui thread.
 	 *
@@ -241,8 +224,8 @@ public class DroidExecutor {
 	 *
 	 * @param milli the milli
 	 */
-	public static void wait (int milli) {
-		solo.sleep(milli);
+	public void wait (int milli) {
+		getRobotium().sleep(milli);
 	}
 
 	/**
@@ -254,5 +237,23 @@ public class DroidExecutor {
 	protected static void assertNotNull (final View view, String errorMessage) {
 		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, view);
 	}
+	
+	/**
+	 * Gets the instrumentation.
+	 *
+	 * @return the instrumentation
+	 */
+	public static Instrumentation getInstrumentation() {
+		return instrumentation;
+	}
 
+	/**
+	 * Gets the solo.
+	 *
+	 * @return the solo
+	 */
+	public Solo getRobotium() {
+		return robotium;
+	}
+	
 }
