@@ -516,6 +516,11 @@ public class Automation implements Executor, Extractor {
 		return executor;
 	}
 	
+	/**
+	 * Gets the robotium.
+	 *
+	 * @return the robotium
+	 */
 	public static Solo getRobotium() {
 		return getExecutor().getRobotium();
 	}
