@@ -127,26 +127,10 @@ public class DroidExecutor {
 	public static void selectListItem (ListView list, int num, boolean longClick) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		requestFocus(list);
-		solo.sendKey(Solo.DOWN);
-		final ListView theList = list;
-		final int index = Math.min(list.getCount(), Math.max(1,num)) - 1;
-		runOnUiThread(new Runnable() { 
-			public void run() {
-				theList.setSelection(index);
-			}
-		});
-		if (index < list.getCount()/2) {
-			solo.sendKey(Solo.DOWN);
-			solo.sendKey(Solo.UP);
-		} else {
-			solo.sendKey(Solo.UP);                  
-			solo.sendKey(Solo.DOWN);
-		}
-		View view = list.getSelectedView();
 		if (longClick) {
-			longClick(view);
+			solo.clickLongInList(num);
 		} else {
-			click (view);
+			solo.clickInList(num);
 		}
 	}
 
