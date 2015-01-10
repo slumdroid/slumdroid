@@ -350,19 +350,6 @@ public class Automation implements Executor, Extractor {
 		if (view == null) {
 			view = ExtractorUtilities.findViewById(widgetId);
 		}
-		if (view == null) {
-			for (View theView: getExtractor().getAllWidgets()) {
-				if (theView instanceof Button || theView instanceof RadioGroup) {
-					if (!AbstractorUtilities.getType(theView).equals(widgetType)) {
-						continue;
-					}
-					view = (AbstractorUtilities.detectName(theView).equals(widgetName))?theView:null;
-				}
-				if (view != null) {
-					break;
-				}
-			}
-		}
 		injectInteraction(view, inputType, value);
 	}
 
@@ -409,14 +396,9 @@ public class Automation implements Executor, Extractor {
 		boolean flag;
 		do {
 			flag = false;
-			int oldId = 0;
 			ArrayList<ProgressBar> bars = getRobotium().getCurrentViews(ProgressBar.class);
 			for (ProgressBar bar: bars) {
 				if (bar.isShown() &&  bar.isIndeterminate()) {
-					int newId = bar.getId();
-					if (newId != oldId) { // Only log if the throbber changed since the last time
-						oldId = newId;
-					}
 					flag = true;
 					wait(50);
 					sleepTime-=50;
@@ -515,7 +497,7 @@ public class Automation implements Executor, Extractor {
 	public static DroidExecutor getExecutor() {
 		return executor;
 	}
-	
+
 	/**
 	 * Gets the robotium.
 	 *
