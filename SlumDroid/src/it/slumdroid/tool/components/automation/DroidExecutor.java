@@ -183,7 +183,8 @@ public class DroidExecutor {
 	public static void writeText (EditText editText, String value) {
 		solo.clearEditText(editText);
 		if (!value.equals("")) {
-			solo.enterText(editText, value);
+			//solo.enterText(editText, value);
+			solo.typeText(editText, value);
 		}
 	}
 
