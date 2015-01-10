@@ -103,35 +103,22 @@ public class DroidExecutor {
 	 * @param item the item
 	 */
 	public static void selectListItem (ListView list, String item) {
-		selectListItem (list, item, false);
+		assertNotNull(list, "Cannon select list item: the list does not exist");
+		requestFocus(list);
+		solo.clickInList(Integer.valueOf(item));
 	}
 
 	/**
-	 * Select list item.
+	 * Long Select list item.
 	 *
 	 * @param list the list
 	 * @param item the item
 	 * @param longClick the long click
 	 */
-	public static void selectListItem (ListView list, String item, boolean longClick) {
-		selectListItem (list, Integer.valueOf(item), longClick);
-	}
-
-	/**
-	 * Select list item.
-	 *
-	 * @param list the list
-	 * @param num the num
-	 * @param longClick the long click
-	 */
-	public static void selectListItem (ListView list, int num, boolean longClick) {
+	public static void selectLongListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		requestFocus(list);
-		if (longClick) {
-			solo.clickLongInList(num);
-		} else {
-			solo.clickInList(num);
-		}
+		solo.clickLongInList(Integer.valueOf(item));
 	}
 
 	// Spinner interactions
@@ -142,19 +129,9 @@ public class DroidExecutor {
 	 * @param item the item
 	 */
 	public static void selectSpinnerItem (Spinner spinner, String item) {
-		selectSpinnerItem (spinner, Integer.valueOf(item));
-	}
-
-	/**
-	 * Select spinner item.
-	 *
-	 * @param spinner the spinner
-	 * @param num the num
-	 */
-	public static void selectSpinnerItem (final Spinner spinner, int num) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		click(spinner);
-		selectListItem(solo.getCurrentViews(ListView.class).get(0), num, false);
+		selectListItem(solo.getCurrentViews(ListView.class).get(0), item);
 	}
 
 	// Text interactions
@@ -167,7 +144,6 @@ public class DroidExecutor {
 	public static void writeText (EditText editText, String value) {
 		solo.clearEditText(editText);
 		if (!value.equals("")) {
-			//solo.enterText(editText, value);
 			solo.typeText(editText, value);
 		}
 	}
@@ -188,24 +164,15 @@ public class DroidExecutor {
 	 * Select radio item.
 	 *
 	 * @param radioGroup the radio group
-	 * @param value the value
+	 * @param item the item
 	 */
-	public static void selectRadioItem (RadioGroup radioGroup, String value) {
-		selectRadioItem (radioGroup, Integer.valueOf(value));
-	}
-
-	/**
-	 * Select radio item.
-	 *
-	 * @param radioGroup the radio group
-	 * @param num the num
-	 */
-	public static void selectRadioItem (final RadioGroup radioGroup, int num) {
-		if (num < 1) {
+	public static void selectRadioItem (final RadioGroup radioGroup, String value) {
+		int item = Integer.valueOf(value);
+		if (item < 1) {
 			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		}
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
-		click(radioGroup.getChildAt(num - 1));
+		click(radioGroup.getChildAt(item - 1));
 	}
 
 	//SlidingDrawer Interactions
@@ -287,7 +254,7 @@ public class DroidExecutor {
 	public static void swapTab (final TabHost tabHost, int num) {
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
-		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num<=count);
+		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num <= count);
 		final int index = Math.min(count, Math.max(1,num)) - 1;
 		click (tabHost.getTabWidget().getChildAt(index));
 	}
