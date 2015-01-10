@@ -260,9 +260,9 @@ public class DroidExecutor {
 	}
 
 	/**
-	 * Gets the solo.
+	 * Gets the robotium.
 	 *
-	 * @return the solo
+	 * @return the robotium
 	 */
 	public Solo getRobotium() {
 		return robotium;
