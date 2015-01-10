@@ -46,6 +46,7 @@ import static it.slumdroid.tool.components.automation.DroidExecutor.goBack;
 import static it.slumdroid.tool.components.automation.DroidExecutor.longClick;
 import static it.slumdroid.tool.components.automation.DroidExecutor.openMenu;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectListItem;
+import static it.slumdroid.tool.components.automation.DroidExecutor.selectLongListItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectRadioItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectSpinnerItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.setProgressBar;
@@ -288,7 +289,7 @@ public class Automation implements Executor, Extractor {
 				return;
 			}
 			if (interactionType.equals(LIST_LONG_SELECT)) {
-				selectListItem((ListView)view, value, true);
+				selectLongListItem((ListView)view, value);
 				return;
 			}
 			if (interactionType.equals(SPINNER_SELECT)) {
