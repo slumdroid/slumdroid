@@ -221,7 +221,9 @@ public class Automation implements Executor, Extractor {
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View view = null;
 		if (widgetType.equals(BUTTON)) {
-			view = getExtractor().solo.getButton(widgetName);
+			// view = getExtractor().solo.getButton(widgetName);
+			getExtractor().solo.clickOnButton(widgetName);
+			return;
 		}
 		if (widgetType.equals(MENU_ITEM)) {
 			view = getExtractor().solo.getText(widgetName);
