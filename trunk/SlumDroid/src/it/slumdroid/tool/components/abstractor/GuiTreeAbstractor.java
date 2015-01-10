@@ -42,9 +42,8 @@ import it.slumdroid.droidmodels.xml.ElementWrapper;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.ActivityDescription;
-import it.slumdroid.tool.model.Filter;
-import it.slumdroid.tool.model.FilterHandler;
 import it.slumdroid.tool.model.SaveStateListener;
+import it.slumdroid.tool.utilities.AllPassFilter;
 import it.slumdroid.tool.utilities.SessionParams;
 
 import java.util.Collection;
@@ -63,7 +62,7 @@ import android.widget.TextView;
 /**
  * The Class GuiTreeAbstractor.
  */
-public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateListener {
+public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 
 	/** The session. */
 	private GuiTree theSession;
@@ -72,7 +71,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	private StartActivity baseActivity;
 
 	/** The filters. */
-	private HashSet<Filter> filters;
+	private HashSet<AllPassFilter> filters;
 
 	/** The detector. */
 	private TypeDetector detector;
@@ -114,7 +113,7 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 	 */
 	public GuiTreeAbstractor(GuiTree theSession) {
 		super();
-		this.filters = new HashSet<Filter>();
+		this.filters = new HashSet<AllPassFilter>();
 		this.detector = new TypeDetector();
 		setTheSession(theSession);
 		PersistenceFactory.registerForSavingState(this);
@@ -166,8 +165,8 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setUniqueId(getUniqueActivityId());
 		newActivity.setId(newActivity.getUniqueId());
-		for (Filter f: this.filters) {
-			f.clear();
+		for (AllPassFilter filter: this.filters) {
+			filter.clear();
 		}
 		boolean hasDescription = updateDescription(newActivity, desc, false);
 		if (!hasDescription) {
@@ -240,8 +239,8 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 				continue;
 			}
 			((ElementWrapper) newActivity).appendChild(widget.getElement());
-			for (Filter f: this.filters) {
-				f.loadItem(widget);
+			for (AllPassFilter filter: this.filters) {
+				filter.loadItem(widget);
 			}
 		}
 		return hasDescription;
@@ -289,17 +288,21 @@ public class GuiTreeAbstractor implements Abstractor, FilterHandler, SaveStateLi
 		return theStub;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Iterable#iterator()
+	/**
+	 * Iterator.
+	 *
+	 * @return the iterator
 	 */
-	public Iterator<Filter> iterator() {
+	public Iterator<AllPassFilter> iterator() {
 		return this.filters.iterator();
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.FilterHandler#addFilter(it.slumdroid.tool.model.Filter)
+	/**
+	 * Adds the filter.
+	 *
+	 * @param filter the filter
 	 */
-	public void addFilter(Filter filter) {
+	public void addFilter(AllPassFilter filter) {
 		this.filters.add(filter);
 	}
 

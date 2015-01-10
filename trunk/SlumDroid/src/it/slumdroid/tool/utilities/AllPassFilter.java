@@ -16,7 +16,6 @@
 package it.slumdroid.tool.utilities;
 
 import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.tool.model.Filter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,7 +24,7 @@ import java.util.Iterator;
 /**
  * The Class AllPassFilter.
  */
-public class AllPassFilter implements Filter {
+public class AllPassFilter implements Iterable<WidgetState> {
 
 	/** The filtered items. */
 	private ArrayList<WidgetState> filteredItems = new ArrayList<WidgetState>();
@@ -38,18 +37,18 @@ public class AllPassFilter implements Filter {
 		return this.filteredItems.iterator();
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Filter#loadItem(it.slumdroid.droidmodels.model.WidgetState)
+	/**
+	 * Load item.
+	 *
+	 * @param widget the widget
 	 */
-	@Override
 	public void loadItem (WidgetState widget) {
 		this.filteredItems.add(widget);
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Filter#clear()
+	/**
+	 * Clear.
 	 */
-	@Override
 	public void clear () {
 		this.filteredItems.clear();
 	}

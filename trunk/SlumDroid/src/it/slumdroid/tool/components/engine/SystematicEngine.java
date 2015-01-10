@@ -36,7 +36,6 @@ import it.slumdroid.tool.components.planner.Plan;
 import it.slumdroid.tool.components.planner.UltraPlanner;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
 import it.slumdroid.tool.model.ActivityDescription;
-import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.Strategy;
@@ -128,10 +127,10 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 */
 	private void definePlanner() {
 		UltraPlanner planner = new UltraPlanner();
-		Filter inputFilter = new AllPassFilter();
+		AllPassFilter inputFilter = new AllPassFilter();
 		planner.setInputFilter (inputFilter);
 		getAbstractor().addFilter (inputFilter);
-		Filter eventFilter = new AllPassFilter();
+		AllPassFilter eventFilter = new AllPassFilter();
 		planner.setEventFilter (eventFilter);
 		getAbstractor().addFilter (eventFilter);
 		setUserAdapter(UserFactory.getUser(getAbstractor()));
