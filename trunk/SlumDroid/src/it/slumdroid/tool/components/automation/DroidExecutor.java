@@ -39,7 +39,7 @@ import com.robotium.solo.Solo;
 public class DroidExecutor {
 
 	/** The robotium. */
-	private Solo robotium;
+	private static Solo robotium;
 
 	/** The instrumentation. */
 	private Instrumentation instrumentation;
@@ -220,8 +220,8 @@ public class DroidExecutor {
 	 *
 	 * @param action the action
 	 */
-	protected static void runOnUiThread (Runnable action) {
-		ExtractorUtilities.getActivity().runOnUiThread(action);		
+	protected void runOnUiThread (Runnable action) {
+		getRobotium().getCurrentActivity().runOnUiThread(action);		
 	}
 
 	/**

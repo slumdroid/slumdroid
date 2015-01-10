@@ -52,7 +52,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Element;
 
-import android.app.Activity;
 import android.util.Log;
 
 // TODO: Auto-generated Javadoc
@@ -150,8 +149,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		try {
 			getAutomation().bind(this);
 			getAutomation().extractState();
-			Activity activity = getAutomation().getActivity();
-			getPersistence().setContext(activity);
+			getPersistence().setContext(Automation.getRobotium().getCurrentActivity());
 			ActivityDescription description = getAutomation().describeActivity();
 			getAbstractor().setBaseActivity(description);
 			if (!resume()) {
