@@ -39,11 +39,16 @@ import com.robotium.solo.Solo;
 public class DroidExecutor {
 
 	/** The robotium. */
-	private static Solo robotium;
+	private Solo robotium;
 
 	/** The instrumentation. */
-	private static Instrumentation instrumentation;
+	private Instrumentation instrumentation;
 	
+	/**
+	 * Instantiates a new droid executor.
+	 *
+	 * @param test the test
+	 */
 	public DroidExecutor(ActivityInstrumentationTestCase2<?> test) {
 		instrumentation = test.getInstrumentation();
 		robotium = new Solo (instrumentation, test.getActivity());
@@ -201,13 +206,13 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	protected static void requestFocus (final View view) {
+	protected void requestFocus (final View view) {
 		runOnUiThread(new Runnable() {
 			public void run() {
 				view.requestFocus();		
 			}
 		});
-		getInstrumentation().waitForIdleSync();
+		sync();
 	}
 
 	/**
@@ -243,8 +248,15 @@ public class DroidExecutor {
 	 *
 	 * @return the instrumentation
 	 */
-	public static Instrumentation getInstrumentation() {
+	public Instrumentation getInstrumentation() {
 		return instrumentation;
+	}
+	
+	/**
+	 * Sync.
+	 */
+	public void sync() {
+		getInstrumentation().waitForIdleSync();
 	}
 
 	/**

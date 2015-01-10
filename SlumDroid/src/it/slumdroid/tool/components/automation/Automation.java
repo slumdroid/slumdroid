@@ -35,7 +35,6 @@ import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.components.automation.DroidExecutor.getInstrumentation;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
@@ -424,7 +423,7 @@ public class Automation implements Executor, Extractor {
 				}
 			}
 		} while (flag && (sleepTime > 0));
-		getInstrumentation().waitForIdleSync();
+		getExecutor().sync();
 	}
 
 	/* (non-Javadoc)
