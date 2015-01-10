@@ -27,7 +27,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
-import android.widget.SlidingDrawer;
 import android.widget.Spinner;
 import android.widget.TabHost;
 
@@ -37,7 +36,6 @@ import com.robotium.solo.Solo;
 /**
  * The Class DroidExecutor.
  */
-@SuppressWarnings("deprecation")
 public class DroidExecutor {
 
 	/** The solo. */
@@ -68,14 +66,6 @@ public class DroidExecutor {
 	}
 
 	/**
-	 * Un lock screen.
-	 */
-	public static void unLockScreen() {
-		solo.unlockScreen();
-	}
-
-	// Click interactions
-	/**
 	 * Click.
 	 *
 	 * @param view the view
@@ -95,7 +85,6 @@ public class DroidExecutor {
 		solo.clickLongOnView(view);
 	}
 
-	// List interactions
 	/**
 	 * Select list item.
 	 *
@@ -116,12 +105,11 @@ public class DroidExecutor {
 	 * @param longClick the long click
 	 */
 	public static void selectLongListItem (ListView list, String item) {
-		assertNotNull(list, "Cannon select list item: the list does not exist");
+		assertNotNull(list, "Cannon long select list item: the list does not exist");
 		requestFocus(list);
 		solo.clickLongInList(Integer.valueOf(item));
 	}
 
-	// Spinner interactions
 	/**
 	 * Select spinner item.
 	 *
@@ -134,7 +122,6 @@ public class DroidExecutor {
 		selectListItem(solo.getCurrentViews(ListView.class).get(0), item);
 	}
 
-	// Text interactions
 	/**
 	 * Write text.
 	 *
@@ -159,7 +146,6 @@ public class DroidExecutor {
 		solo.sendKey(Solo.ENTER);
 	}
 
-	// Radio Interactions
 	/**
 	 * Select radio item.
 	 *
@@ -175,36 +161,6 @@ public class DroidExecutor {
 		click(radioGroup.getChildAt(item - 1));
 	}
 
-	//SlidingDrawer Interactions
-	/**
-	 * Drag.
-	 *
-	 * @param view the view
-	 */
-	public static void drag (View view) {
-		if (view.isShown()) {
-			solo.setSlidingDrawer((SlidingDrawer) view, Solo.CLOSED);
-		}
-		else {
-			solo.setSlidingDrawer((SlidingDrawer) view, Solo.OPENED);
-		}
-	}
-
-	// Special interactions
-	/**
-	 * Go back.
-	 */
-	public static void goBack() {
-		solo.goBack();
-	}
-
-	/**
-	 * Open menu.
-	 */
-	public static void openMenu() {
-		solo.sendKey(Solo.MENU);
-	}
-
 	/**
 	 * Change orientation.
 	 */
@@ -215,15 +171,6 @@ public class DroidExecutor {
 		solo.setActivityOrientation(newAngle);
 	}
 
-	// ActionBar interactions
-	/**
-	 * Action bar home.
-	 */
-	public static void actionBarHome () {
-		solo.clickOnActionBarHomeButton();
-	}
-
-	// Progress Bar interactions
 	/**
 	 * Sets the progress bar.
 	 *
@@ -234,7 +181,6 @@ public class DroidExecutor {
 		solo.setProgressBar((ProgressBar)view, Integer.parseInt(value));
 	}
 
-	// Tab interactions
 	/**
 	 * Swap tab.
 	 *
@@ -242,20 +188,12 @@ public class DroidExecutor {
 	 * @param tab the tab
 	 */
 	public static void swapTab (View view, String tab) {
-		swapTab ((TabHost)view, Integer.valueOf(tab));
-	}
-
-	/**
-	 * Swap tab.
-	 *
-	 * @param tabHost the tab host
-	 * @param num the num
-	 */
-	public static void swapTab (final TabHost tabHost, int num) {
+		TabHost tabHost = (TabHost)view; 
+		int item = Integer.valueOf(tab);
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
-		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", num <= count);
-		final int index = Math.min(count, Math.max(1,num)) - 1;
+		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", item <= count);
+		int index = Math.min(count, Math.max(1, item)) - 1;
 		click (tabHost.getTabWidget().getChildAt(index));
 	}
 

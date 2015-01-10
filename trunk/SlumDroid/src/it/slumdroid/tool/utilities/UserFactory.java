@@ -16,7 +16,6 @@
 package it.slumdroid.tool.utilities;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
@@ -37,7 +36,6 @@ import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.tool.utilities.adapters.SimpleUserAdapter;
 import it.slumdroid.tool.utilities.interactors.BarSlider;
 import it.slumdroid.tool.utilities.interactors.Clicker;
-import it.slumdroid.tool.utilities.interactors.Drager;
 import it.slumdroid.tool.utilities.interactors.LongClicker;
 import it.slumdroid.tool.utilities.interactors.TabSwapper;
 import it.slumdroid.tool.utilities.interactors.editor.HashEnterEditor;
@@ -161,9 +159,6 @@ public class UserFactory {
 		userAdapter.addEvent(new SpinnerSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(SPINNER_SELECT)));
 		userAdapter.addEvent(new RadioSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(RADIO_SELECT)));
 		userAdapter.addEvent(new TabSwapper(typesForEvent(SWAP_TAB)));
-		if (isRequiredEvent(DRAG)) {
-			userAdapter.addEvent(new Drager(typesForEvent(DRAG)));
-		}
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {
 			userAdapter.addEvent(interactor);			
 		}

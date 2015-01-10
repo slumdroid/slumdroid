@@ -17,7 +17,6 @@ package it.slumdroid.tool.components.automation;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.DRAG;
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
@@ -36,22 +35,17 @@ import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.components.automation.DroidExecutor.actionBarHome;
 import static it.slumdroid.tool.components.automation.DroidExecutor.changeOrientation;
 import static it.slumdroid.tool.components.automation.DroidExecutor.click;
-import static it.slumdroid.tool.components.automation.DroidExecutor.drag;
 import static it.slumdroid.tool.components.automation.DroidExecutor.enterText;
 import static it.slumdroid.tool.components.automation.DroidExecutor.getInstrumentation;
-import static it.slumdroid.tool.components.automation.DroidExecutor.goBack;
 import static it.slumdroid.tool.components.automation.DroidExecutor.longClick;
-import static it.slumdroid.tool.components.automation.DroidExecutor.openMenu;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectListItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectLongListItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectRadioItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.selectSpinnerItem;
 import static it.slumdroid.tool.components.automation.DroidExecutor.setProgressBar;
 import static it.slumdroid.tool.components.automation.DroidExecutor.swapTab;
-import static it.slumdroid.tool.components.automation.DroidExecutor.unLockScreen;
 import static it.slumdroid.tool.components.automation.DroidExecutor.writeText;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
@@ -75,6 +69,8 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.robotium.solo.Solo;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class Automation.
@@ -97,7 +93,7 @@ public class Automation implements Executor, Extractor {
 	 */
 	public void bind (ActivityInstrumentationTestCase2<?> test) {
 		getExtractor().solo = DroidExecutor.createRobotium (test);
-		unLockScreen();
+		getExtractor().solo.unlockScreen();
 		afterRestart();
 		refreshCurrentActivity();
 	}
@@ -222,7 +218,6 @@ public class Automation implements Executor, Extractor {
 	private void fireEvent (String widgetName, String widgetType, String eventType, String value) {
 		View view = null;
 		if (widgetType.equals(BUTTON)) {
-			// view = getExtractor().solo.getButton(widgetName);
 			getExtractor().solo.clickOnButton(widgetName);
 			return;
 		}
@@ -313,15 +308,15 @@ public class Automation implements Executor, Extractor {
 		}
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
-				goBack();
+				getExtractor().solo.goBack();
 				return;
 			}
 			if (interactionType.equals(PRESS_MENU)) {
-				openMenu();
+				getExtractor().solo.sendKey(Solo.MENU);
 				return;
 			}
 			if (interactionType.equals(PRESS_ACTION)) {
-				actionBarHome();
+				getExtractor().solo.clickOnActionBarHomeButton();
 				return;
 			}
 		}
@@ -331,10 +326,6 @@ public class Automation implements Executor, Extractor {
 		}
 		if (interactionType.equals(SET_BAR)) {
 			setProgressBar(view, value);
-			return;
-		}
-		if (interactionType.equals(DRAG)) {
-			drag(view);	
 			return;
 		}
 		if (interactionType.equals(SWAP_TAB) 
