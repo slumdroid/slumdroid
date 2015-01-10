@@ -21,11 +21,8 @@ import it.slumdroid.tool.model.Extractor;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.app.Activity;
 import android.util.SparseArray;
 import android.view.View;
-
-import com.robotium.solo.Solo;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -39,9 +36,6 @@ public class TrivialExtractor implements Extractor {
 	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
 
-	/** The solo. */
-	public Solo solo;
-
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Extractor#extractState()
 	 */
@@ -54,13 +48,6 @@ public class TrivialExtractor implements Extractor {
 	 */
 	public View getWidget (int key) {
 		return getWidgets().get(key);
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#getActivity()
-	 */
-	public Activity getActivity() {
-		return ExtractorUtilities.getActivity();
 	}
 
 	/* (non-Javadoc)
@@ -78,11 +65,11 @@ public class TrivialExtractor implements Extractor {
 			}
 
 			public String getActivityName() {
-				return getActivity().getClass().getSimpleName();
+				return ExtractorUtilities.getActivity().getClass().getSimpleName();
 			}
 
 			public String getActivityTitle() {
-				return getActivity().getTitle().toString();
+				return ExtractorUtilities.getActivity().getTitle().toString();
 			}
 
 			public String toString() {
@@ -123,7 +110,7 @@ public class TrivialExtractor implements Extractor {
 	 */
 	public void retrieveWidgets () {
 		clearWidgetList();
-		ArrayList<View> viewList = this.solo.getViews();
+		ArrayList<View> viewList = Automation.getRobotium().getViews();
 		if (viewList.size() != 0) {
 			for (View view: viewList) {
 				this.allViews.add(view);
