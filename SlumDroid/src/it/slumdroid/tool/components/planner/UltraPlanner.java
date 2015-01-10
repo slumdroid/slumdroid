@@ -37,8 +37,8 @@ import it.slumdroid.droidmodels.testcase.TestCaseEvent;
 import it.slumdroid.droidmodels.testcase.TestCaseInput;
 import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.EventHandler;
-import it.slumdroid.tool.model.Filter;
 import it.slumdroid.tool.model.InputHandler;
+import it.slumdroid.tool.utilities.AllPassFilter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,7 +52,7 @@ import java.util.List;
 public class UltraPlanner {
 
 	/** The input filter. */
-	protected Filter eventFilter, inputFilter;
+	protected AllPassFilter eventFilter, inputFilter;
 
 	/** The user. */
 	protected EventHandler user;
@@ -248,7 +248,7 @@ public class UltraPlanner {
 	 *
 	 * @return the event filter
 	 */
-	public Filter getEventFilter() {
+	public AllPassFilter getEventFilter() {
 		return this.eventFilter;
 	}
 
@@ -257,7 +257,7 @@ public class UltraPlanner {
 	 *
 	 * @param eventFilter the new event filter
 	 */
-	public void setEventFilter(Filter eventFilter) {
+	public void setEventFilter(AllPassFilter eventFilter) {
 		this.eventFilter = eventFilter;
 	}
 
@@ -266,7 +266,7 @@ public class UltraPlanner {
 	 *
 	 * @return the input filter
 	 */
-	public Filter getInputFilter() {
+	public AllPassFilter getInputFilter() {
 		return this.inputFilter;
 	}
 
@@ -275,7 +275,7 @@ public class UltraPlanner {
 	 *
 	 * @param inputFilter the new input filter
 	 */
-	public void setInputFilter(Filter inputFilter) {
+	public void setInputFilter(AllPassFilter inputFilter) {
 		this.inputFilter = inputFilter;
 	}
 
