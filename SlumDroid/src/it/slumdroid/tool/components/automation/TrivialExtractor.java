@@ -32,15 +32,43 @@ public class TrivialExtractor implements Extractor {
 
 	/** The views. */
 	private SparseArray<View> theViews = new SparseArray<View> ();
+	
+	/**
+	 * Gets the widgets.
+	 *
+	 * @return the widgets
+	 */
+	public SparseArray<View> getWidgets () {
+		return this.theViews;
+	}
 
 	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
+
+	/**
+	 * Gets the all widgets.
+	 *
+	 * @return the all widgets
+	 */
+	public ArrayList<View> getAllWidgets () {
+		return this.allViews;
+	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Extractor#extractState()
 	 */
 	public void extractState() {
-		retrieveWidgets();
+		getWidgets().clear();
+		getAllWidgets().clear();	
+		ArrayList<View> viewList = Automation.getRobotium().getViews();
+		if (viewList.size() != 0) {
+			for (View view: viewList) {
+				this.allViews.add(view);
+				if (view.getId() > 0) {
+					this.theViews.put(view.getId(), view); // Add only if the widget has a valid ID
+				}
+			}	
+		}
 	}
 
 	/* (non-Javadoc)
@@ -65,11 +93,11 @@ public class TrivialExtractor implements Extractor {
 			}
 
 			public String getActivityName() {
-				return ExtractorUtilities.getActivity().getClass().getSimpleName();
+				return Automation.getRobotium().getCurrentActivity().getClass().getSimpleName();
 			}
 
 			public String getActivityTitle() {
-				return ExtractorUtilities.getActivity().getTitle().toString();
+				return Automation.getRobotium().getCurrentActivity().getTitle().toString();
 			}
 
 			public String toString() {
@@ -78,47 +106,5 @@ public class TrivialExtractor implements Extractor {
 
 		};
 	}
-
-	/**
-	 * Gets the widgets.
-	 *
-	 * @return the widgets
-	 */
-	public SparseArray<View> getWidgets () {
-		return this.theViews;
-	}
-
-	/**
-	 * Gets the all widgets.
-	 *
-	 * @return the all widgets
-	 */
-	public ArrayList<View> getAllWidgets () {
-		return this.allViews;
-	}
-
-	/**
-	 * Clear widget list.
-	 */
-	public void clearWidgetList() {
-		this.theViews.clear();
-		this.allViews.clear();		
-	}
-
-	/**
-	 * Retrieve widgets.
-	 */
-	public void retrieveWidgets () {
-		clearWidgetList();
-		ArrayList<View> viewList = Automation.getRobotium().getViews();
-		if (viewList.size() != 0) {
-			for (View view: viewList) {
-				this.allViews.add(view);
-				if (view.getId() > 0) {
-					this.theViews.put(view.getId(), view); // Add only if the widget has a valid ID
-				}
-			}	
-		}
-	}
-
+	
 }

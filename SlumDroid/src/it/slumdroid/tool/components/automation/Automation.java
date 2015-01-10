@@ -46,7 +46,6 @@ import it.slumdroid.tool.model.Extractor;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.View;
@@ -86,7 +85,7 @@ public class Automation implements Executor, Extractor {
 		executor = new DroidExecutor(test);
 		getRobotium().unlockScreen();
 		afterRestart();
-		refreshCurrentActivity();
+		getRobotium().getCurrentActivity();
 	}
 
 	/* (non-Javadoc)
@@ -193,7 +192,7 @@ public class Automation implements Executor, Extractor {
 			view = getWidget(widgetId);
 		}
 		if (view == null) {
-			view = ExtractorUtilities.findViewById(widgetId);
+			view = getRobotium().getCurrentActivity().findViewById(widgetId);
 		}
 		fireEventOnView(view, eventType, value);
 	}
@@ -246,7 +245,7 @@ public class Automation implements Executor, Extractor {
 		if (SLEEP_ON_THROBBER != 0) {
 			waitOnThrobber();
 		}
-		refreshCurrentActivity();
+		getRobotium().getCurrentActivity();
 		extractState();
 	}
 
@@ -327,13 +326,6 @@ public class Automation implements Executor, Extractor {
 	}
 
 	/**
-	 * Refresh current activity.
-	 */
-	private void refreshCurrentActivity() {
-		ExtractorUtilities.setActivity(getRobotium().getCurrentActivity());
-	}
-
-	/**
 	 * Sets the input.
 	 *
 	 * @param widgetId the widget id
@@ -348,7 +340,20 @@ public class Automation implements Executor, Extractor {
 			view = getWidget(widgetId);
 		}
 		if (view == null) {
-			view = ExtractorUtilities.findViewById(widgetId);
+			view = getRobotium().getCurrentActivity().findViewById(widgetId);
+		}
+		if (view == null) {
+			for (View theView: getExtractor().getAllWidgets()) {
+				if (theView instanceof Button || theView instanceof RadioGroup) {
+					if (!AbstractorUtilities.getType(theView).equals(widgetType)) {
+						continue;
+					}
+					view = (AbstractorUtilities.detectName(theView).equals(widgetName))?theView:null;
+				}
+				if (view != null) {
+					break;
+				}
+			}
 		}
 		injectInteraction(view, inputType, value);
 	}
@@ -367,13 +372,6 @@ public class Automation implements Executor, Extractor {
 	 */
 	public void wait (int milli) {
 		getExecutor().wait(milli);
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#getActivity()
-	 */
-	public Activity getActivity() {
-		return ExtractorUtilities.getActivity();
 	}
 
 	/**
