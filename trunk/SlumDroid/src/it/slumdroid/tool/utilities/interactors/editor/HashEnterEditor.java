@@ -16,6 +16,7 @@
 package it.slumdroid.tool.utilities.interactors.editor;
 
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -28,8 +29,8 @@ public class HashEnterEditor extends HashWriteEditor {
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public HashEnterEditor (String ... simpleTypes) {
-		super (simpleTypes);
+	public HashEnterEditor () {
+		super (SEARCH_BAR);
 	}
 
 	/* (non-Javadoc)

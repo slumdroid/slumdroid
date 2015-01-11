@@ -16,6 +16,8 @@
 package it.slumdroid.tool.utilities.interactors.selector;
 
 import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
+import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
+import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
 // TODO: Auto-generated Javadoc
@@ -30,8 +32,8 @@ public class RadioSelector extends IterativeInteractorAdapter {
 	 * @param maxItems the max items
 	 * @param simpleTypes the simple types
 	 */
-	public RadioSelector (int maxItems, String ... simpleTypes) {
-		super (maxItems, simpleTypes);
+	public RadioSelector () {
+		super (MAX_NUM_EVENTS_PER_SELECTOR, RADIO_GROUP);
 	}
 
 	/* (non-Javadoc)

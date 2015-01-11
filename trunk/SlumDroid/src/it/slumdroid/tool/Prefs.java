@@ -17,31 +17,14 @@ package it.slumdroid.tool;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
-import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
-import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
 import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
-import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
-import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
-import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.tool.Resources.EVENTS;
 import static it.slumdroid.tool.Resources.EXTRA_EVENTS;
@@ -364,8 +347,6 @@ public class Prefs {
 		} else {
 			UserFactory.addInput(CLICK, RADIO, CHECKBOX, CHECKTEXT, TOGGLE_BUTTON, NUMBER_PICKER_BUTTON);
 		}
-		UserFactory.addInput(SPINNER_SELECT, SPINNER_INPUT);
-		UserFactory.addInput(SET_BAR, SEEK_BAR, RATING_BAR);
 		if (EXTRA_INPUTS != null) {
 			ADDITIONAL_INPUTS.clear();
 			for (String s: EXTRA_INPUTS) {
@@ -406,13 +387,6 @@ public class Prefs {
 		} else {
 			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW);
 		}
-		UserFactory.addEvent(LONG_CLICK, IMAGE_VIEW);
-		UserFactory.addEvent(ENTER_TEXT, SEARCH_BAR);
-		UserFactory.addEvent(LIST_SELECT, LIST_VIEW, PREFERENCE_LIST, EXPAND_MENU);
-		UserFactory.addEvent(LIST_LONG_SELECT, LIST_VIEW);
-		UserFactory.addEvent(RADIO_SELECT, RADIO_GROUP); 
-		UserFactory.addEvent(SPINNER_SELECT, SPINNER);
-		UserFactory.addEvent(SWAP_TAB, TAB_HOST);
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
 			for (String event: EXTRA_EVENTS) {

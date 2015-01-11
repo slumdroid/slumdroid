@@ -16,6 +16,8 @@
 package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
+import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
+import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
@@ -27,11 +29,9 @@ public class BarSlider extends RandomInteractorAdapter {
 
 	/**
 	 * Instantiates a new bar slider.
-	 *
-	 * @param simpleTypes the simple types
 	 */
-	public BarSlider (String ... simpleTypes) {
-		super (simpleTypes);
+	public BarSlider () {
+		super (SEEK_BAR, RATING_BAR);
 	}
 
 	/* (non-Javadoc)
