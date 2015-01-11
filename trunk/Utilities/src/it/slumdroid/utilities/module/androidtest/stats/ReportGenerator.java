@@ -27,7 +27,9 @@ import it.slumdroid.utilities.module.androidtest.graphviz.Node;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 // TODO: Auto-generated Javadoc
@@ -100,22 +102,19 @@ public class ReportGenerator extends StatsReport {
 				start = transition.getStartActivity();
 				finish = transition.getFinalActivity();
 			}
-			this.depth = max(this.depth,currentDepth);
+			this.depth = max(this.depth, currentDepth);
 			Edge edge = new Edge(new Node (start), new Node (finish));
 			edges.add(edge);
 		}
 		
-		String from = new String();
-		int currentBranch = 0;
+		Hashtable<String, Integer> branches = new Hashtable<String, Integer>();
 		for (Edge edge:edges) {
-			if (from.equals(edge.getFrom().getId())) {
-				currentBranch++;
-				this.branch = max(this.branch, currentBranch);
-			} else {
-				currentBranch = 1;
-				from = new String(edge.getFrom().getId());
-			}
+			inc (branches, edge.getFrom().getId());
 		}
+		for (Map.Entry<String,Integer> entry: branches.entrySet()) {
+			this.branch = max(this.branch, entry.getValue());
+		}
+		
 	}
 
 	/* (non-Javadoc)
