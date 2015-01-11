@@ -69,10 +69,8 @@ public class InteractionStats extends StatsReport {
 	 */
 	public void analyzeInteractions(Transition transition) {
 		addEvent(transition.getEvent());
-		this.events++;
 		for (UserInput input: transition) {
 			addInput(input);
-			this.inputs++;
 		}
 	}
 
@@ -86,6 +84,7 @@ public class InteractionStats extends StatsReport {
 			inc (this.eventTypes, event.getType());
 		}
 		this.diffEvents.add(event.getId());
+		this.events++;
 	}
 
 	/**
@@ -98,6 +97,7 @@ public class InteractionStats extends StatsReport {
 			inc (this.inputTypes, input.getType());
 		}
 		this.diffInputs.add(input.getId());
+		this.inputs++;
 	}
 
 	/* (non-Javadoc)
