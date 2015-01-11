@@ -16,6 +16,7 @@
 package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
+import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
@@ -27,11 +28,9 @@ public class LongClicker extends SimpleInteractorAdapter {
 
 	/**
 	 * Instantiates a new long clicker.
-	 *
-	 * @param simpleTypes the simple types
 	 */
-	public LongClicker (String ... simpleTypes) {
-		super (simpleTypes);
+	public LongClicker () {
+		super (IMAGE_VIEW);
 	}
 
 	/* (non-Javadoc)

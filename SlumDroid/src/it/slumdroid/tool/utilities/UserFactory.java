@@ -16,19 +16,10 @@
 package it.slumdroid.tool.utilities;
 
 import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
-import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
-import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.tool.Prefs.ADDITIONAL_EVENTS;
 import static it.slumdroid.tool.Prefs.ADDITIONAL_INPUTS;
 import static it.slumdroid.tool.Resources.HASH_VALUES;
-import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 import static it.slumdroid.tool.Resources.RANDOM_SEED;
 import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.UserAdapter;
@@ -137,11 +128,11 @@ public class UserFactory {
 	 *
 	 * @param abstractor the abstractor
 	 * @return the user
-	 */
+	 */	
 	public static UserAdapter getUser (Abstractor abstractor) {
-		UserAdapter userAdapter = new SimpleUserAdapter(abstractor,new Random(RANDOM_SEED));
+		UserAdapter userAdapter = new SimpleUserAdapter(abstractor, new Random(RANDOM_SEED));
 		userAdapter.addEvent(new Clicker(typesForEvent(CLICK)));
-		userAdapter.addEvent(new LongClicker(typesForEvent(LONG_CLICK)));
+		userAdapter.addEvent(new LongClicker());
 		if (isRequiredEvent(WRITE_TEXT)) {
 			if(HASH_VALUES) {
 				userAdapter.addEvent(new HashWriteEditor(typesForEvent(WRITE_TEXT)));
@@ -150,15 +141,15 @@ public class UserFactory {
 			}
 		}
 		if(HASH_VALUES)	{
-			userAdapter.addEvent(new HashEnterEditor(typesForEvent(ENTER_TEXT)));
+			userAdapter.addEvent(new HashEnterEditor());
 		} else {
-			userAdapter.addEvent(new RandomEnterEditor(typesForEvent(ENTER_TEXT)));
+			userAdapter.addEvent(new RandomEnterEditor());
 		}
-		userAdapter.addEvent(new ListSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_SELECT)));
-		userAdapter.addEvent(new ListLongSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(LIST_LONG_SELECT)));
-		userAdapter.addEvent(new SpinnerSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(SPINNER_SELECT)));
-		userAdapter.addEvent(new RadioSelector(MAX_NUM_EVENTS_PER_SELECTOR, typesForEvent(RADIO_SELECT)));
-		userAdapter.addEvent(new TabSwapper(typesForEvent(SWAP_TAB)));
+		userAdapter.addEvent(new ListSelector());
+		userAdapter.addEvent(new ListLongSelector());
+		userAdapter.addEvent(new SpinnerSelector());
+		userAdapter.addEvent(new RadioSelector());
+		userAdapter.addEvent(new TabSwapper());
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {
 			userAdapter.addEvent(interactor);			
 		}
@@ -170,8 +161,8 @@ public class UserFactory {
 				userAdapter.addInput(new RandomWriteEditor(typesForInput(WRITE_TEXT)));
 			}
 		}
-		userAdapter.addInput(new RandomSpinnerSelector(typesForInput(SPINNER_SELECT)));
-		userAdapter.addInput(new BarSlider(typesForInput(SET_BAR)));
+		userAdapter.addInput(new RandomSpinnerSelector());
+		userAdapter.addInput(new BarSlider());
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_INPUTS) {
 			userAdapter.addInput(interactor);
 		}
