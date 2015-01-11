@@ -19,18 +19,16 @@ import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ListLongSelector.
  */
-public class ListLongSelector extends ListSelector {
+public class ListLongSelector extends IterativeInteractorAdapter {
 
 	/**
 	 * Instantiates a new list long selector.
-	 *
-	 * @param maxItems the max items
-	 * @param simpleTypes the simple types
 	 */
 	public ListLongSelector () {
 		super (MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW);

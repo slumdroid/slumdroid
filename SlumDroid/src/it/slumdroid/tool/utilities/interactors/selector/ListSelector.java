@@ -36,16 +36,6 @@ public class ListSelector extends IterativeInteractorAdapter {
 		super (MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW, PREFERENCE_LIST, EXPAND_MENU);
 	}
 	
-	/**
-	 * Instantiates a new list selector.
-	 *
-	 * @param maxItems the max items
-	 * @param simpleTypes the simple types
-	 */
-	public ListSelector (int maxItems, String ... simpleTypes) {
-		super (maxItems, simpleTypes);
-	}
-
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter#getToItem(it.slumdroid.droidmodels.model.WidgetState, int, int)
 	 */

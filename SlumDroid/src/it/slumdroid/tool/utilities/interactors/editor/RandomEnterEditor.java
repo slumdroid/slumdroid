@@ -27,8 +27,6 @@ public class RandomEnterEditor extends RandomInteractorAdapter {
 
 	/**
 	 * Instantiates a new random enter editor.
-	 *
-	 * @param simpleTypes the simple types
 	 */
 	public RandomEnterEditor () {
 		super (SEARCH_BAR);
