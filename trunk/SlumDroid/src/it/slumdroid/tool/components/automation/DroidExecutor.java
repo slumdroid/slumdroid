@@ -82,7 +82,6 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
-		requestFocus(list);
 		getRobotium().clickInList(Integer.valueOf(item));
 	}
 
@@ -95,7 +94,6 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
-		requestFocus(list);
 		getRobotium().clickLongInList(Integer.valueOf(item));
 	}
 
@@ -195,25 +193,16 @@ public class DroidExecutor {
 		try {
 			getRobotium().sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
 			getRobotium().waitForView(view, 1000, true);
-			requestFocus(view);	
+			runOnUiThread(new Runnable() {
+				public void run() {
+					view.requestFocus();		
+				}
+			});
+			sync();	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
 	}		
-
-	/**
-	 * Request focus.
-	 *
-	 * @param view the view
-	 */
-	protected void requestFocus (final View view) {
-		runOnUiThread(new Runnable() {
-			public void run() {
-				view.requestFocus();		
-			}
-		});
-		sync();
-	}
 
 	/**
 	 * Run on ui thread.
