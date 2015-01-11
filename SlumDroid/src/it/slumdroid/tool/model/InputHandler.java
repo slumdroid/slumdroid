@@ -29,9 +29,9 @@ public interface InputHandler {
 	/**
 	 * Handle input.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the widget
 	 * @return the list
 	 */
-	public List<UserInput> handleInput (WidgetState widget);
+	public List<UserInput> handleInput (WidgetState theWidget);
 
 }

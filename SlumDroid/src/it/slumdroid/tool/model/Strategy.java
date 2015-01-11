@@ -28,9 +28,9 @@ public interface Strategy {
 	/**
 	 * Adds the state.
 	 *
-	 * @param newActivity the new activity
+	 * @param theState the state
 	 */
-	public void addState (ActivityState newActivity);
+	public void addState (ActivityState theState);
 
 	/**
 	 * Gets the comparator.
@@ -42,16 +42,16 @@ public interface Strategy {
 	/**
 	 * Sets the comparator.
 	 *
-	 * @param comparator the new comparator
+	 * @param theComparator the new comparator
 	 */
-	public void setComparator (CompositionalComparator comparator);
+	public void setComparator (CompositionalComparator theComparator);
 
 	/**
 	 * Compare state.
 	 *
-	 * @param theActivity the the activity
+	 * @param theState the state
 	 */
-	public void compareState (ActivityState theActivity);
+	public void compareState (ActivityState theState);
 
 	/**
 	 * Check for exploration.

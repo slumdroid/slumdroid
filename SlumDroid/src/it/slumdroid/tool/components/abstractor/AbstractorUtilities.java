@@ -48,7 +48,8 @@ public class AbstractorUtilities {
 				CharSequence hint = ((EditText)view).getHint();
 				name = (hint == null)?new String():hint.toString();
 			}
-		} else if (view instanceof RadioGroup) {
+		} 
+		if (view instanceof RadioGroup) {
 			RadioGroup group = (RadioGroup)view;
 			int max = group.getChildCount();
 			String text = new String();
@@ -105,7 +106,6 @@ public class AbstractorUtilities {
 	 * @param widget the widget
 	 */
 	public static void setValue (View view, WidgetState widget) {
-
 		// CheckBoxes, Radio Buttons and Toggle Buttons -> the value is the checked state (true or false)
 		if (view instanceof Checkable) {
 			widget.setValue(((Checkable) view).isChecked()?"true":"false");

@@ -36,23 +36,23 @@ public interface Executor {
 	/**
 	 * Execute.
 	 *
-	 * @param task the task
+	 * @param theTask the task
 	 */
-	public void execute (Task task);
+	public void execute (Task theTask);
 
 	/**
 	 * Fire event.
 	 *
-	 * @param event the event
+	 * @param theEvent the event
 	 */
-	public void fireEvent (UserEvent event);
+	public void fireEvent (UserEvent theEvent);
 
 	/**
 	 * Sets the input.
 	 *
-	 * @param input the new input
+	 * @param theInput the new input
 	 */
-	public void setInput (UserInput input);
+	public void setInput (UserInput theInput);
 
 	/**
 	 * Wait.

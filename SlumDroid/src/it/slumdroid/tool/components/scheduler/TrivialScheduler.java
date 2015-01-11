@@ -48,7 +48,9 @@ public class TrivialScheduler implements TaskScheduler {
 	 * @see it.slumdroid.tool.model.TaskScheduler#nextTask()
 	 */
 	public Task nextTask() {
-		if (!hasMore()) return null;
+		if (!hasMore()) {
+			return null;
+		}
 		switch (this.algorithm) {
 		case DEPTH_FIRST: return lastTask();
 		case BREADTH_FIRST:
