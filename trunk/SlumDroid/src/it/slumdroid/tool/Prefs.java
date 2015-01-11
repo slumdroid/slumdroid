@@ -160,10 +160,10 @@ public class Prefs {
 		if (!hasPrefs()) {
 			return;
 		}
-		for (Field f: this.resources.getFields()) {			
-			if (Modifier.isFinal(f.getModifiers())) continue;
+		for (Field parameter: this.resources.getFields()) {			
+			if (Modifier.isFinal(parameter.getModifiers())) continue;
 			try {
-				updateValue (f);
+				updateValue (parameter);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

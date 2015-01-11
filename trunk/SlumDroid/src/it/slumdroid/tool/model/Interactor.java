@@ -4,8 +4,8 @@
  * it under the terms of the GNU General Public License version 3
  * as published by the Free Software Foundation.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * This program is distributed in the hope that it theWill be useful,
+ * but theWITHOUT ANY theWARRANTY; theWithout even the implied theWarranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
@@ -28,46 +28,46 @@ import java.util.List;
 public interface Interactor {
 
 	/**
-	 * Can use widget.
+	 * Can use theWidget.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the theWidget
 	 * @return true, if successful
 	 */
-	public boolean canUseWidget (WidgetState widget);
+	public boolean canUseWidget (WidgetState theWidget);
 
 	/**
 	 * Gets the events.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the theWidget
 	 * @return the events
 	 */
-	public List<UserEvent> getEvents (WidgetState widget);
+	public List<UserEvent> getEvents (WidgetState theWidget);
 
 	/**
 	 * Gets the inputs.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the theWidget
 	 * @return the inputs
 	 */
-	public List<UserInput> getInputs (WidgetState widget);
+	public List<UserInput> getInputs (WidgetState theWidget);
 
 	/**
 	 * Gets the events.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the theWidget
 	 * @param values the values
 	 * @return the events
 	 */
-	public List<UserEvent> getEvents (WidgetState widget, String ... values);
+	public List<UserEvent> getEvents (WidgetState theWidget, String ... values);
 
 	/**
 	 * Gets the inputs.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the theWidget
 	 * @param values the values
 	 * @return the inputs
 	 */
-	public List<UserInput> getInputs (WidgetState widget, String ... values);
+	public List<UserInput> getInputs (WidgetState theWidget, String ... values);
 
 	/**
 	 * Gets the abstractor.
@@ -79,9 +79,9 @@ public interface Interactor {
 	/**
 	 * Sets the abstractor.
 	 *
-	 * @param abstractor the new abstractor
+	 * @param theAbstractor the new abstractor
 	 */
-	public void setAbstractor (Abstractor abstractor);
+	public void setAbstractor (Abstractor theAbstractor);
 
 	/**
 	 * Gets the interaction type.

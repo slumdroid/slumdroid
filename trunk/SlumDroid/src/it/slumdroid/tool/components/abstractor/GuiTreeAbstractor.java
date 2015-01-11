@@ -149,32 +149,32 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createActivity(it.slumdroid.tool.model.ActivityDescription)
 	 */
-	public ActivityState createActivity (ActivityDescription desc) {
-		return createActivity (desc,false);
+	public ActivityState createActivity (ActivityDescription theDescription) {
+		return createActivity (theDescription, false);
 	}
 
 	// If the boolean parameter is omitted, the overloading method will default to a Final Activity
 	/**
 	 * Creates the activity.
 	 *
-	 * @param desc the desc
+	 * @param theDescription the description
 	 * @param start the start
 	 * @return the activity state
 	 */
-	public ActivityState createActivity (ActivityDescription desc, boolean start) {
+	public ActivityState createActivity (ActivityDescription theDescription, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		newActivity.setUniqueId(getUniqueActivityId());
 		newActivity.setId(newActivity.getUniqueId());
 		for (AllPassFilter filter: this.filters) {
 			filter.clear();
 		}
-		boolean hasDescription = updateDescription(newActivity, desc, false);
+		boolean hasDescription = updateDescription(newActivity, theDescription, false);
 		if (!hasDescription) {
 			newActivity.markAsExit();
 			return newActivity;
 		}
-		newActivity.setName(desc.getActivityName());
-		newActivity.setTitle(desc.getActivityTitle());
+		newActivity.setName(theDescription.getActivityName());
+		newActivity.setTitle(theDescription.getActivityTitle());
 		if (SCREENSHOT_ENABLED) {
 			newActivity.setScreenshot(newActivity.getUniqueId() + ".png");	
 		}
@@ -218,19 +218,19 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * Update description.
 	 *
 	 * @param newActivity the new activity
-	 * @param desc the desc
+	 * @param theDescription the description
 	 * @param detectDuplicates the detect duplicates
 	 * @return true, if successful
 	 */
-	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc, boolean detectDuplicates) {
+	public boolean updateDescription (ActivityState newActivity, ActivityDescription theDescription, boolean detectDuplicates) {
 		boolean hasDescription = false;
-		for (View view: desc) {
+		for (View view: theDescription) {
 			hasDescription = true;
 			if (!view.isShown()) {
 				continue;
 			}
 			TestCaseWidget widget = createWidget (view);
-			widget.setIndex(desc.getWidgetIndex(view));
+			widget.setIndex(theDescription.getWidgetIndex(view));
 			if (widget.getIndex() == 0 
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
@@ -249,8 +249,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#setBaseActivity(it.slumdroid.tool.model.ActivityDescription)
 	 */
-	public void setBaseActivity (ActivityDescription desc) {
-		this.baseActivity = (StartActivity) createActivity(desc,true);
+	public void setBaseActivity (ActivityDescription theDescription) {
+		this.baseActivity = (StartActivity) createActivity(theDescription, true);
 	}
 
 	/* (non-Javadoc)

@@ -64,16 +64,16 @@ public interface TaskScheduler {
 	/**
 	 * Removes the.
 	 *
-	 * @param task the task
+	 * @param theTask the task
 	 */
-	public void remove (Task task);
+	public void remove (Task theTask);
 
 	/**
 	 * Adds the tasks.
 	 *
-	 * @param task the task
+	 * @param theTask the task
 	 */
-	public void addTasks (Task task);
+	public void addTasks (Task theTask);
 
 	/**
 	 * Gets the task list.

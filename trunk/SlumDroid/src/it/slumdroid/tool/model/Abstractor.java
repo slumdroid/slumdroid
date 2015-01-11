@@ -35,26 +35,26 @@ public interface Abstractor {
 	/**
 	 * Creates the activity.
 	 *
-	 * @param desc the desc
+	 * @param theDescription the description
 	 * @return the activity state
 	 */
-	public ActivityState createActivity (ActivityDescription desc);
+	public ActivityState createActivity (ActivityDescription theDescription);
 
 	/**
 	 * Update description.
 	 *
-	 * @param theActivity the the activity
+	 * @param theState the state
 	 * @param theDescription the the description
 	 * @return true, if successful
 	 */
-	public boolean updateDescription (ActivityState theActivity, ActivityDescription theDescription);
+	public boolean updateDescription (ActivityState theState, ActivityDescription theDescription);
 
 	/**
 	 * Sets the base activity.
 	 *
 	 * @param desc the new base activity
 	 */
-	public void setBaseActivity (ActivityDescription desc);
+	public void setBaseActivity (ActivityDescription theDescription);
 
 	/**
 	 * Gets the base activity.
@@ -120,9 +120,9 @@ public interface Abstractor {
 	/**
 	 * Sets the final activity.
 	 *
-	 * @param theTask the the task
-	 * @param theActivity the the activity
+	 * @param theTask the task
+	 * @param theState the state
 	 */
-	public void setFinalActivity (Task theTask, ActivityState theActivity);
+	public void setFinalActivity (Task theTask, ActivityState theState);
 
 }

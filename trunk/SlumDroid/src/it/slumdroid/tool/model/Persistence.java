@@ -33,16 +33,16 @@ public interface Persistence {
 	/**
 	 * Sets the session.
 	 *
-	 * @param session the new session
+	 * @param theSession the new session
 	 */
-	public void setSession (Session session);
+	public void setSession (Session theSession);
 
 	/**
 	 * Adds the task.
 	 *
-	 * @param task the task
+	 * @param theTask the task
 	 */
-	public void addTask (Task task);
+	public void addTask (Task theTask);
 
 	/**
 	 * Sets the context.

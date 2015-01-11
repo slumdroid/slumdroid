@@ -132,12 +132,14 @@ public class Automation implements Executor, Extractor {
 					checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
 				writeLogInfo(event);
 				fireEventOnView (view, eventType, eventValue);
-			} else if (event.getWidgetId().equals("-1")) { // Search widget by name
-				writeLogInfo(event);
-				fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
-			} else { // Search widget by id
-				writeLogInfo(event);
-				fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+			} else {
+				if (event.getWidgetId().equals("-1")) { // Search widget by name
+					writeLogInfo(event);
+					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+				} else { // Search widget by id
+					writeLogInfo(event);
+					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+				}	
 			}
 		}
 	}

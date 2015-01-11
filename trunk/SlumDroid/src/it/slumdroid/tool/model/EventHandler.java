@@ -29,9 +29,9 @@ public interface EventHandler {
 	/**
 	 * Handle event.
 	 *
-	 * @param widget the widget
+	 * @param theWidget the widget
 	 * @return the list
 	 */
-	public List<UserEvent> handleEvent (WidgetState widget);
+	public List<UserEvent> handleEvent (WidgetState theWidget);
 
 }
