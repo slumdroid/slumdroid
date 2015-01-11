@@ -82,7 +82,22 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
-		getRobotium().clickInList(Integer.valueOf(item));
+		getRobotium().sendKey(Solo.DOWN);
+		final ListView theList = list;
+		final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
+		runOnUiThread(new Runnable() { 
+			public void run() {
+				theList.setSelection(index);
+			}
+		});
+		if (index < list.getCount()/2) {
+			getRobotium().sendKey(Solo.DOWN);
+			getRobotium().sendKey(Solo.UP);
+		} else {
+			getRobotium().sendKey(Solo.UP);                  
+			getRobotium().sendKey(Solo.DOWN);
+		}
+		getRobotium().clickOnView(list.getSelectedView());
 	}
 
 	/**
@@ -94,7 +109,22 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
-		getRobotium().clickLongInList(Integer.valueOf(item));
+		getRobotium().sendKey(Solo.DOWN);
+		final ListView theList = list;
+		final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
+		runOnUiThread(new Runnable() { 
+			public void run() {
+				theList.setSelection(index);
+			}
+		});
+		if (index < list.getCount()/2) {
+			getRobotium().sendKey(Solo.DOWN);
+			getRobotium().sendKey(Solo.UP);
+		} else {
+			getRobotium().sendKey(Solo.UP);                  
+			getRobotium().sendKey(Solo.DOWN);
+		}
+		getRobotium().clickLongOnView(list.getSelectedView());
 	}
 
 	/**
