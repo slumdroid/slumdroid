@@ -60,7 +60,9 @@ public class Perturbations {
 			// do Nothing
 		} else {
 			pertubedInputs = pertubedInputs.concat(valueLowerCase); // MO0 - Starter/Valid Inputs 
-			if (!valueLowerCase.equals("")) pertubedInputs = pertubedInputs.concat(","); // M03 - Empty Input for all Types
+			if (!valueLowerCase.equals("")) {
+				pertubedInputs = pertubedInputs.concat(","); // M03 - Empty Input for all Types
+			}
 
 			if (type.equals("Generic")) {
 				return pertubedInputs.concat(generic());
