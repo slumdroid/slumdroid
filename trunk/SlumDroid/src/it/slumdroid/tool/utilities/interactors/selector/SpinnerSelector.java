@@ -28,9 +28,6 @@ public class SpinnerSelector extends IterativeInteractorAdapter {
 
 	/**
 	 * Instantiates a new spinner selector.
-	 *
-	 * @param maxItems the max items
-	 * @param simpleTypes the simple types
 	 */
 	public SpinnerSelector () {
 		super (MAX_NUM_EVENTS_PER_SELECTOR, SPINNER);

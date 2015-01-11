@@ -28,9 +28,6 @@ public class RadioSelector extends IterativeInteractorAdapter {
 
 	/**
 	 * Instantiates a new radio selector.
-	 *
-	 * @param maxItems the max items
-	 * @param simpleTypes the simple types
 	 */
 	public RadioSelector () {
 		super (MAX_NUM_EVENTS_PER_SELECTOR, RADIO_GROUP);
