@@ -72,27 +72,22 @@ public class AbstractorUtilities {
 	 * @param widget the widget
 	 */
 	public static void setCount (View view, WidgetState widget) {
-		// For lists, the count is set to the number of rows in the list (inactive rows - e.g. separators - count as well)
 		if (view instanceof AdapterView) {
-			widget.setCount(((AdapterView<?>)view).getCount());
+			widget.setCount(((AdapterView<?>)view).getChildCount());
 			return;
 		}
-		// For Spinners, the count is set to the number of options
 		if (view instanceof AbsSpinner) {
 			widget.setCount(((AbsSpinner)view).getCount());
 			return;
 		}
-		// For the tab layout host, the count is set to the number of tabs
 		if (view instanceof TabHost) {
 			widget.setCount(((TabHost)view).getTabWidget().getTabCount());
 			return;
 		}
-		// For grids, the count is set to the number of icons, for RadioGroups it's set to the number of RadioButtons
 		if (view instanceof ViewGroup) {
 			widget.setCount(((ViewGroup)view).getChildCount());
 			return;
 		}
-		// For progress bars, seek bars and rating bars, the count is set to the maximum value allowed
 		if (view instanceof ProgressBar) {
 			widget.setCount(((ProgressBar)view).getMax());
 			return;
@@ -106,17 +101,14 @@ public class AbstractorUtilities {
 	 * @param widget the widget
 	 */
 	public static void setValue (View view, WidgetState widget) {
-		// CheckBoxes, Radio Buttons and Toggle Buttons -> the value is the checked state (true or false)
 		if (view instanceof Checkable) {
 			widget.setValue(((Checkable) view).isChecked()?"true":"false");
 			return;
 		}
-		// TextView, EditText et al. -> the value is the displayed text
 		if (view instanceof TextView) {
 			widget.setValue(((TextView) view).getText().toString());
 			return;
 		}
-		// ProgressBars, SeekBars and RatingBars -> the value is the current progress
 		if (view instanceof ProgressBar) {
 			widget.setValue(String.valueOf(((ProgressBar) view).getProgress()));
 			return;
