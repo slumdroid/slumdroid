@@ -73,7 +73,7 @@ public class AbstractorUtilities {
 	 */
 	public static void setCount (View view, WidgetState widget) {
 		if (view instanceof AdapterView) {
-			widget.setCount(((AdapterView<?>)view).getChildCount());
+			widget.setCount(((AdapterView<?>)view).getCount());
 			return;
 		}
 		if (view instanceof AbsSpinner) {
