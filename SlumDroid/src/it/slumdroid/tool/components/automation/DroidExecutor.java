@@ -59,7 +59,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void click (final View view) {
+	public void click (View view) {
 		assertNotNull(view,"Cannot click: the widget does not exist");
 		requestFocus(view);
 		getRobotium().clickOnView(view);
@@ -70,7 +70,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void longClick (final View view) {
+	public void longClick (View view) {
 		assertNotNull(view, "Cannot longClick: the widget does not exist");
 		requestFocus(view);
 		getRobotium().clickLongOnView(view);
@@ -150,6 +150,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void writeText (EditText editText, String value) {
+		requestFocus(editText);
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().typeText(editText, value);
@@ -223,7 +224,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void requestView (final View view) {
+	public void requestView (View view) {
 		try {
 			getRobotium().sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
 			getRobotium().waitForView(view, 1000, true);
@@ -257,7 +258,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 * @param errorMessage the error message
 	 */
-	protected static void assertNotNull (final View view, String errorMessage) {
+	protected static void assertNotNull (View view, String errorMessage) {
 		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, view);
 	}
 
