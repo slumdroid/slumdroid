@@ -181,7 +181,8 @@ public class CompositionalComparator {
 				return otherField.getCount() == field.getCount();
 			}
 			if (COMPARE_LIST_COUNT) {
-				if (field.getSimpleType().equals(LIST_VIEW)) {
+				if (field.getSimpleType().equals(LIST_VIEW) 
+						|| field.getSimpleType().equals(PREFERENCE_LIST)) {
 					return otherField.getCount() == field.getCount();
 				}       
 			}
