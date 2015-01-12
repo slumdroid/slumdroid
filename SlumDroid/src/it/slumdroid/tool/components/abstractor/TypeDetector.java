@@ -146,11 +146,11 @@ public class TypeDetector {
 		if (view instanceof TabHost) {
 			return TAB_HOST;
 		}
-		if (view instanceof SlidingDrawer) {
-			return SLIDING_DRAWER; // Deprecated in API level 17
-		}
 		if (type.endsWith("Container")) {
 			return "Container"; // Generic Container
+		}
+		if (view instanceof SlidingDrawer) {
+			return SLIDING_DRAWER; // Deprecated in API level 17
 		}
 		return new String(); // unKnown Widget or Custom Widget
 	}
@@ -221,7 +221,7 @@ public class TypeDetector {
 	 * @return the string
 	 */
 	private String detectTextView(View view) {
-		if (view instanceof EditText){
+		if (view instanceof EditText) {
 			return detectEdit(view);
 		}
 		if (view instanceof Button) {
@@ -278,15 +278,14 @@ public class TypeDetector {
 	 * @return the string
 	 */
 	private String detectList(View view) {
+		if (((ListView) view).getCount() == 0) {
+			return EMPTY_LIST;
+		}
 		if (type.endsWith("RecycleListView")
 				|| type.endsWith("DropDownListView")) {
 			return EXPAND_MENU;
 		}
-		ListView list = (ListView)view;
-		if (list.getCount() == 0) {
-			return EMPTY_LIST;
-		}
-		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
+		if (((ListView) view).getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
 			return PREFERENCE_LIST;
 		}
 		return LIST_VIEW;
