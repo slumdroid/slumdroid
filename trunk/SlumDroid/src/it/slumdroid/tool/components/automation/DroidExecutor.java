@@ -43,7 +43,7 @@ public class DroidExecutor {
 
 	/** The instrumentation. */
 	private Instrumentation instrumentation;
-	
+
 	/**
 	 * Instantiates a new droid executor.
 	 *
@@ -59,8 +59,9 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void click (View view) {
+	public void click (final View view) {
 		assertNotNull(view,"Cannot click: the widget does not exist");
+		requestFocus(view);
 		getRobotium().clickOnView(view);
 	}
 
@@ -69,8 +70,9 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void longClick (View view) {
+	public void longClick (final View view) {
 		assertNotNull(view, "Cannot longClick: the widget does not exist");
+		requestFocus(view);
 		getRobotium().clickLongOnView(view);
 	}
 
@@ -82,6 +84,7 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
+		requestFocus(list);
 		getRobotium().sendKey(Solo.DOWN);
 		final ListView theList = list;
 		final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
@@ -109,6 +112,7 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
+		requestFocus(list);
 		getRobotium().sendKey(Solo.DOWN);
 		final ListView theList = list;
 		final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
@@ -223,12 +227,7 @@ public class DroidExecutor {
 		try {
 			getRobotium().sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
 			getRobotium().waitForView(view, 1000, true);
-			runOnUiThread(new Runnable() {
-				public void run() {
-					view.requestFocus();		
-				}
-			});
-			sync();	
+			requestFocus(view);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
@@ -261,7 +260,7 @@ public class DroidExecutor {
 	protected static void assertNotNull (final View view, String errorMessage) {
 		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, view);
 	}
-	
+
 	/**
 	 * Gets the instrumentation.
 	 *
@@ -270,7 +269,21 @@ public class DroidExecutor {
 	public Instrumentation getInstrumentation() {
 		return instrumentation;
 	}
-	
+
+	/**
+	 * Request focus.
+	 *
+	 * @param view the view
+	 */
+	protected void requestFocus (final View view) {
+		runOnUiThread(new Runnable() {
+			public void run() {
+				view.requestFocus();            
+			}
+		});
+		sync();
+	}
+
 	/**
 	 * Sync.
 	 */
@@ -286,5 +299,5 @@ public class DroidExecutor {
 	public Solo getRobotium() {
 		return robotium;
 	}
-	
+
 }
