@@ -177,12 +177,12 @@ public class CompositionalComparator {
 				return field.getValue().equals(otherField.getValue());   
 			}
 			if (field.getSimpleType().equals(MENU_VIEW) 
-					|| field.getSimpleType().equals(EXPAND_MENU)) {
+					|| field.getSimpleType().equals(EXPAND_MENU)
+					|| field.getSimpleType().equals(PREFERENCE_LIST)) {
 				return otherField.getCount() == field.getCount();
 			}
 			if (COMPARE_LIST_COUNT) {
-				if (field.getSimpleType().equals(LIST_VIEW) 
-						|| field.getSimpleType().equals(PREFERENCE_LIST)) {
+				if (field.getSimpleType().equals(LIST_VIEW)) {
 					return otherField.getCount() == field.getCount();
 				}       
 			}
