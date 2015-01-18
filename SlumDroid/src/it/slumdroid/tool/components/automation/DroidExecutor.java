@@ -139,8 +139,26 @@ public class DroidExecutor {
 	 */
 	public void selectSpinnerItem (Spinner spinner, String item) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
-		click(spinner);
-		selectListItem(getRobotium().getCurrentViews(ListView.class).get(0), item);
+		requestFocus(spinner);
+		getRobotium().clickOnView(spinner);
+		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		requestFocus(list);
+		getRobotium().sendKey(Solo.DOWN);
+		final ListView theList = list;
+		final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
+		runOnUiThread(new Runnable() { 
+			public void run() {
+				theList.setSelection(index);
+			}
+		});
+		if (index < list.getCount()/2) {
+			getRobotium().sendKey(Solo.DOWN);
+			getRobotium().sendKey(Solo.UP);
+		} else {
+			getRobotium().sendKey(Solo.UP);                  
+			getRobotium().sendKey(Solo.DOWN);
+		}
+		getRobotium().clickOnView(list.getSelectedView());
 	}
 
 	/**
@@ -180,7 +198,8 @@ public class DroidExecutor {
 			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		}
 		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
-		click(radioGroup.getChildAt(item - 1));
+		requestFocus(radioGroup.getChildAt(item - 1));
+		getRobotium().clickOnView(radioGroup.getChildAt(item - 1));
 	}
 
 	/**
@@ -216,7 +235,8 @@ public class DroidExecutor {
 		int count = tabHost.getTabWidget().getTabCount();
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", item <= count);
 		int index = Math.min(count, Math.max(1, item)) - 1;
-		click (tabHost.getTabWidget().getChildAt(index));
+		requestFocus(tabHost.getTabWidget().getChildAt(index));
+		getRobotium().clickOnView(tabHost.getTabWidget().getChildAt(index));
 	}
 
 	/**
