@@ -15,11 +15,11 @@
 
 package it.slumdroid.tool.components.engine;
 
+import static it.slumdroid.tool.Resources.CLASS_NAME;
 import static it.slumdroid.tool.Resources.PACKAGE_NAME;
 import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.Resources.theClass;
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Session;
@@ -96,22 +96,14 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 
 	/**
 	 * Instantiates a new systematic engine.
+	 * @throws ClassNotFoundException 
 	 */
 	@SuppressWarnings("unchecked")
-	public SystematicEngine () {
-		super(theClass);
+	public SystematicEngine () throws ClassNotFoundException {
+		super(Class.forName(CLASS_NAME));
 		PersistenceFactory.registerForSavingState(this);
 		setScheduler(new TraceDispatcher());
 		setAutomation(new Automation());
-		defineAbstractor();
-		definePlanner();
-		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
-	}
-
-	/**
-	 * Define abstractor.
-	 */
-	private void defineAbstractor() {
 		try {
 			GuiTree.setValidation(false);
 			setAbstractor(new GuiTreeAbstractor());
@@ -119,12 +111,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * Define planner.
-	 */
-	private void definePlanner() {
 		UltraPlanner planner = new UltraPlanner();
 		AllPassFilter inputFilter = new AllPassFilter();
 		planner.setInputFilter (inputFilter);
@@ -137,6 +123,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		planner.setFormFiller(getUserAdapter());
 		planner.setAbstractor(getAbstractor());
 		setPlanner (planner);
+		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
 	}
 
 	/* (non-Javadoc)
