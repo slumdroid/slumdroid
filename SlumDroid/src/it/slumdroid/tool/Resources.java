@@ -21,7 +21,6 @@ package it.slumdroid.tool;
  */
 public class Resources {
 
-	// Support Variables
 	/** The Constant TAG. */
 	public final static String TAG = "slumdroid";	
 
@@ -36,9 +35,9 @@ public class Resources {
 		DEPTH_FIRST, 
 		/** The random first. */
 		RANDOM_FIRST
+		
 	}
 
-	// Main Parameters
 	/** The package name. */
 	public static String PACKAGE_NAME = "app.package";
 
@@ -55,7 +54,6 @@ public class Resources {
 	/** The scheduler algorithm. */
 	public static String SCHEDULER_ALGORITHM = "BREADTH_FIRST";
 
-	// Automation Parameters
 	/** The sleep after event. */
 	public static int SLEEP_AFTER_EVENT = 1000;
 
@@ -69,7 +67,6 @@ public class Resources {
 	/**  How long to wait on spinning wheels (in ms -- 0 = don't wait) */
 	public static int SLEEP_ON_THROBBER = 1000; 
 
-	// Comparator Parameters
 	/** The compare list count. */
 	public static boolean COMPARE_LIST_COUNT = false;
 
@@ -79,7 +76,6 @@ public class Resources {
 	/** The compare available. */
 	public static boolean COMPARE_AVAILABLE = false;
 
-	// Interactions Parameters
 	/** The events. */
 	public static String EVENTS[];
 
@@ -104,28 +100,8 @@ public class Resources {
 	/** true -> click on tabs only on the start activity */
 	public static boolean TAB_EVENTS_START_ONLY = false; 
 
-	/** The class. */
-	public static Class<?> theClass;
-
-	/**
-	 * Update.
-	 */
-	private static void update () {	
-		Prefs.updateNode(""); 				// Main Node
-		Prefs.updateNode("automation");		// Automation Node
-		Prefs.updateNode("comparator");		// Comparator Node
-		Prefs.updateNode("interactions");	// Interactions Node
-		Prefs.checkEvents();		
-		Prefs.checkInputs();
-	}
-
 	static {
-		update();
-		try {
-			theClass = Class.forName(CLASS_NAME);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}			
+		Prefs.updateNodes();			
 	}
 
 }
