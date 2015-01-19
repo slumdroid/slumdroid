@@ -129,7 +129,12 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/* (non-Javadoc)
 	 * @see android.test.ActivityInstrumentationTestCase2#setUp()
 	 */
-	protected void setUp () {		
+	protected void setUp () {
+		try {
+			super.setUp();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
 		getPersistenceFactory().setStrategy(this.theStrategy);
 		setPersistence (getPersistenceFactory().getPersistence());
