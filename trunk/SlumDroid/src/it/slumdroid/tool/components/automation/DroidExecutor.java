@@ -82,8 +82,8 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
-		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter") 
-				|| (list.getCount() >= 5 && Integer.valueOf(item) > 5)) {
+		if ((list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter") && list.getCount() >= 7)  
+				|| (list.getCount() > 5 && Integer.valueOf(item) > 5)) {
 			getRobotium().sendKey(Solo.DOWN);
 			final ListView theList = list;
 			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
@@ -114,7 +114,7 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (ListView list, String item) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
-		if (list.getCount() >= 5 && Integer.valueOf(item) > 5) {
+		if (list.getCount() > 5 && Integer.valueOf(item) > 5) {
 			getRobotium().sendKey(Solo.DOWN);
 			final ListView theList = list;
 			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
@@ -146,7 +146,7 @@ public class DroidExecutor {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
 		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		if (list.getCount() >= 5 && Integer.valueOf(item) > 5) {
+		if (list.getCount() > 3 && Integer.valueOf(item) > 3) {
 			getRobotium().sendKey(Solo.DOWN);
 			final ListView theList = list;
 			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
@@ -162,7 +162,7 @@ public class DroidExecutor {
 				getRobotium().sendKey(Solo.UP);                  
 				getRobotium().sendKey(Solo.DOWN);
 			}
-			getRobotium().clickOnView(list.getSelectedView());	
+			getRobotium().clickOnView(list.getSelectedView());
 		} else {
 			getRobotium().clickInList(Integer.valueOf(item));
 		}
