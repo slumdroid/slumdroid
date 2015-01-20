@@ -210,12 +210,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			getTheGuiTree().addFailedTask(getStrategy().getTask());
 		}
 		getPersistence().save();
-		try {
-			Automation.getRobotium().finishOpenedActivities();
-			Automation.getRobotium().finalize();
-		} catch (Throwable e) {
-			e.printStackTrace();
-		}
+		Automation.getRobotium().finishOpenedActivities();
 		super.tearDown();
 	}
 
