@@ -298,9 +298,28 @@ public class GraphicalEditor extends JFrame {
 		checkComparatorBox.setBounds(171, 136, 64, 20);
 		contentPane.add(checkComparatorBox);
 		
+		maxEventSelectorBox = new JComboBox(maxEventSelector);
+		maxEventSelectorBox.setSelectedIndex(3);
+		maxEventSelectorBox.setBounds(387, 58, 74, 20);
+		contentPane.add(maxEventSelectorBox);
+		
 		availableComparatorBox = new JComboBox(bool);
 		availableComparatorBox.setSelectedIndex(1);
 		availableComparatorBox.setBounds(171, 161, 64, 20);
+		availableComparatorBox.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				if (availableComparatorBox.getSelectedIndex() == 0) {
+					maxEventSelectorBox.setSelectedIndex(1);
+					maxEventSelectorBox.setEnabled(false);
+				} else {
+					maxEventSelectorBox.setSelectedIndex(3);
+					maxEventSelectorBox.setEnabled(true);
+				}
+			}
+			
+		});
 		contentPane.add(availableComparatorBox);
 
 		editTextBox = new JComboBox(interactions);
@@ -331,12 +350,7 @@ public class GraphicalEditor extends JFrame {
 		schedulerBox.setSelectedIndex(1);
 		schedulerBox.setBounds(143, 58, 92, 20);
 		contentPane.add(schedulerBox);
-		
-		maxEventSelectorBox = new JComboBox(maxEventSelector);
-		maxEventSelectorBox.setSelectedIndex(0);
-		maxEventSelectorBox.setBounds(387, 58, 74, 20);
-		contentPane.add(maxEventSelectorBox);
-		
+				
 		tabEventsBox = new JComboBox(bool);
 		tabEventsBox.setSelectedIndex(0);
 		tabEventsBox.setBounds(387, 33, 74, 20);
@@ -661,6 +675,7 @@ public class GraphicalEditor extends JFrame {
 		waitingThrobberField.setText("1000");
 
 		maxEventSelectorBox.setSelectedIndex(3);
+		maxEventSelectorBox.setEnabled(true);
 		tabEventsBox.setSelectedIndex(1);
 		inputTextBox.setSelectedIndex(0);
 		
