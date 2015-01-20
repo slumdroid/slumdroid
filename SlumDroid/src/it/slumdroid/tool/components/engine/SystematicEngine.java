@@ -39,7 +39,6 @@ import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
 import it.slumdroid.tool.model.Strategy;
-import it.slumdroid.tool.model.UserAdapter;
 import it.slumdroid.tool.utilities.AllPassFilter;
 import it.slumdroid.tool.utilities.SessionParams;
 import it.slumdroid.tool.utilities.UserFactory;
@@ -72,9 +71,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 
 	/** The abstractor. */
 	private GuiTreeAbstractor theAbstractor;
-
-	/** The adapter. */
-	private UserAdapter theAdapter;
 
 	/** The automation. */
 	private Automation theAutomation;
@@ -118,9 +114,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		AllPassFilter eventFilter = new AllPassFilter();
 		planner.setEventFilter (eventFilter);
 		getAbstractor().addFilter (eventFilter);
-		setUserAdapter(UserFactory.getUser(getAbstractor()));
-		planner.setUser(getUserAdapter());
-		planner.setFormFiller(getUserAdapter());
+		planner.setUser(UserFactory.getUser(getAbstractor()));
+		planner.setFormFiller(UserFactory.getUser(getAbstractor()));
 		planner.setAbstractor(getAbstractor());
 		setPlanner (planner);
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
@@ -129,26 +124,18 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/* (non-Javadoc)
 	 * @see android.test.ActivityInstrumentationTestCase2#setUp()
 	 */
-	protected void setUp () {
-		try {
-			super.setUp();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	protected void setUp () throws Exception {
+		super.setUp();
 		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
 		getPersistenceFactory().setStrategy(this.theStrategy);
 		setPersistence (getPersistenceFactory().getPersistence());
-		try {
-			getAutomation().bind(this);
-			getAutomation().extractState();
-			getPersistence().setContext(Automation.getRobotium().getCurrentActivity());
-			ActivityDescription description = getAutomation().describeActivity();
-			getAbstractor().setBaseActivity(description);
-			if (!resume()) {
-				setupFirstStart();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		getAutomation().bind(this);
+		getAutomation().extractState();
+		getPersistence().setContext(Automation.getRobotium().getCurrentActivity());
+		ActivityDescription description = getAutomation().describeActivity();
+		getAbstractor().setBaseActivity(description);
+		if (!resume()) {
+			setupFirstStart();
 		}
 	}	
 
@@ -179,17 +166,17 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
 				try {
-					int HomeButton = 3;
-					String command = "adb shell input keyevent " + HomeButton;
+					int homeButton = 3;
+					String command = "adb shell input keyevent " + homeButton;
 					Runtime.getRuntime().exec(command);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			} else {
 				getStrategy().compareState(theState);
-			}
-			if (SCREENSHOT_ENABLED) {
-				takeScreenshot(theState);
+				if (SCREENSHOT_ENABLED) {
+					takeScreenshot(theState);
+				}
 			}
 			if (SLEEP_AFTER_TASK != 0) {
 				getAutomation().wait(SLEEP_AFTER_TASK);
@@ -492,24 +479,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	}
 
 	/**
-	 * Gets the user adapter.
-	 *
-	 * @return the user adapter
-	 */
-	public UserAdapter getUserAdapter() {
-		return theAdapter;
-	}
-
-	/**
-	 * Sets the user adapter.
-	 *
-	 * @param user the new user adapter
-	 */
-	public void setUserAdapter(UserAdapter user) {
-		this.theAdapter = user;
-	}
-
-	/**
 	 * Gets the last id.
 	 *
 	 * @return the last id
@@ -542,16 +511,14 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the state
 	 */
 	private void takeScreenshot(ActivityState theState) {
-		if (!theState.isExit()) {
-			try {
-				String fileName = theState.getUniqueId() + ".png";
-				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
-				Runtime.getRuntime().exec(command);
-				Log.i(TAG,"Saved image on disk: " + fileName);
-			} catch (Exception e) {
-				e.printStackTrace();
-				theState.setScreenshot(new String());
-			}
+		try {
+			String fileName = theState.getUniqueId() + ".png";
+			String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
+			Runtime.getRuntime().exec(command);
+			Log.i(TAG,"Saved image on disk: " + fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			theState.setScreenshot(new String());
 		}
 	}
 
