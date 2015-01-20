@@ -130,7 +130,7 @@ public class DroidExecutor {
 				getRobotium().sendKey(Solo.UP);                  
 				getRobotium().sendKey(Solo.DOWN);
 			}
-			getRobotium().clickOnView(list.getSelectedView());	
+			getRobotium().clickLongOnView(list.getSelectedView());	
 		} else {
 			getRobotium().clickLongInList(Integer.valueOf(item));
 		}
