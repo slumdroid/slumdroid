@@ -127,18 +127,17 @@ public class Automation implements Executor, Extractor {
 			if (event.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
 				view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
-			String eventValue = event.getValue();
 			if ( (view != null) && 
 					checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
 				writeLogInfo(event);
-				fireEventOnView (view, eventType, eventValue);
+				fireEventOnView (view, eventType, event.getValue());
 			} else {
 				if (event.getWidgetId().equals("-1")) { // Search widget by name
 					writeLogInfo(event);
-					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, event.getValue());
 				} else { // Search widget by id
 					writeLogInfo(event);
-					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, event.getValue());
 				}	
 			}
 		}
@@ -443,7 +442,7 @@ public class Automation implements Executor, Extractor {
 	 */
 	public boolean checkWidgetEquivalence (View view, int theId, String theType, String theName) {
 		String widgetType = AbstractorUtilities.getType(view); 
-		if (!(theType.equals(widgetType))) {
+		if (!theType.equals(widgetType)) {
 			return false;
 		}
 		String widgetName = AbstractorUtilities.detectName(view);
