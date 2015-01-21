@@ -83,7 +83,7 @@ public class DroidExecutor {
 	public void selectListItem (final ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
-			if (list.getCount() != list.getChildCount()) {
+			if (list.getCount() != list.getChildCount()) { // There are inactive rows - e.g. separators
 				final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
 				runOnUiThread(new Runnable() { 
 					public void run() {
