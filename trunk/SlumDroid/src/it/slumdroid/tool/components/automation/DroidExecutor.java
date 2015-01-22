@@ -83,7 +83,6 @@ public class DroidExecutor {
 	public void selectListItem (final ListView list, String item) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
-			if (list.getCount() != list.getChildCount()) { // There are inactive rows - e.g. separators
 				final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
 				runOnUiThread(new Runnable() { 
 					public void run() {
@@ -101,9 +100,6 @@ public class DroidExecutor {
 			} else {
 				getRobotium().clickInList(Integer.valueOf(item));	
 			}
-		} else {
-			getRobotium().clickInList(Integer.valueOf(item));	
-		}
 	}
 
 	/**
@@ -115,7 +111,7 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (final ListView list, String item) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
-		if (list.getCount() != list.getChildCount()) {
+		if (list.getCount() != list.getChildCount()) { // There are inactive rows - e.g. separators
 			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
@@ -144,7 +140,25 @@ public class DroidExecutor {
 	public void selectSpinnerItem (Spinner spinner, String item) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
-		getRobotium().clickInList(Integer.valueOf(item));	
+		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		if (list.getCount() != list.getChildCount()) { // There are inactive rows - e.g. separators
+			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
+			runOnUiThread(new Runnable() { 
+				public void run() {
+					list.setSelection(index);
+				}
+			});
+			if (index < list.getCount()/2) {
+				getRobotium().sendKey(Solo.DOWN);
+				getRobotium().sendKey(Solo.UP);
+			} else {
+				getRobotium().sendKey(Solo.UP);                  
+				getRobotium().sendKey(Solo.DOWN);
+			}
+			getRobotium().clickOnView(list.getSelectedView());	
+		} else {
+			getRobotium().clickInList(Integer.valueOf(item));		
+		}
 	}
 
 	/**
