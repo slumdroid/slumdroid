@@ -151,7 +151,9 @@ public class ReportGenerator extends StatsReport {
 			crash = 1;
 			return;
 		}
-		this.activity.add(state.getName());
+		if (!state.getName().equals("")) {
+			this.activity.add(state.getName());	
+		}
 		this.activityStates.add(state.getId());
 	}
 
