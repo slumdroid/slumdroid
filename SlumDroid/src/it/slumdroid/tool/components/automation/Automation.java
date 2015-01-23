@@ -108,38 +108,54 @@ public class Automation implements Executor, Extractor {
 		for (UserInput input: transition) {
 			setInput(input);
 		}
-		fireEvent (transition.getEvent());		
+		UserEvent event = transition.getEvent();
+		String eventType = event.getType();
+		if (eventType.contains("press") 
+				|| eventType.equals(CHANGE_ORIENTATION)) { // Special Interactions
+			Log.i(TAG, "Firing event: " + eventType);
+			if (eventType.contains("press")) {
+				if (eventType.equals(PRESS_BACK)) {
+					getRobotium().goBack();
+					return;
+				}
+				if (eventType.equals(PRESS_MENU)) {
+					getRobotium().sendKey(Solo.MENU);
+					return;
+				}
+				if (eventType.equals(PRESS_ACTION)) {
+					getRobotium().clickOnActionBarHomeButton();
+					return;
+				}	
+			} 
+			if (eventType.equals(CHANGE_ORIENTATION)) {
+				getExecutor().changeOrientation();
+				return;
+			}
+		} else {
+			fireEvent (event);	
+		}
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#fireEvent(it.slumdroid.droidmodels.model.UserEvent)
 	 */
 	public void fireEvent(UserEvent event) {
-		String eventType = event.getType();
-		if (eventType.equals(PRESS_BACK) 
-				|| eventType.equals(PRESS_MENU) 
-				|| eventType.equals(PRESS_ACTION)
-				|| eventType.equals(CHANGE_ORIENTATION)) { // Special events
-			Log.i(TAG, "Firing event: " + eventType);
-			fireEventOnView(null, eventType, null);
+		View view = null;
+		if (event.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
+			view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
+		}
+		if ( (view != null) && 
+				checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
+			writeLogInfo(event);
+			fireEventOnView (view, event.getType(), event.getValue());
 		} else {
-			View view = null;
-			if (event.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
-				view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
-			}
-			if ( (view != null) && 
-					checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
+			if (event.getWidgetId().equals("-1")) { // Search widget by name
 				writeLogInfo(event);
-				fireEventOnView (view, eventType, event.getValue());
-			} else {
-				if (event.getWidgetId().equals("-1")) { // Search widget by name
-					writeLogInfo(event);
-					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, event.getValue());
-				} else { // Search widget by id
-					writeLogInfo(event);
-					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, event.getValue());
-				}	
-			}
+				fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), event.getType(), event.getValue());
+			} else { // Search widget by id
+				writeLogInfo(event);
+				fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), event.getType(), event.getValue());
+			}	
 		}
 	}
 
@@ -258,9 +274,7 @@ public class Automation implements Executor, Extractor {
 	 * @param value the value
 	 */
 	private void injectInteraction (View view, String interactionType, String value) {
-		if (view != null) {
-			requestView(view);
-		}
+		requestView(view);
 		if (interactionType.equals(CLICK)) {
 			getExecutor().click (view);
 			return;
@@ -268,7 +282,7 @@ public class Automation implements Executor, Extractor {
 		if (interactionType.equals(LONG_CLICK)) {
 			getExecutor().longClick(view);
 			return;
-		}
+		}	
 		if (interactionType.endsWith("Item")) {
 			if (interactionType.equals(LIST_SELECT)) {
 				getExecutor().selectListItem((ListView)view, value);
@@ -287,7 +301,7 @@ public class Automation implements Executor, Extractor {
 				return;
 			}
 		} 
-		if (interactionType.endsWith("Text")){
+		if (interactionType.endsWith("Text")) {
 			if (interactionType.equals(WRITE_TEXT)) {
 				getExecutor().writeText((EditText)view, value);
 				return;
@@ -296,24 +310,6 @@ public class Automation implements Executor, Extractor {
 				getExecutor().enterText((EditText)view, value);
 				return;
 			}
-		}
-		if (interactionType.contains("press")) {
-			if (interactionType.equals(PRESS_BACK)) {
-				getRobotium().goBack();
-				return;
-			}
-			if (interactionType.equals(PRESS_MENU)) {
-				getRobotium().sendKey(Solo.MENU);
-				return;
-			}
-			if (interactionType.equals(PRESS_ACTION)) {
-				getRobotium().clickOnActionBarHomeButton();
-				return;
-			}
-		}
-		if (interactionType.equals(CHANGE_ORIENTATION)) {
-			getExecutor().changeOrientation();
-			return;
 		}
 		if (interactionType.equals(SET_BAR)) {
 			getExecutor().setProgressBar(view, value);

@@ -59,7 +59,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void click (View view) {
+	public void click (final View view) {
 		assertNotNull(view,"Cannot click: the widget does not exist");
 		getRobotium().clickOnView(view);
 	}
@@ -69,7 +69,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void longClick (View view) {
+	public void longClick (final View view) {
 		assertNotNull(view, "Cannot longClick: the widget does not exist");
 		getRobotium().clickLongOnView(view);
 	}
@@ -78,77 +78,18 @@ public class DroidExecutor {
 	 * Select list item.
 	 *
 	 * @param list the list
-	 * @param item the item
+	 * @param value the value
 	 */
-	public void selectListItem (final ListView list, String item) {
+	public void selectListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
-				final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
-				runOnUiThread(new Runnable() { 
-					public void run() {
-						list.setSelection(index);
-					}
-				});
-				if (index < list.getCount()/2) {
-					getRobotium().sendKey(Solo.DOWN);
-					getRobotium().sendKey(Solo.UP);
-				} else {
-					getRobotium().sendKey(Solo.UP);                  
-					getRobotium().sendKey(Solo.DOWN);
-				}
-				getRobotium().clickOnView(list.getSelectedView());	
-			} else {
-				getRobotium().clickInList(Integer.valueOf(item));	
-			}
-	}
-
-	/**
-	 * Long Select list item.
-	 *
-	 * @param list the list
-	 * @param item the item
-	 * @param longClick the long click
-	 */
-	public void selectLongListItem (final ListView list, String item) {
-		assertNotNull(list, "Cannon long select list item: the list does not exist");
-		if (list.getCount() != list.getChildCount()) { // There are inactive rows - e.g. separators
-			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
+			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
-					list.setSelection(index);
+					list.setSelection(item);
 				}
 			});
-			if (index < list.getCount()/2) {
-				getRobotium().sendKey(Solo.DOWN);
-				getRobotium().sendKey(Solo.UP);
-			} else {
-				getRobotium().sendKey(Solo.UP);                  
-				getRobotium().sendKey(Solo.DOWN);
-			}
-			getRobotium().clickLongOnView(list.getSelectedView());	
-		} else {
-			getRobotium().clickLongInList(Integer.valueOf(item));	
-		}
-	}
-
-	/**
-	 * Select spinner item.
-	 *
-	 * @param spinner the spinner
-	 * @param item the item
-	 */
-	public void selectSpinnerItem (Spinner spinner, String item) {
-		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
-		getRobotium().clickOnView(spinner);
-		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		if (list.getCount() != list.getChildCount()) { // There are inactive rows - e.g. separators
-			final int index = Math.min(list.getCount(), Math.max(1, Integer.valueOf(item))) - 1;
-			runOnUiThread(new Runnable() { 
-				public void run() {
-					list.setSelection(index);
-				}
-			});
-			if (index < list.getCount()/2) {
+			if (item < list.getCount()/2) {
 				getRobotium().sendKey(Solo.DOWN);
 				getRobotium().sendKey(Solo.UP);
 			} else {
@@ -157,8 +98,31 @@ public class DroidExecutor {
 			}
 			getRobotium().clickOnView(list.getSelectedView());	
 		} else {
-			getRobotium().clickInList(Integer.valueOf(item));		
+			getRobotium().clickInList(Integer.valueOf(value));	
 		}
+	}
+
+	/**
+	 * Long Select list item.
+	 *
+	 * @param list the list
+	 * @param value the value
+	 */
+	public void selectLongListItem (final ListView list, final String value) {
+		assertNotNull(list, "Cannon long select list item: the list does not exist");
+		getRobotium().clickLongInList(Integer.valueOf(value));	
+	}
+
+	/**
+	 * Select spinner item.
+	 *
+	 * @param spinner the spinner
+	 * @param value the value
+	 */
+	public void selectSpinnerItem (final Spinner spinner, final String value) {
+		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
+		getRobotium().clickOnView(spinner);
+		getRobotium().clickInList(Integer.valueOf(value));		
 	}
 
 	/**
@@ -167,7 +131,7 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public void writeText (EditText editText, String value) {
+	public void writeText (final EditText editText, final String value) {
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().typeText(editText, value);
@@ -180,7 +144,7 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public void enterText (EditText editText, String value) {
+	public void enterText (final EditText editText, final String value) {
 		writeText (editText, value);
 		getRobotium().sendKey(Solo.ENTER);
 	}
@@ -189,9 +153,9 @@ public class DroidExecutor {
 	 * Select radio item.
 	 *
 	 * @param radioGroup the radio group
-	 * @param item the item
+	 * @param value the value
 	 */
-	public void selectRadioItem (final RadioGroup radioGroup, String value) {
+	public void selectRadioItem (final RadioGroup radioGroup, final String value) {
 		int item = Integer.valueOf(value);
 		if (item < 1) {
 			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
@@ -216,7 +180,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 * @param value the value
 	 */
-	public void setProgressBar (View view, String value) {
+	public void setProgressBar (final View view, final String value) {
 		getRobotium().setProgressBar((ProgressBar)view, Integer.parseInt(value));
 	}
 
@@ -224,11 +188,11 @@ public class DroidExecutor {
 	 * Swap tab.
 	 *
 	 * @param view the view
-	 * @param tab the tab
+	 * @param value the value
 	 */
-	public void swapTab (View view, String tab) {
+	public void swapTab (final View view, final String value) {
 		TabHost tabHost = (TabHost)view; 
-		int item = Integer.valueOf(tab);
+		int item = Integer.valueOf(value);
 		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
 		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", item <= count);
