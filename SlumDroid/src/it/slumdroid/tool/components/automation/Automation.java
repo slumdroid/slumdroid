@@ -119,7 +119,7 @@ public class Automation implements Executor, Extractor {
 		if (eventType.equals(PRESS_BACK) 
 				|| eventType.equals(PRESS_MENU) 
 				|| eventType.equals(PRESS_ACTION)
-				|| eventType.equals(CHANGE_ORIENTATION)) { // Special events
+				|| eventType.equals(CHANGE_ORIENTATION)) { // Special Interactions
 			Log.i(TAG, "Firing event: " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else {
@@ -127,17 +127,18 @@ public class Automation implements Executor, Extractor {
 			if (event.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
 				view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
+			String eventValue = event.getValue();
 			if ( (view != null) && 
 					checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
 				writeLogInfo(event);
-				fireEventOnView (view, eventType, event.getValue());
+				fireEventOnView (view, eventType, eventValue);
 			} else {
 				if (event.getWidgetId().equals("-1")) { // Search widget by name
 					writeLogInfo(event);
-					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, event.getValue());
+					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
 				} else { // Search widget by id
 					writeLogInfo(event);
-					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, event.getValue());
+					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
 				}	
 			}
 		}
@@ -261,24 +262,6 @@ public class Automation implements Executor, Extractor {
 		if (view != null) {
 			requestView(view);
 		}
-		if (interactionType.contains("press")) {
-			if (interactionType.equals(PRESS_BACK)) {
-				getRobotium().goBack();
-				return;
-			}
-			if (interactionType.equals(PRESS_MENU)) {
-				getRobotium().sendKey(Solo.MENU);
-				return;
-			}
-			if (interactionType.equals(PRESS_ACTION)) {
-				getRobotium().clickOnActionBarHomeButton();
-				return;
-			}
-		}
-		if (interactionType.equals(CHANGE_ORIENTATION)) {
-			getExecutor().changeOrientation();
-			return;
-		}
 		if (interactionType.equals(CLICK)) {
 			getExecutor().click (view);
 			return;
@@ -305,7 +288,7 @@ public class Automation implements Executor, Extractor {
 				return;
 			}
 		} 
-		if (interactionType.endsWith("Text")){
+		if (interactionType.endsWith("Text")) {
 			if (interactionType.equals(WRITE_TEXT)) {
 				getExecutor().writeText((EditText)view, value);
 				return;
@@ -314,6 +297,24 @@ public class Automation implements Executor, Extractor {
 				getExecutor().enterText((EditText)view, value);
 				return;
 			}
+		}
+		if (interactionType.contains("press")) {
+			if (interactionType.equals(PRESS_BACK)) {
+				getRobotium().goBack();
+				return;
+			}
+			if (interactionType.equals(PRESS_MENU)) {
+				getRobotium().sendKey(Solo.MENU);
+				return;
+			}
+			if (interactionType.equals(PRESS_ACTION)) {
+				getRobotium().clickOnActionBarHomeButton();
+				return;
+			}
+		}
+		if (interactionType.equals(CHANGE_ORIENTATION)) {
+			getExecutor().changeOrientation();
+			return;
 		}
 		if (interactionType.equals(SET_BAR)) {
 			getExecutor().setProgressBar(view, value);
