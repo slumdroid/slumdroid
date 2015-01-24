@@ -107,17 +107,16 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		UltraPlanner planner = new UltraPlanner();
+		setPlanner (new UltraPlanner());
 		AllPassFilter inputFilter = new AllPassFilter();
-		planner.setInputFilter (inputFilter);
+		getPlanner().setInputFilter (inputFilter);
 		getAbstractor().addFilter (inputFilter);
 		AllPassFilter eventFilter = new AllPassFilter();
-		planner.setEventFilter (eventFilter);
+		getPlanner().setEventFilter (eventFilter);
 		getAbstractor().addFilter (eventFilter);
-		planner.setUser(UserFactory.getUser(getAbstractor()));
-		planner.setFormFiller(UserFactory.getUser(getAbstractor()));
-		planner.setAbstractor(getAbstractor());
-		setPlanner (planner);
+		getPlanner().setUser(UserFactory.getUser(getAbstractor()));
+		getPlanner().setFormFiller(UserFactory.getUser(getAbstractor()));
+		getPlanner().setAbstractor(getAbstractor());
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
 	}
 
