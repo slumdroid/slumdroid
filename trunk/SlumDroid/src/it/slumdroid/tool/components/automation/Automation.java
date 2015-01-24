@@ -261,6 +261,24 @@ public class Automation implements Executor, Extractor {
 		if (view != null) {
 			requestView(view);
 		}
+		if (interactionType.contains("press")) {
+			if (interactionType.equals(PRESS_BACK)) {
+				getRobotium().goBack();
+				return;
+			}
+			if (interactionType.equals(PRESS_MENU)) {
+				getRobotium().sendKey(Solo.MENU);
+				return;
+			}
+			if (interactionType.equals(PRESS_ACTION)) {
+				getRobotium().clickOnActionBarHomeButton();
+				return;
+			}
+		}
+		if (interactionType.equals(CHANGE_ORIENTATION)) {
+			getExecutor().changeOrientation();
+			return;
+		}
 		if (interactionType.equals(CLICK)) {
 			getExecutor().click (view);
 			return;
@@ -296,24 +314,6 @@ public class Automation implements Executor, Extractor {
 				getExecutor().enterText((EditText)view, value);
 				return;
 			}
-		}
-		if (interactionType.contains("press")) {
-			if (interactionType.equals(PRESS_BACK)) {
-				getRobotium().goBack();
-				return;
-			}
-			if (interactionType.equals(PRESS_MENU)) {
-				getRobotium().sendKey(Solo.MENU);
-				return;
-			}
-			if (interactionType.equals(PRESS_ACTION)) {
-				getRobotium().clickOnActionBarHomeButton();
-				return;
-			}
-		}
-		if (interactionType.equals(CHANGE_ORIENTATION)) {
-			getExecutor().changeOrientation();
-			return;
 		}
 		if (interactionType.equals(SET_BAR)) {
 			getExecutor().setProgressBar(view, value);
