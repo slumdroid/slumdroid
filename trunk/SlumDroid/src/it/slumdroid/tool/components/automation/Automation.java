@@ -46,6 +46,7 @@ import it.slumdroid.tool.model.Extractor;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.View;
@@ -85,7 +86,7 @@ public class Automation implements Executor, Extractor {
 		executor = new DroidExecutor(test);
 		getRobotium().unlockScreen();
 		afterRestart();
-		getRobotium().getCurrentActivity();
+		getCurrentActivity();
 	}
 
 	/* (non-Javadoc)
@@ -94,21 +95,12 @@ public class Automation implements Executor, Extractor {
 	public void execute (Task task) {
 		afterRestart();
 		Log.i (TAG, "Playing Task " + task.getId());
-		for (Transition step: task) {
-			process (step);
+		for (Transition transition: task) {
+			for (UserInput input: transition) {
+				setInput(input);
+			}
+			fireEvent (transition.getEvent());
 		}
-	}
-
-	/**
-	 * Process.
-	 *
-	 * @param transition the transition
-	 */
-	private void process (Transition transition) {
-		for (UserInput input: transition) {
-			setInput(input);
-		}
-		fireEvent (transition.getEvent());		
 	}
 
 	/* (non-Javadoc)
@@ -191,7 +183,7 @@ public class Automation implements Executor, Extractor {
 			view = getWidget(widgetId);
 		}
 		if (view == null) {
-			view = getRobotium().getCurrentActivity().findViewById(widgetId);
+			view = getCurrentActivity().findViewById(widgetId);
 		}
 		fireEventOnView(view, eventType, value);
 	}
@@ -244,7 +236,7 @@ public class Automation implements Executor, Extractor {
 		if (SLEEP_ON_THROBBER != 0) {
 			waitOnThrobber();
 		}
-		getRobotium().getCurrentActivity();
+		getCurrentActivity();
 		extractState();
 	}
 
@@ -257,7 +249,7 @@ public class Automation implements Executor, Extractor {
 	 */
 	private void injectInteraction (View view, String interactionType, String value) {
 		if (view != null) {
-			requestView(view);
+			getExecutor().requestView(view);
 		}
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
@@ -339,7 +331,7 @@ public class Automation implements Executor, Extractor {
 			view = getWidget(widgetId);
 		}
 		if (view == null) {
-			view = getRobotium().getCurrentActivity().findViewById(widgetId);
+			view = getCurrentActivity().findViewById(widgetId);
 		}
 		if (view == null) {
 			for (View theView: getExtractor().getAllWidgets()) {
@@ -355,15 +347,6 @@ public class Automation implements Executor, Extractor {
 			}
 		}
 		injectInteraction(view, inputType, value);
-	}
-
-	/**
-	 * Request view.
-	 *
-	 * @param view the view
-	 */
-	protected void requestView (View view) {
-		getExecutor().requestView(view);
 	}
 
 	/* (non-Javadoc)
@@ -467,14 +450,14 @@ public class Automation implements Executor, Extractor {
 	 * @see it.slumdroid.tool.model.Extractor#describeActivity()
 	 */
 	public ActivityDescription describeActivity() {
-		return this.getExtractor().describeActivity();
+		return getExtractor().describeActivity();
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Extractor#extractState()
 	 */
 	public void extractState() {
-		this.getExtractor().extractState();
+		getExtractor().extractState();
 	}
 
 	/**
@@ -483,7 +466,7 @@ public class Automation implements Executor, Extractor {
 	 * @return the extractor
 	 */
 	public TrivialExtractor getExtractor() {
-		return extractor;
+		return this.extractor;
 	}
 
 	/**
@@ -502,6 +485,15 @@ public class Automation implements Executor, Extractor {
 	 */
 	public static Solo getRobotium() {
 		return getExecutor().getRobotium();
+	}
+	
+	/**
+	 * Gets the current activity.
+	 *
+	 * @return the current activity
+	 */
+	public static Activity getCurrentActivity() {
+		return getExecutor().getCurrentActivity();
 	}
 
 }

@@ -129,8 +129,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getPersistenceFactory().setStrategy(this.theStrategy);
 		setPersistence (getPersistenceFactory().getPersistence());
 		getAutomation().bind(this);
-		getAutomation().extractState();
-		getPersistence().setContext(Automation.getRobotium().getCurrentActivity());
+		getAutomation().getExtractor().extractState();
+		getPersistence().setContext(Automation.getCurrentActivity());
 		ActivityDescription description = getAutomation().describeActivity();
 		getAbstractor().setBaseActivity(description);
 		if (!resume()) {

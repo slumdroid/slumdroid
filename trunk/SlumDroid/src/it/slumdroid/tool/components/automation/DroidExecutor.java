@@ -18,6 +18,7 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
+import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
@@ -222,7 +223,7 @@ public class DroidExecutor {
 	 * @param action the action
 	 */
 	protected void runOnUiThread (Runnable action) {
-		getRobotium().getCurrentActivity().runOnUiThread(action);		
+		getCurrentActivity().runOnUiThread(action);		
 	}
 
 	/**
@@ -267,6 +268,15 @@ public class DroidExecutor {
 	 */
 	public Solo getRobotium() {
 		return robotium;
+	}
+
+	/**
+	 * Gets the current activity.
+	 *
+	 * @return the current activity
+	 */
+	public Activity getCurrentActivity() {
+		return getRobotium().getCurrentActivity();
 	}
 
 }

@@ -93,11 +93,11 @@ public class TrivialExtractor implements Extractor {
 			}
 
 			public String getActivityName() {
-				return Automation.getRobotium().getCurrentActivity().getClass().getSimpleName();
+				return Automation.getCurrentActivity().getClass().getSimpleName();
 			}
 
 			public String getActivityTitle() {
-				return Automation.getRobotium().getCurrentActivity().getTitle().toString();
+				return Automation.getCurrentActivity().getTitle().toString();
 			}
 
 			public String toString() {

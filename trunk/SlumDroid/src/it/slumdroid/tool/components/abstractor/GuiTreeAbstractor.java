@@ -295,16 +295,6 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		this.filters.add(filter);
 	}
 
-	/**
-	 * Creates the event.
-	 *
-	 * @param type the type
-	 * @return the user event
-	 */
-	public UserEvent createEvent (String type) {
-		return createEvent (null, type);
-	}
-
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createEvent(it.slumdroid.droidmodels.model.WidgetState, java.lang.String)
 	 */
