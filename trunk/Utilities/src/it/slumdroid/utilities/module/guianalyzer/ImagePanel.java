@@ -62,8 +62,8 @@ public class ImagePanel extends JPanel {
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
 	@Override
-	public void paintComponent (Graphics g) {
-		g.drawImage(image, 0, 0, null);
+	public void paintComponent (Graphics graph) {
+		graph.drawImage(image, 0, 0, null);
 	}
 	
 }

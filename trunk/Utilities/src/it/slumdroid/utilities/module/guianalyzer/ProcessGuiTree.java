@@ -32,27 +32,18 @@ import java.util.HashMap;
  * The Class ProcessGuiTree.
  */
 public class ProcessGuiTree {
-
-	/** The widget classes. */
-	protected String[] widgetClasses;
-	
-	/** The num widgets. */
-	public int numWidgets = 0;
-	
-	/** The num perturbated widgets. */
-	public int numPerturbatedWidgets = 0;
 	
 	/** The Widgets. */
-	private HashMap<String, WidgetState> Widgets = null;
+	private HashMap<String, WidgetState> Widgets;
 	
 	/** The Interactions. */
-	private HashMap<String, String> Interactions = null;
+	private HashMap<String, String> Interactions;
 	
 	/** The Screens. */
-	private HashMap<String, String> Screens = null;
+	private HashMap<String, String> Screens;
 	
 	/** The gui tree. */
-	private GuiTree guiTree = null;
+	private GuiTree guiTree;
 
 	/**
 	 * Instantiates a new process gui tree.
@@ -61,7 +52,10 @@ public class ProcessGuiTree {
 	 */
 	public ProcessGuiTree (String inputFileName) {
 		try {
-			guiTree = GuiTree.fromXml(new File(inputFileName));
+			this.guiTree = GuiTree.fromXml(new File(inputFileName));
+			this.Widgets = new HashMap<String, WidgetState>();
+			this.Screens = new HashMap<String, String>();
+			this.Interactions = new HashMap<String, String>();
 			processFile();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -74,37 +68,34 @@ public class ProcessGuiTree {
 	 * @throws Exception the exception
 	 */
 	private void processFile () throws Exception {
-		Widgets = new HashMap<String, WidgetState>();
-		Screens = new HashMap<String, String>();
-		Interactions = new HashMap<String, String>();
 		try {
-			for (Task task: guiTree) {
+			for (Task task: this.guiTree) {
 				for (Transition transition: task) {
 					for (UserInput input: transition) {
 						if (input.getType().equals(WRITE_TEXT)) {                       	
-							if (!Screens.containsKey(input.getWidgetId())) {
-								Widgets.put(input.getWidgetId(), input.getWidget());
-								Screens.put(input.getWidgetId(), transition.getStartActivity().getId() + ".jpg");
-								Interactions.put(input.getWidgetId(), "Input");
+							if (!this.Screens.containsKey(input.getWidgetId())) {
+								this.Widgets.put(input.getWidgetId(), input.getWidget());
+								this.Screens.put(input.getWidgetId(), transition.getStartActivity().getScreenshot());
+								this.Interactions.put(input.getWidgetId(), "Input");	
 							}
 						}
 					}
 					UserEvent event = transition.getEvent();
 					if (event.getType().equals(WRITE_TEXT)) {
-						if (!Screens.containsKey(event.getWidgetId())) {
-							Widgets.put(event.getWidgetId(), event.getWidget());
-							Screens.put(event.getWidgetId(), transition.getStartActivity().getId() + ".jpg");
-							Interactions.put(event.getWidgetId(), "Event");
+						if (!this.Screens.containsKey(event.getWidgetId())) {
+							this.Widgets.put(event.getWidgetId(), event.getWidget());
+							this.Screens.put(event.getWidgetId(), transition.getStartActivity().getScreenshot());
+							this.Interactions.put(event.getWidgetId(), "Event");
 						} else {
-							Interactions.remove(event.getWidgetId());
-							Interactions.put(event.getWidgetId(), "Input & Event");
+							this.Interactions.remove(event.getWidgetId());
+							this.Interactions.put(event.getWidgetId(), "Input & Event");
 						}
 					}
 					if (event.getType().equals(ENTER_TEXT)) {
-						if (!Screens.containsKey(event.getWidgetId())) {
-							Widgets.put(event.getWidgetId(), event.getWidget());
-							Screens.put(event.getWidgetId(), transition.getStartActivity().getId() + ".jpg");
-							Interactions.put(event.getWidgetId(), "Event");
+						if (!this.Screens.containsKey(event.getWidgetId())) {
+							this.Widgets.put(event.getWidgetId(), event.getWidget());
+							this.Screens.put(event.getWidgetId(), transition.getStartActivity().getScreenshot());
+							this.Interactions.put(event.getWidgetId(), "Event");
 						}
 					}
 				}
@@ -112,7 +103,6 @@ public class ProcessGuiTree {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		numWidgets = Widgets.size();
 	}
 
 	/**
@@ -141,5 +131,14 @@ public class ProcessGuiTree {
 	public HashMap<String, String> getInteractions () {
 		return Interactions;  
 	}
-
+	
+	/**
+	 * Gets the num widgets.
+	 *
+	 * @return the num widgets
+	 */
+	public int getNumWidgets() {
+		return Widgets.size();
+	}
+	
 }
