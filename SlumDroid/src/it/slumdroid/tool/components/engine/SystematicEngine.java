@@ -160,8 +160,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
 			getAutomation().execute(theTask);
-			ActivityDescription description = getAutomation().describeActivity();
-			ActivityState theState = getAbstractor().createActivity(description);
+			ActivityDescription theDescription = getAutomation().describeActivity();
+			ActivityState theState = getAbstractor().createActivity(theDescription);
 			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
 				try {
@@ -196,7 +196,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @return true, if successful
 	 */
 	protected boolean canPlanTests (ActivityState theState){
-		return !(theState.isExit()) && getStrategy().checkForExploration();
+		return !theState.isExit() && getStrategy().checkForExploration();
 	}
 
 	/* (non-Javadoc)

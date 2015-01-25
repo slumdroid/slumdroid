@@ -92,7 +92,7 @@ public class UltraPlanner {
 					if (event.getType().equals(LIST_SELECT) 
 							|| event.getType().equals(LIST_LONG_SELECT)) {
 						Collection<UserInput> inputs = new ArrayList<UserInput>();
-						Transition transition = getAbstractor().createStep(theState, inputs, event);                          
+						Transition transition = getAbstractor().createTransition(theState, inputs, event);                          
 						thePlanner.addTask(transition);
 					} else {
 						if (includeEvent(event)) {
@@ -111,7 +111,7 @@ public class UltraPlanner {
 	 * @param theState the state
 	 */
 	private void reductionActions(WidgetState theWidget , ActivityState theState) {
-		if (!theState.getId().equals("a0") // a0 is id of initial START_STATE 
+		if (!theState.getId().equals("a0") // a0 is ID of initial START_STATE 
 				&& theWidget.getSimpleType().equals(TOAST)) {
 			setIncludeMenu(false);
 		}
@@ -156,7 +156,7 @@ public class UltraPlanner {
 				inputs.add(input);
 			}
 		}
-		Transition transition = getAbstractor().createStep(theState, inputs, theEvent);                          
+		Transition transition = getAbstractor().createTransition(theState, inputs, theEvent);                          
 		thePlanner.addTask(transition);
 		for(int widget = 0; widget < numWidgets; widget++) {                                                                  
 			for(int inPut = 1; inPut <= macroInputs.get(widget).size() - 1; inPut++) {
@@ -174,7 +174,7 @@ public class UltraPlanner {
 						combinations.add(((TestCaseInput) input).clone());
 					}
 				}
-				transition = getAbstractor().createStep(theState, combinations,((TestCaseEvent) theEvent).clone());                                        
+				transition = getAbstractor().createTransition(theState, combinations,((TestCaseEvent) theEvent).clone());                                        
 				thePlanner.addTask(transition);                           
 			}                                                               
 		}
@@ -224,21 +224,21 @@ public class UltraPlanner {
 		Transition transition;
 		if (isIncludeMenu()) {
 			event = getAbstractor().createEvent(null, PRESS_MENU);
-			transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
 		if (isIncludeAction()) {
 			event = getAbstractor().createEvent(null, PRESS_ACTION);
-			transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
-			transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTask(transition);
 		}
 		event = getAbstractor().createEvent(null, PRESS_BACK);
-		transition = getAbstractor().createStep(theState, new HashSet<UserInput>(), event);
+		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 		planner.addTask(transition);
 		return planner;
 	}

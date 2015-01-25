@@ -168,7 +168,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		for (AllPassFilter filter: this.filters) {
 			filter.clear();
 		}
-		boolean hasDescription = updateDescription(newActivity, theDescription, false);
+		boolean hasDescription = updateDescription(newActivity, theDescription);
 		if (!hasDescription) {
 			newActivity.markAsExit();
 			return newActivity;
@@ -179,13 +179,6 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 			newActivity.setScreenshot(newActivity.getUniqueId() + ".png");	
 		}
 		return newActivity;
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Abstractor#updateDescription(it.slumdroid.droidmodels.model.ActivityState, it.slumdroid.tool.model.ActivityDescription)
-	 */
-	public boolean updateDescription (ActivityState newActivity, ActivityDescription desc) {
-		return updateDescription  (newActivity, desc, true);
 	}
 
 	/**
@@ -219,10 +212,9 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 *
 	 * @param newActivity the new activity
 	 * @param theDescription the description
-	 * @param detectDuplicates the detect duplicates
 	 * @return true, if successful
 	 */
-	public boolean updateDescription (ActivityState newActivity, ActivityDescription theDescription, boolean detectDuplicates) {
+	public boolean updateDescription (ActivityState newActivity, ActivityDescription theDescription) {
 		boolean hasDescription = false;
 		for (View view: theDescription) {
 			hasDescription = true;
@@ -234,9 +226,6 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 			if (widget.getIndex() == 0 
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
-			}
-			if (detectDuplicates && newActivity.hasWidget(widget)) {
-				continue;
 			}
 			((ElementWrapper) newActivity).appendChild(widget.getElement());
 			for (AllPassFilter filter: this.filters) {
@@ -373,9 +362,9 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	}
 
 	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Abstractor#createStep(it.slumdroid.droidmodels.model.ActivityState, java.util.Collection, it.slumdroid.droidmodels.model.UserEvent)
+	 * @see it.slumdroid.tool.model.Abstractor#createTransition(it.slumdroid.droidmodels.model.ActivityState, java.util.Collection, it.slumdroid.droidmodels.model.UserEvent)
 	 */
-	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
+	public Transition createTransition (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
 		Transition transition = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
 		try {
 			setStartActivity(transition, StartActivity.createActivity(start));

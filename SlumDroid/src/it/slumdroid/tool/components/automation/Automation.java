@@ -116,10 +116,7 @@ public class Automation implements Executor, Extractor {
 	 */
 	public void fireEvent(UserEvent event) {
 		String eventType = event.getType();
-		if (eventType.equals(PRESS_BACK) 
-				|| eventType.equals(PRESS_MENU) 
-				|| eventType.equals(PRESS_ACTION)
-				|| eventType.equals(CHANGE_ORIENTATION)) { // Special Interactions
+		if (eventType.contains("press") || eventType.equals(CHANGE_ORIENTATION)) { // Special Interactions
 			Log.i(TAG, "Firing event: " + eventType);
 			fireEventOnView(null, eventType, null);
 		} else {
@@ -262,6 +259,20 @@ public class Automation implements Executor, Extractor {
 		if (view != null) {
 			requestView(view);
 		}
+		if (interactionType.contains("press")) {
+			if (interactionType.equals(PRESS_BACK)) {
+				getRobotium().goBack();
+				return;
+			}
+			if (interactionType.equals(PRESS_MENU)) {
+				getRobotium().sendKey(Solo.MENU);
+				return;
+			}
+			if (interactionType.equals(PRESS_ACTION)) {
+				getRobotium().clickOnActionBarHomeButton();
+				return;
+			}
+		}
 		if (interactionType.equals(CLICK)) {
 			getExecutor().click (view);
 			return;
@@ -295,20 +306,6 @@ public class Automation implements Executor, Extractor {
 			}
 			if (interactionType.equals(ENTER_TEXT)) {
 				getExecutor().enterText((EditText)view, value);
-				return;
-			}
-		}
-		if (interactionType.contains("press")) {
-			if (interactionType.equals(PRESS_BACK)) {
-				getRobotium().goBack();
-				return;
-			}
-			if (interactionType.equals(PRESS_MENU)) {
-				getRobotium().sendKey(Solo.MENU);
-				return;
-			}
-			if (interactionType.equals(PRESS_ACTION)) {
-				getRobotium().clickOnActionBarHomeButton();
 				return;
 			}
 		}
