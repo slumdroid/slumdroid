@@ -41,15 +41,6 @@ public interface Abstractor {
 	public ActivityState createActivity (ActivityDescription theDescription);
 
 	/**
-	 * Update description.
-	 *
-	 * @param theState the state
-	 * @param theDescription the the description
-	 * @return true, if successful
-	 */
-	public boolean updateDescription (ActivityState theState, ActivityDescription theDescription);
-
-	/**
 	 * Sets the base activity.
 	 *
 	 * @param desc the new base activity
@@ -90,16 +81,16 @@ public interface Abstractor {
 	 * @return the task
 	 */
 	public Task createTask (Task prototype, Transition appendix);
-
+	
 	/**
-	 * Creates the step.
+	 * Creates the transition.
 	 *
 	 * @param start the start
 	 * @param inputs the inputs
 	 * @param event the event
 	 * @return the transition
 	 */
-	public Transition createStep (ActivityState start, Collection<UserInput> inputs, UserEvent event);
+	public Transition createTransition (ActivityState start, Collection<UserInput> inputs, UserEvent event);
 
 	/**
 	 * Import task.
