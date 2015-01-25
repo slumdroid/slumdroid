@@ -71,22 +71,22 @@ public class GuiAnalyzer extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The ProcessGuiTree object. */
-	private ProcessGuiTree pI;
+	private ProcessGuiTree processGuiTree;
 
 	/** The current directory. */
 	private String currentDirectory = new String();
-	
+
 	/** The first path. */
 	private String firstPath = new String();
-	
+
 	/** The screenshots directory. */
 	private String screenshotsDirectory = "\\..\\screenshots\\";
-	
+
 	/** The preferences path. */
 	private String preferencesPath = "\\..\\data\\preferences.xml";
-	
+
 	/** The combo values. */
 	private String[] comboValues = {
 			"",
@@ -102,66 +102,24 @@ public class GuiAnalyzer extends JFrame {
 
 	/** The file. */
 	private File theFile;
-	
+
 	/** The tabel model. */
 	private DefaultTableModel tabelModel;
 
-	/** The combo box. */
-	private JComboBox<?> comboBox;
-	
-	/** The j menu file. */
-	private JMenu jMenuFile;
-	
-	/** The j menu bar. */
-	private JMenuBar jMenuBar;
-	
-	/** The j menu open. */
-	private JMenuItem jMenuOpen;
-	
-	/** The j menu save. */
-	private JMenuItem jMenuSave;
-	
-	/** The j menu exit. */
-	private JMenuItem jMenuExit;
-	
 	/** The j panel widgets. */
 	private JPanel jPanelWidgets;
-	
+
 	/** The j panel image. */
 	private JPanel jPanelImage;
-	
-	/** The j scroll pane. */
-	private JScrollPane jScrollPane;
-	
-	/** The j tabbed widget. */
-	private JTabbedPane jTabbedWidget;
-	
+
 	/** The j table info. */
 	private JTable jTableInfo;
 
-	/** The col id. */
-	private Object[] colId;
-	
-	/** The col widgets. */
-	private Object[] colWidgets;
-	
-	/** The col name. */
-	private Object[] colName;
-	
-	/** The col value. */
-	private Object[] colValue;
-	
 	/** The col type. */
 	private Object[] colType;
-	
-	/** The col screen. */
-	private Object[] colScreen;
-	
-	/** The col interaction. */
-	private Object[] colInteraction;
-	
-	/** The col simple type. */
-	private Object[] colSimpleType;
+
+	/** The col id. */
+	private Object[] colId;
 
 	/**
 	 * Instantiates a new gui analyzer.
@@ -206,18 +164,18 @@ public class GuiAnalyzer extends JFrame {
 	 * Inits the components.
 	 */
 	private void initComponents() {
-		jTabbedWidget = new JTabbedPane();
+		JTabbedPane jTabbedWidget = new JTabbedPane();
 		jPanelWidgets = new JPanel();
 		jPanelWidgets.setLayout(new BorderLayout());
 		jTableInfo = new JTable();
-		jMenuBar = new JMenuBar();
-		jMenuFile = new JMenu();
+		JMenuBar jMenuBar = new JMenuBar();
+		JMenu jMenuFile = new JMenu();
 		jMenuFile.setText("File");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setTitle("GUI Analyzer");
 		setPreferredSize(new Dimension(960, 513));
 		getContentPane().setLayout(new GridLayout(1, 0));
-		jScrollPane = new JScrollPane();
+		JScrollPane jScrollPane = new JScrollPane();
 		jScrollPane.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
 		jScrollPane.setViewportView(jTableInfo);
 		jPanelWidgets.add(jScrollPane, BorderLayout.CENTER);
@@ -225,7 +183,7 @@ public class GuiAnalyzer extends JFrame {
 		jPanelWidgets.add(jPanelImage, BorderLayout.LINE_END);
 		jTabbedWidget.addTab("Widgets", jPanelWidgets);
 		getContentPane().add(jTabbedWidget);
-		jMenuOpen = new javax.swing.JMenuItem();
+		JMenuItem jMenuOpen = new javax.swing.JMenuItem();
 		jMenuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
 		jMenuOpen.setIcon(new ImageIcon(getClass().getResource("/open.png"))); 
 		jMenuOpen.setText("Open");
@@ -235,7 +193,7 @@ public class GuiAnalyzer extends JFrame {
 			}
 		});
 		jMenuFile.add(jMenuOpen);
-		jMenuSave = new JMenuItem();
+		JMenuItem jMenuSave = new JMenuItem();
 		jMenuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		jMenuSave.setIcon(new ImageIcon(getClass().getResource("/save.png")));
 		jMenuSave.setText("Save");
@@ -249,7 +207,7 @@ public class GuiAnalyzer extends JFrame {
 			}
 		});
 		jMenuFile.add(jMenuSave);
-		jMenuExit = new JMenuItem();
+		JMenuItem jMenuExit = new JMenuItem();
 		jMenuExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
 		jMenuExit.setIcon(new ImageIcon(getClass().getResource("/exit.png")));
 		jMenuExit.setText("Exit");
@@ -272,33 +230,35 @@ public class GuiAnalyzer extends JFrame {
 		resetAll();
 
 		try {
-			pI = new ProcessGuiTree(theFile.toString());
+			processGuiTree = new ProcessGuiTree(theFile.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			this.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		}
 
-		colId = new Object[pI.numWidgets];
-		colWidgets = new Object[pI.numWidgets];
-		colName = new Object[pI.numWidgets];
-		colValue = new Object[pI.numWidgets];
-		colType = new Object[pI.numWidgets];
-		colScreen = new Object[pI.numWidgets];
-		colInteraction = new Object[pI.numWidgets];
-		colSimpleType = new Object[pI.numWidgets];
+		int numWidgets =  processGuiTree.getNumWidgets();
+
+		colId = new Object[numWidgets];
+		Object[] colWidgets = new Object[numWidgets];
+		Object[] colName = new Object[numWidgets];
+		Object[] colValue = new Object[numWidgets];
+		colType = new Object[numWidgets];
+		Object[] colScreen = new Object[numWidgets];
+		Object[] colInteraction = new Object[numWidgets];
+		Object[] colSimpleType = new Object[numWidgets];
 
 		int item = 0;
-		Collection<WidgetState> WidgetsColl = pI.getWidgets().values();
+		Collection<WidgetState> WidgetsColl = processGuiTree.getWidgets().values();
 		for (WidgetState widget: WidgetsColl) {
 			colId[item] = widget.getId();
 			colWidgets[item] = widget.getType();
 			colName[item] = widget.getName();
 			colValue[item] = widget.getValue();
 			colType[item] = widget.getTextType();
-			colInteraction[item] = pI.getInteractions().get(widget.getId());
+			colInteraction[item] = processGuiTree.getInteractions().get(widget.getId());
 			colSimpleType[item] = widget.getSimpleType();
-			colScreen[item] = new JButton(pI.getScreens().get(widget.getId()));
+			colScreen[item] = new JButton(processGuiTree.getScreens().get(widget.getId()));
 			item++;
 		}
 
@@ -313,7 +273,7 @@ public class GuiAnalyzer extends JFrame {
 		tabelModel.addColumn("Screenshot", colScreen);
 
 		// ComboBox
-		comboBox = new JComboBox<Object>(comboValues);
+		JComboBox<String> comboBox = new JComboBox<String>(comboValues);
 		jTableInfo.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(comboBox));
 		jTableInfo.getColumnModel().getColumn(7).setCellRenderer(new ComboBoxRenderer(comboValues));
 
@@ -333,7 +293,9 @@ public class GuiAnalyzer extends JFrame {
 			public void mouseClicked (MouseEvent e) {
 				changeWidgetInfo();
 			}
-		});	
+		});
+
+		firstImage();
 	}
 
 	/**
@@ -352,6 +314,16 @@ public class GuiAnalyzer extends JFrame {
 		int row = jTableInfo.getSelectedRow();
 		Object value = ((JButton) jTableInfo.getValueAt(row, 8)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
+	}
+
+	/**
+	 * First image.
+	 */
+	private void firstImage () {
+		if (processGuiTree.getNumWidgets() != 0) {
+			Object value = ((JButton) jTableInfo.getValueAt(0, 8)).getText();
+			addImage(currentDirectory + screenshotsDirectory + value);	
+		}
 	}
 
 	/**
@@ -430,7 +402,6 @@ public class GuiAnalyzer extends JFrame {
 			}
 			inputStream1.close();
 			new Tools().xmlWriter(preferencesFile, builder);
-
 			if (!firstPath.equals("")) {
 				if (!new File(firstPath).exists()) {
 					new File(firstPath).mkdir();
@@ -439,7 +410,6 @@ public class GuiAnalyzer extends JFrame {
 				outputStream1.write("firstboot");
 				outputStream1.close();	
 			}	
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -450,7 +420,6 @@ public class GuiAnalyzer extends JFrame {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	/**
@@ -462,51 +431,51 @@ public class GuiAnalyzer extends JFrame {
 		String data = "<entry key=\"EXTRA_INPUTS[INDEX]\" value=\"writeText,ID,PERTUBATIONS\"/>";
 		int countInput = 0;
 		int countEvent = 0;
-		for (int i = 0; i < pI.numWidgets; i++){ 
-			String control = (String) jTableInfo.getValueAt(i, 7);
+		for (int index = 0; index < processGuiTree.getNumWidgets(); index++) { 
+			String control = (String) jTableInfo.getValueAt(index, 7);
 			if (control != null) {
 				try{
 					if (!control.equals("exclude")) {
-						String pertubedInput = new Perturbations(colType[i], (String) jTableInfo.getValueAt(i, 4)).perturbe(control);
+						String pertubedInput = new Perturbations(colType[index], (String) jTableInfo.getValueAt(index, 4)).perturbe(control);
 						if (!pertubedInput.equals("")) {
-							if (jTableInfo.getValueAt(i, 6).equals("Input")){
+							if (jTableInfo.getValueAt(index, 6).equals("Input")) {
 								builder.append(data
 										.replace("INDEX", String.valueOf(countInput))
-										.replace("ID",  String.valueOf(colId[i]))
+										.replace("ID",  String.valueOf(colId[index]))
 										.replace("PERTUBATIONS", pertubedInput));
 								countInput++;
-							} else if (jTableInfo.getValueAt(i, 6).equals("Event")) {
-								if (((String) jTableInfo.getValueAt(i, 5)).endsWith("SearchAutoComplete")){
+							} else if (jTableInfo.getValueAt(index, 6).equals("Event")) {
+								if (((String) jTableInfo.getValueAt(index, 5)).endsWith("SearchAutoComplete")) {
 									builder.append(data
 											.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
 											.replace("INDEX", String.valueOf(countEvent))
-											.replace("ID",  String.valueOf(colId[i]))
+											.replace("ID",  String.valueOf(colId[index]))
 											.replace("writeText", "enterText")
 											.replace("PERTUBATIONS", pertubedInput));
 								} else {
 									builder.append(data
 											.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
 											.replace("INDEX", String.valueOf(countEvent))
-											.replace("ID",  String.valueOf(colId[i]))
+											.replace("ID",  String.valueOf(colId[index]))
 											.replace("PERTUBATIONS", pertubedInput));	
 								}
 								countEvent++;
-							} else if (jTableInfo.getValueAt(i, 6).equals("Input & Event")) {
+							} else if (jTableInfo.getValueAt(index, 6).equals("Input & Event")) {
 								builder.append(data
 										.replace("INDEX", String.valueOf(countInput))
-										.replace("ID",  String.valueOf(colId[i]))
+										.replace("ID",  String.valueOf(colId[index]))
 										.replace("PERTUBATIONS", pertubedInput));
 								countInput++;
 								builder.append(data
 										.replace("EXTRA_INPUTS", "EXTRA_EVENTS")
 										.replace("INDEX", String.valueOf(countEvent))
-										.replace("ID",  String.valueOf(colId[i]))
+										.replace("ID",  String.valueOf(colId[index]))
 										.replace("PERTUBATIONS", pertubedInput));
 								countEvent++;
 							}
 						}
 					}	
-				}catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
