@@ -40,9 +40,7 @@ import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.tool.components.abstractor.AbstractorUtilities;
-import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.Executor;
-import it.slumdroid.tool.model.Extractor;
 
 import java.util.ArrayList;
 
@@ -63,7 +61,7 @@ import com.robotium.solo.Solo;
 /**
  * The Class Automation.
  */
-public class Automation implements Executor, Extractor {
+public class Automation implements Executor {
 
 	/** The extractor. */
 	private TrivialExtractor extractor;
@@ -92,10 +90,10 @@ public class Automation implements Executor, Extractor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
 	 */
-	public void execute (Task task) {
+	public void execute (Task theTask) {
 		afterRestart();
-		Log.i (TAG, "Playing Task " + task.getId());
-		for (Transition transition: task) {
+		Log.i (TAG, "Playing Task " + theTask.getId());
+		for (Transition transition: theTask) {
 			for (UserInput input: transition) {
 				setInput(input);
 			}
@@ -180,7 +178,7 @@ public class Automation implements Executor, Extractor {
 	private void fireEvent (int widgetId, String widgetName, String widgetType, String eventType, String value) {
 		View view = getWidget(widgetId, widgetType, widgetName);
 		if (view == null) {
-			view = getWidget(widgetId);
+			view = getExtractor().getWidget(widgetId);
 		}
 		if (view == null) {
 			view = getCurrentActivity().findViewById(widgetId);
@@ -237,7 +235,7 @@ public class Automation implements Executor, Extractor {
 			waitOnThrobber();
 		}
 		getCurrentActivity();
-		extractState();
+		getExtractor().extractState();
 	}
 
 	/**
@@ -328,7 +326,7 @@ public class Automation implements Executor, Extractor {
 	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
 		View view = getWidget(widgetId, widgetType, widgetName);
 		if (view == null) {
-			view = getWidget(widgetId);
+			view = getExtractor().getWidget(widgetId);
 		}
 		if (view == null) {
 			view = getCurrentActivity().findViewById(widgetId);
@@ -388,13 +386,6 @@ public class Automation implements Executor, Extractor {
 		getExecutor().sync();
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#getWidget(int)
-	 */
-	public View getWidget (int id) {
-		return this.getExtractor().getWidget(id);
-	}
-
 	/**
 	 * Gets the widget.
 	 *
@@ -446,20 +437,6 @@ public class Automation implements Executor, Extractor {
 		return theList;
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#describeActivity()
-	 */
-	public ActivityDescription describeActivity() {
-		return getExtractor().describeActivity();
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#extractState()
-	 */
-	public void extractState() {
-		getExtractor().extractState();
-	}
-
 	/**
 	 * Gets the extractor.
 	 *
@@ -486,7 +463,7 @@ public class Automation implements Executor, Extractor {
 	public static Solo getRobotium() {
 		return getExecutor().getRobotium();
 	}
-	
+
 	/**
 	 * Gets the current activity.
 	 *
