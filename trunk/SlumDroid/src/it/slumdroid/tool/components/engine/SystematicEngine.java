@@ -131,7 +131,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getAutomation().bind(this);
 		getAutomation().getExtractor().extractState();
 		getPersistence().setContext(Automation.getCurrentActivity());
-		ActivityDescription description = getAutomation().describeActivity();
+		ActivityDescription description = getAutomation().getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(description);
 		if (!resume()) {
 			setupFirstStart();
@@ -160,7 +160,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		for (Task theTask: getScheduler()) {
 			getStrategy().setTask(theTask);
 			getAutomation().execute(theTask);
-			ActivityDescription theDescription = getAutomation().describeActivity();
+			ActivityDescription theDescription = getAutomation().getExtractor().describeActivity();
 			ActivityState theState = getAbstractor().createActivity(theDescription);
 			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
