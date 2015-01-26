@@ -163,8 +163,6 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 */
 	public ActivityState createActivity (ActivityDescription theDescription, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
-		newActivity.setUniqueId(getUniqueActivityId());
-		newActivity.setId(newActivity.getUniqueId());
 		for (AllPassFilter filter: this.filters) {
 			filter.clear();
 		}
@@ -175,6 +173,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		}
 		newActivity.setName(theDescription.getActivityName());
 		newActivity.setTitle(theDescription.getActivityTitle());
+		newActivity.setUniqueId(getUniqueActivityId());
+		newActivity.setId(newActivity.getUniqueId());
 		if (SCREENSHOT_ENABLED) {
 			newActivity.setScreenshot(newActivity.getUniqueId() + ".png");	
 		}
