@@ -180,6 +180,7 @@ public class GuiTreeToDot {
 		if (state.isFailure()) {
 			ret.setId(getFailId());
 		}
+		ret.setId(state.getId());
 		return ret;
 	}
 
