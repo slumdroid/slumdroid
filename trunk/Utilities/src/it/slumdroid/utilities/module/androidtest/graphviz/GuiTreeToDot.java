@@ -38,18 +38,12 @@ public class GuiTreeToDot {
 
 	/** The session. */
 	private GuiTree session;
-	
+
 	/** The nodes. */
 	private List<Node> nodes;
-	
+
 	/** The edges. */
 	private List<Edge> edges;
-	
-	/** The crash count. */
-	private int crashCount = 0;
-	
-	/** The fail count. */
-	private int failCount = 0;
 
 	/**
 	 * Instantiates a new gui tree to dot.
@@ -105,7 +99,7 @@ public class GuiTreeToDot {
 		Node start = getNode(action.getStartActivity()); 
 		Node finish = getNode(action.getFinalActivity()); 
 		UserEvent event = action.getEvent();
-		
+
 		Iterator<UserInput> inputs = action.iterator();
 		String userInputs = new String();
 		while(inputs.hasNext()) {
@@ -174,36 +168,8 @@ public class GuiTreeToDot {
 	 */
 	private Node getNode (ActivityState state) {
 		Node ret = new Node (state);
-		if (state.isCrash()) {
-			ret.setId(getCrashId());
-		} 
-		if (state.isFailure()) {
-			ret.setId(getFailId());
-		}
 		ret.setId(state.getId());
 		return ret;
 	}
 
-	/**
-	 * Gets the crash id.
-	 *
-	 * @return the crash id
-	 */
-	private String getCrashId() {
-		String ret = "crash" + this.crashCount;
-		this.crashCount++;
-		return ret;
-	}
-
-	/**
-	 * Gets the fail id.
-	 *
-	 * @return the fail id
-	 */
-	private String getFailId() {
-		String ret = "failure" + this.failCount;
-		this.failCount++;
-		return ret;
-	}
-	
 }
