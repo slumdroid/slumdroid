@@ -93,7 +93,7 @@ public class UltraPlanner {
 							|| event.getType().equals(LIST_LONG_SELECT)) {
 						Collection<UserInput> inputs = new ArrayList<UserInput>();
 						Transition transition = getAbstractor().createTransition(theState, inputs, event);                          
-						thePlanner.addTask(transition);
+						thePlanner.addTransition(transition);
 					} else {
 						if (includeEvent(event)) {
 							adjacentValues(thePlanner, theState, event);
@@ -157,7 +157,7 @@ public class UltraPlanner {
 			}
 		}
 		Transition transition = getAbstractor().createTransition(theState, inputs, theEvent);                          
-		thePlanner.addTask(transition);
+		thePlanner.addTransition(transition);
 		for(int widget = 0; widget < numWidgets; widget++) {                                                                  
 			for(int inPut = 1; inPut <= macroInputs.get(widget).size() - 1; inPut++) {
 				Collection<UserInput> combinations = new ArrayList<UserInput>();
@@ -175,7 +175,7 @@ public class UltraPlanner {
 					}
 				}
 				transition = getAbstractor().createTransition(theState, combinations,((TestCaseEvent) theEvent).clone());                                        
-				thePlanner.addTask(transition);                           
+				thePlanner.addTransition(transition);                           
 			}                                                               
 		}
 	}
@@ -225,21 +225,21 @@ public class UltraPlanner {
 		if (isIncludeMenu()) {
 			event = getAbstractor().createEvent(null, PRESS_MENU);
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
-			planner.addTask(transition);
+			planner.addTransition(transition);
 		}
 		if (isIncludeAction()) {
 			event = getAbstractor().createEvent(null, PRESS_ACTION);
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
-			planner.addTask(transition);
+			planner.addTransition(transition);
 		}
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
-			planner.addTask(transition);
+			planner.addTransition(transition);
 		}
 		event = getAbstractor().createEvent(null, PRESS_BACK);
 		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
-		planner.addTask(transition);
+		planner.addTransition(transition);
 		return planner;
 	}
 
