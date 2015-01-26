@@ -27,24 +27,24 @@ import java.util.List;
  */
 public class Plan implements Iterable<Transition> {
 
-	/** The tasks. */
-	private List<Transition> tasks = new ArrayList<Transition> ();
+	/** The transitions. */
+	private List<Transition> transitions = new ArrayList<Transition> ();
 
 	/* (non-Javadoc)
 	 * @see java.lang.Iterable#iterator()
 	 */
 	public Iterator<Transition> iterator() {
-		return this.tasks.iterator();
+		return this.transitions.iterator();
 	}
 
 	/**
-	 * Adds the task.
+	 * Adds the transition.
 	 *
 	 * @param transition the transition
 	 * @return true, if successful
 	 */
-	public boolean addTask (Transition transition) {
-		return this.tasks.add(transition);
+	public boolean addTransition (Transition transition) {
+		return this.transitions.add(transition);
 	}
 
 	/**
@@ -53,26 +53,26 @@ public class Plan implements Iterable<Transition> {
 	 * @return the int
 	 */
 	public int size () {
-		return this.tasks.size();
+		return this.transitions.size();
 	}
 
 	/**
-	 * Gets the task.
+	 * Gets the transition.
 	 *
-	 * @param task the task
-	 * @return the task
+	 * @param id the id
+	 * @return the transition
 	 */
-	public Transition getTask (int task) {
-		return this.tasks.get(task);
+	public Transition getTransition (int id) {
+		return this.transitions.get(id);
 	}
 
 	/**
-	 * Removes the task.
+	 * Removes the transition.
 	 *
-	 * @param task the task
+	 * @param id the id
 	 */
-	public void removeTask (int task) {
-		this.tasks.remove(task);
+	public void removeTransition (int id) {
+		this.transitions.remove(id);
 	}
 
 	/**
