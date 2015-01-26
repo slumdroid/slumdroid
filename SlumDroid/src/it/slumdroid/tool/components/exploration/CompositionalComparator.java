@@ -15,45 +15,14 @@
 
 package it.slumdroid.tool.components.exploration;
 
-import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
-import static it.slumdroid.droidmodels.model.SimpleType.AUTOC_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
-import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.DATE_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
-import static it.slumdroid.droidmodels.model.SimpleType.EDIT_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_SPINNER;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
-import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.NOEDITABLE_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER;
-import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.POPUP_MENU;
-import static it.slumdroid.droidmodels.model.SimpleType.POPUP_WINDOW;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.PROGRESS_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
-import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
-import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.RELATIVE_LAYOUT;
-import static it.slumdroid.droidmodels.model.SimpleType.SCROLL_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
-import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
-import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
-import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
 import static it.slumdroid.tool.Resources.COMPARE_AVAILABLE;
 import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
 import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
@@ -66,21 +35,6 @@ import it.slumdroid.droidmodels.model.WidgetState;
  */
 public class CompositionalComparator {
 
-	/** The widget types. */
-	private static String[] WIDGET_TYPES  = {
-		AUTOC_TEXT, CHECKTEXT, EDIT_TEXT, NOEDITABLE_TEXT, 					// TEXT 
-		BUTTON, CHECKBOX, NUMBER_PICKER_BUTTON,	RADIO, TOGGLE_BUTTON, 		// BUTTON
-		ACTION_HOME, DIALOG_TITLE, EXPAND_MENU, MENU_ITEM, TOAST, 			// BASIC
-		EMPTY_LIST, LIST_VIEW, PREFERENCE_LIST,								// LIST
-		LINEAR_LAYOUT, RELATIVE_LAYOUT,										// LAYOUT
-		IMAGE_VIEW, MENU_VIEW, SCROLL_VIEW, TEXT_VIEW, WEB_VIEW,			// VIEW
-		PROGRESS_BAR, RATING_BAR, SEARCH_BAR, SEEK_BAR,						// BAR
-		EMPTY_SPINNER, SPINNER, SPINNER_INPUT,								// SPINNER
-		POPUP_MENU, POPUP_WINDOW,											// POPUP
-		DATE_PICKER, NUMBER_PICKER, TIME_PICKER, 							// PICKER
-		RADIO_GROUP, SLIDING_DRAWER, TAB_HOST								// OTHER
-	};
-
 	/**
 	 * Compare.
 	 *
@@ -92,11 +46,9 @@ public class CompositionalComparator {
 		if (!compareNameTitle(currentActivity, storedActivity)) {
 			return false;
 		}
-		for (WidgetState field: currentActivity) {
-			if (matchClass(field.getSimpleType())) {		
-				if (!lookFor(field, storedActivity)) {
-					return false;
-				}
+		for (WidgetState field: currentActivity) {	
+			if (!lookFor(field, storedActivity)) {
+				return false;
 			}
 		}
 		return true; 
@@ -117,21 +69,6 @@ public class CompositionalComparator {
 			return false;
 		}
 		return true;
-	}
-
-	/**
-	 * Match class.
-	 *
-	 * @param type the type
-	 * @return true, if successful
-	 */
-	private boolean matchClass (String type) {
-		for (String storedType: WIDGET_TYPES) {
-			if (storedType.equals(type)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
