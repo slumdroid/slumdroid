@@ -28,7 +28,6 @@ import it.slumdroid.utilities.module.androidtest.graphviz.Node;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -40,30 +39,24 @@ public class ReportGenerator extends StatsReport {
 
 	/** The session. */
 	private GuiTree session;
-	
+
 	/** The task report. */
 	private TaskStats taskReport;
-	
+
 	/** The event report. */
 	private InteractionStats eventReport;
 
 	/** The depth. */
 	private int depth = 0;
-	
+
 	/** The branch. */
 	private int branch = 0;
-	
-	/** The crash. */
-	private int crash = 0;
-	
+
 	/** The activity. */
 	private Set<String> activity;
-	
+
 	/** The activity states. */
 	private Set<String> activityStates;
-	
-	/** The actual crashes. */
-	private List<String> actualCrashes;
 
 	/**
 	 * Instantiates a new report generator.
@@ -75,7 +68,6 @@ public class ReportGenerator extends StatsReport {
 		this.session = guiTree;
 		this.activity = new HashSet<String>();
 		this.activityStates = new HashSet<String>();
-		this.actualCrashes = new ArrayList<String>();
 		this.taskReport = new TaskStats(txtFile);
 		this.eventReport = new InteractionStats();
 	}
@@ -89,24 +81,19 @@ public class ReportGenerator extends StatsReport {
 			taskReport.analyzeTask(theTask);
 			boolean first = true;
 			int currentDepth = 0;
-			ActivityState start = null;
-			ActivityState finish = null;
 			for (Transition transition: theTask) {
 				currentDepth++;
 				eventReport.analyzeInteractions(transition);
 				if (first) {
-					countWidgets(transition.getStartActivity());
+					countStates(transition.getStartActivity());
 				} 
-				countWidgets(transition.getFinalActivity());
+				countStates(transition.getFinalActivity());
 				first = false;
-				start = transition.getStartActivity();
-				finish = transition.getFinalActivity();
+				Edge edge = new Edge(new Node (transition.getStartActivity()), new Node (transition.getFinalActivity()));
+				edges.add(edge);
 			}
-			this.depth = max(this.depth, currentDepth);
-			Edge edge = new Edge(new Node (start), new Node (finish));
-			edges.add(edge);
+			this.depth = max(this.depth, currentDepth);		
 		}
-		
 		Hashtable<String, Integer> branches = new Hashtable<String, Integer>();
 		for (Edge edge:edges) {
 			inc (branches, edge.getFrom().getId());
@@ -114,7 +101,6 @@ public class ReportGenerator extends StatsReport {
 		for (Map.Entry<String,Integer> entry: branches.entrySet()) {
 			this.branch = max(this.branch, entry.getValue());
 		}
-		
 	}
 
 	/* (non-Javadoc)
@@ -124,13 +110,8 @@ public class ReportGenerator extends StatsReport {
 		evaluate();
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.taskReport + NEW_LINE);
-		int stateSize = this.activityStates.size() + crash;
-
-		if (actualCrashes.size() != 0) {
-			builder.append("List of Crashed Tasks: " + expandList(this.actualCrashes) + NEW_LINE);
-		}
 		builder.append( "Model Information: " + NEW_LINE + 
-				TAB + "Different GUI States: " + stateSize + NEW_LINE + 
+				TAB + "Different GUI States: " + this.activityStates.size() + NEW_LINE + 
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
 				TAB + "Max Reached Depth: " + this.depth + NEW_LINE +
 				TAB + "Max Reached Branch: " + this.branch + BREAK 
@@ -138,17 +119,14 @@ public class ReportGenerator extends StatsReport {
 		return builder.toString();
 	}
 
+
 	/**
-	 * Count widgets.
+	 * Count states.
 	 *
 	 * @param state the state
 	 */
-	private void countWidgets (ActivityState state) {
+	private void countStates (ActivityState state) {
 		if (state.isFailure()) {
-			return;
-		}
-		if (state.isCrash()) {
-			crash = 1;
 			return;
 		}
 		if (!state.getName().equals("")) {
