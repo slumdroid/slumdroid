@@ -175,9 +175,7 @@ public class GuiTree extends XmlGraph implements Session {
 	protected void addFailedTask (Task task, String failType) {
 		task.setFailed(true);
 		FinalActivity fail = FinalActivity.createActivity(this);
-		fail.setName(failType);
 		fail.setId(failType);
-		fail.setTitle(failType);
 		task.setFinalActivity(fail);
 		addTask(task);
 	}
