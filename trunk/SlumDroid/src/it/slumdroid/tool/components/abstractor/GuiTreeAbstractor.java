@@ -174,8 +174,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		}
 		newActivity.setName(theDescription.getActivityName());
 		newActivity.setTitle(theDescription.getActivityTitle());
-		newActivity.setId(newActivity.getUniqueId());
 		newActivity.setUniqueId(getUniqueActivityId());
+		newActivity.setId(newActivity.getUniqueId());
 		if (SCREENSHOT_ENABLED) {
 			newActivity.setScreenshot(newActivity.getUniqueId() + ".png");	
 		}
