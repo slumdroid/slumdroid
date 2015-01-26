@@ -130,13 +130,15 @@ public class ReportGenerator extends StatsReport {
 	 * @param state the state
 	 */
 	private void countStates (ActivityState state) {
-		if (state.isFailure()) {
+		this.activityStates.add(state.getId());
+		if (state.isFailure() 
+				|| state.isExit() 
+				|| state.isCrash()) {
 			return;
 		}
 		if (!state.getName().equals("")) {
 			this.activity.add(state.getName());	
 		}
-		this.activityStates.add(state.getId());
 	}
 
 }
