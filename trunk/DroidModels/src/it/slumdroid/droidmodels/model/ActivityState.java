@@ -134,14 +134,4 @@ public interface ActivityState extends WrapperInterface, Iterable<WidgetState> {
 	 */
 	public void markAsExit();
 	
-	/**
-	 * Mark as crash.
-	 */
-	public void markAsCrash();
-	
-	/**
-	 * Mark as failure.
-	 */
-	public void markAsFailure();
-
 }
