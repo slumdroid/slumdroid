@@ -233,18 +233,4 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 		setId(EXIT);		
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.droidmodels.model.ActivityState#markAsCrash()
-	 */
-	public void markAsCrash() {
-		setId(CRASH);	
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.droidmodels.model.ActivityState#markAsFailure()
-	 */
-	public void markAsFailure() {
-		setId(FAILURE);
-	}
-
 }
