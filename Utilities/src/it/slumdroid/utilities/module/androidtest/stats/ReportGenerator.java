@@ -81,6 +81,8 @@ public class ReportGenerator extends StatsReport {
 			taskReport.analyzeTask(theTask);
 			boolean first = true;
 			int currentDepth = 0;
+			ActivityState start = null;
+			ActivityState finish = null;
 			for (Transition transition: theTask) {
 				currentDepth++;
 				eventReport.analyzeInteractions(transition);
@@ -89,10 +91,12 @@ public class ReportGenerator extends StatsReport {
 				} 
 				countStates(transition.getFinalActivity());
 				first = false;
-				Edge edge = new Edge(new Node (transition.getStartActivity()), new Node (transition.getFinalActivity()));
-				edges.add(edge);
+				start = transition.getStartActivity();
+				finish = transition.getFinalActivity();
 			}
-			this.depth = max(this.depth, currentDepth);		
+			this.depth = max(this.depth, currentDepth);
+			Edge edge = new Edge(new Node (start), new Node (finish));
+			edges.add(edge);
 		}
 		Hashtable<String, Integer> branches = new Hashtable<String, Integer>();
 		for (Edge edge:edges) {
