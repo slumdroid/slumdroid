@@ -15,6 +15,9 @@
 
 package it.slumdroid.utilities.module.androidtest.graphviz;
 
+import static it.slumdroid.droidmodels.model.ActivityState.CRASH;
+import static it.slumdroid.droidmodels.model.ActivityState.EXIT;
+import static it.slumdroid.droidmodels.model.ActivityState.FAILURE;
 import static it.slumdroid.utilities.Resources.BREAK;
 import static it.slumdroid.utilities.Resources.NEW_LINE;
 import static it.slumdroid.utilities.Resources.TAB;
@@ -44,6 +47,12 @@ public class GuiTreeToDot {
 
 	/** The edges. */
 	private List<Edge> edges;
+
+	/** The crash count. */
+	private int crashCount = 0;
+
+	/** The fail count. */
+	private int failCount = 0;
 
 	/**
 	 * Instantiates a new gui tree to dot.
@@ -157,7 +166,7 @@ public class GuiTreeToDot {
 	 * @return true, if successful
 	 */
 	protected boolean abnormalState (String id) {
-		return id.equals("exit") || id.equals("crash") || id.equals("fail");
+		return id.equals(EXIT) || id.equals(CRASH) || id.equals(FAILURE);
 	}
 
 	/**
@@ -168,7 +177,35 @@ public class GuiTreeToDot {
 	 */
 	private Node getNode (ActivityState state) {
 		Node ret = new Node (state);
+		if (state.isCrash()) {
+			ret.setId(getCrashId());
+		} 
+		if (state.isFailure()) {
+			ret.setId(getFailId());
+		}
 		ret.setId(state.getId());
+		return ret;
+	}
+
+	/**
+	 * Gets the crash id.
+	 *
+	 * @return the crash id
+	 */
+	private String getCrashId() {
+		String ret = CRASH + this.crashCount;
+		this.crashCount++;
+		return ret;
+	}
+
+	/**
+	 * Gets the fail id.
+	 *
+	 * @return the fail id
+	 */
+	private String getFailId() {
+		String ret = FAILURE + this.failCount;
+		this.failCount++;
 		return ret;
 	}
 
