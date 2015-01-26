@@ -170,11 +170,9 @@ public class CompositionalComparator {
 			if (field.getSimpleType().equals(TEXT_VIEW)) {
 				return field.getValue().isEmpty() == otherField.getValue().isEmpty();   
 			}
-			if (field.getSimpleType().equals(DIALOG_TITLE)) {
+			if (field.getSimpleType().equals(DIALOG_TITLE) 
+					|| field.getSimpleType().equals(BUTTON)) {
 				return otherField.getName().equals(field.getName());
-			}
-			if (field.getSimpleType().equals(BUTTON)) {
-				return field.getValue().equals(otherField.getValue());   
 			}
 			if (field.getSimpleType().equals(MENU_VIEW) 
 					|| field.getSimpleType().equals(EXPAND_MENU)
