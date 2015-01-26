@@ -176,20 +176,14 @@ public class CompositionalComparator {
 			}
 			if (field.getSimpleType().equals(MENU_VIEW) 
 					|| field.getSimpleType().equals(EXPAND_MENU)
-					|| field.getSimpleType().equals(PREFERENCE_LIST)) {
+					|| field.getSimpleType().equals(PREFERENCE_LIST)
+					|| (COMPARE_LIST_COUNT && field.getSimpleType().equals(LIST_VIEW))) {
 				return otherField.getCount() == field.getCount();
 			}
-			if (COMPARE_LIST_COUNT) {
-				if (field.getSimpleType().equals(LIST_VIEW)) {
-					return otherField.getCount() == field.getCount();
-				}       
-			}
-			if (COMPARE_CHECKBOX) { 
-				if (field.getSimpleType().equals(CHECKBOX)) {
-					boolean compareIndex = otherField.getIndex() == field.getIndex();
-					boolean compareValue = field.getValue().equals(otherField.getValue());
-					return compareValue && compareIndex;
-				}       
+			if (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX)) {
+				boolean compareIndex = otherField.getIndex() == field.getIndex();
+				boolean compareValue = field.getValue().equals(otherField.getValue());
+				return compareValue && compareIndex;
 			} 
 		}
 		return compareWidget;
