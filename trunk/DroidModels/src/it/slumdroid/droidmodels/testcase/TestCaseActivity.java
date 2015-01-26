@@ -229,6 +229,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 * @see it.slumdroid.droidmodels.model.ActivityState#markAsExit()
 	 */
 	public void markAsExit() {
+		setName(EXIT);
 		setId(EXIT);		
 	}
 
