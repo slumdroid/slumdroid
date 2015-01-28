@@ -83,6 +83,9 @@ public class GraphicalEditor extends JFrame {
 
 	/** The chckbx input pertubation. */
 	private JCheckBox chckbxInputPertubation;
+	
+	/** The Title comparator box. */
+	private JComboBox titleComparatorBox;
 
 	/** The list comparator box. */
 	private static JComboBox listComparatorBox;
@@ -151,7 +154,7 @@ public class GraphicalEditor extends JFrame {
 		setAppPackageClass(appClass);
 		setFirstPath(expPath);
 
-		setBounds(100, 100, 485, 352);
+		setBounds(100, 100, 485, 377);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -173,56 +176,60 @@ public class GraphicalEditor extends JFrame {
 
 		JLabel lblAutomationParameters = new JLabel("Automation Parameters");
 		lblAutomationParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblAutomationParameters.setBounds(10, 187, 225, 14);
+		lblAutomationParameters.setBounds(10, 207, 225, 29);
 		contentPane.add(lblAutomationParameters);
 
 		JLabel lblAfterEvent = new JLabel("Waiting after Event");
-		lblAfterEvent.setBounds(10, 212, 123, 14);
+		lblAfterEvent.setBounds(10, 239, 123, 14);
 		contentPane.add(lblAfterEvent);
 
 		JLabel lblAfterRestart = new JLabel("Waiting after Restart");
-		lblAfterRestart.setBounds(10, 239, 123, 14);
+		lblAfterRestart.setBounds(10, 264, 123, 14);
 		contentPane.add(lblAfterRestart);
 
 		JLabel lblAfterTask = new JLabel("Waiting after Task");
-		lblAfterTask.setBounds(10, 264, 123, 14);
+		lblAfterTask.setBounds(10, 289, 123, 14);
 		contentPane.add(lblAfterTask);
 
 		JLabel lblOnThrobber = new JLabel("Waiting on Throbber");
-		lblOnThrobber.setBounds(10, 289, 123, 14);
+		lblOnThrobber.setBounds(10, 315, 123, 14);
 		contentPane.add(lblOnThrobber);
 
 		JLabel lblMs0 = new JLabel("ms");
-		lblMs0.setBounds(214, 212, 21, 14);
+		lblMs0.setBounds(214, 239, 21, 14);
 		contentPane.add(lblMs0);
 
 		JLabel lblMs1 = new JLabel("ms");
-		lblMs1.setBounds(214, 239, 21, 14);
+		lblMs1.setBounds(214, 264, 21, 14);
 		contentPane.add(lblMs1);
 
 		JLabel lblMs2 = new JLabel("ms");
-		lblMs2.setBounds(214, 262, 21, 14);
+		lblMs2.setBounds(214, 289, 21, 14);
 		contentPane.add(lblMs2);
 
 		JLabel lblMs3 = new JLabel("ms");
-		lblMs3.setBounds(214, 289, 21, 14);
+		lblMs3.setBounds(214, 315, 21, 14);
 		contentPane.add(lblMs3);
 
 		JLabel lblComparatorParameters = new JLabel("Comparator Parameters");
 		lblComparatorParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblComparatorParameters.setBounds(10, 80, 225, 29);
 		contentPane.add(lblComparatorParameters);
+		
+		JLabel lblCompareActivityTitle = new JLabel("Compare Activity Title");
+		lblCompareActivityTitle.setBounds(10, 111, 151, 14);
+		contentPane.add(lblCompareActivityTitle);
 
 		JLabel lblCompareListCount = new JLabel("Compare List Count");
-		lblCompareListCount.setBounds(10, 114, 151, 14);
+		lblCompareListCount.setBounds(10, 136, 151, 14);
 		contentPane.add(lblCompareListCount);
 		
 		JLabel lblCompareCheckbox = new JLabel("Compare CheckBox");
-		lblCompareCheckbox.setBounds(10, 139, 151, 14);
+		lblCompareCheckbox.setBounds(10, 161, 151, 14);
 		contentPane.add(lblCompareCheckbox);
 		
 		JLabel lblCompareAvailable = new JLabel("Compare Available");
-		lblCompareAvailable.setBounds(10, 164, 151, 14);
+		lblCompareAvailable.setBounds(10, 186, 151, 14);
 		contentPane.add(lblCompareAvailable);
 
 		JLabel lblInteractionParameters = new JLabel("Interaction Parameters");
@@ -231,23 +238,23 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(lblInteractionParameters);
 
 		JLabel lblEdittextInteractions = new JLabel("EditText as");
-		lblEdittextInteractions.setBounds(245, 101, 132, 14);
+		lblEdittextInteractions.setBounds(245, 111, 132, 14);
 		contentPane.add(lblEdittextInteractions);
 
 		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete as");
-		lblAutocompleteInteractions.setBounds(245, 126, 132, 14);
+		lblAutocompleteInteractions.setBounds(245, 136, 132, 14);
 		contentPane.add(lblAutocompleteInteractions);
 
 		JLabel lblCheckboxInteractions = new JLabel("CheckBox as");
-		lblCheckboxInteractions.setBounds(245, 189, 132, 14);
+		lblCheckboxInteractions.setBounds(245, 186, 132, 14);
 		contentPane.add(lblCheckboxInteractions);
 
 		JLabel lblToggleInteractions = new JLabel("Toggle as");
-		lblToggleInteractions.setBounds(245, 212, 132, 14);
+		lblToggleInteractions.setBounds(245, 207, 132, 14);
 		contentPane.add(lblToggleInteractions);
 
 		JLabel lblTextInputs = new JLabel("Text Inputs use");
-		lblTextInputs.setBounds(245, 151, 99, 14);
+		lblTextInputs.setBounds(245, 161, 99, 14);
 		contentPane.add(lblTextInputs);
 		
 		JLabel lblMaxEventsFor = new JLabel("Max Events 4 Selector");
@@ -262,40 +269,45 @@ public class GraphicalEditor extends JFrame {
 		waitingEventField = new JFormattedTextField();
 		waitingEventField.setHorizontalAlignment(SwingConstants.RIGHT);
 		waitingEventField.setText("1000");
-		waitingEventField.setBounds(140, 209, 64, 20);
+		waitingEventField.setBounds(140, 236, 64, 20);
 		contentPane.add(waitingEventField);
 
 		waitingRestartField = new JFormattedTextField();
 		waitingRestartField.setHorizontalAlignment(SwingConstants.RIGHT);
 		waitingRestartField.setText("0");
-		waitingRestartField.setBounds(140, 236, 64, 20);
+		waitingRestartField.setBounds(140, 261, 64, 20);
 		contentPane.add(waitingRestartField);
 
 		waitingTaskField = new JFormattedTextField();
 		waitingTaskField.setText("0");
 		waitingTaskField.setHorizontalAlignment(SwingConstants.RIGHT);
-		waitingTaskField.setBounds(140, 261, 64, 20);
+		waitingTaskField.setBounds(140, 286, 64, 20);
 		contentPane.add(waitingTaskField);
 
 		waitingThrobberField = new JFormattedTextField();
 		waitingThrobberField.setText("1000");
 		waitingThrobberField.setHorizontalAlignment(SwingConstants.RIGHT);
-		waitingThrobberField.setBounds(140, 286, 64, 20);
+		waitingThrobberField.setBounds(140, 312, 64, 20);
 		contentPane.add(waitingThrobberField);
 
 		screenshotBox = new JComboBox(bool);
 		screenshotBox.setBounds(171, 33, 64, 20);
 		screenshotBox.setSelectedIndex(0);
 		contentPane.add(screenshotBox);
+		
+		titleComparatorBox = new JComboBox(bool);
+		titleComparatorBox.setSelectedIndex(0);
+		titleComparatorBox.setBounds(171, 108, 64, 20);
+		contentPane.add(titleComparatorBox);
 
 		listComparatorBox = new JComboBox(bool);
 		listComparatorBox.setSelectedIndex(1);
-		listComparatorBox.setBounds(171, 111, 64, 20);
+		listComparatorBox.setBounds(171, 133, 64, 20);
 		contentPane.add(listComparatorBox);
 		
 		checkComparatorBox = new JComboBox(bool);
 		checkComparatorBox.setSelectedIndex(1);
-		checkComparatorBox.setBounds(171, 136, 64, 20);
+		checkComparatorBox.setBounds(171, 158, 64, 20);
 		contentPane.add(checkComparatorBox);
 		
 		maxEventSelectorBox = new JComboBox(maxEventSelector);
@@ -305,7 +317,7 @@ public class GraphicalEditor extends JFrame {
 		
 		availableComparatorBox = new JComboBox(bool);
 		availableComparatorBox.setSelectedIndex(1);
-		availableComparatorBox.setBounds(171, 161, 64, 20);
+		availableComparatorBox.setBounds(171, 183, 64, 20);
 		availableComparatorBox.addActionListener(new ActionListener() {
 			
 			@Override
@@ -323,27 +335,27 @@ public class GraphicalEditor extends JFrame {
 		contentPane.add(availableComparatorBox);
 
 		editTextBox = new JComboBox(interactions);
-		editTextBox.setBounds(387, 98, 74, 20);
+		editTextBox.setBounds(387, 108, 74, 20);
 		editTextBox.setSelectedIndex(1);
 		contentPane.add(editTextBox);
 
 		autoCompleteBox = new JComboBox(interactions);
-		autoCompleteBox.setBounds(387, 123, 74, 20);
+		autoCompleteBox.setBounds(387, 133, 74, 20);
 		autoCompleteBox.setSelectedIndex(1);
 		contentPane.add(autoCompleteBox);
 
 		checkBox = new JComboBox(interactions);
-		checkBox.setBounds(387, 186, 74, 20);
+		checkBox.setBounds(387, 183, 74, 20);
 		checkBox.setSelectedIndex(1);
 		contentPane.add(checkBox);
 
 		toggleBox = new JComboBox(interactions);
-		toggleBox.setBounds(387, 209, 74, 20);
+		toggleBox.setBounds(387, 207, 74, 20);
 		toggleBox.setSelectedIndex(1);
 		contentPane.add(toggleBox);
 
 		inputTextBox = new JComboBox(inputs);
-		inputTextBox.setBounds(354, 148, 107, 20);
+		inputTextBox.setBounds(354, 158, 107, 20);
 		contentPane.add(inputTextBox);
 
 		schedulerBox = new JComboBox(algorithm);
@@ -358,7 +370,7 @@ public class GraphicalEditor extends JFrame {
 		
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation ");
-		chckbxInputPertubation.setBounds(241, 237, 132, 18);
+		chckbxInputPertubation.setBounds(245, 262, 132, 18);
 		contentPane.add(chckbxInputPertubation);
 		
 		// Button
@@ -369,7 +381,7 @@ public class GraphicalEditor extends JFrame {
 				resetDefaultValues();
 			}
 		});
-		btnDefaultValues.setBounds(245, 264, 121, 27);
+		btnDefaultValues.setBounds(245, 289, 121, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
@@ -379,7 +391,7 @@ public class GraphicalEditor extends JFrame {
 				saveXML(); 
 			}
 		});
-		btnSave.setBounds(369, 264, 92, 27);
+		btnSave.setBounds(369, 289, 92, 27);
 		contentPane.add(btnSave);
 		
 		resetDefaultValues();
@@ -391,7 +403,7 @@ public class GraphicalEditor extends JFrame {
 	public void saveXML() {
 		if(!validateField()) {
 			JOptionPane.showMessageDialog(null, "Automation Parameters don't valid", "Information", JOptionPane.INFORMATION_MESSAGE);
-		} else{
+		} else {
 			createGeneralParameters();
 			createAutomationParameters();
 			createComparatorParameters();
@@ -415,8 +427,7 @@ public class GraphicalEditor extends JFrame {
 		builder.append("<map>");
 		builder.append("<entry key=\"PACKAGE_NAME\" value=\""+ getAppPackage() +"\"/>");
 		builder.append("<entry key=\"CLASS_NAME\"   value=\"" + getAppPackageClass() + "\"/>");
-
-		if (screenshotBox.getSelectedIndex() != 0){
+		if (screenshotBox.getSelectedIndex() != 0) {
 			builder.append("<entry key=\"SCREENSHOT_ENABLED\" value=\"false\"/>");
 		}
 		String scheduler_algorithm = new String();
@@ -484,14 +495,17 @@ public class GraphicalEditor extends JFrame {
 				|| availableComparatorBox.getSelectedIndex() != 1) {
 			builder.append("<node name=\"comparator\">");
 			builder.append("<map>");
-			if (listComparatorBox.getSelectedIndex() != 1) {
-				builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
+			if (titleComparatorBox.getSelectedIndex() != 0) {
+				builder.append("<entry key=\"COMPARE_ACTIVITY_TITLE\" value=\"false\"/>");
+			}
+			if (availableComparatorBox.getSelectedIndex() != 1) {
+				builder.append("<entry key=\"COMPARE_AVAILABLE\" value=\"true\"/>");
 			}
 			if (checkComparatorBox.getSelectedIndex() != 1) {
 				builder.append("<entry key=\"COMPARE_CHECKBOX\" value=\"true\"/>");
 			}
-			if (availableComparatorBox.getSelectedIndex() != 1) {
-				builder.append("<entry key=\"COMPARE_AVAILABLE\" value=\"true\"/>");
+			if (listComparatorBox.getSelectedIndex() != 1) {
+				builder.append("<entry key=\"COMPARE_LIST_COUNT\" value=\"true\"/>");
 			}
 			builder.append("</map>");
 			builder.append("</node>");
@@ -506,10 +520,8 @@ public class GraphicalEditor extends JFrame {
 		String inputs = new String();
 		int countEvent = 0;
 		int countInput = 0;
-		
 		builder.append("<node name=\"interactions\">");
 		builder.append("<map>");
-
 		if (editTextBox.getSelectedIndex() == 0 
 				|| editTextBox.getSelectedIndex() == 2) {
 			events = events.concat(", editText");
@@ -518,7 +530,6 @@ public class GraphicalEditor extends JFrame {
 				|| editTextBox.getSelectedIndex() == 2) {
 			inputs = inputs.concat(", editText");
 		}
-
 		if (autoCompleteBox.getSelectedIndex() == 0 
 				|| autoCompleteBox.getSelectedIndex() == 2) {
 			events = events.concat(", autoCText");
@@ -527,7 +538,6 @@ public class GraphicalEditor extends JFrame {
 				|| autoCompleteBox.getSelectedIndex() == 2) {
 			inputs = inputs.concat(", autoCText");
 		}
-
 		if (!events.equals("")) {
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"writeText" + events + "\"/>");
 			countEvent++;
@@ -536,11 +546,9 @@ public class GraphicalEditor extends JFrame {
 			builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"writeText" + inputs + "\"/>");
 			countInput++;
 		}
-
 		events = new String();
 		inputs = new String();
 		int countButton = 0;
-
 		if (checkBox.getSelectedIndex() == 0 
 				|| checkBox.getSelectedIndex() == 2) {
 			events = events.concat(", check");
@@ -550,7 +558,6 @@ public class GraphicalEditor extends JFrame {
 			inputs = inputs.concat(", check");
 			countButton++;
 		}
-
 		if (toggleBox.getSelectedIndex() == 0 
 				|| toggleBox.getSelectedIndex() == 2) {
 			events = events.concat(", toggle");
@@ -560,17 +567,14 @@ public class GraphicalEditor extends JFrame {
 			inputs = inputs.concat(", toggle");
 			countButton++;
 		}
-		
 		if (!events.equals("")) {
 			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, image, linearLayout" + events + "\"/>");
 		}
-		
 		if (!inputs.equals("")) {
 			if (countButton != 2) {
 				builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"click, numberPickerButton" + inputs + "\"/>");
 			}
 		}
-		
 		if (inputTextBox.getSelectedIndex() != 0) {
 			builder.append("<entry key=\"HASH_VALUES\" value=\"false\"/>");
 		}
@@ -649,7 +653,7 @@ public class GraphicalEditor extends JFrame {
 	 */
 	private boolean controlValue(String value) {
 		try{
-			return ((Integer.valueOf(value) >= 0) && (Integer.valueOf(value) <= 10000));
+			return ((Integer.valueOf(value) >= 0) && (Integer.valueOf(value) <= 20000));
 		}catch (Exception e){
 			e.printStackTrace();
 			return false;
@@ -661,27 +665,22 @@ public class GraphicalEditor extends JFrame {
 	 */
 	public void resetDefaultValues() {
 		chckbxInputPertubation.setSelected(false);
-		
 		screenshotBox.setSelectedIndex(0);
 		schedulerBox.setSelectedIndex(0);
-		
+		titleComparatorBox.setSelectedIndex(0);
 		listComparatorBox.setSelectedIndex(1);
 		checkComparatorBox.setSelectedIndex(1);
 		availableComparatorBox.setSelectedIndex(1);
-		
 		waitingEventField.setText("1000");
 		waitingRestartField.setText("0");
 		waitingTaskField.setText("0");
 		waitingThrobberField.setText("1000");
-
 		maxEventSelectorBox.setSelectedIndex(3);
 		maxEventSelectorBox.setEnabled(true);
 		tabEventsBox.setSelectedIndex(1);
 		inputTextBox.setSelectedIndex(0);
-		
 		editTextBox.setSelectedIndex(1);
 		autoCompleteBox.setSelectedIndex(1);
-		
 		checkBox.setSelectedIndex(1);
 		toggleBox.setSelectedIndex(1);
 	}
