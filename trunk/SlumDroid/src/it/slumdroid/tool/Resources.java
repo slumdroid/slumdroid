@@ -67,14 +67,17 @@ public class Resources {
 	/**  How long to wait on spinning wheels (in ms -- 0 = don't wait) */
 	public static int SLEEP_ON_THROBBER = 1000; 
 
-	/** The compare list count. */
-	public static boolean COMPARE_LIST_COUNT = false;
-
-	/** The compare checkbox. */
-	public static boolean COMPARE_CHECKBOX = false;
-
+	/** The compare activity title. */
+	public static boolean COMPARE_ACTIVITY_TITLE = true;
+	
 	/** The compare available. */
 	public static boolean COMPARE_AVAILABLE = false;
+	
+	/** The compare checkbox. */
+	public static boolean COMPARE_CHECKBOX = false;
+	
+	/** The compare list count. */
+	public static boolean COMPARE_LIST_COUNT = false;
 
 	/** The events. */
 	public static String EVENTS[];

@@ -23,6 +23,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
+import static it.slumdroid.tool.Resources.COMPARE_ACTIVITY_TITLE;
 import static it.slumdroid.tool.Resources.COMPARE_AVAILABLE;
 import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
 import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
@@ -62,8 +63,10 @@ public class CompositionalComparator {
 	 * @return true, if successful
 	 */
 	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity) {
-		if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
-			return false;
+		if (COMPARE_ACTIVITY_TITLE) {
+			if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
+				return false;
+			}	
 		}
 		if (!currentActivity.getName().equals(storedActivity.getName())) {
 			return false;
