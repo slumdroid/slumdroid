@@ -490,7 +490,8 @@ public class GraphicalEditor extends JFrame {
 	 * Creates the comparator parameters.
 	 */
 	private void createComparatorParameters() {
-		if (listComparatorBox.getSelectedIndex() != 1 
+		if (titleComparatorBox.getSelectedIndex() != 0 
+				|| listComparatorBox.getSelectedIndex() != 1 
 				|| checkComparatorBox.getSelectedIndex() != 1
 				|| availableComparatorBox.getSelectedIndex() != 1) {
 			builder.append("<node name=\"comparator\">");
