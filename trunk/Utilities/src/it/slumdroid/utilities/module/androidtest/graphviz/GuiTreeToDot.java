@@ -71,7 +71,6 @@ public class GuiTreeToDot {
 	 * @return the dot
 	 */
 	public String getDot () {
-
 		boolean first = true;
 		for (Task theTask: this.session) {
 			Transition theTransition = theTask.getFinalTransition();
@@ -80,7 +79,6 @@ public class GuiTreeToDot {
 		}
 		StringBuilder dot = new StringBuilder ();
 		dot.append("digraph GuiTree {" + BREAK);
-
 		for (Edge edge: this.edges) {
 			dot.append(TAB + edge + " [label=\"" + edge.getLabel() + "\"];" + NEW_LINE);
 		}
@@ -90,11 +88,10 @@ public class GuiTreeToDot {
 				dot.append(TAB + "subgraph cluster_" + node + "{label=\"" + node.getLabel() + "\"; " + node + "};" + NEW_LINE);
 				dot.append(TAB + node + " [label=\"" + node + "\", shapefile=\"" + node.getImage() + "\"];" + BREAK);				
 			} else {
-				dot.append(TAB + node + " [label=\"" + node.getLabel() + "\"];" + BREAK);
+				dot.append(TAB + node + " [label=\"" + node.getLabel() + "\"];" + NEW_LINE);
 			}
 		}
-
-		dot.append('}');		
+		dot.append(NEW_LINE + "}");		
 		return dot.toString();
 	}
 
@@ -108,7 +105,6 @@ public class GuiTreeToDot {
 		Node start = getNode(action.getStartActivity()); 
 		Node finish = getNode(action.getFinalActivity()); 
 		UserEvent event = action.getEvent();
-
 		Iterator<UserInput> inputs = action.iterator();
 		String userInputs = new String();
 		while(inputs.hasNext()) {
@@ -118,16 +114,13 @@ public class GuiTreeToDot {
 				userInputs = userInputs.concat(" Value: "+ input.getValue());
 			}
 		}
-
 		// Add main activity to nodes
 		if (first) {
 			this.nodes.add(start);
 		}
-
 		// Add new activity to nodes
 		finish.setLabel(createLabel (finish));
 		this.nodes.add(finish);
-
 		// Add event to edges
 		Edge e = new Edge(start,finish);
 		e.setLabel(getCaption(event) + userInputs);
