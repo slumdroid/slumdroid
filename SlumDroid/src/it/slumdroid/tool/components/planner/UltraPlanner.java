@@ -223,21 +223,21 @@ public class UltraPlanner {
 		UserEvent event;
 		Transition transition;
 		if (isIncludeMenu()) {
-			event = getAbstractor().createEvent(null, PRESS_MENU);
+			event = getAbstractor().createEvent(PRESS_MENU);
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTransition(transition);
 		}
 		if (isIncludeAction()) {
-			event = getAbstractor().createEvent(null, PRESS_ACTION);
+			event = getAbstractor().createEvent(PRESS_ACTION);
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTransition(transition);
 		}
 		if (isIncludeRotation()) {
-			event = getAbstractor().createEvent(null, CHANGE_ORIENTATION);
+			event = getAbstractor().createEvent(CHANGE_ORIENTATION);
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTransition(transition);
 		}
-		event = getAbstractor().createEvent(null, PRESS_BACK);
+		event = getAbstractor().createEvent(PRESS_BACK);
 		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 		planner.addTransition(transition);
 		return planner;

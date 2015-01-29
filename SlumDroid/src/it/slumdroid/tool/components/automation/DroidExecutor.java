@@ -83,7 +83,8 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
-		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
+		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")  
+				|| list.getCount() != list.getChildCount()) {
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
@@ -111,7 +112,24 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
-		getRobotium().clickLongInList(Integer.valueOf(value));	
+		if (list.getCount() != list.getChildCount()) {
+			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
+			runOnUiThread(new Runnable() { 
+				public void run() {
+					list.setSelection(item);
+				}
+			});
+			if (item < list.getCount()/2) {
+				getRobotium().sendKey(Solo.DOWN);
+				getRobotium().sendKey(Solo.UP);
+			} else {
+				getRobotium().sendKey(Solo.UP);                  
+				getRobotium().sendKey(Solo.DOWN);
+			}
+			getRobotium().clickLongOnView(list.getSelectedView());	
+		} else {
+			getRobotium().clickLongInList(Integer.valueOf(value));	
+		}
 	}
 
 	/**
@@ -123,7 +141,25 @@ public class DroidExecutor {
 	public void selectSpinnerItem (final Spinner spinner, final String value) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
-		getRobotium().clickInList(Integer.valueOf(value));		
+		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		if (list.getCount() != list.getChildCount()) {
+			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
+			runOnUiThread(new Runnable() { 
+				public void run() {
+					list.setSelection(item);
+				}
+			});
+			if (item < list.getCount()/2) {
+				getRobotium().sendKey(Solo.DOWN);
+				getRobotium().sendKey(Solo.UP);
+			} else {
+				getRobotium().sendKey(Solo.UP);                  
+				getRobotium().sendKey(Solo.DOWN);
+			}
+			getRobotium().clickOnView(list.getSelectedView());	
+		} else {
+			getRobotium().clickInList(Integer.valueOf(value));	
+		}		
 	}
 
 	/**
