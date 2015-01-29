@@ -62,6 +62,14 @@ public interface Abstractor {
 	 * @return the user event
 	 */
 	public UserEvent createEvent (WidgetState target, String type);
+	
+	/**
+	 * Creates the event.
+	 *
+	 * @param type the type
+	 * @return the user event
+	 */
+	public UserEvent createEvent (String type);
 
 	/**
 	 * Creates the input.
