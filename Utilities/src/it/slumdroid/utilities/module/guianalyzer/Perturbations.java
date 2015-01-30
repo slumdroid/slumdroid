@@ -122,6 +122,7 @@ public class Perturbations {
 			pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}\\.[0-9]{20,}")); // MO3 - Dangerous Inputs
 		}
 		if (type.contains("Signed")) {
+			pertubedInputs = pertubedInputs.concat(",-"); // MO1 - Remove the Mandatory Sets
 			pertubedInputs = pertubedInputs.concat("," + createRegEx("(\\-|+)[0-9]{30,}")); // MO3 - Dangerous Inputs
 		}
 		return pertubedInputs;
