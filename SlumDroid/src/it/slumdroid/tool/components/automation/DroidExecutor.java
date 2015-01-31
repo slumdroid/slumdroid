@@ -177,6 +177,12 @@ public class DroidExecutor {
 		}
 	}
 
+	/**
+	 * Write text and enter.
+	 *
+	 * @param editText the edit text
+	 * @param value the value
+	 */
 	public void writeTextAndEnter (final EditText editText, final String value) {
 		writeText (editText, value);
 		getRobotium().sendKey(Solo.ENTER);
