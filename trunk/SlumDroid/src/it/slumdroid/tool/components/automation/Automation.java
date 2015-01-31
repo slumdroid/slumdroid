@@ -147,13 +147,18 @@ public class Automation implements Executor {
 	 * @see it.slumdroid.tool.model.Executor#setInput(it.slumdroid.droidmodels.model.UserInput)
 	 */
 	public void setInput(UserInput input) {
-		int widgetId = Integer.parseInt(input.getWidgetId());
-		View view = getWidget(widgetId, input.getWidgetType(), input.getWidgetName());
-		if (view == null) {
-			view = getExtractor().getWidget(widgetId);
+		View view = null;
+		if (input.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
+			view = getExtractor().getAllWidgets().get(input.getWidget().getIndex());
 		}
 		if (view == null) {
-			view = getCurrentActivity().findViewById(widgetId);
+			getWidget(Integer.parseInt(input.getWidgetId()), input.getWidgetType(), input.getWidgetName());
+		}
+		if (view == null) {
+			view = getExtractor().getWidget(Integer.parseInt(input.getWidgetId()));
+		}
+		if (view == null) {
+			view = getCurrentActivity().findViewById(Integer.parseInt(input.getWidgetId()));
 		}
 		if (view == null) {
 			for (View theView: getExtractor().getAllWidgets()) {
@@ -169,7 +174,7 @@ public class Automation implements Executor {
 			}
 		}
 		writeLogInfoInput(input);
-		injectInteraction(view, input.getType(), input.getValue());
+		injectInputInteractions(view, input.getType(), input.getValue());
 	}
 	
 	/**
@@ -246,7 +251,7 @@ public class Automation implements Executor {
 	 * @param value the value
 	 */
 	private void fireEventOnView (View view, String eventType, String value) {
-		injectInteraction(view, eventType, value);
+		injectEventInteractions(view, eventType, value);
 		if (SLEEP_AFTER_EVENT != 0) {
 			wait(SLEEP_AFTER_EVENT);
 		}
@@ -264,7 +269,7 @@ public class Automation implements Executor {
 	 * @param interactionType the interaction type
 	 * @param value the value
 	 */
-	private void injectInteraction (View view, String interactionType, String value) {
+	private void injectEventInteractions (View view, String interactionType, String value) {
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
 				getRobotium().goBack();
@@ -307,7 +312,7 @@ public class Automation implements Executor {
 		} 
 		if (interactionType.endsWith("Text")) {
 			if (interactionType.equals(WRITE_TEXT)) {
-				getExecutor().writeText((EditText)view, value);
+				getExecutor().typeText((EditText)view, value);
 				return;
 			}
 			if (interactionType.equals(ENTER_TEXT)) {
@@ -326,6 +331,36 @@ public class Automation implements Executor {
 		if (interactionType.equals(SWAP_TAB) 
 				&& (value != null)) {
 			getExecutor().swapTab (view, value);
+			return;
+		}
+	}
+	
+	/**
+	 * Inject input interactions.
+	 *
+	 * @param view the view
+	 * @param interactionType the interaction type
+	 * @param value the value
+	 */
+	private void injectInputInteractions (View view, String interactionType, String value) {
+		if (interactionType.equals(CLICK)) {
+			getExecutor().click (view);
+			return;
+		}
+		if (interactionType.equals(WRITE_TEXT)) {
+			getExecutor().writeText((EditText)view, value);
+			return;
+		}
+		if (interactionType.equals(SET_BAR)) {
+			getExecutor().setProgressBar(view, value);
+			return;
+		}
+		if (interactionType.equals(SPINNER_SELECT)) {
+			getExecutor().selectSpinnerItem((Spinner)view, value);
+			return;
+		}
+		if (interactionType.equals(RADIO_SELECT)) {
+			getExecutor().selectRadioItem((RadioGroup)view, value);
 			return;
 		}
 	}
