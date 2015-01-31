@@ -121,9 +121,7 @@ public class CompositionalComparator {
 				return otherField.getCount() == field.getCount();
 			}
 			if (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX)) {
-				boolean compareIndex = otherField.getIndex() == field.getIndex();
-				boolean compareValue = field.getValue().equals(otherField.getValue());
-				return compareValue && compareIndex;
+				return field.getValue().equals(otherField.getValue());
 			} 
 		}
 		return compareWidget;
