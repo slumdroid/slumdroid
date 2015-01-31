@@ -114,38 +114,33 @@ public class Automation implements Executor {
 			if (event.getWidget().getIndex() < getExtractor().getAllWidgets().size()) {
 				view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			}
-			String eventValue = event.getValue();
 			if ( (view != null) && 
 					checkWidgetEquivalence(view, Integer.parseInt(event.getWidgetId()), event.getWidgetType(), event.getWidgetName())) { // Widget found
-				writeLogInfo(event);
-				fireEventOnView (view, eventType, eventValue);
+				writeLogInfoEvent(event);
+				fireEventOnView (view, event.getType(), event.getValue());
 			} else {
 				if (event.getWidgetId().equals("-1")) { // Search widget by name
-					writeLogInfo(event);
-					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+					writeLogInfoEvent(event);
+					fireEvent (event.getWidgetName(), event.getWidget().getSimpleType(), event.getType(), event.getValue());
 				} else { // Search widget by id
-					writeLogInfo(event);
-					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), eventType, eventValue);
+					writeLogInfoEvent(event);
+					fireEvent (Integer.parseInt(event.getWidgetId()), event.getWidgetName(), event.getWidget().getSimpleType(), event.getType(), event.getValue());
 				}	
 			}
 		}
 	}
 
 	/**
-	 * Write log info.
+	 * Write log info event.
 	 *
 	 * @param event the event
 	 */
-	private void writeLogInfo(UserEvent event) {
-		String eventType = event.getType();
-		String eventId = event.getWidgetId();
-		String eventSimpleType = event.getWidget().getSimpleType();
-		String toWrite = "Firing event: " + eventType + " widgetId=" + eventId + " widgetType=" + eventSimpleType;
-		String extraInfo = new String(); 
+	private void writeLogInfoEvent(UserEvent event) {
+		String toWrite = "Firing event: " + event.getType() + " widgetId=" + event.getWidgetId() + " widgetType=" + event.getWidget().getSimpleType();
 		if (!event.getValue().equals("")) {
-			extraInfo += " value=" + event.getValue();
+			toWrite += " value=" + event.getValue();
 		}
-		Log.i(TAG, toWrite + extraInfo);
+		Log.i(TAG, toWrite);
 	}
 
 	/* (non-Javadoc)
@@ -153,17 +148,41 @@ public class Automation implements Executor {
 	 */
 	public void setInput(UserInput input) {
 		int widgetId = Integer.parseInt(input.getWidgetId());
-		String inputType = input.getType();
-		String value = input.getValue();
-		String widgetName = input.getWidgetName();
-		String widgetType = input.getWidgetType();
-		String inputSimpleType = input.getWidget().getSimpleType();
-		String toWrite = "Setting input: " + inputType + " widgetId=" + widgetId + " widgetType=" + inputSimpleType;
+		View view = getWidget(widgetId, input.getWidgetType(), input.getWidgetName());
+		if (view == null) {
+			view = getExtractor().getWidget(widgetId);
+		}
+		if (view == null) {
+			view = getCurrentActivity().findViewById(widgetId);
+		}
+		if (view == null) {
+			for (View theView: getExtractor().getAllWidgets()) {
+				if (theView instanceof Button || theView instanceof RadioGroup) {
+					if (!AbstractorUtilities.getType(theView).equals(input.getWidgetType())) {
+						continue;
+					}
+					view = (AbstractorUtilities.detectName(theView).equals(input.getWidgetName()))?theView:null;
+				}
+				if (view != null) {
+					break;
+				}
+			}
+		}
+		writeLogInfoInput(input);
+		injectInteraction(view, input.getType(), input.getValue());
+	}
+	
+	/**
+	 * Write log info input.
+	 *
+	 * @param input the input
+	 */
+	private void writeLogInfoInput(UserInput input) {
+		String toWrite = "Setting input: " + input.getType() + " widgetId=" + input.getWidgetId() + " widgetType=" + input.getWidget().getSimpleType();
 		if (!input.getValue().equals("")) {
 			toWrite += " value=" + input.getValue();
 		}
 		Log.i(TAG, toWrite);
-		setInput(widgetId, inputType, value, widgetName, widgetType);
 	}
 
 	/**
@@ -246,9 +265,6 @@ public class Automation implements Executor {
 	 * @param value the value
 	 */
 	private void injectInteraction (View view, String interactionType, String value) {
-		if (view != null) {
-			getExecutor().requestView(view);
-		}
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
 				getRobotium().goBack();
@@ -295,7 +311,7 @@ public class Automation implements Executor {
 				return;
 			}
 			if (interactionType.equals(ENTER_TEXT)) {
-				getExecutor().enterText((EditText)view, value);
+				getExecutor().writeTextAndEnter((EditText)view, value);
 				return;
 			}
 		}
@@ -312,39 +328,6 @@ public class Automation implements Executor {
 			getExecutor().swapTab (view, value);
 			return;
 		}
-	}
-
-	/**
-	 * Sets the input.
-	 *
-	 * @param widgetId the widget id
-	 * @param inputType the input type
-	 * @param value the value
-	 * @param widgetName the widget name
-	 * @param widgetType the widget type
-	 */
-	private void setInput (int widgetId, String inputType, String value, String widgetName, String widgetType) {
-		View view = getWidget(widgetId, widgetType, widgetName);
-		if (view == null) {
-			view = getExtractor().getWidget(widgetId);
-		}
-		if (view == null) {
-			view = getCurrentActivity().findViewById(widgetId);
-		}
-		if (view == null) {
-			for (View theView: getExtractor().getAllWidgets()) {
-				if (theView instanceof Button || theView instanceof RadioGroup) {
-					if (!AbstractorUtilities.getType(theView).equals(widgetType)) {
-						continue;
-					}
-					view = (AbstractorUtilities.detectName(theView).equals(widgetName))?theView:null;
-				}
-				if (view != null) {
-					break;
-				}
-			}
-		}
-		injectInteraction(view, inputType, value);
 	}
 
 	/* (non-Javadoc)

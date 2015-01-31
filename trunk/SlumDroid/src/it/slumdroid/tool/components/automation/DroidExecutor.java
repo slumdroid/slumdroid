@@ -83,8 +83,8 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
-		if (list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")  
-				|| list.getCount() != list.getChildCount()) {
+		if (list.getCount() != list.getChildCount()) {
+			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
@@ -113,6 +113,7 @@ public class DroidExecutor {
 	public void selectLongListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
 		if (list.getCount() != list.getChildCount()) {
+			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
@@ -143,6 +144,7 @@ public class DroidExecutor {
 		getRobotium().clickOnView(spinner);
 		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
 		if (list.getCount() != list.getChildCount()) {
+			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
@@ -171,17 +173,11 @@ public class DroidExecutor {
 	public void writeText (final EditText editText, final String value) {
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
-			getRobotium().typeText(editText, value);
+			getRobotium().enterText(editText, value);
 		}
 	}
 
-	/**
-	 * Enter text.
-	 *
-	 * @param editText the edit text
-	 * @param value the value
-	 */
-	public void enterText (final EditText editText, final String value) {
+	public void writeTextAndEnter (final EditText editText, final String value) {
 		writeText (editText, value);
 		getRobotium().sendKey(Solo.ENTER);
 	}
