@@ -229,14 +229,6 @@ public class Automation implements Executor {
 	 * @param value the value
 	 */
 	private void injectEventInteractions (View view, String interactionType, String value) {
-		if (interactionType.equals(CLICK)) {
-			getExecutor().click (view);
-			return;
-		}
-		if (interactionType.equals(LONG_CLICK)) {
-			getExecutor().longClick(view);
-			return;
-		}
 		if (interactionType.endsWith("Item")) {
 			if (interactionType.equals(LIST_SELECT)) {
 				getExecutor().selectListItem((ListView)view, value);
@@ -265,8 +257,12 @@ public class Automation implements Executor {
 				return;
 			}
 		}
-		if (interactionType.equals(SET_BAR)) {
-			getExecutor().setProgressBar(view, value);
+		if (interactionType.equals(CLICK)) {
+			getExecutor().click (view);
+			return;
+		}
+		if (interactionType.equals(LONG_CLICK)) {
+			getExecutor().longClick(view);
 			return;
 		}
 		if (interactionType.equals(SWAP_TAB) 
