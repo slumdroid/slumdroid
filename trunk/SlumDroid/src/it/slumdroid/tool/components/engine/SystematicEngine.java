@@ -52,6 +52,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 
 import android.util.Log;
+import android.view.KeyEvent;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -165,7 +166,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
 				try {
-					int homeButton = 3;
+					int homeButton = KeyEvent.KEYCODE_HOME;
 					String command = "adb shell input keyevent " + homeButton;
 					Runtime.getRuntime().exec(command);
 				} catch (Exception e) {
