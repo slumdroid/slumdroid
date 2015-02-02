@@ -546,13 +546,14 @@ public class Tools {
 			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
 			String line = new String();
 			while ((line = inputStream1.readLine()) != null ) {
-				if (line.contains(density)) {
-					builder.append(NEW_LINE);
-				}
 				if (line.contains(target)) {
 					builder.append(target + TOOL_TARGET + NEW_LINE);	 
 				} else {
-					builder.append(line + NEW_LINE);	
+					if (line.contains(density)) {
+						builder.append(NEW_LINE);
+					} else {
+						builder.append(line + NEW_LINE);	
+					}	
 				}
 			}
 			inputStream1.close();
