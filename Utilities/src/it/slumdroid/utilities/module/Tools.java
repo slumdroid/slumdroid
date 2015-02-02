@@ -540,11 +540,15 @@ public class Tools {
 	public void updateProperties(String autPath) {
 		String path = new String(autPath.concat("/project.properties"));
 		String target = new String("target=android-");
+		String density = new String("split.density");
 		StringBuilder builder = new StringBuilder();
 		try{
 			BufferedReader inputStream1 = new BufferedReader (new FileReader (path));
 			String line = new String();
 			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains(density)) {
+					builder.append(NEW_LINE);
+				}
 				if (line.contains(target)) {
 					builder.append(target + TOOL_TARGET + NEW_LINE);	 
 				} else {
