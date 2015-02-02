@@ -17,6 +17,7 @@ package it.slumdroid.utilities.module.androidtest.graphviz;
 
 import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.utilities.module.androidtest.efg.EventFlowGraph;
 
 import java.util.Locale;
 
@@ -145,6 +146,16 @@ public class DotUtilities {
 	 */
 	public static String exportToFsm (GuiTree xml) {
 		return new GuiTreeToFSM (xml).getDot();
-	}	   	
+	}
+	
+	/**
+	 * Export to efg.
+	 *
+	 * @param efg the efg
+	 * @return the string
+	 */
+	public static String exportToEfg (EventFlowGraph efg) {
+		return new GuiTreeToEfgDot (efg).getDot();
+	}
 
 }

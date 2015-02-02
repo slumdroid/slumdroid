@@ -16,8 +16,10 @@
 package it.slumdroid.utilities.module;
 
 import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.exportToDot;
+import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.exportToEfg;
 import static it.slumdroid.utilities.module.androidtest.graphviz.DotUtilities.exportToFsm;
 import it.slumdroid.droidmodels.guitree.GuiTree;
+import it.slumdroid.utilities.module.androidtest.efg.EventFlowGraph;
 import it.slumdroid.utilities.module.androidtest.stats.ReportGenerator;
 
 import java.io.File;
@@ -43,6 +45,12 @@ public class AndroidTest  {
 
 	/** The txt file name. */
 	private String txtFileName = new String();
+	
+	/** The efg file name. */
+	private String efgFileName = new String();
+	
+	/** The efg xml file name. */
+	private String efgXmlFileName = new String();
 
 	/** The gui tree. */
 	private GuiTree guiTree;
@@ -61,9 +69,12 @@ public class AndroidTest  {
 			
 			// Outputs
 			this.reportFileName = inputPath + "\\output\\report.txt";
+			this.efgXmlFileName = inputPath + "\\output\\efg.xml";
+			// Dot Outputs 
 			this.dotFileName = inputPath + "\\output\\guitree.dot";
 			this.fsmFileName = inputPath + "\\output\\fsm.dot";
-
+			this.efgFileName = inputPath + "\\output\\efg.dot";
+			
 			try {
 				this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
 				processFile();
@@ -79,6 +90,13 @@ public class AndroidTest  {
 	private void processFile() {
 		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot
 		createArtifact(exportToDot(this.guiTree), getDotFileName()); // GuiTreeDot
+		try {
+			EventFlowGraph efg = EventFlowGraph.fromSession(GuiTree.fromXml(new File (getInputFileName())));
+			createArtifact(exportToEfg(efg), getEfgFileName()); // EfgDot
+			createArtifact(efg.toXml(), getEfgXmlFileName()); // EfgXML
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 		String report = new ReportGenerator(this.guiTree, getTxtFileName()).getReport(); 
 		createArtifact(report, getReportFileName()); // ReportTxt 
 	}
@@ -142,6 +160,24 @@ public class AndroidTest  {
 	 */
 	public String getTxtFileName() {
 		return txtFileName;
-	} 
+	}
+	
+	/**
+	 * Gets the efg file name.
+	 *
+	 * @return the efg file name
+	 */
+	public String getEfgFileName() {
+		return efgFileName;
+	}
+	
+	/**
+	 * Gets the efg xml file name.
+	 *
+	 * @return the efg xml file name
+	 */
+	public String getEfgXmlFileName() {
+		return efgXmlFileName;
+	}
 	
 }
