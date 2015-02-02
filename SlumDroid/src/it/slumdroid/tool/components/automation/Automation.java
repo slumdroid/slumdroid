@@ -45,6 +45,7 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -121,8 +122,13 @@ public class Automation implements Executor {
 			return;
 		}
 		if (interactionType.equals(WRITE_TEXT)) {
-			getExecutor().writeText((EditText)view, value);
-			return;
+			if (view instanceof AutoCompleteTextView) {
+				getExecutor().typeText((EditText)view, value);
+				return;
+			} else {
+				getExecutor().writeText((EditText)view, value);
+				return;	
+			}
 		}
 		if (interactionType.equals(SET_BAR)) {
 			getExecutor().setProgressBar(view, value);
