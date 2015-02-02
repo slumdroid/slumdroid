@@ -72,7 +72,6 @@ public class Automation implements Executor {
 		this.extractor = new TrivialExtractor(); 
 	}
 
-	// Initializations
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#bind(android.test.ActivityInstrumentationTestCase2)
 	 */
@@ -87,7 +86,6 @@ public class Automation implements Executor {
 	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
 	 */
 	public void execute (Task theTask) {
-		afterRestart();
 		Log.i (TAG, "Playing Task " + theTask.getId());
 		for (Transition transition: theTask) {
 			for (UserInput input: transition) {
