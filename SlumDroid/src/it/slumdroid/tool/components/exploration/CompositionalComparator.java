@@ -98,12 +98,12 @@ public class CompositionalComparator {
 	 * @return true, if successful
 	 */
 	private boolean matchWidget (WidgetState field, WidgetState otherField) {       
-		boolean compareId = otherField.getId().equals(field.getId());
-		boolean compareType = otherField.getSimpleType().equals(field.getSimpleType());
+		boolean compareId = field.getId().equals(otherField.getId());
+		boolean compareType = field.getSimpleType().equals(otherField.getSimpleType());
 		boolean compareWidget = compareId && compareType;
 		if (COMPARE_AVAILABLE) {
-			boolean compareAvailable = otherField.isAvailable() == field.isAvailable();
-			boolean compareIndex = otherField.getIndex() == field.getIndex();
+			boolean compareAvailable = field.isAvailable() == otherField.isAvailable();
+			boolean compareIndex = field.getIndex() == otherField.getIndex();
 			compareWidget = compareId && compareType && compareAvailable && compareIndex;
 		}
 		if (compareWidget) {
@@ -111,18 +111,16 @@ public class CompositionalComparator {
 				return field.getValue().isEmpty() == otherField.getValue().isEmpty();   
 			}
 			if (field.getSimpleType().equals(DIALOG_TITLE) 
-					|| field.getSimpleType().equals(BUTTON)) {
-				return otherField.getName().equals(field.getName());
+					|| field.getSimpleType().equals(BUTTON)
+					|| (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX))) {
+				return field.getValue().equals(otherField.getValue());
 			}
 			if (field.getSimpleType().equals(MENU_VIEW) 
 					|| field.getSimpleType().equals(EXPAND_MENU)
 					|| field.getSimpleType().equals(PREFERENCE_LIST)
 					|| (COMPARE_LIST_COUNT && field.getSimpleType().equals(LIST_VIEW))) {
-				return otherField.getCount() == field.getCount();
+				return field.getCount() == otherField.getCount();
 			}
-			if (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX)) {
-				return field.getValue().equals(otherField.getValue());
-			} 
 		}
 		return compareWidget;
 	}
