@@ -87,6 +87,7 @@ public class Automation implements Executor {
 	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
 	 */
 	public void execute (Task theTask) {
+		afterRestart();
 		Log.i (TAG, "Playing Task " + theTask.getId());
 		for (Transition transition: theTask) {
 			for (UserInput input: transition) {
