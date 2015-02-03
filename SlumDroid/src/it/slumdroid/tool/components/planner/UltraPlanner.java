@@ -26,7 +26,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
 import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Transition;
@@ -111,18 +110,12 @@ public class UltraPlanner {
 	 * @param theState the state
 	 */
 	private void reductionActions(WidgetState theWidget , ActivityState theState) {
-		if (!theState.getId().equals("a0") // a0 is ID of initial START_STATE 
-				&& theWidget.getSimpleType().equals(TOAST)) {
+		if (theWidget.getSimpleType().equals(DIALOG_TITLE) 
+				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
 			setIncludeMenu(false);
 		}
-		if (theWidget.getSimpleType().equals(DIALOG_TITLE)) {
-			setIncludeMenu(false);
-		}
-		if (theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
-			setIncludeMenu(false);
-			setIncludeRotation(false);
-		}
-		if (theWidget.getSimpleType().equals(EXPAND_MENU)) {
+		if (theWidget.getSimpleType().equals(EXPAND_MENU) 
+				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
 			setIncludeRotation(false);
 		}
 		if (theWidget.getSimpleType().equals(ACTION_HOME) 
