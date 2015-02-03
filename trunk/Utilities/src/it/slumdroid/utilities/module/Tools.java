@@ -560,6 +560,41 @@ public class Tools {
 			PrintWriter outputStream1 = new PrintWriter (path);
 			outputStream1.write(builder.toString());
 			outputStream1.close();
+			redensity(new String(autPath.concat("/AndroidManifest.xml")));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Redensity.
+	 *
+	 * @param fileName the file name
+	 */
+	public void redensity(String fileName) {
+		StringBuilder builder = new StringBuilder();
+		// https://code.google.com/p/robotium/wiki/QuestionsAndAnswers
+		String screens = new String("\t<supports-screens android:anyDensity=\"true\"/>");
+		boolean found = false;
+		try{
+			BufferedReader inputStream1 = new BufferedReader (new FileReader (fileName));
+			String line = new String();
+			while ((line = inputStream1.readLine()) != null ) {
+				if (line.contains("supports-screens")) {
+					builder.append(screens + NEW_LINE);
+					found = true;
+				} else {
+					if (line.contains("</manifest>") && !found) {
+						builder.append(screens + NEW_LINE + line);
+					} else {
+						builder.append(line + NEW_LINE);	
+					}	
+				}
+			}
+			inputStream1.close();
+			PrintWriter outputStream = new PrintWriter(fileName);
+			outputStream.write(builder.toString());
+			outputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -639,7 +674,7 @@ public class Tools {
 				String format = "%-6s %12s \t%-12s";
 				outputStream1 = new PrintWriter (inputPath + "\\output\\trend.txt");
 				outputStream1.write(String.format(format, "Task", "Coverage", "Time"));
-				outputStream1.write(System.getProperty("line.separator"));
+				outputStream1.write(NEW_LINE);
 				for (int index = 0; index < list.size(); index++) {
 					item = list.get(index);
 					outputStream1.flush();
@@ -649,7 +684,7 @@ public class Tools {
 							item.getLoC().replace(".", ",").replace("% ", "%"), 
 							String.format("%04d", item.getActualTime()));
 					outputStream1.write(row);
-					outputStream1.write(System.getProperty("line.separator"));
+					outputStream1.write(NEW_LINE);
 				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
