@@ -572,32 +572,70 @@ public class Tools {
 	 * @param fileName the file name
 	 */
 	public void redensity(String fileName) {
-		StringBuilder builder = new StringBuilder();
-		// https://code.google.com/p/robotium/wiki/QuestionsAndAnswers
-		String screens = new String("\t<supports-screens android:anyDensity=\"true\"/>");
-		boolean found = false;
-		try{
-			BufferedReader inputStream1 = new BufferedReader (new FileReader (fileName));
-			String line = new String();
-			while ((line = inputStream1.readLine()) != null ) {
-				if (line.contains("supports-screens")) {
-					builder.append(screens + NEW_LINE);
-					found = true;
-				} else {
-					if (line.contains("</manifest>") && !found) {
-						builder.append(screens + NEW_LINE + line);
-					} else {
-						builder.append(line + NEW_LINE);	
-					}	
-				}
-			}
-			inputStream1.close();
-			PrintWriter outputStream = new PrintWriter(fileName);
-			outputStream.write(builder.toString());
-			outputStream.close();
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = null;
+		Document document = null;
+
+		try {
+			docBuilder = builderFactory.newDocumentBuilder();
+			document = docBuilder.parse(new FileInputStream(fileName));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+		Element manifest = document.getDocumentElement();
+		Element target = (Element)manifest.getElementsByTagName("supports-screens").item(0);
+		
+		if (target == null) {
+			StringBuilder builder = new StringBuilder();
+			// https://code.google.com/p/robotium/wiki/QuestionsAndAnswers
+			String screens = new String("\t<supports-screens android:smallScreens=\"true\" android:normalScreens=\"true\" android:largeScreens=\"true\" android:anyDensity=\"true\" />");
+			boolean found = false;
+			try{
+				BufferedReader inputStream1 = new BufferedReader (new FileReader (fileName));
+				String line = new String();
+				while ((line = inputStream1.readLine()) != null ) {
+					if (line.contains("supports-screens")) {
+						builder.append(screens + NEW_LINE);
+						found = true;
+					} else {
+						if (line.contains("</manifest>") && !found) {
+							builder.append(screens + NEW_LINE + line);
+						} else {
+							builder.append(line + NEW_LINE);	
+						}	
+					}
+				}
+				inputStream1.close();
+				PrintWriter outputStream = new PrintWriter(fileName);
+				outputStream.write(builder.toString());
+				outputStream.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			target.setAttribute("android:anyDensity", "true");
+			target.setAttribute("android:smallScreens", "true");
+			target.setAttribute("android:normalScreens", "true");
+			target.setAttribute("android:largeScreens", "true");
+			
+			String newManifest = new String();
+			try {
+				newManifest = toXml(manifest);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			PrintWriter output;
+			try {
+				output = new PrintWriter (fileName);
+				output.println(newManifest);
+				output.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	// Trend Utilities
