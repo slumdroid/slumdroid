@@ -169,9 +169,12 @@ public class Automation implements Executor {
 					return;
 				}
 				if (event.getWidget().getSimpleType().equals(MENU_ITEM)) {
-					getRobotium().clickOnMenuItem(detectName(view));
-					afterEvent();
-					return;	
+					String nameItem = detectName(view);
+					if (!nameItem.equals("")) {
+						getRobotium().clickOnMenuItem(nameItem);
+						afterEvent();
+						return;	
+					}	
 				}
 			}
 			fireEventOnView (view, eventType, event.getValue());	
