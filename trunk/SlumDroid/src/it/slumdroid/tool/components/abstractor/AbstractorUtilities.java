@@ -48,6 +48,7 @@ public class AbstractorUtilities {
 				CharSequence hint = ((EditText)view).getHint();
 				name = (hint == null)?new String():hint.toString();
 			}
+			return name;
 		} 
 		if (view instanceof RadioGroup) {
 			RadioGroup group = (RadioGroup)view;
