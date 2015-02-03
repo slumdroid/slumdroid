@@ -29,6 +29,8 @@ import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
@@ -159,10 +161,26 @@ public class Automation implements Executor {
 				toWrite += " value=" + event.getValue();
 			}
 			Log.i(TAG, toWrite);
+			if (eventType.equals(CLICK)) {
+				if (event.getWidget().getSimpleType().equals(BUTTON)) {
+					if (!event.getWidgetName().equals("")) {
+						getRobotium().clickOnButton(event.getWidgetName());
+						afterEvent();
+						return;
+					}
+				}
+				if (event.getWidget().getSimpleType().equals(MENU_ITEM)) {
+					if (!event.getWidgetName().equals("")) {
+						getRobotium().clickOnMenuItem(event.getWidgetName());
+						afterEvent();
+						return;	
+					}
+				}
+			}
 			fireEventOnView (view, eventType, event.getValue());	
 		}
 	}
-	
+
 	/**
 	 * Fire special events.
 	 *
@@ -171,14 +189,7 @@ public class Automation implements Executor {
 	private void fireSpecialEvents (String eventType) {
 		Log.i(TAG, "Firing event: " + eventType);
 		injectSpecialInteractions (eventType);
-		if (SLEEP_AFTER_EVENT != 0) {
-			wait(SLEEP_AFTER_EVENT);
-		}
-		if (SLEEP_ON_THROBBER != 0) {
-			waitOnThrobber();
-		}
-		getCurrentActivity();
-		getExtractor().extractState();
+		afterEvent();
 	}
 	
 	/**
@@ -216,14 +227,7 @@ public class Automation implements Executor {
 	 */
 	private void fireEventOnView (View view, String eventType, String value) {
 		injectEventInteractions(view, eventType, value);
-		if (SLEEP_AFTER_EVENT != 0) {
-			wait(SLEEP_AFTER_EVENT);
-		}
-		if (SLEEP_ON_THROBBER != 0) {
-			waitOnThrobber();
-		}
-		getCurrentActivity();
-		getExtractor().extractState();
+		afterEvent();
 	}
 
 	/**
@@ -294,6 +298,20 @@ public class Automation implements Executor {
 		if (SLEEP_ON_THROBBER != 0) {
 			waitOnThrobber();
 		}
+	}
+	
+	/**
+	 * After event.
+	 */
+	private void afterEvent() {
+		if (SLEEP_AFTER_EVENT != 0) {
+			wait(SLEEP_AFTER_EVENT);
+		}
+		if (SLEEP_ON_THROBBER != 0) {
+			waitOnThrobber();
+		}
+		getCurrentActivity();
+		getExtractor().extractState();
 	}
 
 	/**
