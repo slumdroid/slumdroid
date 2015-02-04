@@ -29,7 +29,6 @@ import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
@@ -163,11 +162,6 @@ public class Automation implements Executor {
 			}
 			Log.i(TAG, toWrite);
 			if (eventType.equals(CLICK)) {
-				if (event.getWidget().getSimpleType().equals(BUTTON)) {
-					getRobotium().clickOnButton(event.getWidget().getIndex());
-					afterEvent();
-					return;
-				}
 				if (event.getWidget().getSimpleType().equals(MENU_ITEM)) {
 					String nameItem = detectName(view);
 					if (!nameItem.equals("")) {
