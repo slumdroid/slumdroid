@@ -34,7 +34,6 @@ import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
 import static it.slumdroid.tool.Resources.TAG;
-import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.detectName;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
@@ -163,9 +162,8 @@ public class Automation implements Executor {
 			Log.i(TAG, toWrite);
 			if (eventType.equals(CLICK)) {
 				if (event.getWidget().getSimpleType().equals(MENU_ITEM)) {
-					String nameItem = detectName(view);
-					if (!nameItem.equals("")) {
-						getRobotium().clickOnMenuItem(nameItem);
+					if (!event.getWidgetName().equals("")) {
+						getRobotium().clickOnMenuItem(event.getWidgetName());
 						afterEvent();
 						return;	
 					}	
