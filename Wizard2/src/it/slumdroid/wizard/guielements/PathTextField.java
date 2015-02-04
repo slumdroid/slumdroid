@@ -45,7 +45,7 @@ public abstract class PathTextField extends JTextField {
 			}
 
 			public void updateAndroidPath (DocumentEvent event) {
-				if (event.getLength()==0) return;
+				if (event.getLength() == 0) return;
 				try {
 					onUpdate(event.getDocument().getText(0, event.getDocument().getLength()));
 				} catch (BadLocationException e) {

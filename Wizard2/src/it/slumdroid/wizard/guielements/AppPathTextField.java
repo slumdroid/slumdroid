@@ -18,8 +18,8 @@ package it.slumdroid.wizard.guielements;
 import it.slumdroid.wizard.Wizard;
 import it.slumdroid.wizard.tools.CommandLine;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -33,9 +33,9 @@ public class AppPathTextField extends PathTextField {
 	@Override
 	public void onUpdate (String path) {
 		CommandLine.setAutPath(path);
-		if (Wizard.checkApp()!=0) {
+		if (Wizard.checkApp() != 0) {
 			Wizard.detect();
-			if (Wizard.checkExp()!=0){
+			if (Wizard.checkExp() != 0){
 				Wizard.DownSide(false);
 				Wizard.enableStart();
 				Wizard.enableOpenResultFolder();
@@ -49,9 +49,8 @@ public class AppPathTextField extends PathTextField {
 
 	public JButton getChangeButton() {
 		JButton button = new JButton("Select AUT");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent event) {
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				Wizard.clearText();
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
