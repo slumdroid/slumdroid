@@ -18,8 +18,8 @@ package it.slumdroid.wizard.guielements;
 import it.slumdroid.wizard.Wizard;
 import it.slumdroid.wizard.tools.CommandLine;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -46,9 +46,8 @@ public class ResultsPathTextField extends PathTextField {
 
 	public JButton getChangeButton() {
 		JButton button = new JButton("Select the Results Folder");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent event) {
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new java.io.File("."));
 				fileChooser.setDialogTitle("Select the Results Folder");
