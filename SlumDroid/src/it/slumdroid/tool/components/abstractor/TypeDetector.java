@@ -56,6 +56,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AutoCompleteTextView;
@@ -95,7 +96,7 @@ public class TypeDetector {
 	 * @return the simple type
 	 */
 	public String getSimpleType(View view) {
-		type = view.getClass().getName();
+		type = getType(view);
 		if (type.endsWith("TableRow")) {
 			return TABLE_ROW;
 		}
