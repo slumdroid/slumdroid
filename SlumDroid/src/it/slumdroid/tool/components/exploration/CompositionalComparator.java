@@ -20,13 +20,16 @@ import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
 import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
-import static it.slumdroid.tool.Resources.COMPARE_ACTIVITY_TITLE;
+import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.tool.Resources.COMPARE_AVAILABLE;
 import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
 import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
+import static it.slumdroid.tool.Resources.COMPARE_TITLE;
+import static it.slumdroid.tool.Resources.COMPARE_TOAST;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 
@@ -63,7 +66,7 @@ public class CompositionalComparator {
 	 * @return true, if successful
 	 */
 	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity) {
-		if (COMPARE_ACTIVITY_TITLE) {
+		if (COMPARE_TITLE) {
 			if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
 				return false;
 			}	
@@ -110,9 +113,15 @@ public class CompositionalComparator {
 			if (field.getSimpleType().equals(TEXT_VIEW)) {
 				return field.getValue().isEmpty() == otherField.getValue().isEmpty();   
 			}
-			if (field.getSimpleType().equals(DIALOG_TITLE) 
-					|| field.getSimpleType().equals(BUTTON)
-					|| (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX))) {
+			if (field.getSimpleType().equals(MENU_ITEM)) {
+				boolean compareIndex = field.getIndex() == otherField.getIndex();
+				boolean compareValue = field.getValue().equals(otherField.getValue()); 
+				return compareValue && compareIndex;
+			}
+			if (field.getSimpleType().equals(BUTTON) 
+					|| (COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE))
+					|| (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX))
+					|| (COMPARE_TOAST && field.getSimpleType().equals(TOAST))) {
 				return field.getValue().equals(otherField.getValue());
 			}
 			if (field.getSimpleType().equals(MENU_VIEW) 
