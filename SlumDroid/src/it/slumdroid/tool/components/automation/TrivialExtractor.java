@@ -21,7 +21,6 @@ import it.slumdroid.tool.model.Extractor;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.util.SparseArray;
 import android.view.View;
 
 // TODO: Auto-generated Javadoc
@@ -29,53 +28,34 @@ import android.view.View;
  * The Class TrivialExtractor.
  */
 public class TrivialExtractor implements Extractor {
-
-	/** The views. */
-	private SparseArray<View> theViews = new SparseArray<View> ();
 	
-	/**
-	 * Gets the widgets.
-	 *
-	 * @return the widgets
-	 */
-	public SparseArray<View> getWidgets () {
-		return this.theViews;
-	}
-
 	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
 
 	/**
-	 * Gets the all widgets.
+	 * Gets the all views.
 	 *
-	 * @return the all widgets
+	 * @return the all views
 	 */
-	public ArrayList<View> getAllWidgets () {
-		return this.allViews;
+	public ArrayList<View> getAllViews() {
+		return allViews;
+	}
+
+	/**
+	 * Sets the all views.
+	 *
+	 * @param allViews the new all views
+	 */
+	public void setAllViews(ArrayList<View> allViews) {
+		this.allViews = allViews;
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Extractor#extractState()
 	 */
 	public void extractState() {
-		getWidgets().clear();
-		getAllWidgets().clear();	
-		ArrayList<View> viewList = Automation.getRobotium().getViews();
-		if (viewList.size() != 0) {
-			for (View view: viewList) {
-				this.allViews.add(view);
-				if (view.getId() > 0) {
-					this.theViews.put(view.getId(), view); // Add only if the widget has a valid ID
-				}
-			}	
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#getWidget(int)
-	 */
-	public View getWidget (int key) {
-		return getWidgets().get(key);
+		getAllViews().clear();	
+		setAllViews(Automation.getRobotium().getViews());
 	}
 
 	/* (non-Javadoc)
@@ -85,11 +65,11 @@ public class TrivialExtractor implements Extractor {
 		return new ActivityDescription() {
 
 			public Iterator<View> iterator() {
-				return getAllWidgets().iterator();
+				return getAllViews().iterator();
 			}
 
 			public int getWidgetIndex(View view) {
-				return getAllWidgets().indexOf(view);
+				return getAllViews().indexOf(view);
 			}
 
 			public String getActivityName() {
