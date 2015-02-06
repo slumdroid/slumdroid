@@ -29,7 +29,7 @@ import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.*;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
