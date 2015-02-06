@@ -80,14 +80,12 @@ public class Automation implements Executor {
 		executor = new DroidExecutor(test);
 		getRobotium().unlockScreen();
 		afterRestart();
-		getCurrentActivity();
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
 	 */
 	public void execute (Task theTask) {
-		afterRestart();
 		Log.i (TAG, "Playing Task " + theTask.getId());
 		for (Transition transition: theTask) {
 			for (UserInput input: transition) {
@@ -101,12 +99,12 @@ public class Automation implements Executor {
 	 * @see it.slumdroid.tool.model.Executor#setInput(it.slumdroid.droidmodels.model.UserInput)
 	 */
 	public void setInput(UserInput input) {
-		View view = getExtractor().getAllWidgets().get(input.getWidget().getIndex());
 		String toWrite = "Setting input: " + input.getType() + " widgetId=" + input.getWidgetId() + " widgetType=" + input.getWidget().getSimpleType();
 		if (!input.getValue().equals("")) {
 			toWrite += " value=" + input.getValue();
 		}
 		Log.i(TAG, toWrite);
+		View view = getExtractor().getAllViews().get(input.getWidget().getIndex());
 		injectInputInteractions(view, input.getType(), input.getValue());
 	}
 	
@@ -150,27 +148,21 @@ public class Automation implements Executor {
 	 */
 	public void fireEvent(UserEvent event) {
 		String eventType = event.getType();
-		if (eventType.contains("press") || eventType.equals(CHANGE_ORIENTATION)) { // Special Interactions
-			fireSpecialEvents(eventType);
+		if (eventType.contains("press") || eventType.equals(CHANGE_ORIENTATION)) { 
+			injectSpecialInteractions (eventType);
 		} else {
-			View view = getExtractor().getAllWidgets().get(event.getWidget().getIndex()); // Search widget by index
 			String toWrite = "Firing event: " + eventType + " widgetId=" + event.getWidgetId() + " widgetType=" + event.getWidget().getSimpleType();
 			if (!event.getValue().equals("")) {
 				toWrite += " value=" + event.getValue();
 			}
 			Log.i(TAG, toWrite);
-			fireEventOnView (view, eventType, event.getValue());	
+			if (event.getWidgetType().equals("com.android.internal.view.menu.IconMenuItemView")) {
+				getRobotium().clickOnMenuItem(event.getWidgetName());
+			} else {
+				View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
+				injectEventInteractions(view, eventType, event.getValue());	
+			}
 		}
-	}
-
-	/**
-	 * Fire special events.
-	 *
-	 * @param eventType the event type
-	 */
-	private void fireSpecialEvents (String eventType) {
-		Log.i(TAG, "Firing event: " + eventType);
-		injectSpecialInteractions (eventType);
 		afterEvent();
 	}
 	
@@ -180,6 +172,7 @@ public class Automation implements Executor {
 	 * @param interactionType the interaction type
 	 */
 	private void injectSpecialInteractions (String interactionType) {
+		Log.i(TAG, "Firing event: " + interactionType);
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
 				getRobotium().goBack();
@@ -200,18 +193,6 @@ public class Automation implements Executor {
 		}
 	}
 	
-	/**
-	 * Fire event on view.
-	 *
-	 * @param view the view
-	 * @param eventType the event type
-	 * @param value the value
-	 */
-	private void fireEventOnView (View view, String eventType, String value) {
-		injectEventInteractions(view, eventType, value);
-		afterEvent();
-	}
-
 	/**
 	 * Inject interaction.
 	 *
@@ -292,7 +273,6 @@ public class Automation implements Executor {
 		if (SLEEP_ON_THROBBER != 0) {
 			waitOnThrobber();
 		}
-		getCurrentActivity();
 		getExtractor().extractState();
 	}
 

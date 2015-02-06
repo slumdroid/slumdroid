@@ -15,7 +15,6 @@
 
 package it.slumdroid.tool.model;
 
-import android.view.View;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -35,12 +34,5 @@ public interface Extractor {
 	 */
 	public void extractState ();
 
-	/**
-	 * Gets the widget.
-	 *
-	 * @param key the key
-	 * @return the widget
-	 */
-	public View getWidget (int key);
 
 }
