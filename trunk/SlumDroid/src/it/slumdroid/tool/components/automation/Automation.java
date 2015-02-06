@@ -29,6 +29,7 @@ import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.*;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
@@ -154,6 +155,11 @@ public class Automation implements Executor {
 			String toWrite = "Firing event: " + eventType + " widgetId=" + event.getWidgetId() + " widgetType=" + event.getWidget().getSimpleType();
 			if (!event.getValue().equals("")) {
 				toWrite += " value=" + event.getValue();
+			}
+			if (event.getWidget().getSimpleType().equals(MENU_ITEM)) {
+				if (!event.getWidgetName().equals("")) {
+					toWrite += " item=" + event.getWidgetName();	
+				}
 			}
 			Log.i(TAG, toWrite);
 			if (event.getWidgetType().equals("com.android.internal.view.menu.IconMenuItemView")) {
