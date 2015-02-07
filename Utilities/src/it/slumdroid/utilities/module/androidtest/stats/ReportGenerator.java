@@ -83,7 +83,7 @@ public class ReportGenerator extends StatsReport {
 		this.taskReport = new TaskStats(txtFile);
 		this.eventReport = new InteractionStats();
 		try {
-			this.efg = EventFlowGraph.fromSession(guiTree);
+			this.efg = EventFlowGraph.fromSession(this.session);
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
 		}
@@ -122,7 +122,9 @@ public class ReportGenerator extends StatsReport {
 		for (Map.Entry<String,Integer> entry: branches.entrySet()) {
 			this.branch = max(this.branch, entry.getValue());
 		}
-		countLeaves();
+		if (this.efg != null) {
+			countLeaves();
+		}
 	}
 	
 	/**
