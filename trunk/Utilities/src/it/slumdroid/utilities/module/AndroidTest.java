@@ -91,7 +91,7 @@ public class AndroidTest  {
 		createArtifact(exportToFsm(this.guiTree), getFsmFileName()); // FsmDot
 		createArtifact(exportToDot(this.guiTree), getDotFileName()); // GuiTreeDot
 		try {
-			EventFlowGraph efg = EventFlowGraph.fromSession(GuiTree.fromXml(new File (getInputFileName())));
+			EventFlowGraph efg = EventFlowGraph.fromSession(this.guiTree);
 			createArtifact(exportToEfg(efg), getEfgFileName()); // EfgDot
 			createArtifact(efg.toXml(), getEfgXmlFileName()); // EfgXML
 		} catch (Exception e) {
