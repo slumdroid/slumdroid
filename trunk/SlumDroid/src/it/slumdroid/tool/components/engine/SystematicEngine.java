@@ -145,12 +145,12 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	protected void setupFirstStart() {
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
-		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
-		planFirstTests(baseActivity);
 		if (SCREENSHOT_ENABLED) {
 			getAutomation().wait(1000);
 			takeScreenshot (baseActivity);
 		}
+		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
+		planFirstTests(baseActivity);
 	}
 
 	/**
