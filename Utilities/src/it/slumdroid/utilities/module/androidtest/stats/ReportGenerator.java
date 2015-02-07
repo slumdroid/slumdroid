@@ -22,6 +22,8 @@ import it.slumdroid.droidmodels.guitree.GuiTree;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.xml.NodeListIterator;
+import it.slumdroid.utilities.module.androidtest.efg.EventFlowGraph;
 import it.slumdroid.utilities.module.androidtest.graphviz.Edge;
 import it.slumdroid.utilities.module.androidtest.graphviz.Node;
 
@@ -30,6 +32,10 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Element;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -58,6 +64,12 @@ public class ReportGenerator extends StatsReport {
 	/** The activity states. */
 	private Set<String> activityStates;
 
+	/** The efg. */
+	private EventFlowGraph efg;
+
+	/** The leaves. */
+	private int leaves;
+
 	/**
 	 * Instantiates a new report generator.
 	 *
@@ -70,6 +82,11 @@ public class ReportGenerator extends StatsReport {
 		this.activityStates = new HashSet<String>();
 		this.taskReport = new TaskStats(txtFile);
 		this.eventReport = new InteractionStats();
+		try {
+			this.efg = EventFlowGraph.fromSession(guiTree);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -105,6 +122,32 @@ public class ReportGenerator extends StatsReport {
 		for (Map.Entry<String,Integer> entry: branches.entrySet()) {
 			this.branch = max(this.branch, entry.getValue());
 		}
+		countLeaves();
+	}
+	
+	/**
+	 * Count leaves.
+	 */
+	private void countLeaves() {
+		Element efg = (Element) this.efg.getDom().getChildNodes().item(0);
+		this.countLeaves (efg, 0);
+	}
+	
+	/**
+	 * Count leaves.
+	 *
+	 * @param event the event
+	 * @param depth the depth
+	 */
+	private void countLeaves(Element event, int depth) {
+		boolean atLeastOneChild = false;
+		for (Element element: new NodeListIterator (event)) {
+			atLeastOneChild = true;
+			this.countLeaves(element, depth+1);
+		}
+		if (!atLeastOneChild) {
+			this.leaves++;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -117,9 +160,10 @@ public class ReportGenerator extends StatsReport {
 		builder.append( "Model Information: " + NEW_LINE + 
 				TAB + "Different GUI States: " + this.activityStates.size() + NEW_LINE + 
 				TAB + "Different Activities: " + this.activity.size() + NEW_LINE +
+				TAB + "Leaves of GUITree: " + this.leaves + NEW_LINE +
 				TAB + "Max Reached Depth: " + this.depth + NEW_LINE +
-				TAB + "Max Reached Branch: " + this.branch + BREAK 
-				+ this.eventReport);
+				TAB + "Max Reached Branch: " + this.branch + BREAK +
+				this.eventReport);
 		return builder.toString();
 	}
 
