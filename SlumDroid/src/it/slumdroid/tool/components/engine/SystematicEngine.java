@@ -130,8 +130,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getPersistenceFactory().setStrategy(this.theStrategy);
 		setPersistence (getPersistenceFactory().getPersistence());
 		getAutomation().bind(this);
-		getAutomation().getExtractor().extractState();
 		getPersistence().setContext(Automation.getCurrentActivity());
+		getAutomation().getExtractor().extractState();
 		ActivityDescription description = getAutomation().getExtractor().describeActivity();
 		getAbstractor().setBaseActivity(description);
 		if (!resume()) {
@@ -328,7 +328,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
 	 */
 	public SessionParams onSavingState () {
-		return new SessionParams (PARAM_NAME, this.id);
+		return new SessionParams (PARAM_NAME, getLastId());
 	}
 
 	/* (non-Javadoc)
