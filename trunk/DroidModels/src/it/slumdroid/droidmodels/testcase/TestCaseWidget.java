@@ -119,7 +119,9 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#getIndex()
 	 */
 	public int getIndex() {
-		if (!hasAttribute("index")) return 0;
+		if (!hasAttribute("index")) {
+			return 0;
+		}
 		return Integer.parseInt(getAttribute("index"));
 	}
 
