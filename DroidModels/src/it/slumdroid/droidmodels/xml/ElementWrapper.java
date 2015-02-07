@@ -125,7 +125,11 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @return true, if successful
 	 */
 	public boolean hasAttribute (String name) {
-		return getElement().hasAttribute(name);
+		try {
+			return getElement().hasAttribute(name);	
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	/**
