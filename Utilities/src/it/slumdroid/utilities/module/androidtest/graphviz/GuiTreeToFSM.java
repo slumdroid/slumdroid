@@ -36,12 +36,12 @@ import java.util.TreeSet;
  */
 public class GuiTreeToFSM {
 
+	/** The nodes. */
+	private TreeSet<String> nodes;
+	
 	/** The session. */
 	private GuiTree session;
 	
-	/** The nodes. */
-	private TreeSet<String> nodes;
-
 	/**
 	 * Instantiates a new gui tree to fsm.
 	 *

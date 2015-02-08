@@ -39,20 +39,20 @@ import java.util.List;
  */
 public class GuiTreeToDot {
 
-	/** The session. */
-	private GuiTree session;
-
-	/** The nodes. */
-	private List<Node> nodes;
-
-	/** The edges. */
-	private List<Edge> edges;
-
 	/** The crash count. */
 	private int crashCount = 0;
 
+	/** The edges. */
+	private List<Edge> edges;
+	
 	/** The fail count. */
 	private int failCount = 0;
+	
+	/** The nodes. */
+	private List<Node> nodes;
+	
+	/** The session. */
+	private GuiTree session;
 
 	/**
 	 * Instantiates a new gui tree to dot.

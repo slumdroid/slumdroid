@@ -31,12 +31,18 @@ import java.util.List;
  * The Class TaskStats.
  */
 public class TaskStats extends StatsReport {
+	
+	/** The crashes. */
+	private List<String> crashes;
+	
+	/** The exits. */
+	private List<String> exits;
+	
+	/** The failures. */
+	private List<String> failures;
 
 	/** The tasks. */
 	private int tasks = 0;
-	
-	/** The tasks failed. */
-	private int tasksFailed = 0;
 	
 	/** The tasks crashed. */
 	private int tasksCrashed = 0;
@@ -44,14 +50,8 @@ public class TaskStats extends StatsReport {
 	/** The tasks exit. */
 	private int tasksExit = 0;
 	
-	/** The crashes. */
-	private List<String> crashes;
-	
-	/** The failures. */
-	private List<String> failures;
-	
-	/** The exits. */
-	private List<String> exits;
+	/** The tasks failed. */
+	private int tasksFailed = 0;
 	
 	/** The txt file name. */
 	private String txtFileName;

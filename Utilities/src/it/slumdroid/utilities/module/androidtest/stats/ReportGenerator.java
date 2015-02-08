@@ -41,34 +41,34 @@ import org.w3c.dom.Element;
 /**
  * The Class ReportGenerator.
  */
-public class ReportGenerator extends StatsReport {
-
-	/** The session. */
-	private GuiTree session;
-
-	/** The task report. */
-	private TaskStats taskReport;
-
-	/** The event report. */
-	private InteractionStats eventReport;
-
-	/** The depth. */
-	private int depth = 0;
-
-	/** The branch. */
-	private int branch = 0;
+public class ReportGenerator extends StatsReport {	
 
 	/** The activity. */
 	private Set<String> activity;
 
 	/** The activity states. */
 	private Set<String> activityStates;
-
+	
+	/** The branch. */
+	private int branch = 0;
+	
+	/** The depth. */
+	private int depth = 0;
+	
 	/** The efg. */
 	private EventFlowGraph efg;
-
+	
+	/** The event report. */
+	private InteractionStats eventReport;
+	
 	/** The leaves. */
-	private int leaves;
+	private int leaves = 0;
+	
+	/** The session. */
+	private GuiTree session;
+
+	/** The task report. */
+	private TaskStats taskReport;	
 
 	/**
 	 * Instantiates a new report generator.
