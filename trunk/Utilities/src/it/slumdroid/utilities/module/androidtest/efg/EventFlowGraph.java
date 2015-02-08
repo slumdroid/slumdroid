@@ -19,14 +19,13 @@ public class EventFlowGraph extends XmlGraph {
 	
 	/** The efg. */
 	private Document efg;
-	
-	/** The root element. */
-	private Element rootElement;
-	
+
 	/** The navigator. */
 	private Element navigator;
 	
-	
+	/** The root element. */
+	private Element rootElement;
+
 	/**
 	 * Instantiates a new event flow graph.
 	 *

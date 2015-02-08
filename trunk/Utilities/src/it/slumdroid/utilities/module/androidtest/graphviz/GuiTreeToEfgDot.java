@@ -22,12 +22,12 @@ import org.w3c.dom.Element;
  * The Class GuiTreeToEfgDot.
  */
 public class GuiTreeToEfgDot {
-
-	/** The efg. */
-	private Document efg;
 	
 	/** The edges. */
 	private List<String> edges;
+	
+	/** The efg. */
+	private Document efg;
 	
 	/** The nodes. */
 	private Map<String,String> nodes;
