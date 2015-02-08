@@ -18,6 +18,9 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
+
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
@@ -98,7 +101,9 @@ public class DroidExecutor {
 				getRobotium().sendKey(Solo.UP);                  
 				getRobotium().sendKey(Solo.DOWN);
 			}
-			getRobotium().clickOnView(list.getSelectedView());	
+			if (list.getSelectedItem() != null) {
+				getRobotium().clickOnView(list.getSelectedView());	
+			}
 		} else {
 			getRobotium().clickInList(Integer.valueOf(value));	
 		}
@@ -127,7 +132,9 @@ public class DroidExecutor {
 				getRobotium().sendKey(Solo.UP);                  
 				getRobotium().sendKey(Solo.DOWN);
 			}
-			getRobotium().clickLongOnView(list.getSelectedView());	
+			if (list.getSelectedItem() != null) {
+				getRobotium().clickLongOnView(list.getSelectedView());	
+			}
 		} else {
 			getRobotium().clickLongInList(Integer.valueOf(value));	
 		}
@@ -142,13 +149,20 @@ public class DroidExecutor {
 	public void selectSpinnerItem (final Spinner spinner, final String value) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
-		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		if (list.getCount() != list.getChildCount()) {
-			requestView(list);
+		final ArrayList<ListView> viewList = getRobotium().getCurrentViews(ListView.class);
+        if (viewList.size() > 0) {
+                runOnUiThread(new Runnable() {
+                        public void run() {
+                                viewList.get(0).setSelection(0);
+                        }
+                });
+        }
+		ListView list = viewList.get(0);
+		if (list.getCount() != list.getChildCount()) {	
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			runOnUiThread(new Runnable() { 
 				public void run() {
-					list.setSelection(item);
+					viewList.get(0).setSelection(item);
 				}
 			});
 			if (item < list.getCount()/2) {
@@ -158,7 +172,9 @@ public class DroidExecutor {
 				getRobotium().sendKey(Solo.UP);                  
 				getRobotium().sendKey(Solo.DOWN);
 			}
-			getRobotium().clickOnView(list.getSelectedView());	
+			if (list.getSelectedItem() != null) {
+				getRobotium().clickOnView(list.getSelectedView());
+			}
 		} else {
 			getRobotium().clickInList(Integer.valueOf(value));	
 		}		
@@ -176,7 +192,7 @@ public class DroidExecutor {
 			getRobotium().enterText(editText, value);
 		}
 	}
-	
+
 	/**
 	 * Type text.
 	 *
