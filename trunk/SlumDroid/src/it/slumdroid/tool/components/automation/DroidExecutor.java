@@ -87,19 +87,9 @@ public class DroidExecutor {
 	public void selectListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon select list item: the list does not exist");
 		if (list.getCount() != list.getChildCount()) {
+			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
-			runOnUiThread(new Runnable() { 
-				public void run() {
-					list.setSelection(item);
-				}
-			});
-			if (item < list.getCount()/2) {
-				getRobotium().sendKey(Solo.DOWN);
-				getRobotium().sendKey(Solo.UP);
-			} else {
-				getRobotium().sendKey(Solo.UP);                  
-				getRobotium().sendKey(Solo.DOWN);
-			}
+			selectRow(item, list);
 			if (list.getSelectedItem() != null) {
 				getRobotium().clickOnView(list.getSelectedView());	
 			}
@@ -117,19 +107,9 @@ public class DroidExecutor {
 	public void selectLongListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannon long select list item: the list does not exist");
 		if (list.getCount() != list.getChildCount()) {
+			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
-			runOnUiThread(new Runnable() { 
-				public void run() {
-					list.setSelection(item);
-				}
-			});
-			if (item < list.getCount()/2) {
-				getRobotium().sendKey(Solo.DOWN);
-				getRobotium().sendKey(Solo.UP);
-			} else {
-				getRobotium().sendKey(Solo.UP);                  
-				getRobotium().sendKey(Solo.DOWN);
-			}
+			selectRow(item, list);
 			if (list.getSelectedItem() != null) {
 				getRobotium().clickLongOnView(list.getSelectedView());	
 			}
@@ -147,15 +127,45 @@ public class DroidExecutor {
 	public void selectSpinnerItem (final Spinner spinner, final String value) {
 		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
-		final ArrayList<ListView> list = getRobotium().getCurrentViews(ListView.class);
-        if (list.size() > 0) {
-                runOnUiThread(new Runnable() {
-                        public void run() {
-                                list.get(0).setSelection(0);
-                        }
-                });
-        }
-		selectListItem (list.get(0), value);		
+		final ArrayList<ListView> viewList = getRobotium().getCurrentViews(ListView.class);
+		if (viewList.size() > 0) {
+			runOnUiThread(new Runnable() {
+				public void run() {
+					viewList.get(0).setSelection(0);
+				}
+			});
+			ListView list = viewList.get(0);
+			if (list.getCount() != list.getChildCount()) {	
+				final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
+				selectRow(item, list);
+				if (list.getSelectedItem() != null) {
+					getRobotium().clickOnView(list.getSelectedView());
+				}
+			} else {
+				getRobotium().clickInList(Integer.valueOf(value));	
+			}
+		}		
+	}
+
+	/**
+	 * Select row.
+	 *
+	 * @param item the item
+	 * @param list the list
+	 */
+	private void selectRow(final int item, final ListView list) {
+		runOnUiThread(new Runnable() { 
+			public void run() {
+				list.setSelection(item);
+			}
+		});
+		if (item < list.getCount()/2) {
+			getRobotium().sendKey(Solo.DOWN);
+			getRobotium().sendKey(Solo.UP);
+		} else {
+			getRobotium().sendKey(Solo.UP);                  
+			getRobotium().sendKey(Solo.DOWN);
+		}
 	}
 
 	/**
@@ -245,6 +255,22 @@ public class DroidExecutor {
 		int index = Math.min(count, Math.max(1, item)) - 1;
 		getRobotium().clickOnView(tabHost.getTabWidget().getChildAt(index));
 	}
+
+	/**
+	 * Request view.
+	 *
+	 * @param view the view
+	 */
+	public void requestView (final View view) {
+		getRobotium().sendKey(Solo.UP); // Solo.waitForView() requires a widget to be focused		
+		getRobotium().waitForView(view, 1000, true);
+		runOnUiThread(new Runnable() {
+			public void run() {
+				view.requestFocus();            
+			}
+		});
+		sync();		
+	}		
 
 	/**
 	 * Run on ui thread.
