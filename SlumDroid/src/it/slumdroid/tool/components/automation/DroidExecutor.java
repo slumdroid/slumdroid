@@ -140,6 +140,8 @@ public class DroidExecutor {
 			} else {
 				getRobotium().clickInList(Integer.valueOf(value));      
 			}	
+		} else {
+			getRobotium().clickInList(Integer.valueOf(value));      
 		}		
 	}
 
