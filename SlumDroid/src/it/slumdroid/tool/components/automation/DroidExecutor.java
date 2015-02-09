@@ -125,12 +125,21 @@ public class DroidExecutor {
 		getRobotium().clickOnView(spinner);
 		final ArrayList<ListView> viewList = getRobotium().getCurrentViews(ListView.class);
 		if (viewList.size() > 0) {
+			final ListView list = viewList.get(0);
 			runOnUiThread(new Runnable() {
 				public void run() {
-					viewList.get(0).setSelection(0);
+					list.setSelection(0);
 				}
 			});
-			getRobotium().clickInList(Integer.valueOf(value));	
+			if (list.getCount() != list.getChildCount()) {  
+				final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
+				selectRow(item, list);
+				if (list.getSelectedItem() != null) {
+					getRobotium().clickOnView(list.getSelectedView());
+				}
+			} else {
+				getRobotium().clickInList(Integer.valueOf(value));      
+			}	
 		}		
 	}
 
@@ -162,7 +171,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void writeText (final EditText editText, final String value) {
-		assertNotNull(editText,"Cannot writeText: The widget does not exist");
+		assertNotNull(editText, "Cannot writeText: The widget does not exist");
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().enterText(editText, value);
