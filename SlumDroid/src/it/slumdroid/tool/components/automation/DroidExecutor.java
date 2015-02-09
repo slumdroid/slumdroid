@@ -64,7 +64,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 */
 	public void click (final View view) {
-		assertNotNull(view,"Cannot click: the widget does not exist");
+		assertNotNull(view, "Cannot click: the widget does not exist");
 		getRobotium().clickOnView(view);
 	}
 
@@ -85,14 +85,12 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectListItem (final ListView list, final String value) {
-		assertNotNull(list, "Cannon select list item: the list does not exist");
+		assertNotNull(list, "Cannot select list item: the list does not exist");
 		if (list.getCount() != list.getChildCount()) {
 			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			selectRow(item, list);
-			if (list.getSelectedItem() != null) {
-				getRobotium().clickOnView(list.getSelectedView());	
-			}
+			click(list.getSelectedView());	
 		} else {
 			getRobotium().clickInList(Integer.valueOf(value));	
 		}
@@ -105,14 +103,12 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectLongListItem (final ListView list, final String value) {
-		assertNotNull(list, "Cannon long select list item: the list does not exist");
+		assertNotNull(list, "Cannot long select list item: the list does not exist");
 		if (list.getCount() != list.getChildCount()) {
 			requestView(list);
 			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
 			selectRow(item, list);
-			if (list.getSelectedItem() != null) {
-				getRobotium().clickLongOnView(list.getSelectedView());	
-			}
+			longClick(list.getSelectedView());	
 		} else {
 			getRobotium().clickLongInList(Integer.valueOf(value));	
 		}
@@ -125,7 +121,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectSpinnerItem (final Spinner spinner, final String value) {
-		assertNotNull(spinner, "Cannon press spinner item: the spinner does not exist");
+		assertNotNull(spinner, "Cannot press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
 		final ArrayList<ListView> viewList = getRobotium().getCurrentViews(ListView.class);
 		if (viewList.size() > 0) {
@@ -134,16 +130,7 @@ public class DroidExecutor {
 					viewList.get(0).setSelection(0);
 				}
 			});
-			ListView list = viewList.get(0);
-			if (list.getCount() != list.getChildCount()) {	
-				final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
-				selectRow(item, list);
-				if (list.getSelectedItem() != null) {
-					getRobotium().clickOnView(list.getSelectedView());
-				}
-			} else {
-				getRobotium().clickInList(Integer.valueOf(value));	
-			}
+			getRobotium().clickInList(Integer.valueOf(value));	
 		}		
 	}
 
@@ -175,6 +162,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void writeText (final EditText editText, final String value) {
+		assertNotNull(editText,"Cannot writeText: The widget does not exist");
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().enterText(editText, value);
@@ -188,6 +176,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void typeText (final EditText editText, final String value) {
+		assertNotNull(editText, "Cannot TypeText: The widget does not exist");
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().typeText(editText, value);
@@ -201,6 +190,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void writeTextAndEnter (final EditText editText, final String value) {
+		assertNotNull(editText, "Cannot writeText: The widget does not exist");
 		typeText (editText, value);
 		getRobotium().sendKey(Solo.ENTER);
 	}
@@ -216,7 +206,7 @@ public class DroidExecutor {
 		if (item < 1) {
 			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
 		}
-		assertNotNull(radioGroup, "Cannon press radio group item: the radio group does not exist");
+		assertNotNull(radioGroup, "Cannot press radio group item: the radio group does not exist");
 		getRobotium().clickOnView(radioGroup.getChildAt(item - 1));
 	}
 
@@ -237,6 +227,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void setProgressBar (final View view, final String value) {
+		assertNotNull(view, "Cannot set progressBar: The widget does not exist");
 		getRobotium().setProgressBar((ProgressBar)view, Integer.parseInt(value));
 	}
 
