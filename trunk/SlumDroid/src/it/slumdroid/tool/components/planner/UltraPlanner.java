@@ -67,9 +67,9 @@ public class UltraPlanner {
 	/** The include menu. */
 	protected boolean includeMenu;
 
-    /** The include rotation. */
-    protected boolean includeRotation;
-	
+	/** The include rotation. */
+	protected boolean includeRotation;
+
 	/**
 	 * Adds the plan for activity widgets.
 	 *
@@ -109,18 +109,21 @@ public class UltraPlanner {
 	 * @param theState the state
 	 */
 	private void reductionActions(WidgetState theWidget , ActivityState theState) {
-		if (theWidget.getSimpleType().equals(DIALOG_TITLE) 
-				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
-			setIncludeMenu(false);
-		}
-		if (theWidget.getSimpleType().equals(PREFERENCE_LIST)) {		
-			setIncludeRotation(false);		
-		}
 		if (theWidget.getSimpleType().equals(ACTION_HOME) 
 				&& theWidget.isClickable() 
 				&& theWidget.isAvailable()) {
 			setIncludeAction(true);
-		}	
+			return;
+		}
+		if (theWidget.getSimpleType().equals(DIALOG_TITLE)) {
+			setIncludeMenu(false);
+			return;
+		}
+		if (theWidget.getSimpleType().equals(PREFERENCE_LIST)) {		
+			setIncludeMenu(false);
+			setIncludeRotation(false);
+			return;
+		}
 	}
 
 	/**
@@ -224,9 +227,9 @@ public class UltraPlanner {
 			planner.addTransition(transition);
 		}
 		if (isIncludeRotation()) {
-            event = getAbstractor().createEvent(CHANGE_ORIENTATION);
-            transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
-            planner.addTransition(transition);
+			event = getAbstractor().createEvent(CHANGE_ORIENTATION);
+			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
+			planner.addTransition(transition);
 		}
 		event = getAbstractor().createEvent(PRESS_BACK);
 		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
@@ -359,23 +362,23 @@ public class UltraPlanner {
 	public void setIncludeMenu(boolean includeMenu) {
 		this.includeMenu = includeMenu;
 	}
-	
-    /**
-     * Checks if is include rotation.
-     *
-     * @return true, if is include rotation
-     */
-    public boolean isIncludeRotation() {
-            return includeRotation;
-    }
 
-    /**
-     * Sets the include rotation.
-     *
-     * @param includeRotation the new include rotation
-     */
-    public void setIncludeRotation(boolean includeRotation) {
-            this.includeRotation = includeRotation;
-    }
+	/**
+	 * Checks if is include rotation.
+	 *
+	 * @return true, if is include rotation
+	 */
+	public boolean isIncludeRotation() {
+		return includeRotation;
+	}
+
+	/**
+	 * Sets the include rotation.
+	 *
+	 * @param includeRotation the new include rotation
+	 */
+	public void setIncludeRotation(boolean includeRotation) {
+		this.includeRotation = includeRotation;
+	}
 
 }
