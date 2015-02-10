@@ -24,7 +24,6 @@ import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
 import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
 import it.slumdroid.droidmodels.model.ActivityState;
@@ -50,7 +49,7 @@ import java.util.List;
  */
 public class UltraPlanner {
 
-	/** The input filter. */
+	/** The filters. */
 	protected AllPassFilter eventFilter, inputFilter;
 
 	/** The user. */
@@ -68,9 +67,6 @@ public class UltraPlanner {
 	/** The include menu. */
 	protected boolean includeMenu;
 
-	/** The include rotation. */
-	protected boolean includeRotation;
-
 	/**
 	 * Adds the plan for activity widgets.
 	 *
@@ -80,7 +76,6 @@ public class UltraPlanner {
 	private void addPlanForActivityWidgets (Plan thePlanner, ActivityState theState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
-		setIncludeRotation(true);
 		for (WidgetState widget: getEventFilter()) {
 			reductionActions(widget, theState);
 			Collection<UserEvent> events = getUser().handleEvent(widget);
@@ -113,10 +108,6 @@ public class UltraPlanner {
 		if (theWidget.getSimpleType().equals(DIALOG_TITLE) 
 				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
 			setIncludeMenu(false);
-		}
-		if (theWidget.getSimpleType().equals(EXPAND_MENU) 
-				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
-			setIncludeRotation(false);
 		}
 		if (theWidget.getSimpleType().equals(ACTION_HOME) 
 				&& theWidget.isClickable() 
@@ -225,11 +216,11 @@ public class UltraPlanner {
 			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 			planner.addTransition(transition);
 		}
-		if (isIncludeRotation()) {
-			event = getAbstractor().createEvent(CHANGE_ORIENTATION);
-			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
-			planner.addTransition(transition);
-		}
+
+		event = getAbstractor().createEvent(CHANGE_ORIENTATION);
+		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
+		planner.addTransition(transition);
+
 		event = getAbstractor().createEvent(PRESS_BACK);
 		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
 		planner.addTransition(transition);
@@ -360,24 +351,6 @@ public class UltraPlanner {
 	 */
 	public void setIncludeMenu(boolean includeMenu) {
 		this.includeMenu = includeMenu;
-	}
-
-	/**
-	 * Checks if is include rotation.
-	 *
-	 * @return true, if is include rotation
-	 */
-	public boolean isIncludeRotation() {
-		return includeRotation;
-	}
-
-	/**
-	 * Sets the include rotation.
-	 *
-	 * @param includeRotation the new include rotation
-	 */
-	public void setIncludeRotation(boolean includeRotation) {
-		this.includeRotation = includeRotation;
 	}
 
 }
