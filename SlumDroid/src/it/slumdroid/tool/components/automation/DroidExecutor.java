@@ -103,23 +103,10 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectSpinnerItem (final Spinner spinner, final String value) {
-		assertNotNull(spinner, "Cannot press spinner item: the spinner does not exist");
-		getRobotium().clickOnView(spinner);
-		int item = Integer.valueOf(value);
+		click(spinner);
 		sync();
 		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		if (list != null) {
-			if (list.getCount() != list.getChildCount()) {
-				if (item < list.getChildCount()) {
-					getRobotium().clickInList(item);	
-				} else {
-					selectRow(list, item);
-					click(list.getSelectedView());	
-				}
-			} else {
-				getRobotium().clickInList(item);
-			}	
-		} 	
+		selectListItem(list, value); 	
 	}
 
 	/**
