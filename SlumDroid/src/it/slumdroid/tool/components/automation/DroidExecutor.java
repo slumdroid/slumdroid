@@ -85,13 +85,8 @@ public class DroidExecutor {
 		assertNotNull(list, "Cannot select list item: the list does not exist");
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
-			if (!list.getAdapter().getClass().getName().endsWith("PreferenceGroupAdapter")) {
-				if (item < list.getChildCount()) {
-					getRobotium().clickInList(item);
-				} else {
-					selectRow(list, item);
-					click(list.getSelectedView());	
-				}
+			if (item < list.getChildCount()) {
+				getRobotium().clickInList(item);
 			} else {
 				selectRow(list, item);
 				click(list.getSelectedView());	
@@ -159,16 +154,10 @@ public class DroidExecutor {
 		final int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
 		runOnUiThread(new Runnable() { 
 			public void run() {
-				if (row == 0) {
-					list.setSelection(row);	
-				} else {
-					list.setSelection(row - 1);
-				}
+				list.setSelection(row - 1);		
 			}
-		});
-		if (row != 0) {
-			getRobotium().sendKey(Solo.DOWN);
-		}
+		});	
+		getRobotium().sendKey(Solo.DOWN);
 	}
 
 	/**
