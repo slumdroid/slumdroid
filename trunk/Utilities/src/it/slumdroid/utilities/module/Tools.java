@@ -31,6 +31,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -590,23 +591,19 @@ public class Tools {
 			StringBuilder builder = new StringBuilder();
 			// https://code.google.com/p/robotium/wiki/QuestionsAndAnswers
 			String screens = new String("\t<supports-screens android:smallScreens=\"true\" android:normalScreens=\"true\" android:largeScreens=\"true\" android:anyDensity=\"true\" />");
-			boolean found = false;
 			try{
-				BufferedReader inputStream1 = new BufferedReader (new FileReader (fileName));
+				InputStreamReader inputStream = new InputStreamReader(new FileInputStream(new File(fileName)), "UTF-8");
+				BufferedReader reader = new BufferedReader (inputStream);
 				String line = new String();
-				while ((line = inputStream1.readLine()) != null ) {
-					if (line.contains("supports-screens")) {
-						builder.append(screens + NEW_LINE);
-						found = true;
+				while ((line = reader.readLine()) != null ) {
+					if (line.contains("</manifest>")) {
+						builder.append(screens + NEW_LINE + line);
 					} else {
-						if (line.contains("</manifest>") && !found) {
-							builder.append(screens + NEW_LINE + line);
-						} else {
-							builder.append(line + NEW_LINE);	
-						}	
-					}
+						byte[] stringBytesISO = line.getBytes("ISO-8859-1");
+						builder.append(new String(stringBytesISO, "UTF-8") + NEW_LINE);	
+					}	
 				}
-				inputStream1.close();
+				reader.close();
 				PrintWriter outputStream = new PrintWriter(fileName);
 				outputStream.write(builder.toString());
 				outputStream.close();
