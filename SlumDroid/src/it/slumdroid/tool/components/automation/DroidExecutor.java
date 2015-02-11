@@ -18,9 +18,6 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
-
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
@@ -86,13 +83,14 @@ public class DroidExecutor {
 	 */
 	public void selectListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannot select list item: the list does not exist");
+		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			requestView(list);
-			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
-			selectRow(item, list);
-			click(list.getSelectedView());	
+			int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
+			selectRow(list, row);
+			click(list.getSelectedView());
 		} else {
-			getRobotium().clickInList(Integer.valueOf(value));	
+			getRobotium().clickInList(item);	
 		}
 	}
 
@@ -104,13 +102,14 @@ public class DroidExecutor {
 	 */
 	public void selectLongListItem (final ListView list, final String value) {
 		assertNotNull(list, "Cannot long select list item: the list does not exist");
+		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			requestView(list);
-			final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
-			selectRow(item, list);
-			longClick(list.getSelectedView());	
+			int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
+			selectRow(list, row);
+			longClick(list.getSelectedView());
 		} else {
-			getRobotium().clickLongInList(Integer.valueOf(value));	
+			getRobotium().clickLongInList(item);	
 		}
 	}
 
@@ -123,45 +122,38 @@ public class DroidExecutor {
 	public void selectSpinnerItem (final Spinner spinner, final String value) {
 		assertNotNull(spinner, "Cannot press spinner item: the spinner does not exist");
 		getRobotium().clickOnView(spinner);
-		final ArrayList<ListView> viewList = getRobotium().getCurrentViews(ListView.class);
-		if (viewList.size() > 0) {
-			final ListView list = viewList.get(0);
-			runOnUiThread(new Runnable() {
-				public void run() {
-					list.setSelection(0);
-				}
-			});
-			if (list.getCount() != list.getChildCount()) {  
-				final int item = Math.min(list.getCount(), Math.max(1, Integer.valueOf(value))) - 1;
-				selectRow(item, list);
-				if (list.getSelectedItem() != null) {
-					getRobotium().clickOnView(list.getSelectedView());
+		int item = Integer.valueOf(value);
+		sync();
+		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		if (list != null) {
+			if (list.getCount() != list.getChildCount()) {
+				if (item < list.getChildCount()) {
+					getRobotium().clickInList(item);	
+				} else {
+					requestView(list);
+					int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
+					selectRow(list, row);
+					click(list.getSelectedView());	
 				}
 			} else {
-				getRobotium().clickInList(Integer.valueOf(value));      
+				getRobotium().clickInList(item);
 			}	
-		} else {
-			getRobotium().clickInList(Integer.valueOf(value));      
-		}		
+		} 	
 	}
 
 	/**
 	 * Select row.
 	 *
-	 * @param item the item
 	 * @param list the list
+	 * @param row the row
 	 */
-	private void selectRow(final int item, final ListView list) {
+	private void selectRow(final ListView list, int row) {
 		runOnUiThread(new Runnable() { 
 			public void run() {
-				list.setSelection(item);
+				list.setSelection(0);
 			}
 		});
-		if (item < list.getCount()/2) {
-			getRobotium().sendKey(Solo.DOWN);
-			getRobotium().sendKey(Solo.UP);
-		} else {
-			getRobotium().sendKey(Solo.UP);                  
+		for (int index = 0; index < row; index++) {
 			getRobotium().sendKey(Solo.DOWN);
 		}
 	}
