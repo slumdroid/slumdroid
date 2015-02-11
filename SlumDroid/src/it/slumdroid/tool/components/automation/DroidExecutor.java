@@ -156,13 +156,17 @@ public class DroidExecutor {
 	 */
 	private void selectRow(final ListView list, int item) {
 		requestView(list);
-		int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
+		final int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
 		runOnUiThread(new Runnable() { 
 			public void run() {
-				list.setSelection(0);
+				if (row == 0) {
+					list.setSelection(row);	
+				} else {
+					list.setSelection(row - 1);
+				}
 			}
 		});
-		for (int index = 0; index < row; index++) {
+		if (row != 0) {
 			getRobotium().sendKey(Solo.DOWN);
 		}
 	}
