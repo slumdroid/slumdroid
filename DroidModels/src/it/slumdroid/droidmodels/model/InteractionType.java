@@ -22,10 +22,10 @@ package it.slumdroid.droidmodels.model;
 public interface InteractionType {
 
 	/** The Constant PRESS_BACK. */
-	public final static String PRESS_BACK   = "pressBack";
+	public final static String PRESS_BACK = "pressBack";
 	
 	/** The Constant PRESS_MENU. */
-	public final static String PRESS_MENU   = "pressMenu";
+	public final static String PRESS_MENU = "pressMenu";
 	
 	/** The Constant PRESS_ACTION. */
 	public final static String PRESS_ACTION = "pressActionBar";
@@ -38,9 +38,6 @@ public interface InteractionType {
 	
 	/** The Constant LONG_CLICK. */
 	public final static String LONG_CLICK = "longClick";
-	
-	/** The Constant DRAG. */
-	public final static String DRAG = "drag";
 	
 	/** The Constant ENTER_TEXT. */
 	public final static String ENTER_TEXT = "enterText";
