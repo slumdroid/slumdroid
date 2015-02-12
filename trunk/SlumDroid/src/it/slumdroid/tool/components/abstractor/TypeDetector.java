@@ -52,6 +52,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
 import static it.slumdroid.droidmodels.model.SimpleType.TABLE_LAYOUT;
 import static it.slumdroid.droidmodels.model.SimpleType.TABLE_ROW;
 import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
+import static it.slumdroid.droidmodels.model.SimpleType.TAB_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
@@ -207,6 +208,9 @@ public class TypeDetector {
 		}
 		if (view instanceof ScrollView) {
 			return SCROLL_VIEW;
+		}
+		if (type.endsWith("TabView")) {
+			return TAB_VIEW;
 		}
 		if (view instanceof WebView 
 				|| type.endsWith("WebView")) {
