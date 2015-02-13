@@ -31,7 +31,7 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 
 	/** The tag. */
 	public static String TAG = "EVENT";
-	
+
 	/**
 	 * Instantiates a new test case event.
 	 */

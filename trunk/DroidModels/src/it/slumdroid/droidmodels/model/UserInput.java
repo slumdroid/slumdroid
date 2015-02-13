@@ -27,35 +27,35 @@ public interface UserInput extends UserInteraction {
 	 * @return the widget
 	 */
 	public WidgetState getWidget();
-	
+
 	/**
 	 * Sets the widget.
 	 *
 	 * @param widget the new widget
 	 */
 	public void setWidget(WidgetState widget);
-	
+
 	/**
 	 * Gets the widget name.
 	 *
 	 * @return the widget name
 	 */
 	public String getWidgetName();
-	
+
 	/**
 	 * Sets the widget name.
 	 *
 	 * @param name the new widget name
 	 */
 	public void setWidgetName(String name);
-	
+
 	/**
 	 * Gets the widget type.
 	 *
 	 * @return the widget type
 	 */
 	public String getWidgetType();
-	
+
 	/**
 	 * Sets the widget type.
 	 *

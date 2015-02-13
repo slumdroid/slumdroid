@@ -35,10 +35,10 @@ import org.w3c.dom.Element;
  * The Class ElementWrapper.
  */
 public abstract class ElementWrapper implements WrapperInterface {
-	
+
 	/** The element. */
 	protected Element element;
-	
+
 	/** The trasformer. */
 	protected static Transformer trasformer;
 

@@ -29,49 +29,49 @@ public interface Task extends Iterable<Transition>, WrapperInterface {
 	 * @return the id
 	 */
 	public String getId ();
-	
+
 	/**
 	 * Sets the id.
 	 *
 	 * @param id the new id
 	 */
 	public void setId (String id);
-	
+
 	/**
 	 * Transitions.
 	 *
 	 * @return the iterator
 	 */
 	public Iterator<Transition> transitions();
-	
+
 	/**
 	 * Adds the transition.
 	 *
 	 * @param theTransition the the transition
 	 */
 	public void addTransition(Transition theTransition);
-	
+
 	/**
 	 * Sets the final activity.
 	 *
 	 * @param theState the new final activity
 	 */
 	public void setFinalActivity(ActivityState theState);
-	
+
 	/**
 	 * Gets the final transition.
 	 *
 	 * @return the final transition
 	 */
 	public Transition getFinalTransition ();
-	
+
 	/**
 	 * Checks if is failed.
 	 *
 	 * @return true, if is failed
 	 */
 	public boolean isFailed();
-	
+
 	/**
 	 * Sets the failed.
 	 *

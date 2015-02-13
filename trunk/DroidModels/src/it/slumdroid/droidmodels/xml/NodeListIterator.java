@@ -25,10 +25,10 @@ import org.w3c.dom.NodeList;
  * The Class NodeListIterator.
  */
 public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
-	
+
 	/** The items. */
 	private NodeList items = null;
-	
+
 	/** The current item. */
 	private int currentItem;
 

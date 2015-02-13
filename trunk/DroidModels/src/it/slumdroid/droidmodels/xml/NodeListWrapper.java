@@ -31,19 +31,19 @@ import org.w3c.dom.NodeList;
  * @param <E> the element type
  */
 public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> {
-	
+
 	/** The iterator. */
 	private Iterator<Element> theIterator;
-	
+
 	/** The element. */
 	static Class<Element> theElement = Element.class;
-	
+
 	/** The wrapper. */
 	private WrapperInterface theWrapper;
-	
+
 	/** The class e. */
 	private Class<E> theClassE;
-	
+
 	/** The constructor. */
 	Constructor<E> theConstructor;
 

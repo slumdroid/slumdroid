@@ -36,25 +36,25 @@ import org.xml.sax.SAXException;
  * The Class XmlGraph.
  */
 public abstract class XmlGraph {
-	
+
 	/** The doctype system. */
 	protected String doctypeSystem = new String();
-	
+
 	/** The doctype public. */
 	protected String doctypePublic = new String();
-	
+
 	/** The indent. */
 	protected String indent = "yes";
-	
+
 	/** The indent amount. */
 	protected int indentAmount = 4;
-	
+
 	/** The method. */
 	protected String method = "xml";
-	
+
 	/** The validation. */
 	static boolean validation = true;
-	
+
 	/** The builder. */
 	static private DocumentBuilder builder = null;
 
