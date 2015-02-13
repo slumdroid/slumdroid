@@ -36,9 +36,7 @@ import it.slumdroid.tool.components.planner.Plan;
 import it.slumdroid.tool.components.planner.UltraPlanner;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
 import it.slumdroid.tool.model.ActivityDescription;
-import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.Strategy;
 import it.slumdroid.tool.utilities.AllPassFilter;
 import it.slumdroid.tool.utilities.SessionParams;
 import it.slumdroid.tool.utilities.UserFactory;
@@ -77,7 +75,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	private Automation theAutomation;
 
 	/** The persistence. */
-	private Persistence thePersistence;
+	private ResumingPersistence thePersistence;
 
 	/** The persistence factory. */
 	protected PersistenceFactory thePersistenceFactory;
@@ -89,7 +87,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	private TraceDispatcher theScheduler;
 
 	/** The strategy. */
-	private Strategy theStrategy;
+	private ExplorationStrategy theStrategy;
 
 	/**
 	 * Instantiates a new systematic engine.
@@ -118,7 +116,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getPlanner().setUser(UserFactory.getUser(getAbstractor()));
 		getPlanner().setFormFiller(UserFactory.getUser(getAbstractor()));
 		getPlanner().setAbstractor(getAbstractor());
-		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler()));
+		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
+		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler(), getStrategy()));
+		setPersistence (getPersistenceFactory().getPersistence());
 	}
 
 	/* (non-Javadoc)
@@ -126,9 +126,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 */
 	protected void setUp () throws Exception {
 		super.setUp();
-		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
-		getPersistenceFactory().setStrategy(this.theStrategy);
-		setPersistence (getPersistenceFactory().getPersistence());
 		getAutomation().bind(this);
 		getPersistence().setContext(Automation.getCurrentActivity());
 		getAutomation().getExtractor().extractState();
@@ -145,11 +142,11 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	protected void setupFirstStart() {
 		ActivityState baseActivity = getAbstractor().getBaseActivity(); 
 		getStrategy().addState(baseActivity);
+		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
 		if (SCREENSHOT_ENABLED) {
 			getAutomation().wait(1000);
 			takeScreenshot (baseActivity);
 		}
-		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
 		planFirstTests(baseActivity);
 	}
 
@@ -219,10 +216,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @return true, if successful
 	 */
 	public boolean resume() {
-		if (!(getPersistence() instanceof ResumingPersistence)) {
-			return false;
-		}
-		ResumingPersistence resumer = (ResumingPersistence)getPersistence();
+		ResumingPersistence resumer = getPersistence();
 		if (!resumer.canHasResume()) {
 			return false;
 		}
@@ -387,7 +381,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @return the persistence
 	 */
-	public Persistence getPersistence() {
+	public ResumingPersistence getPersistence() {
 		return this.thePersistence;
 	}
 
@@ -396,7 +390,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @param thePersistence the new persistence
 	 */
-	public void setPersistence(Persistence thePersistence) {
+	public void setPersistence(ResumingPersistence thePersistence) {
 		this.thePersistence = thePersistence;
 	}
 
@@ -459,7 +453,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @return the strategy
 	 */
-	public Strategy getStrategy() {
+	public ExplorationStrategy getStrategy() {
 		return this.theStrategy;
 	}
 
@@ -468,7 +462,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @param theStrategy the new strategy
 	 */
-	public void setStrategy(Strategy theStrategy) {
+	public void setStrategy(ExplorationStrategy theStrategy) {
 		this.theStrategy = theStrategy;
 	}
 
