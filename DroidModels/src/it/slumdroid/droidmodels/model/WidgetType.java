@@ -42,10 +42,10 @@ public class WidgetType {
 
 	/** The type. */
 	private final int type;
-	
+
 	/** The name lower case. */
 	private String nameLowerCase;
-	
+
 	/** The value lower case. */
 	private String valueLowerCase;
 

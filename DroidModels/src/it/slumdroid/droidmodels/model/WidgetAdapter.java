@@ -106,7 +106,7 @@ public class WidgetAdapter implements WidgetState {
 	public String getSimpleType() {
 		return null;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setSimpleType(java.lang.String)
 	 */
@@ -171,7 +171,7 @@ public class WidgetAdapter implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setClickable(java.lang.String)
 	 */
 	public void setClickable(String value) {}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#isLongClickable()
 	 */
@@ -195,7 +195,7 @@ public class WidgetAdapter implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setValue(java.lang.String)
 	 */
 	public void setValue(String value) {}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */

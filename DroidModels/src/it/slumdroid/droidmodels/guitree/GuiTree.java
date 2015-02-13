@@ -42,10 +42,10 @@ import org.xml.sax.SAXException;
  * The Class GuiTree.
  */
 public class GuiTree extends XmlGraph implements Session {
-	
+
 	/** The gui tree. */
 	private Document guiTree;
-	
+
 	/** The Constant TAG. */
 	public final static String TAG = "SESSION";
 
