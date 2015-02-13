@@ -308,7 +308,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		newEvent.setId(getUniqueEventId());
 		return newEvent;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createEvent(java.lang.String)
 	 */

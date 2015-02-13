@@ -28,14 +28,14 @@ import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
  * The Class ListSelector.
  */
 public class ListSelector extends IterativeInteractorAdapter {
-	
+
 	/**
 	 * Instantiates a new list selector.
 	 */
 	public ListSelector() {
 		super (MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW, PREFERENCE_LIST, EXPAND_MENU);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter#getToItem(it.slumdroid.droidmodels.model.WidgetState, int, int)
 	 */

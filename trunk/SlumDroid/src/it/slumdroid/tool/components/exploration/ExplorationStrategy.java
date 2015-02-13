@@ -35,16 +35,16 @@ public class ExplorationStrategy implements Strategy {
 
 	/** The gui nodes. */
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
-	
+
 	/** The comparator. */
 	private CompositionalComparator comparator;
-	
+
 	/** The positive comparation. */
 	protected boolean positiveComparation = true;
-	
+
 	/** The task. */
 	private Task theTask;
-	
+
 	/** The listeners. */
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 

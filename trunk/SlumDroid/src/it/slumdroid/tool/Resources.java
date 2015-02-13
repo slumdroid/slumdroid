@@ -35,7 +35,7 @@ public class Resources {
 		DEPTH_FIRST, 
 		/** The random first. */
 		RANDOM_FIRST
-		
+
 	}
 
 	/** The package name. */
@@ -66,19 +66,19 @@ public class Resources {
 	/** The sleep on throbber. */
 	/**  How long to wait on spinning wheels (in ms -- 0 = don't wait) */
 	public static int SLEEP_ON_THROBBER = 1000; 
-	
+
 	/** The compare available. */
 	public static boolean COMPARE_AVAILABLE = false;
-	
+
 	/** The compare checkbox. */
 	public static boolean COMPARE_CHECKBOX = false;
-	
+
 	/** The compare list count. */
 	public static boolean COMPARE_LIST_COUNT = false;
-	
+
 	/** The compare title. */
 	public static boolean COMPARE_TITLE = true;
-	
+
 	/** The compare toast. */
 	public static boolean COMPARE_TOAST = false;
 
