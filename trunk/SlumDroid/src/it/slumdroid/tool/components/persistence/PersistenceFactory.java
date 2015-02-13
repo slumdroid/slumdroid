@@ -18,9 +18,7 @@ package it.slumdroid.tool.components.persistence;
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.tool.components.exploration.ExplorationStrategy;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
-import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.Strategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +29,6 @@ import java.util.List;
  */
 public class PersistenceFactory {
 
-	/** The activity list file name. */
-	private final String ACTIVITY_LIST_FILE_NAME = new String("activities.xml"); 
-
-	/** The parameters file name. */
-	private final String PARAMETERS_FILE_NAME = new String("parameters.obj"); 
-
-	/** The task list file name. */
-	private final String TASK_LIST_FILE_NAME = new String("tasklist.xml");
-
 	/** The session. */
 	private Session theSession;
 
@@ -47,7 +36,7 @@ public class PersistenceFactory {
 	private TraceDispatcher scheduler;
 
 	/** The strategy. */
-	private Strategy theStrategy;
+	private ExplorationStrategy theStrategy;
 
 	/** The state savers. */
 	static List<SaveStateListener> stateSavers = new ArrayList<SaveStateListener>();
@@ -55,56 +44,39 @@ public class PersistenceFactory {
 	/**
 	 * Instantiates a new persistence factory.
 	 *
-	 * @param theSession the the session
+	 * @param theSession the session
+	 * @param theScheduler the scheduler
+	 * @param theStrategy the strategy
 	 */
-	public PersistenceFactory(Session theSession) {
+	public PersistenceFactory(Session theSession, TraceDispatcher theScheduler, ExplorationStrategy theStrategy) {
 		setTheSession(theSession);
-	}
-
-	/**
-	 * Instantiates a new persistence factory.
-	 *
-	 * @param theSession the the session
-	 * @param scheduler the scheduler
-	 */
-	public PersistenceFactory(Session theSession, TraceDispatcher scheduler) {
-		this (theSession);
-		setDispatcher(scheduler);
-	}
-
-	/**
-	 * Instantiates a new persistence factory.
-	 *
-	 * @param theSession the the session
-	 * @param scheduler the scheduler
-	 * @param theStrategy the the strategy
-	 */
-	public PersistenceFactory(Session theSession, TraceDispatcher scheduler, Strategy theStrategy) {
-		this (theSession, scheduler);
+		setDispatcher(theScheduler);
 		setStrategy(theStrategy);
 	}
-
+	
+	/**
+	 * Register for saving state.
+	 *
+	 * @param listener the listener
+	 */
+	public static void registerForSavingState (SaveStateListener listener) {
+		stateSavers.add(listener);
+	}
+	
 	/**
 	 * Gets the persistence.
 	 *
 	 * @return the persistence
 	 */
-	public Persistence getPersistence () {
-		ResumingPersistence resumer = new ResumingPersistence();
-		Persistence thePersistence = resumer;
+	public ResumingPersistence getPersistence () {
+		ResumingPersistence resumer = new ResumingPersistence(getTheSession());
 		resumer.setTaskList(getDispatcher().getScheduler().getTaskList());
-		resumer.setTaskListFile(TASK_LIST_FILE_NAME);
-		resumer.setActivityFile(ACTIVITY_LIST_FILE_NAME);
-		resumer.setParametersFile(PARAMETERS_FILE_NAME);
 		for (SaveStateListener saver: stateSavers) {
 			resumer.registerListener(saver);
 		}
 		getDispatcher().registerListener(resumer);
-		if (getStrategy() instanceof ExplorationStrategy) {
-			((ExplorationStrategy)getStrategy()).registerStateListener(resumer);				
-		}
-		thePersistence.setSession(getTheSession());
-		return thePersistence;
+		getStrategy().registerStateListener(resumer);				
+		return resumer;
 	}
 
 	/**
@@ -148,7 +120,7 @@ public class PersistenceFactory {
 	 *
 	 * @return the strategy
 	 */
-	public Strategy getStrategy() {
+	public ExplorationStrategy getStrategy() {
 		return this.theStrategy;
 	}
 
@@ -157,17 +129,8 @@ public class PersistenceFactory {
 	 *
 	 * @param theStrategy the new strategy
 	 */
-	public void setStrategy(Strategy theStrategy) {
+	public void setStrategy(ExplorationStrategy theStrategy) {
 		this.theStrategy = theStrategy;
-	}
-
-	/**
-	 * Register for saving state.
-	 *
-	 * @param listener the listener
-	 */
-	public static void registerForSavingState (SaveStateListener listener) {
-		stateSavers.add(listener);
 	}
 
 }
