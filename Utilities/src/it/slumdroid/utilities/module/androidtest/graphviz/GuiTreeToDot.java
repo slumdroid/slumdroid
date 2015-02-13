@@ -44,13 +44,13 @@ public class GuiTreeToDot {
 
 	/** The edges. */
 	private List<Edge> edges;
-	
+
 	/** The fail count. */
 	private int failCount = 0;
-	
+
 	/** The nodes. */
 	private List<Node> nodes;
-	
+
 	/** The session. */
 	private GuiTree session;
 

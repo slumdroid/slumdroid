@@ -32,16 +32,16 @@ import java.util.HashMap;
  * The Class ProcessGuiTree.
  */
 public class ProcessGuiTree {
-	
+
 	/** The Widgets. */
 	private HashMap<String, WidgetState> Widgets;
-	
+
 	/** The Interactions. */
 	private HashMap<String, String> Interactions;
-	
+
 	/** The Screens. */
 	private HashMap<String, String> Screens;
-	
+
 	/** The gui tree. */
 	private GuiTree guiTree;
 
@@ -131,7 +131,7 @@ public class ProcessGuiTree {
 	public HashMap<String, String> getInteractions () {
 		return Interactions;  
 	}
-	
+
 	/**
 	 * Gets the num widgets.
 	 *
@@ -140,5 +140,5 @@ public class ProcessGuiTree {
 	public int getNumWidgets() {
 		return Widgets.size();
 	}
-	
+
 }

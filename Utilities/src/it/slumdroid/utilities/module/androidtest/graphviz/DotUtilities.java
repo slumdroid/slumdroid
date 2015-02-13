@@ -147,7 +147,7 @@ public class DotUtilities {
 	public static String exportToFsm (GuiTree xml) {
 		return new GuiTreeToFSM (xml).getDot();
 	}
-	
+
 	/**
 	 * Export to efg.
 	 *

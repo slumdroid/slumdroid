@@ -33,7 +33,7 @@ public class Perturbations {
 
 	/** The value lower case. */
 	private String valueLowerCase;
-	
+
 	/** The type. */
 	private String type;
 
@@ -88,7 +88,7 @@ public class Perturbations {
 		}
 		return pertubedInputs;
 	}
-	
+
 	// Generic Strings
 	/**
 	 * Generic.
@@ -228,7 +228,7 @@ public class Perturbations {
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("((4[A-Za-z]{3})|(5[1-5][A-Za-z]{2})|(6011)|(34[A-Za-z]{1})|(37[A-Za-z]{1}))-?[A-Za-z]{4}-?[A-Za-z]{4}-?[A-Za-z]{4}|3[4,7][A-Za-z ]{15}"));
 		return pertubedInputs;		
 	}
-	
+
 	/**
 	 * Creates the reg ex.
 	 *
@@ -238,5 +238,5 @@ public class Perturbations {
 	private String createRegEx (String regex) {
 		return new Xeger(regex).generate();
 	}
-		
+
 }

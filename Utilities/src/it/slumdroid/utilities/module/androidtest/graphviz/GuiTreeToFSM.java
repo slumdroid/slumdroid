@@ -38,10 +38,10 @@ public class GuiTreeToFSM {
 
 	/** The nodes. */
 	private TreeSet<String> nodes;
-	
+
 	/** The session. */
 	private GuiTree session;
-	
+
 	/**
 	 * Instantiates a new gui tree to fsm.
 	 *

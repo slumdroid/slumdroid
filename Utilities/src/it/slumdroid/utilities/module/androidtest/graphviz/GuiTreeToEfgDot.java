@@ -22,16 +22,16 @@ import org.w3c.dom.Element;
  * The Class GuiTreeToEfgDot.
  */
 public class GuiTreeToEfgDot {
-	
+
 	/** The edges. */
 	private List<String> edges;
-	
+
 	/** The efg. */
 	private Document efg;
-	
+
 	/** The nodes. */
 	private Map<String,String> nodes;
-	
+
 	/**
 	 * Instantiates a new gui tree to efg dot.
 	 *
@@ -42,7 +42,7 @@ public class GuiTreeToEfgDot {
 		this.edges = new ArrayList<String>();
 		this.nodes = new HashMap<String,String>();
 	}
-	
+
 	/**
 	 * Extract edges.
 	 */
@@ -50,7 +50,7 @@ public class GuiTreeToEfgDot {
 		Element efg = (Element) this.efg.getChildNodes().item(0);
 		this.extractEdges (efg);
 	}
-	
+
 	/**
 	 * Extract edges.
 	 *
@@ -64,7 +64,7 @@ public class GuiTreeToEfgDot {
 			this.extractEdges(element);
 		}		
 	}
-	
+
 	/**
 	 * Extract nodes.
 	 */
@@ -72,7 +72,7 @@ public class GuiTreeToEfgDot {
 		Element efg = (Element) this.efg.getChildNodes().item(0);
 		this.extractNodes (efg);
 	}
-	
+
 	/**
 	 * Extract nodes.
 	 *
@@ -86,7 +86,7 @@ public class GuiTreeToEfgDot {
 			this.extractNodes(element);
 		}		
 	}
-	
+
 	/**
 	 * Gets the dot.
 	 *
@@ -108,5 +108,5 @@ public class GuiTreeToEfgDot {
 		dot.append(NEW_LINE + "}");		
 		return dot.toString();
 	}
-	
+
 }

@@ -30,7 +30,7 @@ public class ImagePanel extends JPanel {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The image. */
 	private Image image;
 
@@ -65,5 +65,5 @@ public class ImagePanel extends JPanel {
 	public void paintComponent (Graphics graph) {
 		graph.drawImage(image, 0, 0, null);
 	}
-	
+
 }

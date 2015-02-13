@@ -34,19 +34,19 @@ public class InteractionStats extends StatsReport {
 
 	/** The diff events. */
 	private Set<String> diffEvents;
-	
+
 	/** The diff inputs. */
 	private Set<String> diffInputs;
-	
+
 	/** The events. */
 	private int events;
-	
+
 	/** The event types. */
 	private Map<String,Integer> eventTypes;	
-	
+
 	/** The inputs. */
 	private int inputs;
-	
+
 	/** The input types. */
 	private Map<String,Integer> inputTypes;
 

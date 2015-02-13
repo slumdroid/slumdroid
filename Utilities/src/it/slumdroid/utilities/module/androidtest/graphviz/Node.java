@@ -25,13 +25,13 @@ public class Node {
 
 	/** The id. */
 	private String id = new String();
-	
+
 	/** The image. */
 	private String image = new String();
 
 	/** The label. */
 	private String label = new String();
-	
+
 	/** The name. */
 	private String name = new String();
 

@@ -145,7 +145,7 @@ public class Tools {
 		});
 		return files;
 	}
-	
+
 	// XML Utilities
 	/**
 	 * Xml writer.
@@ -156,7 +156,7 @@ public class Tools {
 	public void xmlWriter(String path, StringBuilder builder){
 		xmlWriter(path, builder, path);
 	}
-	
+
 	/**
 	 * Xml writer.
 	 *
@@ -180,16 +180,16 @@ public class Tools {
 			Transformer transformer = TransformerFactory.newInstance().newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-			
+
 			DocumentType doctype = doc.getDoctype();
-	        if(doctype != null) {
-	        	if (doctype.getPublicId() != null) {
-	        		transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
-	        	}
-	        	if (doctype.getSystemId() != null) {
-	        		transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
-	        	}
-	        }
+			if(doctype != null) {
+				if (doctype.getPublicId() != null) {
+					transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+				}
+				if (doctype.getSystemId() != null) {
+					transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+				}
+			}
 
 			DOMSource domSource = new DOMSource(doc);
 			StreamResult outputstream = new StreamResult(output);
@@ -200,7 +200,7 @@ public class Tools {
 			e.printStackTrace();
 		} 
 	}
-	
+
 	// Split Utilities
 	/**
 	 * Split.
@@ -225,7 +225,7 @@ public class Tools {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// Coverage Text Parsing Utilities
 	/**
 	 * Cov text parsing.
@@ -256,7 +256,7 @@ public class Tools {
 			}
 		}
 	}
-	
+
 	//Coverage Generator Utilities
 	/**
 	 * Cov generator.
@@ -274,7 +274,7 @@ public class Tools {
 			System.exit(-1);
 		}	
 	}
-	
+
 	/**
 	 * Coverage.
 	 *
@@ -297,7 +297,7 @@ public class Tools {
 		}
 		return esFiles;
 	}
-	
+
 	/**
 	 * Show files.
 	 *
@@ -339,7 +339,7 @@ public class Tools {
 		}
 		return null;
 	}
-		
+
 	// BuildControl Utilities
 	/**
 	 * Control the Building.
@@ -370,7 +370,7 @@ public class Tools {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// ReTargeting Utilities
 	/**
 	 * Retarget.
@@ -412,7 +412,7 @@ public class Tools {
 		}
 
 	}
-	
+
 	/**
 	 * To xml.
 	 *
@@ -429,7 +429,7 @@ public class Tools {
 		t.transform(theDom, new StreamResult(output));
 		return output.toString();
 	}
-	
+
 	/**
 	 * Xml to string.
 	 *
@@ -448,7 +448,7 @@ public class Tools {
 		}
 		return new String();
 	}
-	
+
 	// TrasformActivity Utilities
 	/**
 	 * Traslate.
@@ -475,7 +475,7 @@ public class Tools {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// Merge Utilities
 	/**
 	 * Merge g.
@@ -489,7 +489,7 @@ public class Tools {
 			merge(guitreeXml, GUITREE_DIR);
 		}
 	}
-	
+
 	/**
 	 * Merge.
 	 *
@@ -500,30 +500,30 @@ public class Tools {
 		int count = 0;
 		boolean session_found = false;
 		try{
-		File fl[] = new Tools().dirListByAscendingDate( new File(dir) );
-		if (fl.length > 0){
-			FileWriter outFile = new FileWriter(xml, false);
-			PrintWriter out = new PrintWriter(outFile);	
-			for (File f : fl) {
-				FileReader inFile = new FileReader(f); 
-				BufferedReader in = new BufferedReader(inFile);
-				String s = null; 
-				while((s = in.readLine()) != null) {
-					if (!s.equals("")) {
-						count++;
-						if (s.contains("</SESSION>")) {
-							session_found = true;
+			File fl[] = new Tools().dirListByAscendingDate( new File(dir) );
+			if (fl.length > 0){
+				FileWriter outFile = new FileWriter(xml, false);
+				PrintWriter out = new PrintWriter(outFile);	
+				for (File f : fl) {
+					FileReader inFile = new FileReader(f); 
+					BufferedReader in = new BufferedReader(inFile);
+					String s = null; 
+					while((s = in.readLine()) != null) {
+						if (!s.equals("")) {
+							count++;
+							if (s.contains("</SESSION>")) {
+								session_found = true;
+							}
+							out.println(s);
 						}
-						out.println(s);
 					}
+					inFile.close(); 
 				}
-				inFile.close(); 
+				if (!session_found) {
+					out.println("</SESSION>");
+				}
+				out.close();
 			}
-			if (!session_found) {
-				out.println("</SESSION>");
-			}
-			out.close();
-		}
 		} catch (Exception e){
 			e.printStackTrace();
 		}
@@ -566,7 +566,7 @@ public class Tools {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Redensity.
 	 *
@@ -586,7 +586,7 @@ public class Tools {
 
 		Element manifest = document.getDocumentElement();
 		Element target = (Element)manifest.getElementsByTagName("supports-screens").item(0);
-		
+
 		if (target == null) {
 			StringBuilder builder = new StringBuilder();
 			// https://code.google.com/p/robotium/wiki/QuestionsAndAnswers
@@ -615,7 +615,7 @@ public class Tools {
 			target.setAttribute("android:smallScreens", "true");
 			target.setAttribute("android:normalScreens", "true");
 			target.setAttribute("android:largeScreens", "true");
-			
+
 			String newManifest = new String();
 			try {
 				newManifest = toXml(manifest);
@@ -632,9 +632,9 @@ public class Tools {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
-	
+
 	// Trend Utilities
 	/**
 	 * Trend test.
@@ -648,18 +648,18 @@ public class Tools {
 		final String TASK = new String("Playing Task "); 
 		final String TIME = new String("Time: ");
 		final String ACTUAL = new String("Actual Coverage is");
-		
+
 		double seconds = 0;
 		int task = 0;
 		int time = 0;
-		
+
 		String coverage = new String();
 		Stats item = new Stats(task, time, coverage);
-		
+
 		BufferedReader inputStream1 = null;
 		ArrayList<Stats> list = new ArrayList<Stats>();
 		boolean interesting = false;
-		
+
 		try {
 			inputStream1 = new BufferedReader (new FileReader (inputPath + "\\test.txt"));
 			String line = new String();
@@ -728,7 +728,7 @@ public class Tools {
 			}
 		}		
 	}
-	
+
 	/**
 	 * The Class Stats.
 	 */
@@ -736,13 +736,13 @@ public class Tools {
 
 		/** The task id. */
 		private int taskID;
-		
+
 		/** The actual time. */
 		private int actualTime;
-		
+
 		/** The Lo c. */
 		private String LoC;
-		
+
 		/**
 		 * Instantiates a new stats.
 		 *
@@ -755,7 +755,7 @@ public class Tools {
 			this.actualTime = actual;
 			this.LoC = new String(coverage);
 		}
-		
+
 		/**
 		 * Gets the task id.
 		 *
@@ -764,7 +764,7 @@ public class Tools {
 		public int getTaskID() {
 			return taskID;
 		}
-		
+
 		/**
 		 * Gets the actual time.
 		 *
@@ -773,7 +773,7 @@ public class Tools {
 		public int getActualTime() {
 			return actualTime;
 		}
-		
+
 		/**
 		 * Gets the Lines of Code Coverage.
 		 *
@@ -782,7 +782,7 @@ public class Tools {
 		public String getLoC() {
 			return LoC;
 		}
-		
+
 	}
 
 }
