@@ -27,10 +27,10 @@ public class PreferenceEditor {
 
 	/** The package. */
 	private final String PACKAGE = "PACKAGE_NAME";
-	
+
 	/** The class. */
 	private final String CLASS = "CLASS_NAME";
-	
+
 	/** The seed. */
 	private final String SEED = "RANDOM_SEED";
 

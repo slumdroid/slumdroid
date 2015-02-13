@@ -47,37 +47,37 @@ public class GraphicalEditor extends JFrame {
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/** The path. */
 	private static String path = System.getProperty("user.dir") + "/../data/preferences.xml";
-	
+
 	/** The app package. */
 	private static String appPackage = new String();
-	
+
 	/** The app package class. */
 	private static String appPackageClass = new String();
-	
+
 	/** The screenshot box. */
 	private static JComboBox screenshotBox;
-	
+
 	/** The scheduler box. */
 	private static JComboBox schedulerBox;
-	
+
 	/** The max event selector box. */
 	private static JComboBox maxEventSelectorBox;
-	
+
 	/** The tab events box. */
 	private static JComboBox tabEventsBox;
 
 	/** The waiting event field. */
 	private static JFormattedTextField waitingEventField;
-	
+
 	/** The waiting restart field. */
 	private static JFormattedTextField waitingRestartField;
-	
+
 	/** The waiting task field. */
 	private static JFormattedTextField waitingTaskField;
-	
+
 	/** The waiting throbber field. */
 	private static JFormattedTextField waitingThrobberField;
 
@@ -86,58 +86,58 @@ public class GraphicalEditor extends JFrame {
 
 	/** The available comparator box. */
 	private static JComboBox availableComparatorBox;
-	
+
 	/** The check comparator box. */
 	private static JComboBox checkComparatorBox;
-	
+
 	/** The list comparator box. */
 	private static JComboBox listComparatorBox;
-	
+
 	/** The Title comparator box. */
 	private JComboBox titleComparatorBox;
-	
+
 	/** The toast comparator box. */
 	private static JComboBox toastComparatorBox;
 
 	/** The edit text box. */
 	private static JComboBox editTextBox;
-	
+
 	/** The auto complete box. */
 	private static JComboBox autoCompleteBox;
-	
+
 	/** The check box. */
 	private static JComboBox checkBox;
-	
+
 	/** The toggle box. */
 	private static JComboBox toggleBox;
-	
+
 	/** The input text box. */
 	private static JComboBox inputTextBox;
 
 	/** The btn default values. */
 	private static JButton btnDefaultValues;
-	
+
 	/** The btn save. */
 	private static JButton btnSave;
 
 	/** The algorithm. */
 	private static String[] algorithm = {"Breadth (BFS)", "Depth (DFS)", "Random (RFS)"};
-	
+
 	/** The bool. */
 	private static String[] bool = {"true", "false"};
-	
+
 	/** The inputs. */
 	private static String[] inputs = {"hash values", "random values"};
-	
+
 	/** The interactions. */
 	private static String[] interactions = {"event", "input", "both", "none"};
-		
+
 	/** The max event selector. */
 	private static String[] maxEventSelector = {"no limit", "1", "2", "3", "4", "5"};
-	
+
 	/** The first path. */
 	private static String firstPath = new String();
-	
+
 	/** The builder. */
 	private static StringBuilder builder = new StringBuilder();
 
@@ -218,23 +218,23 @@ public class GraphicalEditor extends JFrame {
 		lblComparatorParameters.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblComparatorParameters.setBounds(10, 80, 225, 29);
 		contentPane.add(lblComparatorParameters);
-		
+
 		JLabel lblCompareAvailable = new JLabel("Compare Available");
 		lblCompareAvailable.setBounds(10, 111, 151, 14);
 		contentPane.add(lblCompareAvailable);
-		
+
 		JLabel lblCompareCheckbox = new JLabel("Compare CheckBox");
 		lblCompareCheckbox.setBounds(10, 136, 151, 14);
 		contentPane.add(lblCompareCheckbox);
-		
+
 		JLabel lblCompareListCount = new JLabel("Compare List Count");
 		lblCompareListCount.setBounds(10, 161, 151, 14);
 		contentPane.add(lblCompareListCount);
-		
+
 		JLabel lblCompareTitle = new JLabel("Compare Title");
 		lblCompareTitle.setBounds(10, 186, 151, 14);
 		contentPane.add(lblCompareTitle);
-		
+
 		JLabel lblCompareToast = new JLabel("Compare Toast");
 		lblCompareToast.setBounds(10, 211, 151, 14);
 		contentPane.add(lblCompareToast);
@@ -263,11 +263,11 @@ public class GraphicalEditor extends JFrame {
 		JLabel lblTextInputs = new JLabel("Text Inputs use");
 		lblTextInputs.setBounds(245, 161, 99, 14);
 		contentPane.add(lblTextInputs);
-		
+
 		JLabel lblMaxEventsFor = new JLabel("Max Events 4 Selector");
 		lblMaxEventsFor.setBounds(245, 61, 132, 14);
 		contentPane.add(lblMaxEventsFor);
-		
+
 		JLabel lblSwapTab = new JLabel("SwapTab only initially");
 		lblSwapTab.setBounds(244, 36, 133, 14);
 		contentPane.add(lblSwapTab);
@@ -301,12 +301,12 @@ public class GraphicalEditor extends JFrame {
 		screenshotBox.setBounds(171, 33, 64, 20);
 		screenshotBox.setSelectedIndex(0);
 		contentPane.add(screenshotBox);
-		
+
 		availableComparatorBox = new JComboBox(bool);
 		availableComparatorBox.setSelectedIndex(1);
 		availableComparatorBox.setBounds(171, 108, 64, 20);
 		availableComparatorBox.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (availableComparatorBox.getSelectedIndex() == 0) {
@@ -317,20 +317,20 @@ public class GraphicalEditor extends JFrame {
 					maxEventSelectorBox.setEnabled(true);
 				}
 			}
-			
+
 		});
 		contentPane.add(availableComparatorBox);
-		
+
 		checkComparatorBox = new JComboBox(bool);
 		checkComparatorBox.setSelectedIndex(1);
 		checkComparatorBox.setBounds(171, 133, 64, 20);
 		contentPane.add(checkComparatorBox);
-		
+
 		listComparatorBox = new JComboBox(bool);
 		listComparatorBox.setSelectedIndex(1);
 		listComparatorBox.setBounds(171, 158, 64, 20);
 		contentPane.add(listComparatorBox);
-		
+
 		titleComparatorBox = new JComboBox(bool);
 		titleComparatorBox.setSelectedIndex(0);
 		titleComparatorBox.setBounds(171, 183, 64, 20);
@@ -374,17 +374,17 @@ public class GraphicalEditor extends JFrame {
 		schedulerBox.setSelectedIndex(1);
 		schedulerBox.setBounds(143, 58, 92, 20);
 		contentPane.add(schedulerBox);
-				
+
 		tabEventsBox = new JComboBox(bool);
 		tabEventsBox.setSelectedIndex(0);
 		tabEventsBox.setBounds(387, 33, 74, 20);
 		contentPane.add(tabEventsBox);
-		
+
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation ");
 		chckbxInputPertubation.setBounds(241, 316, 132, 18);
 		contentPane.add(chckbxInputPertubation);
-		
+
 		// Button
 		btnDefaultValues = new JButton("Default Values");
 		btnDefaultValues.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -405,7 +405,7 @@ public class GraphicalEditor extends JFrame {
 		});
 		btnSave.setBounds(369, 337, 92, 27);
 		contentPane.add(btnSave);
-		
+
 		resetDefaultValues();
 	}
 
@@ -585,7 +585,7 @@ public class GraphicalEditor extends JFrame {
 			countButton++;
 		}
 		if (!events.equals("")) {
-			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, image, linearLayout" + events + "\"/>");
+			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, linearLayout, image, tabView " + events + "\"/>");
 		}
 		if (!inputs.equals("")) {
 			if (countButton != 2) {
@@ -682,7 +682,7 @@ public class GraphicalEditor extends JFrame {
 	 */
 	public void resetDefaultValues() {
 		chckbxInputPertubation.setSelected(false);
-		
+
 		screenshotBox.setSelectedIndex(0);
 		schedulerBox.setSelectedIndex(0);
 
@@ -691,15 +691,15 @@ public class GraphicalEditor extends JFrame {
 		listComparatorBox.setSelectedIndex(1);
 		titleComparatorBox.setSelectedIndex(0);
 		toastComparatorBox.setSelectedIndex(1);
-		
+
 		waitingEventField.setText("1000");
 		waitingRestartField.setText("0");
 		waitingTaskField.setText("0");
 		waitingThrobberField.setText("1000");
-		
+
 		maxEventSelectorBox.setSelectedIndex(3);
 		maxEventSelectorBox.setEnabled(true);
-		
+
 		tabEventsBox.setSelectedIndex(1);
 		inputTextBox.setSelectedIndex(0);
 		editTextBox.setSelectedIndex(1);

@@ -16,13 +16,13 @@ import org.w3c.dom.Element;
  * The Class EventFlowTree.
  */
 public class EventFlowGraph extends XmlGraph {
-	
+
 	/** The efg. */
 	private Document efg;
 
 	/** The navigator. */
 	private Element navigator;
-	
+
 	/** The root element. */
 	private Element rootElement;
 
@@ -38,7 +38,7 @@ public class EventFlowGraph extends XmlGraph {
 		this.rootElement.setAttribute("id", "root");
 		this.efg.appendChild(this.rootElement);
 	}
-	
+
 	// Sets attributes for the whole graph (not the nodes!) They are stored as attributes of the root node
 	/**
 	 * Sets the attribute.
@@ -49,7 +49,7 @@ public class EventFlowGraph extends XmlGraph {
 	public void setAttribute (String key, String value) {
 		this.rootElement.setAttribute(key, value);
 	}
-	
+
 	/**
 	 * Sets the date time.
 	 *
@@ -73,10 +73,10 @@ public class EventFlowGraph extends XmlGraph {
 		for (Task task: guiTree) {
 			efg.addTrace(task);
 		}
-		
+
 		return efg;
 	}
-	
+
 	/**
 	 * Adds the trace.
 	 *
@@ -110,7 +110,7 @@ public class EventFlowGraph extends XmlGraph {
 			return (this.addEvent(newEvent));
 		}
 	}
-	
+
 	// Adds a new child node at the current position
 	/**
 	 * Adds the event.
@@ -141,14 +141,14 @@ public class EventFlowGraph extends XmlGraph {
 		}
 		return null;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.xml.XmlGraph#getDom()
 	 */
 	public Document getDom () {
 		return this.efg;
 	}
-	
+
 	/**
 	 * Gets the navigator.
 	 *
@@ -157,7 +157,7 @@ public class EventFlowGraph extends XmlGraph {
 	public Element getNavigator() {
 		return this.navigator;
 	}
-	
+
 	/**
 	 * Sets the navigator.
 	 *
@@ -166,7 +166,7 @@ public class EventFlowGraph extends XmlGraph {
 	public void setNavigator (Element element) {
 		this.navigator = element;
 	}
-	
+
 	/**
 	 * Sets the navigator.
 	 *
@@ -182,5 +182,5 @@ public class EventFlowGraph extends XmlGraph {
 	public void resetNavigator () {
 		this.navigator = this.rootElement;
 	}
-	
+
 }

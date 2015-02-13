@@ -31,35 +31,35 @@ import java.util.List;
  * The Class TaskStats.
  */
 public class TaskStats extends StatsReport {
-	
+
 	/** The crashes. */
 	private List<String> crashes;
-	
+
 	/** The exits. */
 	private List<String> exits;
-	
+
 	/** The failures. */
 	private List<String> failures;
 
 	/** The tasks. */
 	private int tasks = 0;
-	
+
 	/** The tasks crashed. */
 	private int tasksCrashed = 0;
-	
+
 	/** The tasks exit. */
 	private int tasksExit = 0;
-	
+
 	/** The tasks failed. */
 	private int tasksFailed = 0;
-	
+
 	/** The txt file name. */
 	private String txtFileName;
 
 	/**
 	 * Instantiates a new task stats.
 	 * 
- 	 * @param txtFile the txt file name
+	 * @param txtFile the txt file name
 	 */
 	public TaskStats(String txtFile) {
 		this.crashes = new ArrayList<String>();
@@ -143,7 +143,7 @@ public class TaskStats extends StatsReport {
 		String round = String.valueOf(seconds).replace("."," ").split(" ")[0];
 		return new String("about " + round + " seconds");
 	}
-	
+
 
 	/**
 	 * Gets the tasks.
@@ -180,7 +180,7 @@ public class TaskStats extends StatsReport {
 	private int getTasksCrashed() {
 		return tasksCrashed;
 	}
-	
+
 	/**
 	 * Gets the txt file name.
 	 *

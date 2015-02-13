@@ -23,16 +23,16 @@ public class Edge {
 
 	/** The from. */
 	private Node from;
-	
+
 	/** The id. */
 	private String id = new String();
-	
+
 	/** The label. */
 	private String label = new String();
-	
+
 	/** The to. */
 	private Node to;
-	
+
 	/**
 	 * Instantiates a new edge.
 	 *

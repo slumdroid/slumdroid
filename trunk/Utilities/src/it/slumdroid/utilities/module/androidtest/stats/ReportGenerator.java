@@ -48,22 +48,22 @@ public class ReportGenerator extends StatsReport {
 
 	/** The activity states. */
 	private Set<String> activityStates;
-	
+
 	/** The branch. */
 	private int branch = 0;
-	
+
 	/** The depth. */
 	private int depth = 0;
-	
+
 	/** The efg. */
 	private EventFlowGraph efg;
-	
+
 	/** The event report. */
 	private InteractionStats eventReport;
-	
+
 	/** The leaves. */
 	private int leaves = 0;
-	
+
 	/** The session. */
 	private GuiTree session;
 
@@ -126,7 +126,7 @@ public class ReportGenerator extends StatsReport {
 			countLeaves();
 		}
 	}
-	
+
 	/**
 	 * Count leaves.
 	 */
@@ -134,7 +134,7 @@ public class ReportGenerator extends StatsReport {
 		Element efg = (Element) this.efg.getDom().getChildNodes().item(0);
 		this.countLeaves (efg, 0);
 	}
-	
+
 	/**
 	 * Count leaves.
 	 *

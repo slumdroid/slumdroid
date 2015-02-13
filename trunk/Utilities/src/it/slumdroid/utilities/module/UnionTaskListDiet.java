@@ -49,31 +49,31 @@ public class UnionTaskListDiet {
 
 	/** The Constant SCHEDULER. */
 	private static final String SCHEDULER ="SCHEDULER_ALGORITHM";
-	
+
 	/** The Constant BREADTH. */
 	private static final String BREADTH = "BREADTH_FIRST";
-	
+
 	/** The Constant DEPTH. */
 	private static final String DEPTH = "DEPTH_FIRST";
-	
+
 	/** The Constant FAKE_TASK_IDENTIFIER. */
 	private static final String FAKE_TASK_IDENTIFIER = "!_FAKE_TASK_!";
-	
+
 	/** The Constant FAKE_TASK. */
 	private static final String FAKE_TASK = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><TASK date=\"" + FAKE_TASK_IDENTIFIER + "\" id=\"_ID_\"/>";
-	
+
 	/** The Constant ID. */
 	private static final String ID = "id";
-	
+
 	/** The Constant TAG. */
 	private static final String TAG = "TASK";
-	
+
 	/** The Constant TASKLIST_DIET_XML. */
 	private static final String TASKLIST_DIET_XML = "./diet/tasklist_diet.xml";
-	
+
 	/** The tasklist xml. */
 	private static String TASKLIST_XML = new String();
-	
+
 	/**
 	 * Tasklist diet.
 	 *
@@ -93,7 +93,7 @@ public class UnionTaskListDiet {
 			}
 		}
 	}
-	
+
 	/**
 	 * Return algorithm.
 	 *
@@ -302,7 +302,7 @@ public class UnionTaskListDiet {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Extract random task.
 	 */
@@ -366,7 +366,7 @@ public class UnionTaskListDiet {
 				int max = tasklist_diet.size() - 1;
 				int min = 0;
 				int num = new Random(System.currentTimeMillis()).nextInt((max - min) + 1) + min;
-				
+
 				String lastString = tasklist_diet.remove(num);
 				out.println(lastString);
 				if (previous_track_found) {

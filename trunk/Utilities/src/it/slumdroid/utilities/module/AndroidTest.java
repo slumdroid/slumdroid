@@ -33,22 +33,22 @@ public class AndroidTest  {
 
 	/** The input file name. */
 	private String inputFileName = new String();
-	
+
 	/** The report file name. */
 	private String reportFileName = new String();
-	
+
 	/** The dot file name. */
 	private String dotFileName = new String();
-	
+
 	/** The fsm file name. */
 	private String fsmFileName = new String();
 
 	/** The txt file name. */
 	private String txtFileName = new String();
-	
+
 	/** The efg file name. */
 	private String efgFileName = new String();
-	
+
 	/** The efg xml file name. */
 	private String efgXmlFileName = new String();
 
@@ -66,7 +66,7 @@ public class AndroidTest  {
 			// Inputs
 			this.inputFileName = inputPath + "\\files\\guitree.xml";
 			this.txtFileName = inputPath + "\\test.txt";
-			
+
 			// Outputs
 			this.reportFileName = inputPath + "\\output\\report.txt";
 			this.efgXmlFileName = inputPath + "\\output\\efg.xml";
@@ -74,7 +74,7 @@ public class AndroidTest  {
 			this.dotFileName = inputPath + "\\output\\guitree.dot";
 			this.fsmFileName = inputPath + "\\output\\fsm.dot";
 			this.efgFileName = inputPath + "\\output\\efg.dot";
-			
+
 			try {
 				this.guiTree = GuiTree.fromXml(new File (getInputFileName()));
 				processFile();
@@ -161,7 +161,7 @@ public class AndroidTest  {
 	public String getTxtFileName() {
 		return txtFileName;
 	}
-	
+
 	/**
 	 * Gets the efg file name.
 	 *
@@ -170,7 +170,7 @@ public class AndroidTest  {
 	public String getEfgFileName() {
 		return efgFileName;
 	}
-	
+
 	/**
 	 * Gets the efg xml file name.
 	 *
@@ -179,5 +179,5 @@ public class AndroidTest  {
 	public String getEfgXmlFileName() {
 		return efgXmlFileName;
 	}
-	
+
 }
