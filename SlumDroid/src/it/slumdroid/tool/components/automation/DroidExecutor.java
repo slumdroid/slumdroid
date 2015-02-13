@@ -95,7 +95,7 @@ public class DroidExecutor {
 			getRobotium().clickInList(item);	
 		}
 	}
-	
+
 	/**
 	 * Select spinner item.
 	 *

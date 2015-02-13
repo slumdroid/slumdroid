@@ -28,7 +28,7 @@ import android.view.View;
  * The Class TrivialExtractor.
  */
 public class TrivialExtractor implements Extractor {
-	
+
 	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
 
@@ -86,5 +86,5 @@ public class TrivialExtractor implements Extractor {
 
 		};
 	}
-	
+
 }

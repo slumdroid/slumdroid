@@ -40,9 +40,6 @@ import it.slumdroid.tool.utilities.interactors.selector.RandomSpinnerSelector;
 import it.slumdroid.tool.utilities.interactors.selector.SpinnerSelector;
 
 import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 // TODO: Auto-generated Javadoc
@@ -52,16 +49,10 @@ import java.util.Random;
 public class UserFactory {
 
 	/** The event to type map. */
-	public static HashMap<String,String[]> eventToTypeMap = new HashMap<String,String[]>();
+	private static HashMap<String,String[]> eventsMap = new HashMap<String,String[]>();
 
 	/** The input to type map. */
-	public static HashMap<String,String[]> inputToTypeMap = new HashMap<String,String[]>();
-
-	/** The vetoes map. */
-	public static Map<String,List<String>> vetoesMap = new Hashtable<String,List<String>>();
-
-	/** The overrides map. */
-	public static Map<String,List<String>> overridesMap = new Hashtable<String,List<String>>();
+	private static HashMap<String,String[]> inputsMap = new HashMap<String,String[]>();
 
 	/**
 	 * Adds the event.
@@ -70,7 +61,7 @@ public class UserFactory {
 	 * @param widgetTypes the widget types
 	 */
 	public static void addEvent(String eventType, String ... widgetTypes) {
-		eventToTypeMap.put(eventType, widgetTypes);
+		eventsMap.put(eventType, widgetTypes);
 	}
 
 	/**
@@ -80,7 +71,7 @@ public class UserFactory {
 	 * @param widgetTypes the widget types
 	 */
 	public static void addInput(String inputType, String ... widgetTypes) {
-		inputToTypeMap.put(inputType, widgetTypes);
+		inputsMap.put(inputType, widgetTypes);
 	}
 
 	/**
@@ -89,8 +80,8 @@ public class UserFactory {
 	 * @param interaction the interaction
 	 * @return the string[]
 	 */
-	public static String[] typesForEvent(String interaction) {
-		return eventToTypeMap.get(interaction);
+	private static String[] typesForEvent(String interaction) {
+		return eventsMap.get(interaction);
 	}
 
 	/**
@@ -99,8 +90,8 @@ public class UserFactory {
 	 * @param interaction the interaction
 	 * @return the string[]
 	 */
-	public static String[] typesForInput(String interaction) {
-		return inputToTypeMap.get(interaction);
+	private static String[] typesForInput(String interaction) {
+		return inputsMap.get(interaction);
 	}
 
 	/**
@@ -109,8 +100,8 @@ public class UserFactory {
 	 * @param interaction the interaction
 	 * @return true, if is required event
 	 */
-	public static boolean isRequiredEvent(String interaction) {
-		return UserFactory.eventToTypeMap.containsKey(interaction);
+	private static boolean isRequiredEvent(String interaction) {
+		return UserFactory.eventsMap.containsKey(interaction);
 	}
 
 	/**
@@ -119,8 +110,8 @@ public class UserFactory {
 	 * @param interaction the interaction
 	 * @return true, if is required input
 	 */
-	public static boolean isRequiredInput(String interaction) {
-		return UserFactory.inputToTypeMap.containsKey(interaction);
+	private static boolean isRequiredInput(String interaction) {
+		return UserFactory.inputsMap.containsKey(interaction);
 	}
 
 	/**
@@ -147,7 +138,7 @@ public class UserFactory {
 		}
 		userAdapter.addEvent(new ListSelector());
 		userAdapter.addEvent(new ListLongSelector());
-		userAdapter.addEvent(new SpinnerSelector());
+		userAdapter.addEvent(new SpinnerSelector());	
 		userAdapter.addEvent(new RadioSelector());
 		userAdapter.addEvent(new TabSwapper());
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {

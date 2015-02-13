@@ -62,7 +62,7 @@ public interface Abstractor {
 	 * @return the user event
 	 */
 	public UserEvent createEvent (WidgetState target, String type);
-	
+
 	/**
 	 * Creates the event.
 	 *
@@ -89,7 +89,7 @@ public interface Abstractor {
 	 * @return the task
 	 */
 	public Task createTask (Task prototype, Transition appendix);
-	
+
 	/**
 	 * Creates the transition.
 	 *
