@@ -87,8 +87,10 @@ public class ProcessGuiTree {
 							this.Screens.put(event.getWidgetId(), transition.getStartActivity().getScreenshot());
 							this.Interactions.put(event.getWidgetId(), "Event");
 						} else {
-							this.Interactions.remove(event.getWidgetId());
-							this.Interactions.put(event.getWidgetId(), "Input & Event");
+							if (this.Interactions.get(event.getWidgetId()).equals("Input")) {
+								this.Interactions.remove(event.getWidgetId());
+								this.Interactions.put(event.getWidgetId(), "Input & Event");	
+							}
 						}
 					}
 					if (event.getType().equals(ENTER_TEXT)) {
