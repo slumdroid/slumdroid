@@ -66,9 +66,6 @@ public class Automation implements Executor {
 
 	/** The executor. */
 	private static DroidExecutor executor;
-	
-	/** The menu item view. */
-	private final String MENU_ITEM_VIEW = "com.android.internal.view.menu.IconMenuItemView";
 
 	/**
 	 * Instantiates a new automation.
@@ -165,13 +162,8 @@ public class Automation implements Executor {
 				}
 			}
 			Log.i(TAG, toWrite);
-			if (event.getWidgetType().equals(MENU_ITEM_VIEW)
-					&& !event.getWidgetName().equals("")) {
-				getRobotium().clickOnMenuItem(event.getWidgetName());
-			} else {
-				View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
-				injectEventInteractions(view, eventType, event.getValue());	
-			}
+			View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
+			injectEventInteractions(view, eventType, event.getValue());	
 		}
 		afterEvent();
 	}
