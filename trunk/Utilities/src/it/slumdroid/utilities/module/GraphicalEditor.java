@@ -15,6 +15,18 @@
 
 package it.slumdroid.utilities.module;
 
+import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.AUTOC_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
+import static it.slumdroid.droidmodels.model.SimpleType.EDIT_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
+import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.TAB_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.utilities.Resources.TOOL;
 
 import java.awt.EventQueue;
@@ -541,57 +553,63 @@ public class GraphicalEditor extends JFrame {
 		builder.append("<map>");
 		if (editTextBox.getSelectedIndex() == 0 
 				|| editTextBox.getSelectedIndex() == 2) {
-			events = events.concat(", editText");
-		}
-		if (editTextBox.getSelectedIndex() == 1 
-				|| editTextBox.getSelectedIndex() == 2) {
-			inputs = inputs.concat(", editText");
+			events = events.concat(", " + EDIT_TEXT);
 		}
 		if (autoCompleteBox.getSelectedIndex() == 0 
 				|| autoCompleteBox.getSelectedIndex() == 2) {
-			events = events.concat(", autoCText");
-		}
-		if (autoCompleteBox.getSelectedIndex() == 1 
-				|| autoCompleteBox.getSelectedIndex() == 2) {
-			inputs = inputs.concat(", autoCText");
+			events = events.concat(", " + AUTOC_TEXT);
 		}
 		if (!events.equals("")) {
-			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"writeText" + events + "\"/>");
+			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"" + WRITE_TEXT + events + "\"/>");
 			countEvent++;
 		}
-		if (!inputs.equals("")) {
-			builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"writeText" + inputs + "\"/>");
-			countInput++;
-		}
 		events = new String();
-		inputs = new String();
-		int countButton = 0;
 		if (checkBox.getSelectedIndex() == 0 
 				|| checkBox.getSelectedIndex() == 2) {
-			events = events.concat(", check");
-		}
-		if (checkBox.getSelectedIndex() == 1 
-				|| checkBox.getSelectedIndex() == 2) {
-			inputs = inputs.concat(", check");
-			countButton++;
+			events = events.concat(", " + CHECKBOX);
 		}
 		if (toggleBox.getSelectedIndex() == 0 
 				|| toggleBox.getSelectedIndex() == 2) {
-			events = events.concat(", toggle");
-		}
-		if (toggleBox.getSelectedIndex() == 1 
-				|| toggleBox.getSelectedIndex() == 2) {
-			inputs = inputs.concat(", toggle");
-			countButton++;
+			events = events.concat(", " + TOGGLE_BUTTON);
 		}
 		if (!events.equals("")) {
-			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"click, button, menuItem, linearLayout, image, tabView " + events + "\"/>");
+			builder.append("<entry key=\"EVENTS["+ countEvent +"]\" value=\"" + CLICK + ", " + BUTTON + ", " + MENU_ITEM + ", " + LINEAR_LAYOUT + ", " + IMAGE_VIEW + ", " + TAB_VIEW + events + "\"/>");
+		}
+		
+		if (editTextBox.getSelectedIndex() == 1 
+				|| editTextBox.getSelectedIndex() == 2) {
+			inputs = inputs.concat(", " + EDIT_TEXT);
+		}
+		if (autoCompleteBox.getSelectedIndex() == 1 
+				|| autoCompleteBox.getSelectedIndex() == 2) {
+			inputs = inputs.concat(", " + AUTOC_TEXT);
+		}
+		if (!inputs.equals("")) {
+			builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"" + WRITE_TEXT + inputs + "\"/>");
+			countInput++;
+		}
+		
+		inputs = new String();
+		int countButton = 0;		
+		if (checkBox.getSelectedIndex() == 1 
+				|| checkBox.getSelectedIndex() == 2) {
+			inputs = inputs.concat(", " + CHECKBOX);
+			countButton++;
+		}
+		
+		if (toggleBox.getSelectedIndex() == 1 
+				|| toggleBox.getSelectedIndex() == 2) {
+			inputs = inputs.concat(", " + TOGGLE_BUTTON);
+			countButton++;
 		}
 		if (!inputs.equals("")) {
 			if (countButton != 2) {
-				builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"click, numberPickerButton" + inputs + "\"/>");
+				builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"" + CLICK + ", " + NUMBER_PICKER_BUTTON +  inputs + "\"/>");
 			}
+		} else {
+			builder.append("<entry key=\"INPUTS["+ countInput +"]\" value=\"" + CLICK + ", " + NUMBER_PICKER_BUTTON + "\"/>");
 		}
+		
 		if (inputTextBox.getSelectedIndex() != 0) {
 			builder.append("<entry key=\"HASH_VALUES\" value=\"false\"/>");
 		}
