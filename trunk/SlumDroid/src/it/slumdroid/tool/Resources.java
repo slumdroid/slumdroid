@@ -22,7 +22,19 @@ package it.slumdroid.tool;
 public class Resources {
 
 	/** The Constant TAG. */
-	public final static String TAG = "slumdroid";	
+	public static final String TAG = "slumdroid";	
+
+	/** The activity list file name. */
+	public static final String ACTIVITY_LIST_FILE_NAME = "activities.xml"; 
+
+	/** The file name. */
+	public static final String GUI_TREE_FILE_NAME = "guitree.xml"; 
+
+	/** The parameters file name. */
+	public static final String PARAMETERS_FILE_NAME = "parameters.obj"; 
+
+	/** The task list file name. */
+	public static final String TASK_LIST_FILE_NAME = "tasklist.xml";
 
 	/**
 	 * The Enum SchedulerAlgorithm.

@@ -43,7 +43,7 @@ public interface Abstractor {
 	/**
 	 * Sets the base activity.
 	 *
-	 * @param desc the new base activity
+	 * @param theDescription the new base activity
 	 */
 	public void setBaseActivity (ActivityDescription theDescription);
 

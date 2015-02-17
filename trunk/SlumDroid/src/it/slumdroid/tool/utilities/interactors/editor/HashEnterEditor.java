@@ -26,8 +26,6 @@ public class HashEnterEditor extends HashWriteEditor {
 
 	/**
 	 * Instantiates a new hash enter editor.
-	 *
-	 * @param simpleTypes the simple types
 	 */
 	public HashEnterEditor () {
 		super (SEARCH_BAR);

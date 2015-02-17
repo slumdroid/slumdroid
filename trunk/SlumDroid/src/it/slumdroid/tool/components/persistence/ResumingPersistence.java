@@ -15,6 +15,10 @@
 
 package it.slumdroid.tool.components.persistence;
 
+import static it.slumdroid.tool.Resources.ACTIVITY_LIST_FILE_NAME;
+import static it.slumdroid.tool.Resources.GUI_TREE_FILE_NAME;
+import static it.slumdroid.tool.Resources.PARAMETERS_FILE_NAME;
+import static it.slumdroid.tool.Resources.TASK_LIST_FILE_NAME;
 import it.slumdroid.droidmodels.guitree.FinalActivity;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Session;
@@ -51,18 +55,6 @@ import android.content.ContextWrapper;
  * The Class ResumingPersistence.
  */
 public class ResumingPersistence implements Persistence, SaveStateListener, DispatchListener, StateDiscoveryListener {
-
-	/** The activity list file name. */
-	private final String ACTIVITY_LIST_FILE_NAME = new String("activities.xml"); 
-
-	/** The file name. */
-	private final String FILE_NAME = new String("guitree.xml"); 
-
-	/** The parameters file name. */
-	private final String PARAMETERS_FILE_NAME = new String("parameters.obj"); 
-
-	/** The task list file name. */
-	private final String TASK_LIST_FILE_NAME = new String("tasklist.xml");
 
 	/** The actor name. */
 	public final String ACTOR_NAME = "ResumingPersistence";
@@ -138,7 +130,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		this.theSession.addTask(task);
 		saveStep();
 	}
-	
+
 	/**
 	 * Backup.
 	 *
@@ -148,7 +140,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	private String backup (String original) {
 		return original + ".bak";
 	}
-	
+
 	/**
 	 * Backup file.
 	 *
@@ -157,14 +149,14 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	private void backupFile (String fileName) {
 		copy(fileName, backup(fileName));
 	}
-	
+
 	/**
 	 * Can has resume.
 	 *
 	 * @return true, if successful
 	 */
 	public boolean canHasResume () {
-		if (!exists(this.FILE_NAME)) {
+		if (!exists(GUI_TREE_FILE_NAME)) {
 			return false; 
 		}
 		if (exists(backup(TASK_LIST_FILE_NAME))) {
@@ -178,7 +170,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Close file.
 	 */
@@ -234,7 +226,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	private void closeStateFile () {
 		closeFile(this.stateFile, this.stateStream);
 	}
-	
+
 	/**
 	 * Close task file.
 	 */
@@ -270,7 +262,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			}
 		}
 	}
-	
+
 	/**
 	 * Delete.
 	 *
@@ -287,7 +279,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public boolean exists (String filename) {
 		return this.wrapper.getFileStreamPath(filename).exists();
 	}
-	
+
 	/**
 	 * Generate.
 	 *
@@ -325,7 +317,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 
 		return graph.substring(bodyBegin,bodyEnd) + System.getProperty("line.separator");
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
 	 */
@@ -341,7 +333,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public Session getSession() {
 		return this.theSession;
 	}
-	
+
 	/**
 	 * Checks if is first.
 	 *
@@ -385,7 +377,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			listener.getValue().onLoadingState(this.parameters.get(listener.getKey()));
 		}
 	}
-	
+
 	/**
 	 * No tasks.
 	 *
@@ -418,7 +410,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
 	 */
@@ -426,7 +418,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public SessionParams onSavingState() {
 		return new SessionParams(PARAM_NAME, this.footer);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.DispatchListener#onTaskDispatched(it.slumdroid.droidmodels.model.Task)
 	 */
@@ -435,7 +427,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		saveTaskList();
 		saveParameters();
 	}
-	
+
 	/**
 	 * Open file.
 	 *
@@ -450,7 +442,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Open state file.
 	 *
@@ -464,7 +456,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Open task file.
 	 */
@@ -476,7 +468,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Read file.
 	 *
@@ -515,7 +507,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public List<String> readStateFile () {
 		return readFile(ACTIVITY_LIST_FILE_NAME);
 	}
-	
+
 	/**
 	 * Read task file.
 	 *
@@ -524,7 +516,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public List<String> readTaskFile () {
 		return readFile(TASK_LIST_FILE_NAME);
 	}
-	
+
 	/**
 	 * Register listener.
 	 *
@@ -533,7 +525,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public void registerListener (SaveStateListener listener) {
 		theListeners.put(listener.getListenerName(), listener);
 	}
-	
+
 	/**
 	 * Restore file.
 	 *
@@ -542,7 +534,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	private void restoreFile (String fileName) {
 		copy(backup(fileName),fileName);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#save()
 	 */
@@ -558,7 +550,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			delete (backup(TASK_LIST_FILE_NAME));
 		}
 	}
-	
+
 	/**
 	 * Save.
 	 *
@@ -571,9 +563,9 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		if (last) {
 			setLast();		
 		}
-		save (this.FILE_NAME);
+		save (GUI_TREE_FILE_NAME);
 	}
-	
+
 	/**
 	 * Save.
 	 *
@@ -615,7 +607,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			}
 		}
 	}
-	
+
 	/**
 	 * Save step.
 	 */
@@ -626,7 +618,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		}
 		setNotFirst();
 	}
-	
+
 	/**
 	 * Save task list.
 	 */
@@ -655,28 +647,28 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			delete (backup(ACTIVITY_LIST_FILE_NAME));
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Persistence#setContext(android.app.Activity)
 	 */
 	public void setContext(Activity activity) {
 		this.wrapper = new ContextWrapper(activity);
 	}
-	
+
 	/**
 	 * Sets the last.
 	 */
 	private void setLast () {
 		this.last = true;
 	}
-	
+
 	/**
 	 * Sets the not first.
 	 */
 	public void setNotFirst () {
 		this.first = false;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Persistence#setSession(it.slumdroid.droidmodels.model.Session)
 	 */
@@ -692,7 +684,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	public void setTaskList(List<Task> taskList) {
 		this.taskList = taskList;
 	}
-		
+
 	/**
 	 * Write on file.
 	 *
@@ -702,7 +694,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	private void writeOnFile (String graph) throws IOException {
 		writeOnFile (this.osw, graph);
 	}
-	
+
 	/**
 	 * Write on file.
 	 *
@@ -713,7 +705,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	private void writeOnFile (OutputStreamWriter output, String graph) throws IOException {
 		output.write(graph);
 	}
-	
+
 	/**
 	 * Write on state file.
 	 *

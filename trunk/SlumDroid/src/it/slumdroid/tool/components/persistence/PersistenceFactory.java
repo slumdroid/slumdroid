@@ -53,7 +53,7 @@ public class PersistenceFactory {
 		setDispatcher(theScheduler);
 		setStrategy(theStrategy);
 	}
-	
+
 	/**
 	 * Register for saving state.
 	 *
@@ -62,7 +62,7 @@ public class PersistenceFactory {
 	public static void registerForSavingState (SaveStateListener listener) {
 		stateSavers.add(listener);
 	}
-	
+
 	/**
 	 * Gets the persistence.
 	 *

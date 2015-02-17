@@ -91,7 +91,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 
 	/**
 	 * Instantiates a new systematic engine.
-	 * @throws ClassNotFoundException 
+	 *
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	@SuppressWarnings("unchecked")
 	public SystematicEngine () throws ClassNotFoundException {
