@@ -25,6 +25,7 @@ import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
 import it.slumdroid.droidmodels.xml.XmlGraph;
+import it.slumdroid.tool.components.automation.Automation;
 import it.slumdroid.tool.model.DispatchListener;
 import it.slumdroid.tool.model.Persistence;
 import it.slumdroid.tool.model.SaveStateListener;
@@ -49,6 +50,8 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.view.View;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -127,7 +130,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 */ 
 	public void addTask (Task task) {
 		task.setFailed(false);
-		this.theSession.addTask(task);
+		getSession().addTask(task);
 		saveStep();
 	}
 
@@ -169,6 +172,39 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * Capture image.
+	 *
+	 * @return the bitmap
+	 */
+	private Bitmap captureImage() {
+		ArrayList<View> views = Automation.getRobotium().getViews();
+		Bitmap source = null;
+		Bitmap bitmap = null;
+		try{
+			if (views != null && views.size() > 0) {
+				final View view = views.get(0);
+				view.destroyDrawingCache();
+				view.buildDrawingCache(false);
+				source = view.getDrawingCache();
+				if (source == null) {
+					return null;
+				}
+				Bitmap.Config config = source.getConfig();
+				if (config == null){
+					config = Bitmap.Config.ARGB_8888;
+				}
+				bitmap = source.copy(config, false);
+				source.recycle();
+				view.destroyDrawingCache();
+				return bitmap;
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	/**
@@ -584,6 +620,32 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	}
 
 	/**
+	 * Save image.
+	 *
+	 * @param image the image
+	 * @param name the name
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public void saveImage(Bitmap image, String name) throws IOException {
+		FileOutputStream fileOutput = null;
+		OutputStreamWriter streamWriter = null;
+		try {
+			fileOutput = wrapper.openFileOutput(name, ContextWrapper.MODE_PRIVATE);
+			streamWriter = new OutputStreamWriter(fileOutput);
+			if (fileOutput != null) {
+				image.compress(Bitmap.CompressFormat.PNG, 50, fileOutput);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} finally {
+			if (fileOutput != null) {
+				streamWriter.close();
+				fileOutput.close();
+			}
+		}
+	}
+
+	/**
 	 * Save parameters.
 	 */
 	private void saveParameters() {
@@ -606,6 +668,26 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 				closeFile(theFile, theStream);
 			}
 		}
+	}
+
+	/**
+	 * Save screenshot.
+	 *
+	 * @param fileName the file name
+	 * @return true, if successful
+	 */
+	public boolean saveScreenshot(String fileName) {
+		Bitmap bitmap = captureImage();
+		if (bitmap == null) {
+			return false;	
+		}
+		try {
+			saveImage(bitmap, fileName);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;            
 	}
 
 	/**

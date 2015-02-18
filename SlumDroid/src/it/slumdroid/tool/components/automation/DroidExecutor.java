@@ -18,6 +18,8 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
@@ -61,7 +63,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 */
 	public void click (final View view) {
-		assertNotNull(view, "Cannot click: the widget does not exist");
+		assertNotNull("Cannot Click: the widget does not exist", view);
 		getRobotium().clickOnView(view);
 	}
 
@@ -71,7 +73,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 */
 	public void longClick (final View view) {
-		assertNotNull(view, "Cannot longClick: the widget does not exist");
+		assertNotNull("Cannot longClick: the widget does not exist", view);
 		getRobotium().clickLongOnView(view);
 	}
 
@@ -82,7 +84,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectListItem (final ListView list, final String value) {
-		assertNotNull(list, "Cannot select list item: the list does not exist");
+		assertNotNull("Cannot select list item: the list does not exist", list);
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			if (item < list.getChildCount()) {
@@ -116,7 +118,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectLongListItem (final ListView list, final String value) {
-		assertNotNull(list, "Cannot long select list item: the list does not exist");
+		assertNotNull("Cannot long select list item: the list does not exist", list);
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			if (item < list.getChildCount()) {
@@ -154,7 +156,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void writeText (final EditText editText, final String value) {
-		assertNotNull(editText, "Cannot writeText: The widget does not exist");
+		assertNotNull("Cannot WriteText: The widget does not exist", editText);
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().enterText(editText, value);
@@ -168,7 +170,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void typeText (final EditText editText, final String value) {
-		assertNotNull(editText, "Cannot TypeText: The widget does not exist");
+		assertNotNull("Cannot TypeText: The widget does not exist", editText);
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().typeText(editText, value);
@@ -182,7 +184,6 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void writeTextAndEnter (final EditText editText, final String value) {
-		assertNotNull(editText, "Cannot writeText: The widget does not exist");
 		typeText (editText, value);
 		getRobotium().sendKey(Solo.ENTER);
 	}
@@ -194,12 +195,10 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectRadioItem (final RadioGroup radioGroup, final String value) {
+		assertNotNull("Cannot press radio group item: the radio group does not exist", radioGroup);
 		int item = Integer.valueOf(value);
-		if (item < 1) {
-			assertNotNull(null, "Cannot press radio group item: the index must be a positive number");
-		}
-		assertNotNull(radioGroup, "Cannot press radio group item: the radio group does not exist");
-		getRobotium().clickOnView(radioGroup.getChildAt(item - 1));
+		assertTrue("Cannot press radio group item: the index must be a positive number", item >= 1);
+		click(radioGroup.getChildAt(item - 1));
 	}
 
 	/**
@@ -219,8 +218,9 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void setProgressBar (final View view, final String value) {
-		assertNotNull(view, "Cannot set progressBar: The widget does not exist");
-		getRobotium().setProgressBar((ProgressBar)view, Integer.parseInt(value));
+		ProgressBar progressBar = (ProgressBar)view; 
+		assertNotNull("Cannot set progressBar: The widget does not exist", progressBar);
+		getRobotium().setProgressBar(progressBar, Integer.parseInt(value));
 	}
 
 	/**
@@ -231,12 +231,12 @@ public class DroidExecutor {
 	 */
 	public void swapTab (final View view, final String value) {
 		TabHost tabHost = (TabHost)view; 
+		assertNotNull("Cannon swap tab: the tab host does not exist", tabHost);
 		int item = Integer.valueOf(value);
-		assertNotNull(tabHost, "Cannon swap tab: the tab host does not exist");
 		int count = tabHost.getTabWidget().getTabCount();
-		ActivityInstrumentationTestCase2.assertTrue("Cannot swap tab: tab index out of bound", item <= count);
+		assertTrue("Cannot swap tab: tab index out of bound", item <= count);
 		int index = Math.min(count, Math.max(1, item)) - 1;
-		getRobotium().clickOnView(tabHost.getTabWidget().getChildAt(index));
+		click(tabHost.getTabWidget().getChildAt(index));
 	}
 
 	/**
@@ -245,7 +245,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 */
 	public void requestView (final View view) {
-		getRobotium().sendKey(Solo.UP); // Focus captured		
+		getRobotium().sendKey(Solo.UP);		
 		getRobotium().waitForView(view, 1000, true);
 		runOnUiThread(new Runnable() {
 			public void run() {
@@ -271,16 +271,6 @@ public class DroidExecutor {
 	 */
 	public void wait (int milli) {
 		getRobotium().sleep(milli);
-	}
-
-	/**
-	 * Assert not null.
-	 *
-	 * @param view the view
-	 * @param errorMessage the error message
-	 */
-	protected static void assertNotNull (View view, String errorMessage) {
-		ActivityInstrumentationTestCase2.assertNotNull(errorMessage, view);
 	}
 
 	/**
