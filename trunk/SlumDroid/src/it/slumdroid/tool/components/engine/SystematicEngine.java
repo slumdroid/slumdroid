@@ -500,17 +500,25 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the state
 	 */
 	private void takeScreenshot(ActivityState theState) {
-		try {
-			String fileName = theState.getUniqueId() + ".png";
-			String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
-			Runtime.getRuntime().exec(command);
-			Log.i(TAG,"Saved image on disk: " + fileName);
-		} catch (Exception e) {
-			e.printStackTrace();
-			theState.setScreenshot(new String());
+		String fileName = theState.getUniqueId() + ".png";
+		if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+			if (getPersistence().saveScreenshot(fileName)) {
+				Log.i(TAG,"Saved image on disk: " + fileName);
+			} else {
+				theState.setScreenshot(new String());
+			}
+		} else {
+			try {
+				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
+				Runtime.getRuntime().exec(command);
+				Log.i(TAG,"Saved image on disk: " + fileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+				theState.setScreenshot(new String());
+			}	
 		}
 	}
-
+	
 	/**
 	 * Gets the new session.
 	 *
