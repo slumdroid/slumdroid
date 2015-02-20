@@ -231,7 +231,8 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void requestView (final View view) {	
+	public void requestView (final View view) {
+		getRobotium().sendKey(Solo.UP);
 		getRobotium().waitForView(view, 1000, true);
 		runOnUiThread(new Runnable() {
 			public void run() {

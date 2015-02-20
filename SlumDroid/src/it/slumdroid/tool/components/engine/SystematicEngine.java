@@ -145,16 +145,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getStrategy().addState(baseActivity);
 		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
 		if (SCREENSHOT_ENABLED) {
-			boolean flag = false;
-			do {
-				try {
-					wait(1000);
-					flag = true;
-				} catch (Exception e) {
-					e.printStackTrace();
-					flag = false;
-				}	
-			} while (flag);
 			takeScreenshot (baseActivity);
 		}
 		planFirstTests(baseActivity);
@@ -529,7 +519,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			}	
 		}
 	}
-	
+
 	/**
 	 * Gets the new session.
 	 *
