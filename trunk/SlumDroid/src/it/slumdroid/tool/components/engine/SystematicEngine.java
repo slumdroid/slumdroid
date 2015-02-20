@@ -145,7 +145,16 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		getStrategy().addState(baseActivity);
 		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
 		if (SCREENSHOT_ENABLED) {
-			getAutomation().wait(1000);
+			boolean flag = false;
+			do {
+				try {
+					wait(1000);
+					flag = true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					flag = false;
+				}	
+			} while (flag);
 			takeScreenshot (baseActivity);
 		}
 		planFirstTests(baseActivity);
@@ -193,7 +202,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the the state
 	 * @return true, if successful
 	 */
-	protected boolean canPlanTests (ActivityState theState){
+	protected boolean canPlanTests (ActivityState theState) {
 		return !theState.isExit() && getStrategy().checkForExploration();
 	}
 
@@ -500,18 +509,20 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the state
 	 */
 	private void takeScreenshot(ActivityState theState) {
-		String fileName = theState.getUniqueId() + ".png";
+		String fileName = theState.getUniqueId();
 		if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-			if (getPersistence().saveScreenshot(fileName)) {
-				Log.i(TAG,"Saved image on disk: " + fileName);
+			if (getPersistence().saveScreenshot(fileName + ".jpg")) {
+				theState.setScreenshot(fileName + ".jpg");
+				Log.i(TAG, "Saved image on disk: " + fileName + ".jpg");
 			} else {
 				theState.setScreenshot(new String());
 			}
 		} else {
 			try {
-				String command = "adb shell screencap -p " + "/data/data/" + PACKAGE_NAME + "/files/" + fileName;
+				String command = "adb shell screencap -p /data/data/" + PACKAGE_NAME + "/files/" + fileName + ".png";
 				Runtime.getRuntime().exec(command);
-				Log.i(TAG,"Saved image on disk: " + fileName);
+				theState.setScreenshot(fileName + ".png");
+				Log.i(TAG, "Saved image on disk: " + fileName + ".png");
 			} catch (Exception e) {
 				e.printStackTrace();
 				theState.setScreenshot(new String());

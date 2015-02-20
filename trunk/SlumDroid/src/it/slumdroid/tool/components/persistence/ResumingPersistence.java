@@ -633,7 +633,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			fileOutput = wrapper.openFileOutput(name, ContextWrapper.MODE_PRIVATE);
 			streamWriter = new OutputStreamWriter(fileOutput);
 			if (fileOutput != null) {
-				image.compress(Bitmap.CompressFormat.PNG, 50, fileOutput);
+				image.compress(Bitmap.CompressFormat.JPEG, 50, fileOutput);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

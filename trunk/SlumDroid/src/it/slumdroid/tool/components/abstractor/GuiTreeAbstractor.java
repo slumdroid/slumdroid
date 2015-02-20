@@ -17,7 +17,6 @@ package it.slumdroid.tool.components.abstractor;
 
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
-import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.detectName;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.setCount;
@@ -176,9 +175,6 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		newActivity.setTitle(theDescription.getActivityTitle());
 		newActivity.setUniqueId(getUniqueActivityId());
 		newActivity.setId(newActivity.getUniqueId());
-		if (SCREENSHOT_ENABLED) {
-			newActivity.setScreenshot(newActivity.getUniqueId() + ".png");	
-		}
 		return newActivity;
 	}
 
