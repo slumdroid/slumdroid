@@ -500,23 +500,48 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 */
 	private void takeScreenshot(ActivityState theState) {
 		String fileName = theState.getUniqueId();
-		if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-			if (getPersistence().saveScreenshot(fileName + ".jpg")) {
-				theState.setScreenshot(fileName + ".jpg");
-				Log.i(TAG, "Saved image on disk: " + fileName + ".jpg");
+		if ( android.os.Build.MANUFACTURER.contains("Genymotion") 
+				|| android.os.Build.MODEL.contains("Genymotion") ) {
+			if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
+				saveJPG(theState, fileName);
 			} else {
-				theState.setScreenshot(new String());
-			}
-		} else {
-			try {
-				String command = "adb shell screencap -p /data/data/" + PACKAGE_NAME + "/files/" + fileName + ".png";
-				Runtime.getRuntime().exec(command);
-				theState.setScreenshot(fileName + ".png");
-				Log.i(TAG, "Saved image on disk: " + fileName + ".png");
-			} catch (Exception e) {
-				e.printStackTrace();
-				theState.setScreenshot(new String());
+				savePNG(theState, fileName);	
 			}	
+		} else {
+			saveJPG(theState, fileName);
+		}
+	}
+
+	/**
+	 * Save JPG.
+	 *
+	 * @param theState the the state
+	 * @param fileName the file name
+	 */
+	private void saveJPG (ActivityState theState, String fileName) {
+		if (getPersistence().saveScreenshot(fileName + ".jpg")) {
+			theState.setScreenshot(fileName + ".jpg");
+			Log.i(TAG, "Saved image on disk: " + fileName + ".jpg");
+		} else {
+			theState.setScreenshot(new String());
+		}
+	}
+
+	/**
+	 * Save PNG.
+	 *
+	 * @param theState the the state
+	 * @param fileName the file name
+	 */
+	private void savePNG (ActivityState theState, String fileName) {
+		try {
+			String command = "adb shell screencap -p /data/data/" + PACKAGE_NAME + "/files/" + fileName + ".png";
+			Runtime.getRuntime().exec(command);
+			theState.setScreenshot(fileName + ".png");
+			Log.i(TAG, "Saved image on disk: " + fileName + ".png");
+		} catch (Exception e) {
+			e.printStackTrace();
+			theState.setScreenshot(new String());
 		}
 	}
 
