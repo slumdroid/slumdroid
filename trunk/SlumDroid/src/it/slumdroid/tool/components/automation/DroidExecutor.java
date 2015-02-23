@@ -94,19 +94,6 @@ public class DroidExecutor {
 	}
 
 	/**
-	 * Select spinner item.
-	 *
-	 * @param spinner the spinner
-	 * @param value the value
-	 */
-	public void selectSpinnerItem (final Spinner spinner, final String value) {
-		click(spinner);
-		sync();
-		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		selectListItem(list, value); 	
-	}
-
-	/**
 	 * Long Select list item.
 	 *
 	 * @param list the list
@@ -133,14 +120,22 @@ public class DroidExecutor {
 	 * @param item the item
 	 */
 	private void selectRow(final ListView list, int item) {
-		requestView(list);
 		final int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
-		runOnUiThread(new Runnable() { 
-			public void run() {
-				list.setSelection(row - 1);		
-			}
-		});	
+		getRobotium().scrollListToLine(list, row - 1);
 		getRobotium().sendKey(Solo.DOWN);
+	}
+
+	/**
+	 * Select spinner item.
+	 *
+	 * @param spinner the spinner
+	 * @param value the value
+	 */
+	public void selectSpinnerItem (final Spinner spinner, String value) {
+		click(spinner);
+		sync();
+		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		selectListItem(list, value);
 	}
 
 	/**
@@ -224,31 +219,6 @@ public class DroidExecutor {
 		int count = tabHost.getTabWidget().getTabCount();
 		int index = Math.min(count, Math.max(1, item)) - 1;
 		click(tabHost.getTabWidget().getChildAt(index));
-	}
-
-	/**
-	 * Request view.
-	 *
-	 * @param view the view
-	 */
-	public void requestView (final View view) {
-		getRobotium().sendKey(Solo.UP);
-		getRobotium().waitForView(view, 1000, true);
-		runOnUiThread(new Runnable() {
-			public void run() {
-				view.requestFocus();            
-			}
-		});
-		sync();		
-	}		
-
-	/**
-	 * Run on ui thread.
-	 *
-	 * @param action the action
-	 */
-	protected void runOnUiThread (Runnable action) {
-		getCurrentActivity().runOnUiThread(action);		
 	}
 
 	/**
