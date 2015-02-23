@@ -134,14 +134,6 @@ public class Automation implements Executor {
 			getExecutor().setProgressBar(view, value);
 			return;
 		}
-		if (interactionType.equals(SPINNER_SELECT)) {
-			getExecutor().selectSpinnerItem((Spinner)view, value);
-			return;
-		}
-		if (interactionType.equals(RADIO_SELECT)) {
-			getExecutor().selectRadioItem((RadioGroup)view, value);
-			return;
-		}
 	}
 
 	/* (non-Javadoc)
