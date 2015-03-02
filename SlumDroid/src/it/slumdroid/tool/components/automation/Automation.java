@@ -152,10 +152,16 @@ public class Automation implements Executor {
 				if (!event.getWidgetName().equals("")) {
 					toWrite += " item=" + event.getWidgetName();	
 				}
+
 			}
 			Log.i(TAG, toWrite);
-			View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
-			injectEventInteractions(view, eventType, event.getValue());	
+			if (event.getWidgetType().equals("com.android.internal.view.menu.IconMenuItemView") 
+					&& !event.getWidgetName().equals("")) {
+				getRobotium().clickOnMenuItem(event.getWidgetName());
+			} else {
+				View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
+				injectEventInteractions(view, eventType, event.getValue());	
+			}
 		}
 		afterEvent();
 	}
