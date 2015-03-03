@@ -15,12 +15,12 @@
 
 package it.slumdroid.tool.components.scheduler;
 
+import static it.slumdroid.tool.Resources.SchedulerAlgorithm.DEPTH_FIRST;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 import it.slumdroid.tool.model.TaskScheduler;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 // TODO: Auto-generated Javadoc
@@ -51,11 +51,10 @@ public class TrivialScheduler implements TaskScheduler {
 		if (!hasMore()) {
 			return null;
 		}
-		switch (this.algorithm) {
-		case DEPTH_FIRST: return lastTask();
-		case BREADTH_FIRST:
-		case RANDOM_FIRST:
-		default: return firstTask();
+		if (this.algorithm.equals(DEPTH_FIRST)) {
+			return lastTask();
+		} else {
+			return firstTask();
 		}
 	}
 
@@ -72,17 +71,7 @@ public class TrivialScheduler implements TaskScheduler {
 	 * @see it.slumdroid.tool.model.TaskScheduler#addPlannedTasks(java.util.List)
 	 */
 	public void addPlannedTasks(List<Task> newTasks) {
-		switch (this.algorithm) {
-		case DEPTH_FIRST:
-			Collections.reverse(newTasks);
-			addTasks(newTasks);
-			break;
-		case BREADTH_FIRST:
-		case RANDOM_FIRST:
-		default: 
-			addTasks(newTasks);
-			break;
-		}
+		addTasks(newTasks);
 	}
 
 	/* (non-Javadoc)
