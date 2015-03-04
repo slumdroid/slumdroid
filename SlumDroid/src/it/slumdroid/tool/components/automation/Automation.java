@@ -105,7 +105,7 @@ public class Automation implements Executor {
 			toWrite += " value=" + input.getValue();
 		}
 		Log.i(TAG, toWrite);
-		View view = getExtractor().getAllViews().get(input.getWidget().getIndex());
+		View view = getRobotium().getViews().get(input.getWidget().getIndex());
 		injectInputInteractions(view, input.getType(), input.getValue());
 	}
 
@@ -152,14 +152,13 @@ public class Automation implements Executor {
 				if (!event.getWidgetName().equals("")) {
 					toWrite += " item=" + event.getWidgetName();	
 				}
-
 			}
 			Log.i(TAG, toWrite);
 			if (event.getWidgetType().equals("com.android.internal.view.menu.IconMenuItemView") 
 					&& !event.getWidgetName().equals("")) {
 				getRobotium().clickOnMenuItem(event.getWidgetName());
 			} else {
-				View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
+				View view = getRobotium().getViews().get(event.getWidget().getIndex()); 
 				injectEventInteractions(view, eventType, event.getValue());	
 			}
 		}
@@ -237,8 +236,7 @@ public class Automation implements Executor {
 			getExecutor().longClick(view);
 			return;
 		}
-		if (interactionType.equals(SWAP_TAB) 
-				&& (value != null)) {
+		if (interactionType.equals(SWAP_TAB)) {
 			getExecutor().swapTab (view, value);
 			return;
 		}

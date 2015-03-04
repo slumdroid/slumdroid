@@ -38,24 +38,14 @@ public class TrivialExtractor implements Extractor {
 	 * @return the all views
 	 */
 	public ArrayList<View> getAllViews() {
-		return allViews;
-	}
-
-	/**
-	 * Sets the all views.
-	 *
-	 * @param allViews the new all views
-	 */
-	public void setAllViews(ArrayList<View> allViews) {
-		this.allViews = allViews;
+		return this.allViews;
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Extractor#extractState()
 	 */
 	public void extractState() {
-		getAllViews().clear();	
-		setAllViews(Automation.getRobotium().getViews());
+		this.allViews = new ArrayList<View>(Automation.getRobotium().getViews());
 	}
 
 	/* (non-Javadoc)
