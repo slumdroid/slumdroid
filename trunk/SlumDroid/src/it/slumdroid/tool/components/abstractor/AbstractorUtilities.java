@@ -18,7 +18,6 @@ package it.slumdroid.tool.components.abstractor;
 import it.slumdroid.droidmodels.model.WidgetState;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsSpinner;
 import android.widget.AdapterView;
 import android.widget.Checkable;
 import android.widget.EditText;
@@ -77,8 +76,8 @@ public class AbstractorUtilities {
 			widget.setCount(((AdapterView<?>)view).getCount());
 			return;
 		}
-		if (view instanceof AbsSpinner) {
-			widget.setCount(((AbsSpinner)view).getCount());
+		if (view instanceof ProgressBar) {
+			widget.setCount(((ProgressBar)view).getMax());
 			return;
 		}
 		if (view instanceof TabHost) {
@@ -87,10 +86,6 @@ public class AbstractorUtilities {
 		}
 		if (view instanceof ViewGroup) {
 			widget.setCount(((ViewGroup)view).getChildCount());
-			return;
-		}
-		if (view instanceof ProgressBar) {
-			widget.setCount(((ProgressBar)view).getMax());
 			return;
 		}
 	}
