@@ -36,6 +36,7 @@ import it.slumdroid.tool.utilities.interactors.editor.RandomWriteEditor;
 import it.slumdroid.tool.utilities.interactors.selector.ListLongSelector;
 import it.slumdroid.tool.utilities.interactors.selector.ListSelector;
 import it.slumdroid.tool.utilities.interactors.selector.RadioSelector;
+import it.slumdroid.tool.utilities.interactors.selector.RandomSpinnerSelector;
 import it.slumdroid.tool.utilities.interactors.selector.SpinnerSelector;
 
 import java.util.HashMap;
@@ -152,6 +153,7 @@ public class UserFactory {
 			}
 		}
 		userAdapter.addInput(new BarSlider());
+		userAdapter.addInput(new RandomSpinnerSelector());
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_INPUTS) {
 			userAdapter.addInput(interactor);
 		}

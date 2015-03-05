@@ -62,7 +62,7 @@ import com.robotium.solo.Solo;
 public class Automation implements Executor {
 
 	/** The extractor. */
-	private TrivialExtractor extractor;
+	private static TrivialExtractor extractor;
 
 	/** The executor. */
 	private static DroidExecutor executor;
@@ -71,7 +71,7 @@ public class Automation implements Executor {
 	 * Instantiates a new automation.
 	 */
 	public Automation () {
-		this.extractor = new TrivialExtractor(); 
+		extractor = new TrivialExtractor(); 
 	}
 
 	/* (non-Javadoc)
@@ -105,7 +105,7 @@ public class Automation implements Executor {
 			toWrite += " value=" + input.getValue();
 		}
 		Log.i(TAG, toWrite);
-		View view = getRobotium().getViews().get(input.getWidget().getIndex());
+		View view = getExtractor().getAllViews().get(input.getWidget().getIndex());
 		injectInputInteractions(view, input.getType(), input.getValue());
 	}
 
@@ -129,6 +129,9 @@ public class Automation implements Executor {
 				getExecutor().writeText((EditText)view, value);
 				return;	
 			}
+		}
+		if (interactionType.equals(SPINNER_SELECT)) {
+			getExecutor().selectSpinnerItem((Spinner)view, value);
 		}
 		if (interactionType.equals(SET_BAR)) {
 			getExecutor().setProgressBar(view, value);
@@ -158,7 +161,7 @@ public class Automation implements Executor {
 					&& !event.getWidgetName().equals("")) {
 				getRobotium().clickOnMenuItem(event.getWidgetName());
 			} else {
-				View view = getRobotium().getViews().get(event.getWidget().getIndex()); 
+				View view = getExtractor().getAllViews().get(event.getWidget().getIndex()); 
 				injectEventInteractions(view, eventType, event.getValue());	
 			}
 		}
@@ -299,8 +302,8 @@ public class Automation implements Executor {
 	 *
 	 * @return the extractor
 	 */
-	public TrivialExtractor getExtractor() {
-		return this.extractor;
+	public static TrivialExtractor getExtractor() {
+		return extractor;
 	}
 
 	/**
