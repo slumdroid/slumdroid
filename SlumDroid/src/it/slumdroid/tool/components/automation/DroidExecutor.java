@@ -142,10 +142,14 @@ public class DroidExecutor {
 					list.setSelection(0);
 				}
 			});
-			for (int row = 0; row < item; row++) {
-				getRobotium().sendKey(Solo.DOWN);
+			if (item < list.getChildCount()) {
+				getRobotium().clickInList(item);
+			} else {
+				for (int row = 0; row < item; row++) {
+					getRobotium().sendKey(Solo.DOWN);
+				}
+				getRobotium().sendKey(Solo.ENTER);	
 			}
-			getRobotium().sendKey(Solo.ENTER);
 		} else {
 			getRobotium().clickLongInList(item);
 		}
