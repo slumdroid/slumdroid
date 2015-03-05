@@ -134,8 +134,21 @@ public class DroidExecutor {
 	public void selectSpinnerItem (final Spinner spinner, String value) {
 		click(spinner);
 		sync();
-		ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		selectListItem(list, value);
+		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		int item = Integer.valueOf(value);
+		if (list.getCount() != list.getChildCount()) {
+			getCurrentActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					list.setSelection(0);
+				}
+			});
+			for (int row = 0; row < item; row++) {
+				getRobotium().sendKey(Solo.DOWN);
+			}
+			getRobotium().sendKey(Solo.ENTER);
+		} else {
+			getRobotium().clickLongInList(item);
+		}
 	}
 
 	/**

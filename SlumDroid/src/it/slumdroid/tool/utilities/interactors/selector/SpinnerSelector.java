@@ -17,7 +17,6 @@ package it.slumdroid.tool.utilities.interactors.selector;
 
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
@@ -31,7 +30,7 @@ public class SpinnerSelector extends IterativeInteractorAdapter {
 	 * Instantiates a new spinner selector.
 	 */
 	public SpinnerSelector () {
-		super (MAX_NUM_EVENTS_PER_SELECTOR, SPINNER, SPINNER_INPUT);
+		super (MAX_NUM_EVENTS_PER_SELECTOR, SPINNER);
 	}
 
 	/* (non-Javadoc)
