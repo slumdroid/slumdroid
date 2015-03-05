@@ -251,7 +251,8 @@ public class TypeDetector {
 			}
 			return AUTOC_TEXT;
 		}
-		if (((EditText) view).getKeyListener() == null) {
+		if (((EditText) view).getKeyListener() == null 
+				|| ((EditText) view).getEditableText() == null) {
 			return NOEDITABLE_TEXT;
 		}
 		return EDIT_TEXT;
