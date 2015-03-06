@@ -80,7 +80,13 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param value the value
 	 */
-	public void selectListItem (ListView list, String value) {
+	public void selectListItem (final ListView list, String value) {
+		getInstrumentation().runOnMainSync(new Runnable() {
+			public void run() {
+				list.setSelection(0);
+			}
+		});
+		sync();
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			if (item < list.getChildCount()) {
@@ -100,7 +106,13 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param value the value
 	 */
-	public void selectLongListItem (ListView list, String value) {
+	public void selectLongListItem (final ListView list, String value) {
+		getInstrumentation().runOnMainSync(new Runnable() {
+			public void run() {
+				list.setSelection(0);
+			}
+		});
+		sync();
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			if (item < list.getChildCount()) {
