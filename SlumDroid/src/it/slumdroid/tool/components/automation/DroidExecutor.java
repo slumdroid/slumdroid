@@ -18,6 +18,7 @@ package it.slumdroid.tool.components.automation;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
@@ -80,19 +81,15 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param value the value
 	 */
-	public void selectListItem (final ListView list, String value) {
+	public void selectListItem (ListView list, String value) {
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
-			getInstrumentation().runOnMainSync(new Runnable() {
-				public void run() {
-					list.setSelection(0);
-				}
-			});
-			sync();
 			if (item < list.getChildCount()) {
+				getRobotium().scrollListToLine(list, 0);
 				getRobotium().clickInList(item);
 			} else {
-				selectRow(list, item);
+				getRobotium().scrollListToLine(list, item - 1);
+				getRobotium().sendKey(Solo.DOWN);
 				click(list.getSelectedView());	
 			}
 		} else {
@@ -106,36 +103,20 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param value the value
 	 */
-	public void selectLongListItem (final ListView list, String value) {
+	public void selectLongListItem (ListView list, String value) {
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
-			getInstrumentation().runOnMainSync(new Runnable() {
-				public void run() {
-					list.setSelection(0);
-				}
-			});
-			sync();
 			if (item < list.getChildCount()) {
+				getRobotium().scrollListToLine(list, 0);
 				getRobotium().clickLongInList(item);	
 			} else {
-				selectRow(list, item);
+				getRobotium().scrollListToLine(list, item - 1);
+				getRobotium().sendKey(Solo.DOWN);
 				longClick(list.getSelectedView());
 			}
 		} else {
 			getRobotium().clickLongInList(item);	
 		}
-	}
-
-	/**
-	 * Select row.
-	 *
-	 * @param list the list
-	 * @param item the item
-	 */
-	private void selectRow (ListView list, int item) {
-		final int row = Math.min(list.getCount(), Math.max(1, item)) - 1;
-		getRobotium().scrollListToLine(list, row - 1);
-		getRobotium().sendKey(Solo.DOWN);
 	}
 
 	/**
@@ -149,19 +130,16 @@ public class DroidExecutor {
 		sync();
 		int item = Integer.valueOf(value);
 		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		if (list.getCount() != list.getChildCount()) {
-			getInstrumentation().runOnMainSync(new Runnable() {
-				public void run() {
-					list.setSelection(0);
-				}
-			});
+		String type = getType(list);
+		if (type.endsWith("DropDownListView")) {
+			getRobotium().scrollListToLine(list, 0);
 			sync();
 			for (int row = 0; row < item; row++) {
 				getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 			}
 			getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		} else {
-			getRobotium().clickInList(item);
+			selectListItem(list, value);
 		}
 	}
 
