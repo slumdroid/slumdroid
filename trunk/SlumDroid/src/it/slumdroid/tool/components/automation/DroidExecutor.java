@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -131,27 +132,24 @@ public class DroidExecutor {
 	 * @param spinner the spinner
 	 * @param value the value
 	 */
-	public void selectSpinnerItem (final Spinner spinner, String value) {
+	public void selectSpinnerItem (Spinner spinner, String value) {
 		click(spinner);
 		sync();
-		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
 		int item = Integer.valueOf(value);
+		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
 		if (list.getCount() != list.getChildCount()) {
-			getCurrentActivity().runOnUiThread(new Runnable() {
+			getInstrumentation().runOnMainSync(new Runnable() {
 				public void run() {
 					list.setSelection(0);
 				}
 			});
-			if (item < list.getChildCount()) {
-				getRobotium().clickInList(item);
-			} else {
-				for (int row = 0; row < item; row++) {
-					getRobotium().sendKey(Solo.DOWN);
-				}
-				getRobotium().sendKey(Solo.ENTER);	
+			sync();
+			for (int row = 0; row < item; row++) {
+				getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 			}
+			getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 		} else {
-			getRobotium().clickLongInList(item);
+			getRobotium().clickInList(item);
 		}
 	}
 
