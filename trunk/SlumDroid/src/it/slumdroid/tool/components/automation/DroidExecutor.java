@@ -81,14 +81,14 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectListItem (final ListView list, String value) {
-		getInstrumentation().runOnMainSync(new Runnable() {
-			public void run() {
-				list.setSelection(0);
-			}
-		});
-		sync();
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
+			getInstrumentation().runOnMainSync(new Runnable() {
+				public void run() {
+					list.setSelection(0);
+				}
+			});
+			sync();
 			if (item < list.getChildCount()) {
 				getRobotium().clickInList(item);
 			} else {
@@ -107,14 +107,14 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectLongListItem (final ListView list, String value) {
-		getInstrumentation().runOnMainSync(new Runnable() {
-			public void run() {
-				list.setSelection(0);
-			}
-		});
-		sync();
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
+			getInstrumentation().runOnMainSync(new Runnable() {
+				public void run() {
+					list.setSelection(0);
+				}
+			});
+			sync();
 			if (item < list.getChildCount()) {
 				getRobotium().clickLongInList(item);	
 			} else {
