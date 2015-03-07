@@ -28,28 +28,28 @@ public interface Persistence {
 	/**
 	 * Save.
 	 */
-	public void save ();
+	public void save();
 
 	/**
 	 * Sets the session.
 	 *
 	 * @param theSession the new session
 	 */
-	public void setSession (Session theSession);
+	public void setSession(Session theSession);
 
 	/**
 	 * Adds the task.
 	 *
 	 * @param theTask the task
 	 */
-	public void addTask (Task theTask);
+	public void addTask(Task theTask);
 
 	/**
 	 * Sets the context.
 	 *
 	 * @param activity the new context
 	 */
-	public void setContext (Activity activity);
+	public void setContext(Activity activity);
 
 	/**
 	 * Exists.
@@ -57,6 +57,6 @@ public interface Persistence {
 	 * @param fileName the file name
 	 * @return true, if successful
 	 */
-	public boolean exists (String fileName);
+	public boolean exists(String fileName);
 
 }

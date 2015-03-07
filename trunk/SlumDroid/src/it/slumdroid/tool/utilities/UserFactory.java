@@ -120,7 +120,7 @@ public class UserFactory {
 	 * @param abstractor the abstractor
 	 * @return the user
 	 */	
-	public static UserAdapter getUser (Abstractor abstractor) {
+	public static UserAdapter getUser(Abstractor abstractor) {
 		UserAdapter userAdapter = new SimpleUserAdapter(abstractor, new Random(RANDOM_SEED));
 		userAdapter.addEvent(new Clicker(typesForEvent(CLICK)));
 		userAdapter.addEvent(new LongClicker());
@@ -144,7 +144,7 @@ public class UserFactory {
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {
 			userAdapter.addEvent(interactor);			
 		}
-		userAdapter.addInput(new Clicker (typesForInput(CLICK)));	
+		userAdapter.addInput(new Clicker(typesForInput(CLICK)));	
 		if (isRequiredInput(WRITE_TEXT)) {
 			if (HASH_VALUES) {
 				userAdapter.addInput(new HashWriteEditor(typesForInput(WRITE_TEXT)));

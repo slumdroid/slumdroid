@@ -59,7 +59,7 @@ public class PersistenceFactory {
 	 *
 	 * @param listener the listener
 	 */
-	public static void registerForSavingState (SaveStateListener listener) {
+	public static void registerForSavingState(SaveStateListener listener) {
 		stateSavers.add(listener);
 	}
 
@@ -68,7 +68,7 @@ public class PersistenceFactory {
 	 *
 	 * @return the persistence
 	 */
-	public ResumingPersistence getPersistence () {
+	public ResumingPersistence getPersistence() {
 		ResumingPersistence resumer = new ResumingPersistence(getTheSession());
 		resumer.setTaskList(getDispatcher().getScheduler().getTaskList());
 		for (SaveStateListener saver: stateSavers) {

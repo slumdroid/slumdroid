@@ -51,7 +51,7 @@ public class SimpleUserAdapter implements UserAdapter {
 	 * @param abstractor the abstractor
 	 * @param random the random
 	 */
-	public SimpleUserAdapter (Abstractor abstractor, Random random) {
+	public SimpleUserAdapter(Abstractor abstractor, Random random) {
 		this.eventTypes = new ArrayList<Interactor>();
 		this.inputTypes = new ArrayList<Interactor>();		
 		setRandomGenerator(random);	
@@ -119,7 +119,7 @@ public class SimpleUserAdapter implements UserAdapter {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.UserAdapter#addEvent(it.slumdroid.tool.model.Interactor[])
 	 */
-	public void addEvent (Interactor ... events) {
+	public void addEvent(Interactor ... events) {
 		for (Interactor event: events) {
 			event.setAbstractor(getAbstractor());
 			this.eventTypes.add(event);
@@ -131,18 +131,18 @@ public class SimpleUserAdapter implements UserAdapter {
 	 *
 	 * @return the event types
 	 */
-	public Iterable<Interactor> getEventTypes () {
+	public Iterable<Interactor> getEventTypes() {
 		return this.eventTypes;
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.UserAdapter#addInput(it.slumdroid.tool.model.Interactor[])
 	 */
-	public void addInput (Interactor ... inputs) {
+	public void addInput(Interactor ... inputs) {
 		for (Interactor input: inputs) {
 			input.setAbstractor(getAbstractor());
 			if (input instanceof RandomInteractor) {
-				((RandomInteractor) input).setRandomGenerator(getRandomGenerator());
+				((RandomInteractor)input).setRandomGenerator(getRandomGenerator());
 			}
 			this.inputTypes.add(input);
 		}
@@ -153,7 +153,7 @@ public class SimpleUserAdapter implements UserAdapter {
 	 *
 	 * @return the input types
 	 */
-	public Iterable<Interactor> getInputTypes () {
+	public Iterable<Interactor> getInputTypes() {
 		return this.inputTypes;
 	}
 

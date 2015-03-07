@@ -84,9 +84,9 @@ public class CompositionalComparator {
 	 * @param activity the activity
 	 * @return true, if successful
 	 */
-	private boolean lookFor (WidgetState field, ActivityState activity) {
+	private boolean lookFor(WidgetState field, ActivityState activity) {
 		for (WidgetState otherField: activity) {
-			if (matchWidget (otherField, field)) {
+			if (matchWidget(otherField, field)) {
 				return true;
 			}
 		}
@@ -100,7 +100,7 @@ public class CompositionalComparator {
 	 * @param otherField the other field
 	 * @return true, if successful
 	 */
-	private boolean matchWidget (WidgetState field, WidgetState otherField) {       
+	private boolean matchWidget(WidgetState field, WidgetState otherField) {       
 		boolean compareId = field.getId().equals(otherField.getId());
 		boolean compareType = field.getSimpleType().equals(otherField.getSimpleType());
 		boolean compareWidget = compareId && compareType;

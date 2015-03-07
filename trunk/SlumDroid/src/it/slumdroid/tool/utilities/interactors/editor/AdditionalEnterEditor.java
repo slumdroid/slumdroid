@@ -27,8 +27,8 @@ public class AdditionalEnterEditor extends AdditionalWriteEditor {
 	/**
 	 * Instantiates a new additional enter editor.
 	 */
-	public AdditionalEnterEditor () {
-		this (SEARCH_BAR);
+	public AdditionalEnterEditor() {
+		this(SEARCH_BAR);
 	}
 
 	/**
@@ -36,8 +36,8 @@ public class AdditionalEnterEditor extends AdditionalWriteEditor {
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public AdditionalEnterEditor (String ... simpleTypes) {
-		super (simpleTypes);
+	public AdditionalEnterEditor(String ... simpleTypes) {
+		super(simpleTypes);
 	}
 
 	/* (non-Javadoc)

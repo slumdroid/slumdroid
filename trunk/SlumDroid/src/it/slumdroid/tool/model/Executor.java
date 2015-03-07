@@ -31,34 +31,34 @@ public interface Executor {
 	 *
 	 * @param engine the engine
 	 */
-	public void bind (ActivityInstrumentationTestCase2<?> engine);
+	public void bind(ActivityInstrumentationTestCase2<?> engine);
 
 	/**
 	 * Execute.
 	 *
 	 * @param theTask the task
 	 */
-	public void execute (Task theTask);
+	public void execute(Task theTask);
 
 	/**
 	 * Fire event.
 	 *
 	 * @param theEvent the event
 	 */
-	public void fireEvent (UserEvent theEvent);
+	public void fireEvent(UserEvent theEvent);
 
 	/**
 	 * Sets the input.
 	 *
 	 * @param theInput the new input
 	 */
-	public void setInput (UserInput theInput);
+	public void setInput(UserInput theInput);
 
 	/**
 	 * Wait.
 	 *
 	 * @param milli the milli
 	 */
-	public void wait (int milli);
+	public void wait(int milli);
 
 }

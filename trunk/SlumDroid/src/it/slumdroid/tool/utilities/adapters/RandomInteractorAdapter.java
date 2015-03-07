@@ -44,15 +44,15 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public RandomInteractorAdapter (String ... simpleTypes) {
-		super (simpleTypes);
+	public RandomInteractorAdapter(String ... simpleTypes) {
+		super(simpleTypes);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.RandomInteractor#setRandomGenerator(java.util.Random)
 	 */
 	@Override
-	public void setRandomGenerator (Random random) {
+	public void setRandomGenerator(Random random) {
 		this.random = random;
 	}
 
@@ -61,7 +61,7 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 *
 	 * @return the random generator
 	 */
-	public Random getRandomGenerator () {
+	public Random getRandomGenerator() {
 		return this.random;
 	}
 
@@ -70,7 +70,7 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 *
 	 * @param min the new min
 	 */
-	public void setMin (int min) {
+	public void setMin(int min) {
 		this.min = min;
 	}
 
@@ -79,7 +79,7 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 *
 	 * @param max the new max
 	 */
-	public void setMax (int max) {
+	public void setMax(int max) {
 		this.max = max;
 	}
 
@@ -89,7 +89,7 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 * @param minValue the min value
 	 * @param maxValue the max value
 	 */
-	public void setMinMax (int minValue, int maxValue) {
+	public void setMinMax(int minValue, int maxValue) {
 		if (minValue > maxValue) {
 			setMinMax(maxValue, minValue);
 		}
@@ -150,7 +150,7 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 * @param widget the widget
 	 * @return the value
 	 */
-	public int getValue (WidgetState widget) {
+	public int getValue(WidgetState widget) {
 		int delta = getMax(widget) - getMin(widget) + 1;
 		return (delta > 0)?(getRandomGenerator().nextInt(delta) + getMin(widget)):getMin(widget);
 	}
@@ -159,16 +159,16 @@ public abstract class RandomInteractorAdapter extends SimpleInteractorAdapter im
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getEvents(it.slumdroid.droidmodels.model.WidgetState)
 	 */
 	@Override
-	public List<UserEvent> getEvents (WidgetState widget) {
-		return getEvents (widget, String.valueOf(getValue(widget)));
+	public List<UserEvent> getEvents(WidgetState widget) {
+		return getEvents(widget, String.valueOf(getValue(widget)));
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInputs(it.slumdroid.droidmodels.model.WidgetState)
 	 */
 	@Override
-	public List<UserInput> getInputs (WidgetState widget) {
-		return getInputs (widget, String.valueOf(getValue(widget)));
+	public List<UserInput> getInputs(WidgetState widget) {
+		return getInputs(widget, String.valueOf(getValue(widget)));
 	}
 
 }

@@ -84,7 +84,7 @@ public class Prefs {
 	 *
 	 * @param node the node
 	 */
-	protected Prefs (String node) {
+	protected Prefs(String node) {
 		this.localPrefs = loadNode(node);
 		this.resources = Resources.class;
 	}	
@@ -94,7 +94,7 @@ public class Prefs {
 	 *
 	 * @return the main node
 	 */
-	protected static Preferences getMainNode () {
+	protected static Preferences getMainNode() {
 		if (notFound) {
 			return null;
 		}
@@ -108,7 +108,7 @@ public class Prefs {
 	 * Load main node.
 	 */
 	protected static void loadMainNode() {
-		loadMainNode (mainNode);
+		loadMainNode(mainNode);
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class Prefs {
 	 * @param node the node
 	 */
 	@SuppressLint("SdCardPath")
-	protected static void loadMainNode (String node) {
+	protected static void loadMainNode(String node) {
 		String path = "/data/data/" + mainNode + "/files/preferences.xml";
 		if (!(new File(path).exists())) {
 			Log.i(TAG, "Preferences file not found.");
@@ -139,7 +139,7 @@ public class Prefs {
 	 * @param localNode the local node
 	 * @return the preferences
 	 */
-	protected static Preferences loadNode (String localNode) {
+	protected static Preferences loadNode(String localNode) {
 		if (getMainNode() == null) {
 			return null;
 		}
@@ -165,7 +165,7 @@ public class Prefs {
 		for (Field parameter: this.resources.getFields()) {			
 			if (Modifier.isFinal(parameter.getModifiers())) continue;
 			try {
-				updateValue (parameter);
+				updateValue(parameter);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -180,7 +180,7 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected int getInt (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	protected int getInt(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.getInt(parameter.getName(), parameter.getInt(parameter));
 	}
 
@@ -192,7 +192,7 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected long getLong (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	protected long getLong(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.getLong(parameter.getName(), parameter.getLong(parameter));
 	}
 
@@ -204,7 +204,7 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected boolean getBoolean (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	protected boolean getBoolean(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.getBoolean(parameter.getName(), parameter.getBoolean(parameter));
 	}
 
@@ -216,7 +216,7 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected String getString (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	protected String getString(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		return this.localPrefs.get(parameter.getName(), parameter.get("").toString());
 	}
 
@@ -227,7 +227,7 @@ public class Prefs {
 	 * @param index the index
 	 * @return the string
 	 */
-	protected static String fromArray (Field parameter, int index) {
+	protected static String fromArray(Field parameter, int index) {
 		return parameter.getName() + "[" + index + "]";
 	}
 
@@ -238,7 +238,7 @@ public class Prefs {
 	 * @return the string array
 	 * @throws IllegalArgumentException the illegal argument exception
 	 */
-	protected String[] getStringArray (Field parameter) throws IllegalArgumentException {
+	protected String[] getStringArray(Field parameter) throws IllegalArgumentException {
 		List<String> theList = new ArrayList<String>();
 		int index = 0;
 		String value = new String();
@@ -248,7 +248,7 @@ public class Prefs {
 			theList.add(value);
 			index++;
 		}
-		String tmp[] = new String [theList.size()];
+		String tmp[] = new String[theList.size()];
 		return (found)?theList.toArray(tmp):null;
 	}
 
@@ -259,7 +259,7 @@ public class Prefs {
 	 * @return the int array
 	 * @throws IllegalArgumentException the illegal argument exception
 	 */
-	protected int[] getIntArray (Field parameter) throws IllegalArgumentException {
+	protected int[] getIntArray(Field parameter) throws IllegalArgumentException {
 		String[] value = getStringArray (parameter);
 		if (value == null) {
 			return null;
@@ -278,7 +278,7 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected void setArray (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	protected void setArray(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		setArray(parameter, parameter.getType());		
 	}
 
@@ -290,17 +290,17 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected void setArray (Field parameter, Class<?> type) throws IllegalArgumentException, IllegalAccessException {
+	protected void setArray(Field parameter, Class<?> type) throws IllegalArgumentException, IllegalAccessException {
 		Class<?> component = type.getComponentType();
 		if (component.equals(String.class)) {
 			String[] strings = getStringArray(parameter);
 			if (strings != null) {
-				parameter.set (parameter, strings);					
+				parameter.set(parameter, strings);					
 			}
 		} else if (component.equals(int.class)) {
 			int[] numbers = getIntArray(parameter);
 			if (numbers != null) {
-				parameter.set (parameter, numbers);					
+				parameter.set(parameter, numbers);					
 			}
 		}
 	}
@@ -312,18 +312,18 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 * @throws IllegalAccessException the illegal access exception
 	 */
-	protected void updateValue (Field parameter) throws IllegalArgumentException, IllegalAccessException {
+	protected void updateValue(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		Class<?> type = parameter.getType();
 		if (type.equals(int.class)) {
-			parameter.setInt (parameter, getInt (parameter));
+			parameter.setInt(parameter, getInt (parameter));
 		} else if (type.equals(long.class)) {
-			parameter.setLong (parameter, getLong (parameter));
+			parameter.setLong(parameter, getLong (parameter));
 		} else if (type.equals(String.class)) {
-			parameter.set (parameter, getString (parameter));
+			parameter.set(parameter, getString (parameter));
 		} else if (type.equals(boolean.class)) {
-			parameter.setBoolean (parameter, getBoolean (parameter));
+			parameter.setBoolean(parameter, getBoolean (parameter));
 		} else if (type.isArray()) {
-			setArray (parameter, type);
+			setArray(parameter, type);
 		} else {
 			return;
 		}
@@ -332,7 +332,7 @@ public class Prefs {
 	/**
 	 * Update nodes.
 	 */
-	public static void updateNodes () {
+	public static void updateNodes() {
 		updateNode("");
 		updateNode("automation");		
 		updateNode("comparator");	
@@ -346,8 +346,8 @@ public class Prefs {
 	 *
 	 * @param node the node
 	 */
-	private static void updateNode (String node) {
-		new Prefs (node).updateResources();
+	private static void updateNode(String node) {
+		new Prefs(node).updateResources();
 	}
 
 	/**

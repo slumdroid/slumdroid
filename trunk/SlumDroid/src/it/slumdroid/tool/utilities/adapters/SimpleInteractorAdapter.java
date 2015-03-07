@@ -42,7 +42,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public SimpleInteractorAdapter (String ... simpleTypes) {
+	public SimpleInteractorAdapter(String ... simpleTypes) {
 		for (String type: simpleTypes) {
 			this.widgetClasses.add(type);
 		}
@@ -51,14 +51,14 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public boolean canUseWidget (WidgetState widget) {
+	public boolean canUseWidget(WidgetState widget) {
 		return widget.isAvailable() && matchClass(widget.getSimpleType());
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#getEvents(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public List<UserEvent> getEvents (WidgetState widget) {
+	public List<UserEvent> getEvents(WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(widget)) {
 			events.add(generateEvent(widget));
@@ -69,7 +69,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#getInputs(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public List<UserInput> getInputs (WidgetState widget) {
+	public List<UserInput> getInputs(WidgetState widget) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		if (canUseWidget(widget)) {
 			inputs.add(generateInput(widget));
@@ -80,7 +80,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#getEvents(it.slumdroid.droidmodels.model.WidgetState, java.lang.String[])
 	 */
-	public List<UserEvent> getEvents (WidgetState widget, String ... values) {
+	public List<UserEvent> getEvents(WidgetState widget, String ... values) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(widget)) {
 			for (String value: values) {
@@ -93,7 +93,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#getInputs(it.slumdroid.droidmodels.model.WidgetState, java.lang.String[])
 	 */
-	public List<UserInput> getInputs (WidgetState widget, String ... values) {
+	public List<UserInput> getInputs(WidgetState widget, String ... values) {
 		ArrayList<UserInput> inputs = new ArrayList<UserInput>();
 		if (canUseWidget(widget)) {
 			for (String value: values) {
@@ -109,7 +109,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 * @param widget the widget
 	 * @return the user event
 	 */
-	protected UserEvent createEvent (WidgetState widget) {
+	protected UserEvent createEvent(WidgetState widget) {
 		return getAbstractor().createEvent(widget, getInteractionType());
 	}
 
@@ -119,7 +119,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 * @param widget the widget
 	 * @return the user event
 	 */
-	protected UserEvent generateEvent (WidgetState widget) {
+	protected UserEvent generateEvent(WidgetState widget) {
 		return createEvent(widget);
 	}
 
@@ -129,8 +129,8 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 * @param widget the widget
 	 * @return the user input
 	 */
-	protected UserInput generateInput (WidgetState widget) {
-		return generateInput (widget, "");
+	protected UserInput generateInput(WidgetState widget) {
+		return generateInput(widget, "");
 	}
 
 	/**
@@ -140,7 +140,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 * @param value the value
 	 * @return the user event
 	 */
-	protected UserEvent generateEvent (WidgetState widget, String value) {
+	protected UserEvent generateEvent(WidgetState widget, String value) {
 		UserEvent event = createEvent(widget);
 		event.setValue(value);
 		return event;
@@ -153,7 +153,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 * @param value the value
 	 * @return the user input
 	 */
-	protected UserInput generateInput (WidgetState widget, String value) {
+	protected UserInput generateInput(WidgetState widget, String value) {
 		return getAbstractor().createInput(widget, value, getInteractionType());
 	}
 
@@ -167,14 +167,14 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#setAbstractor(it.slumdroid.tool.model.Abstractor)
 	 */
-	public void setAbstractor (Abstractor abstractor) {
+	public void setAbstractor(Abstractor abstractor) {
 		this.theAbstractor = abstractor;
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Interactor#getInteractionType()
 	 */
-	public abstract String getInteractionType ();
+	public abstract String getInteractionType();
 
 	/**
 	 * Match class.
@@ -182,7 +182,7 @@ public abstract class SimpleInteractorAdapter implements Interactor {
 	 * @param type the type
 	 * @return true, if successful
 	 */
-	protected boolean matchClass (String type) {
+	protected boolean matchClass(String type) {
 		for (String storedType: this.widgetClasses) {
 			if (storedType.equals(type)) {
 				return true;

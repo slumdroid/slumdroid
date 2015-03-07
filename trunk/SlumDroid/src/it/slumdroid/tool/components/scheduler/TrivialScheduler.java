@@ -40,7 +40,7 @@ public class TrivialScheduler implements TaskScheduler {
 	 *
 	 * @param algorithm the algorithm
 	 */
-	public TrivialScheduler (SchedulerAlgorithm algorithm) {
+	public TrivialScheduler(SchedulerAlgorithm algorithm) {
 		this.algorithm = algorithm;
 	}
 

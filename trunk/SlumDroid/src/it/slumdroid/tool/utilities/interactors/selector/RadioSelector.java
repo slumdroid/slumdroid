@@ -29,14 +29,14 @@ public class RadioSelector extends IterativeInteractorAdapter {
 	/**
 	 * Instantiates a new radio selector.
 	 */
-	public RadioSelector () {
-		super (MAX_NUM_EVENTS_PER_SELECTOR, RADIO_GROUP);
+	public RadioSelector() {
+		super(MAX_NUM_EVENTS_PER_SELECTOR, RADIO_GROUP);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
 	 */
-	public String getInteractionType () {
+	public String getInteractionType() {
 		return RADIO_SELECT;
 	}
 

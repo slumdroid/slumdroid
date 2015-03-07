@@ -41,7 +41,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	/**
 	 * Instantiates a new trace dispatcher.
 	 */
-	public TraceDispatcher () {
+	public TraceDispatcher() {
 		this (SchedulerAlgorithm.valueOf(SCHEDULER_ALGORITHM));
 	}
 
@@ -50,7 +50,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 *
 	 * @param algorithm the algorithm
 	 */
-	public TraceDispatcher (SchedulerAlgorithm algorithm) {
+	public TraceDispatcher(SchedulerAlgorithm algorithm) {
 		setScheduler(getTrivialScheduler(algorithm));
 	}
 
@@ -59,7 +59,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 *
 	 * @param taskScheduler the new scheduler
 	 */
-	public void setScheduler (TaskScheduler taskScheduler) {
+	public void setScheduler(TaskScheduler taskScheduler) {
 		this.scheduler = taskScheduler;
 	}
 
@@ -68,7 +68,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 *
 	 * @param tasks the tasks
 	 */
-	public void addPlannedTasks (List<Task> tasks) {
+	public void addPlannedTasks(List<Task> tasks) {
 		getScheduler().addPlannedTasks(tasks);
 	}
 
@@ -77,7 +77,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 *
 	 * @param tasks the tasks
 	 */
-	public void addTasks (Collection<Task> tasks) {
+	public void addTasks(Collection<Task> tasks) {
 		getScheduler().addTasks(tasks);
 	}
 
@@ -86,7 +86,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 *
 	 * @param task the task
 	 */
-	public void addTasks (Task task) {
+	public void addTasks(Task task) {
 		getScheduler().addTasks(task);
 	}
 
@@ -96,7 +96,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 * @param algorithm the algorithm
 	 * @return the trivial scheduler
 	 */
-	public TaskScheduler getTrivialScheduler (SchedulerAlgorithm algorithm) {
+	public TaskScheduler getTrivialScheduler(SchedulerAlgorithm algorithm) {
 		TaskScheduler scheduler = new TrivialScheduler(algorithm);
 		scheduler.setTaskList(new ArrayList<Task>());
 		return scheduler;
@@ -124,7 +124,7 @@ public class TraceDispatcher implements Iterable<Task> {
 	 * @see java.lang.Iterable#iterator()
 	 */
 	public Iterator<Task> iterator() {
-		return new Iterator<Task> () {
+		return new Iterator<Task>() {
 
 			Task lastTask;
 

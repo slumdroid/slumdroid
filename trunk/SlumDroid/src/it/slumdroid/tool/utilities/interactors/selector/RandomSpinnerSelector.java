@@ -29,8 +29,8 @@ public class RandomSpinnerSelector extends RandomInteractorAdapter {
 	/**
 	 * Instantiates a new random spinner selector.
 	 */
-	public RandomSpinnerSelector () {
-		super (SPINNER_INPUT);
+	public RandomSpinnerSelector() {
+		super(SPINNER_INPUT);
 	}
 
 	/* (non-Javadoc)
@@ -44,7 +44,7 @@ public class RandomSpinnerSelector extends RandomInteractorAdapter {
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
 	 */
 	@Override
-	public boolean canUseWidget (WidgetState widget) {
+	public boolean canUseWidget(WidgetState widget) {
 		if (getMin(widget) > getMax(widget)) {
 			return false;
 		}
@@ -55,7 +55,7 @@ public class RandomSpinnerSelector extends RandomInteractorAdapter {
 	 * @see it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter#getMin()
 	 */
 	@Override
-	public int getMin () {
+	public int getMin() {
 		return 1;
 	}
 

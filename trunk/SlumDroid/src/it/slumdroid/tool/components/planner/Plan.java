@@ -43,7 +43,7 @@ public class Plan implements Iterable<Transition> {
 	 * @param transition the transition
 	 * @return true, if successful
 	 */
-	public boolean addTransition (Transition transition) {
+	public boolean addTransition(Transition transition) {
 		return this.transitions.add(transition);
 	}
 
@@ -52,7 +52,7 @@ public class Plan implements Iterable<Transition> {
 	 *
 	 * @return the int
 	 */
-	public int size () {
+	public int size() {
 		return this.transitions.size();
 	}
 
@@ -62,7 +62,7 @@ public class Plan implements Iterable<Transition> {
 	 * @param id the id
 	 * @return the transition
 	 */
-	public Transition getTransition (int id) {
+	public Transition getTransition(int id) {
 		return this.transitions.get(id);
 	}
 
@@ -71,7 +71,7 @@ public class Plan implements Iterable<Transition> {
 	 *
 	 * @param id the id
 	 */
-	public void removeTransition (int id) {
+	public void removeTransition(int id) {
 		this.transitions.remove(id);
 	}
 
@@ -80,7 +80,7 @@ public class Plan implements Iterable<Transition> {
 	 *
 	 * @return true, if is empty
 	 */
-	public boolean isEmpty () {
+	public boolean isEmpty() {
 		return size() == 0;
 	}
 

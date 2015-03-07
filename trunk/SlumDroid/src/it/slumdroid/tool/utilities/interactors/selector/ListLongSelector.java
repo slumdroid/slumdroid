@@ -30,21 +30,21 @@ public class ListLongSelector extends IterativeInteractorAdapter {
 	/**
 	 * Instantiates a new list long selector.
 	 */
-	public ListLongSelector () {
-		super (MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW);
+	public ListLongSelector() {
+		super(MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.interactors.selector.ListSelector#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public boolean canUseWidget (WidgetState widget) {
+	public boolean canUseWidget(WidgetState widget) {
 		return widget.isLongClickable() && super.canUseWidget(widget);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.interactors.selector.ListSelector#getInteractionType()
 	 */
-	public String getInteractionType () {
+	public String getInteractionType() {
 		return LIST_LONG_SELECT;
 	}
 

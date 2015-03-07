@@ -34,8 +34,8 @@ public class HashWriteEditor extends SimpleInteractorAdapter {
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public HashWriteEditor (String ... simpleTypes) {
-		super (simpleTypes);
+	public HashWriteEditor(String ... simpleTypes) {
+		super(simpleTypes);
 	}
 
 	/* (non-Javadoc)
@@ -60,15 +60,15 @@ public class HashWriteEditor extends SimpleInteractorAdapter {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getEvents(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public List<UserEvent> getEvents (WidgetState widget) {
-		return getEvents (widget, getValues(widget));
+	public List<UserEvent> getEvents(WidgetState widget) {
+		return getEvents(widget, getValues(widget));
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInputs(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public List<UserInput> getInputs (WidgetState widget) {
-		return getInputs (widget, getValues(widget));
+	public List<UserInput> getInputs(WidgetState widget) {
+		return getInputs(widget, getValues(widget));
 	}
 
 }

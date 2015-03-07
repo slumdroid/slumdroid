@@ -29,21 +29,21 @@ public class LongClicker extends SimpleInteractorAdapter {
 	/**
 	 * Instantiates a new long clicker.
 	 */
-	public LongClicker () {
-		super (IMAGE_VIEW);
+	public LongClicker() {
+		super(IMAGE_VIEW);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public boolean canUseWidget (WidgetState widget) {
+	public boolean canUseWidget(WidgetState widget) {
 		return widget.isLongClickable() && super.canUseWidget(widget);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
 	 */
-	public String getInteractionType () {
+	public String getInteractionType() {
 		return LONG_CLICK;
 	}
 

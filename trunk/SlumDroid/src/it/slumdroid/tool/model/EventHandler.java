@@ -32,6 +32,6 @@ public interface EventHandler {
 	 * @param theWidget the widget
 	 * @return the list
 	 */
-	public List<UserEvent> handleEvent (WidgetState theWidget);
+	public List<UserEvent> handleEvent(WidgetState theWidget);
 
 }

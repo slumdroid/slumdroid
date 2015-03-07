@@ -36,6 +36,6 @@ public interface StateDiscoveryListener {
 	 *
 	 * @param newState the new state
 	 */
-	public void onNewState (ActivityState newState);
+	public void onNewState(ActivityState newState);
 
 }

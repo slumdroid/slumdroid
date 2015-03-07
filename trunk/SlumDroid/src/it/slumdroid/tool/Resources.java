@@ -41,11 +41,11 @@ public class Resources {
 	 */
 	public static enum SchedulerAlgorithm {
 
-		/** The breadth first. */
+		/** The breadth first search. */
 		BREADTH_FIRST, 
-		/** The depth first. */
+		/** The depth first search. */
 		DEPTH_FIRST, 
-		/** The random first. */
+		/** The random first search. */
 		RANDOM_FIRST
 
 	}

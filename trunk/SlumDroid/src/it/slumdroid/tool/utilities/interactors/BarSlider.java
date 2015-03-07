@@ -30,8 +30,8 @@ public class BarSlider extends RandomInteractorAdapter {
 	/**
 	 * Instantiates a new bar slider.
 	 */
-	public BarSlider () {
-		super (SEEK_BAR, RATING_BAR);
+	public BarSlider() {
+		super(SEEK_BAR, RATING_BAR);
 	}
 
 	/* (non-Javadoc)
@@ -45,7 +45,7 @@ public class BarSlider extends RandomInteractorAdapter {
 	 * @see it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter#getMin()
 	 */
 	@Override
-	public int getMin () {
+	public int getMin() {
 		return 0;
 	}
 

@@ -33,14 +33,14 @@ public class TabSwapper extends IterativeInteractorAdapter {
 	/**
 	 * Instantiates a new tab swapper.
 	 */
-	public TabSwapper () {
-		super (TAB_HOST);
+	public TabSwapper() {
+		super(TAB_HOST);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
 	 */
-	public String getInteractionType () {
+	public String getInteractionType() {
 		this.first = false;
 		return SWAP_TAB;
 	}

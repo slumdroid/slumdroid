@@ -76,7 +76,7 @@ public class UltraPlanner {
 	 * @param thePlanner the planner
 	 * @param theState the state
 	 */
-	private void addPlanForActivityWidgets (Plan thePlanner, ActivityState theState) {
+	private void addPlanForActivityWidgets(Plan thePlanner, ActivityState theState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
 		setIncludeRotation(true);
@@ -211,7 +211,7 @@ public class UltraPlanner {
 	 * @param theState the state
 	 * @return the plan for activity
 	 */
-	public Plan getPlanForActivity (ActivityState theState) {
+	public Plan getPlanForActivity(ActivityState theState) {
 		Plan planner = new Plan();
 		addPlanForActivityWidgets(planner, theState);
 		UserEvent event;

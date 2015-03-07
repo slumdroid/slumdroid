@@ -30,48 +30,48 @@ public interface Strategy {
 	 *
 	 * @param theState the state
 	 */
-	public void addState (ActivityState theState);
+	public void addState(ActivityState theState);
 
 	/**
 	 * Gets the comparator.
 	 *
 	 * @return the comparator
 	 */
-	public CompositionalComparator getComparator ();
+	public CompositionalComparator getComparator();
 
 	/**
 	 * Sets the comparator.
 	 *
 	 * @param theComparator the new comparator
 	 */
-	public void setComparator (CompositionalComparator theComparator);
+	public void setComparator(CompositionalComparator theComparator);
 
 	/**
 	 * Compare state.
 	 *
 	 * @param theState the state
 	 */
-	public void compareState (ActivityState theState);
+	public void compareState(ActivityState theState);
 
 	/**
 	 * Check for exploration.
 	 *
 	 * @return true, if successful
 	 */
-	public boolean checkForExploration ();
+	public boolean checkForExploration();
 
 	/**
 	 * Sets the task.
 	 *
 	 * @param theTask the new task
 	 */
-	public void setTask (Task theTask);
+	public void setTask(Task theTask);
 
 	/**
 	 * Gets the task.
 	 *
 	 * @return the task
 	 */
-	public Task getTask ();
+	public Task getTask();
 
 }

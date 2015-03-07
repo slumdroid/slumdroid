@@ -42,14 +42,14 @@ public class AllPassFilter implements Iterable<WidgetState> {
 	 *
 	 * @param widget the widget
 	 */
-	public void loadItem (WidgetState widget) {
+	public void loadItem(WidgetState widget) {
 		this.filteredItems.add(widget);
 	}
 
 	/**
 	 * Clear.
 	 */
-	public void clear () {
+	public void clear() {
 		this.filteredItems.clear();
 	}
 
