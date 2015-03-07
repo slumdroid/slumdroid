@@ -260,7 +260,7 @@ public class Prefs {
 	 * @throws IllegalArgumentException the illegal argument exception
 	 */
 	protected int[] getIntArray(Field parameter) throws IllegalArgumentException {
-		String[] value = getStringArray (parameter);
+		String[] value = getStringArray(parameter);
 		if (value == null) {
 			return null;
 		}
@@ -315,13 +315,13 @@ public class Prefs {
 	protected void updateValue(Field parameter) throws IllegalArgumentException, IllegalAccessException {
 		Class<?> type = parameter.getType();
 		if (type.equals(int.class)) {
-			parameter.setInt(parameter, getInt (parameter));
+			parameter.setInt(parameter, getInt(parameter));
 		} else if (type.equals(long.class)) {
-			parameter.setLong(parameter, getLong (parameter));
+			parameter.setLong(parameter, getLong(parameter));
 		} else if (type.equals(String.class)) {
-			parameter.set(parameter, getString (parameter));
+			parameter.set(parameter, getString(parameter));
 		} else if (type.equals(boolean.class)) {
-			parameter.setBoolean(parameter, getBoolean (parameter));
+			parameter.setBoolean(parameter, getBoolean(parameter));
 		} else if (type.isArray()) {
 			setArray(parameter, type);
 		} else {

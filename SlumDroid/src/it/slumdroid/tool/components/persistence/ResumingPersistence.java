@@ -519,7 +519,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		List<String> output = new ArrayList<String>();
 		try{
 			theFile = wrapper.openFileInput(input);
-			theStream = new BufferedReader (new FileReader(theFile.getFD()));
+			theStream = new BufferedReader(new FileReader(theFile.getFD()));
 			while ((line = theStream.readLine()) != null) {
 				output.add(line);
 			}
@@ -569,7 +569,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param fileName the file name
 	 */
 	private void restoreFile(String fileName) {
-		copy(backup(fileName),fileName);
+		copy(backup(fileName), fileName);
 	}
 
 	/* (non-Javadoc)
@@ -600,7 +600,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		if (last) {
 			setLast();		
 		}
-		save (GUI_TREE_FILE_NAME);
+		save(GUI_TREE_FILE_NAME);
 	}
 
 	/**
