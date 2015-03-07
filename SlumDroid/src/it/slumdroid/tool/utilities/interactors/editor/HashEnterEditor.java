@@ -27,8 +27,8 @@ public class HashEnterEditor extends HashWriteEditor {
 	/**
 	 * Instantiates a new hash enter editor.
 	 */
-	public HashEnterEditor () {
-		super (SEARCH_BAR);
+	public HashEnterEditor() {
+		super(SEARCH_BAR);
 	}
 
 	/* (non-Javadoc)

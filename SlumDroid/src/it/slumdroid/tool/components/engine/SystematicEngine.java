@@ -95,7 +95,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @throws ClassNotFoundException the class not found exception
 	 */
 	@SuppressWarnings("unchecked")
-	public SystematicEngine () throws ClassNotFoundException {
+	public SystematicEngine() throws ClassNotFoundException {
 		super(Class.forName(CLASS_NAME));
 		PersistenceFactory.registerForSavingState(this);
 		setScheduler(new TraceDispatcher());
@@ -107,25 +107,25 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		setPlanner (new UltraPlanner());
+		setPlanner(new UltraPlanner());
 		AllPassFilter inputFilter = new AllPassFilter();
-		getPlanner().setInputFilter (inputFilter);
-		getAbstractor().addFilter (inputFilter);
+		getPlanner().setInputFilter(inputFilter);
+		getAbstractor().addFilter(inputFilter);
 		AllPassFilter eventFilter = new AllPassFilter();
-		getPlanner().setEventFilter (eventFilter);
-		getAbstractor().addFilter (eventFilter);
+		getPlanner().setEventFilter(eventFilter);
+		getAbstractor().addFilter(eventFilter);
 		getPlanner().setUser(UserFactory.getUser(getAbstractor()));
 		getPlanner().setFormFiller(UserFactory.getUser(getAbstractor()));
 		getPlanner().setAbstractor(getAbstractor());
-		setStrategy (new ExplorationStrategy(new CompositionalComparator()));
+		setStrategy(new ExplorationStrategy(new CompositionalComparator()));
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler(), getStrategy()));
-		setPersistence (getPersistenceFactory().getPersistence());
+		setPersistence(getPersistenceFactory().getPersistence());
 	}
 
 	/* (non-Javadoc)
 	 * @see android.test.ActivityInstrumentationTestCase2#setUp()
 	 */
-	protected void setUp () throws Exception {
+	protected void setUp() throws Exception {
 		super.setUp();
 		getAutomation().bind(this);
 		getPersistence().setContext(Automation.getCurrentActivity());
@@ -146,7 +146,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Log.i(TAG, "Ripping starts\nInitial Start Activity State saved");
 		if (SCREENSHOT_ENABLED) {
 			getAutomation().wait(500);
-			takeScreenshot (baseActivity);
+			takeScreenshot(baseActivity);
 		}
 		planFirstTests(baseActivity);
 	}
@@ -163,8 +163,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
 				try {
-					int homeButton = KeyEvent.KEYCODE_HOME;
-					String command = "adb shell input keyevent " + homeButton;
+					String command = "adb shell input keyevent " + KeyEvent.KEYCODE_HOME;
 					Runtime.getRuntime().exec(command);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -178,7 +177,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			if (SLEEP_AFTER_TASK != 0) {
 				getAutomation().wait(SLEEP_AFTER_TASK);
 			}
-			getAbstractor().setFinalActivity (theTask, theState);
+			getAbstractor().setFinalActivity(theTask, theState);
 			getPersistence().addTask(theTask);
 			if (canPlanTests(theState)) {
 				planTests(theTask, theState);
@@ -193,7 +192,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the the state
 	 * @return true, if successful
 	 */
-	protected boolean canPlanTests (ActivityState theState) {
+	protected boolean canPlanTests(ActivityState theState) {
 		return !theState.isExit() && getStrategy().checkForExploration();
 	}
 
@@ -276,8 +275,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @param theState the state
 	 */
-	protected void planFirstTests (ActivityState theState) {
-		planTests (null, theState);
+	protected void planFirstTests(ActivityState theState) {
+		planTests(null, theState);
 	}
 
 	/**
@@ -286,9 +285,9 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theTask the task
 	 * @param theState the state
 	 */
-	protected void planTests (Task theTask, ActivityState theState) {
+	protected void planTests(Task theTask, ActivityState theState) {
 		Plan thePlan = getPlanner().getPlanForActivity(theState);
-		planTests (theTask, thePlan);
+		planTests(theTask, thePlan);
 	}
 
 	/**
@@ -297,7 +296,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param baseTask the base task
 	 * @param thePlan the plan
 	 */
-	protected void planTests (Task baseTask, Plan thePlan) {
+	protected void planTests(Task baseTask, Plan thePlan) {
 		List<Task> tasks = new ArrayList<Task>();
 		for (Transition transition: thePlan) {
 			tasks.add(getNewTask(baseTask, transition));
@@ -312,7 +311,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param transition the transition
 	 * @return the new task
 	 */
-	protected Task getNewTask (Task theTask, Transition transition) {
+	protected Task getNewTask(Task theTask, Transition transition) {
 		Task newTask = getAbstractor().createTask(theTask, transition);
 		newTask.setId(nextId());
 		return newTask;
@@ -321,8 +320,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
 	 */
-	public SessionParams onSavingState () {
-		return new SessionParams (PARAM_NAME, getLastId());
+	public SessionParams onSavingState() {
+		return new SessionParams(PARAM_NAME, getLastId());
 	}
 
 	/* (non-Javadoc)
@@ -436,7 +435,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @return the scheduler
 	 */
-	public TraceDispatcher getScheduler () {
+	public TraceDispatcher getScheduler() {
 		return this.theScheduler;
 	}
 
@@ -445,7 +444,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @param theScheduler the new scheduler
 	 */
-	public void setScheduler (TraceDispatcher theScheduler) {
+	public void setScheduler(TraceDispatcher theScheduler) {
 		this.theScheduler = theScheduler;
 	}
 
@@ -481,7 +480,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 *
 	 * @return the string
 	 */
-	protected String nextId () {
+	protected String nextId() {
 		int num = id;
 		id++;
 		return String.valueOf(num);
@@ -490,7 +489,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
 	 */
-	public String getListenerName () {
+	public String getListenerName() {
 		return ACTOR_NAME;
 	}
 
@@ -519,7 +518,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the the state
 	 * @param fileName the file name
 	 */
-	private void saveJPG (ActivityState theState, String fileName) {
+	private void saveJPG(ActivityState theState, String fileName) {
 		if (getPersistence().saveScreenshot(fileName + ".jpg")) {
 			theState.setScreenshot(fileName + ".jpg");
 			Log.i(TAG, "Saved image on disk: " + fileName + ".jpg");
@@ -534,7 +533,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 * @param theState the the state
 	 * @param fileName the file name
 	 */
-	private void savePNG (ActivityState theState, String fileName) {
+	private void savePNG(ActivityState theState, String fileName) {
 		try {
 			String command = "adb shell screencap -p /data/data/" + PACKAGE_NAME + "/files/" + fileName + ".png";
 			Runtime.getRuntime().exec(command);

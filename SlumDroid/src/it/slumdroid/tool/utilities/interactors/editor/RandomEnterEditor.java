@@ -28,8 +28,8 @@ public class RandomEnterEditor extends RandomInteractorAdapter {
 	/**
 	 * Instantiates a new random enter editor.
 	 */
-	public RandomEnterEditor () {
-		super (SEARCH_BAR);
+	public RandomEnterEditor() {
+		super(SEARCH_BAR);
 	}
 
 	/* (non-Javadoc)

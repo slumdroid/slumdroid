@@ -35,8 +35,8 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public IterativeInteractorAdapter (String ... simpleTypes) {
-		super (simpleTypes);
+	public IterativeInteractorAdapter(String ... simpleTypes) {
+		super(simpleTypes);
 	}
 
 	/**
@@ -45,8 +45,8 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 	 * @param maxItems the max items
 	 * @param simpleTypes the simple types
 	 */
-	public IterativeInteractorAdapter (int maxItems, String ... simpleTypes) {
-		this (simpleTypes);
+	public IterativeInteractorAdapter(int maxItems, String ... simpleTypes) {
+		this(simpleTypes);
 		setMaxEventsPerWidget(maxItems);
 	}
 
@@ -54,7 +54,7 @@ public abstract class IterativeInteractorAdapter extends SimpleInteractorAdapter
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getEvents(it.slumdroid.droidmodels.model.WidgetState)
 	 */
 	@Override
-	public List<UserEvent> getEvents (WidgetState widget) {
+	public List<UserEvent> getEvents(WidgetState widget) {
 		ArrayList<UserEvent> events = new ArrayList<UserEvent>();
 		if (canUseWidget(widget)) {
 			final int fromItem = 1; 

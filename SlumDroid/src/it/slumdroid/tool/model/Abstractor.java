@@ -38,21 +38,21 @@ public interface Abstractor {
 	 * @param theDescription the description
 	 * @return the activity state
 	 */
-	public ActivityState createActivity (ActivityDescription theDescription);
+	public ActivityState createActivity(ActivityDescription theDescription);
 
 	/**
 	 * Sets the base activity.
 	 *
 	 * @param theDescription the new base activity
 	 */
-	public void setBaseActivity (ActivityDescription theDescription);
+	public void setBaseActivity(ActivityDescription theDescription);
 
 	/**
 	 * Gets the base activity.
 	 *
 	 * @return the base activity
 	 */
-	public ActivityState getBaseActivity ();
+	public ActivityState getBaseActivity();
 
 	/**
 	 * Creates the event.
@@ -61,7 +61,7 @@ public interface Abstractor {
 	 * @param type the type
 	 * @return the user event
 	 */
-	public UserEvent createEvent (WidgetState target, String type);
+	public UserEvent createEvent(WidgetState target, String type);
 
 	/**
 	 * Creates the event.
@@ -69,7 +69,7 @@ public interface Abstractor {
 	 * @param type the type
 	 * @return the user event
 	 */
-	public UserEvent createEvent (String type);
+	public UserEvent createEvent(String type);
 
 	/**
 	 * Creates the input.
@@ -79,7 +79,7 @@ public interface Abstractor {
 	 * @param type the type
 	 * @return the user input
 	 */
-	public UserInput createInput (WidgetState target, String value, String type);
+	public UserInput createInput(WidgetState target, String value, String type);
 
 	/**
 	 * Creates the task.
@@ -88,7 +88,7 @@ public interface Abstractor {
 	 * @param appendix the appendix
 	 * @return the task
 	 */
-	public Task createTask (Task prototype, Transition appendix);
+	public Task createTask(Task prototype, Transition appendix);
 
 	/**
 	 * Creates the transition.
@@ -98,7 +98,7 @@ public interface Abstractor {
 	 * @param event the event
 	 * @return the transition
 	 */
-	public Transition createTransition (ActivityState start, Collection<UserInput> inputs, UserEvent event);
+	public Transition createTransition(ActivityState start, Collection<UserInput> inputs, UserEvent event);
 
 	/**
 	 * Import task.
@@ -106,7 +106,7 @@ public interface Abstractor {
 	 * @param element the element
 	 * @return the task
 	 */
-	public Task importTask (Element element);
+	public Task importTask(Element element);
 
 	/**
 	 * Import state.
@@ -114,7 +114,7 @@ public interface Abstractor {
 	 * @param fromXml the from xml
 	 * @return the activity state
 	 */
-	public ActivityState importState (Element fromXml);
+	public ActivityState importState(Element fromXml);
 
 	/**
 	 * Sets the final activity.
@@ -122,6 +122,6 @@ public interface Abstractor {
 	 * @param theTask the task
 	 * @param theState the state
 	 */
-	public void setFinalActivity (Task theTask, ActivityState theState);
+	public void setFinalActivity(Task theTask, ActivityState theState);
 
 }

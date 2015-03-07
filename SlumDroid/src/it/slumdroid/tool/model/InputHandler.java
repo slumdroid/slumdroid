@@ -32,6 +32,6 @@ public interface InputHandler {
 	 * @param theWidget the widget
 	 * @return the list
 	 */
-	public List<UserInput> handleInput (WidgetState theWidget);
+	public List<UserInput> handleInput(WidgetState theWidget);
 
 }

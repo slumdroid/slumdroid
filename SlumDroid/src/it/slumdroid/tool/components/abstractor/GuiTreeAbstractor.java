@@ -101,8 +101,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 *
 	 * @throws ParserConfigurationException the parser configuration exception
 	 */
-	public GuiTreeAbstractor () throws ParserConfigurationException {
-		this (new GuiTree());
+	public GuiTreeAbstractor() throws ParserConfigurationException {
+		this(new GuiTree());
 	}
 
 	/**
@@ -141,15 +141,15 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 *
 	 * @return the type detector
 	 */
-	public TypeDetector getTypeDetector () {
+	public TypeDetector getTypeDetector() {
 		return this.detector;
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createActivity(it.slumdroid.tool.model.ActivityDescription)
 	 */
-	public ActivityState createActivity (ActivityDescription theDescription) {
-		return createActivity (theDescription, false);
+	public ActivityState createActivity(ActivityDescription theDescription) {
+		return createActivity(theDescription, false);
 	}
 
 	// If the boolean parameter is omitted, the overloading method will default to a Final Activity
@@ -160,7 +160,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * @param start the start
 	 * @return the activity state
 	 */
-	public ActivityState createActivity (ActivityDescription theDescription, boolean start) {
+	public ActivityState createActivity(ActivityDescription theDescription, boolean start) {
 		ActivityState newActivity = (start)?StartActivity.createActivity(getTheSession()):FinalActivity.createActivity(getTheSession());
 		for (AllPassFilter filter: this.filters) {
 			filter.clear();
@@ -184,14 +184,14 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * @param view the view
 	 * @return the test case widget
 	 */
-	public TestCaseWidget createWidget (View view) {
+	public TestCaseWidget createWidget(View view) {
 		TestCaseWidget widget = TestCaseWidget.createWidget(getTheSession());
 		String id = String.valueOf(view.getId());
 		String name = detectName(view);
 		widget.setIdNameType(id, name, getType(view));
 		widget.setSimpleType(getTypeDetector().getSimpleType(view));
-		setCount (view,widget);
-		setValue (view,widget);
+		setCount(view,widget);
+		setValue(view,widget);
 		if (view instanceof TextView) {
 			int type = ((TextView)view).getInputType();
 			if (type != 0) {
@@ -211,14 +211,14 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * @param theDescription the description
 	 * @return true, if successful
 	 */
-	public boolean updateDescription (ActivityState newActivity, ActivityDescription theDescription) {
+	public boolean updateDescription(ActivityState newActivity, ActivityDescription theDescription) {
 		boolean hasDescription = false;
 		for (View view: theDescription) {
 			hasDescription = true;
 			if (!view.isShown()) {
 				continue;
 			}
-			TestCaseWidget widget = createWidget (view);
+			TestCaseWidget widget = createWidget(view);
 			widget.setIndex(theDescription.getWidgetIndex(view));
 			if (widget.getIndex() == 0 
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
@@ -235,14 +235,14 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#setBaseActivity(it.slumdroid.tool.model.ActivityDescription)
 	 */
-	public void setBaseActivity (ActivityDescription theDescription) {
+	public void setBaseActivity(ActivityDescription theDescription) {
 		this.baseActivity = (StartActivity) createActivity(theDescription, true);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#getBaseActivity()
 	 */
-	public ActivityState getBaseActivity () {
+	public ActivityState getBaseActivity() {
 		return this.baseActivity;
 	}
 
@@ -252,15 +252,15 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * @param theStep the the step
 	 * @param theActivity the the activity
 	 */
-	public void setStartActivity (Transition theStep, ActivityState theActivity) {
-		theStep.setStartActivity (stubActivity(theActivity));
+	public void setStartActivity(Transition theStep, ActivityState theActivity) {
+		theStep.setStartActivity(stubActivity(theActivity));
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#setFinalActivity(it.slumdroid.droidmodels.model.Task, it.slumdroid.droidmodels.model.ActivityState)
 	 */
-	public void setFinalActivity (Task theTask, ActivityState theActivity) {
-		theTask.setFinalActivity (stubActivity(theActivity));
+	public void setFinalActivity(Task theTask, ActivityState theActivity) {
+		theTask.setFinalActivity(stubActivity(theActivity));
 	}
 
 	/**
@@ -269,7 +269,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * @param theActivity the the activity
 	 * @return the test case activity
 	 */
-	private TestCaseActivity stubActivity (ActivityState theActivity) {
+	private TestCaseActivity stubActivity(ActivityState theActivity) {
 		TestCaseActivity theStub = ((TestCaseActivity)theActivity).clone();
 		return theStub;
 	}
@@ -295,10 +295,10 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createEvent(it.slumdroid.droidmodels.model.WidgetState, java.lang.String)
 	 */
-	public UserEvent createEvent (WidgetState target, String type) {
+	public UserEvent createEvent(WidgetState target, String type) {
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
 		if (target != null) {
-			newEvent.setWidget (target.clone());
+			newEvent.setWidget(target.clone());
 		}
 		newEvent.setType(type);
 		newEvent.setId(getUniqueEventId());
@@ -308,7 +308,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createEvent(java.lang.String)
 	 */
-	public UserEvent createEvent (String type) {
+	public UserEvent createEvent(String type) {
 		TestCaseEvent newEvent = TestCaseEvent.createEvent(getTheSession());
 		newEvent.setType(type);
 		newEvent.setId(getUniqueEventId());
@@ -320,7 +320,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 */
 	public UserInput createInput(WidgetState target, String value, String type) {
 		TestCaseInput newInput = TestCaseInput.createInput(getTheSession());
-		newInput.setWidget (target.clone());
+		newInput.setWidget(target.clone());
 		newInput.setValue(value);
 		newInput.setType(type);
 		newInput.setId(getUniqueInputId());
@@ -335,7 +335,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		if (head != null) {
 			task = ((TestCaseTask)head).clone();
 		} else {
-			task = new TestCaseTask (getTheSession());
+			task = new TestCaseTask(getTheSession());
 		}
 		task.addTransition(tail);
 		return task;
@@ -344,8 +344,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#importTask(org.w3c.dom.Element)
 	 */
-	public Task importTask (Element fromXml) {
-		TestCaseTask imported = new TestCaseTask (getTheSession());
+	public Task importTask(Element fromXml) {
+		TestCaseTask imported = new TestCaseTask(getTheSession());
 		Element task = (Element)getTheSession().getDom().adoptNode(fromXml);
 		imported.setElement(task);
 		return imported;
@@ -354,21 +354,21 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#importState(org.w3c.dom.Element)
 	 */
-	public ActivityState importState (Element fromXml) {
+	public ActivityState importState(Element fromXml) {
 		return getTheSession().importState(fromXml);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createTransition(it.slumdroid.droidmodels.model.ActivityState, java.util.Collection, it.slumdroid.droidmodels.model.UserEvent)
 	 */
-	public Transition createTransition (ActivityState start, Collection<UserInput> inputs, UserEvent event) {
+	public Transition createTransition(ActivityState start, Collection<UserInput> inputs, UserEvent event) {
 		Transition transition = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
 		try {
 			setStartActivity(transition, StartActivity.createActivity(start));
 			for (UserInput inPut: inputs) {
 				transition.addInput(inPut);
 			}
-			transition.setEvent (event);
+			transition.setEvent(event);
 		}
 		catch (DOMException e) {
 			e.printStackTrace();
@@ -381,7 +381,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 *
 	 * @return the unique event id
 	 */
-	public String getUniqueEventId () {
+	public String getUniqueEventId() {
 		int ret = this.eventId;
 		this.eventId++;
 		return "e" + ret;
@@ -392,7 +392,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 *
 	 * @return the unique activity id
 	 */
-	public String getUniqueActivityId () {
+	public String getUniqueActivityId() {
 		int ret = this.activityId;
 		this.activityId++;
 		return "a" + ret;
@@ -403,7 +403,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 *
 	 * @return the unique input id
 	 */
-	public String getUniqueInputId () {
+	public String getUniqueInputId() {
 		int ret = this.inputId;
 		this.inputId++;
 		return "i" + ret;

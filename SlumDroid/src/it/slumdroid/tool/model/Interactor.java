@@ -33,7 +33,7 @@ public interface Interactor {
 	 * @param theWidget the theWidget
 	 * @return true, if successful
 	 */
-	public boolean canUseWidget (WidgetState theWidget);
+	public boolean canUseWidget(WidgetState theWidget);
 
 	/**
 	 * Gets the events.
@@ -41,7 +41,7 @@ public interface Interactor {
 	 * @param theWidget the theWidget
 	 * @return the events
 	 */
-	public List<UserEvent> getEvents (WidgetState theWidget);
+	public List<UserEvent> getEvents(WidgetState theWidget);
 
 	/**
 	 * Gets the inputs.
@@ -49,7 +49,7 @@ public interface Interactor {
 	 * @param theWidget the theWidget
 	 * @return the inputs
 	 */
-	public List<UserInput> getInputs (WidgetState theWidget);
+	public List<UserInput> getInputs(WidgetState theWidget);
 
 	/**
 	 * Gets the events.
@@ -58,7 +58,7 @@ public interface Interactor {
 	 * @param values the values
 	 * @return the events
 	 */
-	public List<UserEvent> getEvents (WidgetState theWidget, String ... values);
+	public List<UserEvent> getEvents(WidgetState theWidget, String ... values);
 
 	/**
 	 * Gets the inputs.
@@ -67,27 +67,27 @@ public interface Interactor {
 	 * @param values the values
 	 * @return the inputs
 	 */
-	public List<UserInput> getInputs (WidgetState theWidget, String ... values);
+	public List<UserInput> getInputs(WidgetState theWidget, String ... values);
 
 	/**
 	 * Gets the abstractor.
 	 *
 	 * @return the abstractor
 	 */
-	public Abstractor getAbstractor ();
+	public Abstractor getAbstractor();
 
 	/**
 	 * Sets the abstractor.
 	 *
 	 * @param theAbstractor the new abstractor
 	 */
-	public void setAbstractor (Abstractor theAbstractor);
+	public void setAbstractor(Abstractor theAbstractor);
 
 	/**
 	 * Gets the interaction type.
 	 *
 	 * @return the interaction type
 	 */
-	public String getInteractionType ();
+	public String getInteractionType();
 
 }

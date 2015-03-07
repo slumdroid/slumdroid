@@ -70,14 +70,14 @@ public class Automation implements Executor {
 	/**
 	 * Instantiates a new automation.
 	 */
-	public Automation () {
+	public Automation() {
 		extractor = new TrivialExtractor(); 
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#bind(android.test.ActivityInstrumentationTestCase2)
 	 */
-	public void bind (ActivityInstrumentationTestCase2<?> test) {
+	public void bind(ActivityInstrumentationTestCase2<?> test) {
 		executor = new DroidExecutor(test);
 		getRobotium().unlockScreen();
 		afterRestart();
@@ -86,7 +86,7 @@ public class Automation implements Executor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
 	 */
-	public void execute (Task theTask) {
+	public void execute(Task theTask) {
 		Log.i (TAG, "Playing Task " + theTask.getId());
 		for (Transition transition: theTask) {
 			for (UserInput input: transition) {
@@ -116,9 +116,9 @@ public class Automation implements Executor {
 	 * @param interactionType the interaction type
 	 * @param value the value
 	 */
-	private void injectInputInteractions (View view, String interactionType, String value) {
+	private void injectInputInteractions(View view, String interactionType, String value) {
 		if (interactionType.equals(CLICK)) {
-			getExecutor().click (view);
+			getExecutor().click(view);
 			return;
 		}
 		if (interactionType.equals(WRITE_TEXT)) {
@@ -132,6 +132,7 @@ public class Automation implements Executor {
 		}
 		if (interactionType.equals(SPINNER_SELECT)) {
 			getExecutor().selectSpinnerItem((Spinner)view, value);
+			return;
 		}
 		if (interactionType.equals(SET_BAR)) {
 			getExecutor().setProgressBar(view, value);
@@ -145,7 +146,7 @@ public class Automation implements Executor {
 	public void fireEvent(UserEvent event) {
 		String eventType = event.getType();
 		if (eventType.contains("press") || eventType.equals(CHANGE_ORIENTATION)) { 
-			injectSpecialInteractions (eventType);
+			injectSpecialInteractions(eventType);
 		} else {
 			String toWrite = "Firing event: " + eventType + " widgetId=" + event.getWidgetId() + " widgetType=" + event.getWidget().getSimpleType();
 			if (!event.getValue().equals("")) {
@@ -173,7 +174,7 @@ public class Automation implements Executor {
 	 *
 	 * @param interactionType the interaction type
 	 */
-	private void injectSpecialInteractions (String interactionType) {
+	private void injectSpecialInteractions(String interactionType) {
 		Log.i(TAG, "Firing event: " + interactionType);
 		if (interactionType.contains("press")) {
 			if (interactionType.equals(PRESS_BACK)) {
@@ -202,7 +203,7 @@ public class Automation implements Executor {
 	 * @param interactionType the interaction type
 	 * @param value the value
 	 */
-	private void injectEventInteractions (View view, String interactionType, String value) {
+	private void injectEventInteractions(View view, String interactionType, String value) {
 		if (interactionType.endsWith("Item")) {
 			if (interactionType.equals(LIST_SELECT)) {
 				getExecutor().selectListItem((ListView)view, value);
@@ -232,7 +233,7 @@ public class Automation implements Executor {
 			}
 		}
 		if (interactionType.equals(CLICK)) {
-			getExecutor().click (view);
+			getExecutor().click(view);
 			return;
 		}
 		if (interactionType.equals(LONG_CLICK)) {
@@ -240,7 +241,7 @@ public class Automation implements Executor {
 			return;
 		}
 		if (interactionType.equals(SWAP_TAB)) {
-			getExecutor().swapTab (view, value);
+			getExecutor().swapTab(view, value);
 			return;
 		}
 	}
@@ -248,7 +249,7 @@ public class Automation implements Executor {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Executor#wait(int)
 	 */
-	public void wait (int milli) {
+	public void wait(int milli) {
 		getExecutor().wait(milli);
 	}
 

@@ -36,20 +36,20 @@ public interface SaveStateListener {
 	 *
 	 * @return the listener name
 	 */
-	public String getListenerName ();
+	public String getListenerName();
 
 	/**
 	 * On saving state.
 	 *
 	 * @return the session params
 	 */
-	public SessionParams onSavingState ();
+	public SessionParams onSavingState();
 
 	/**
 	 * On loading state.
 	 *
 	 * @param sessionParams the session params
 	 */
-	public void onLoadingState (SessionParams sessionParams);
+	public void onLoadingState(SessionParams sessionParams);
 
 }

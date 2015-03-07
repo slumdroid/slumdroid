@@ -53,7 +53,7 @@ public class ExplorationStrategy implements Strategy {
 	 *
 	 * @param comparator the comparator
 	 */
-	public ExplorationStrategy (CompositionalComparator comparator) {
+	public ExplorationStrategy(CompositionalComparator comparator) {
 		super();
 		setComparator(comparator);
 	}
@@ -116,7 +116,7 @@ public class ExplorationStrategy implements Strategy {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Strategy#getTask()
 	 */
-	public Task getTask () {
+	public Task getTask() {
 		return this.theTask;
 	}
 

@@ -36,6 +36,6 @@ public interface DispatchListener {
 	 *
 	 * @param theTask the task
 	 */
-	public void onTaskDispatched (Task theTask);
+	public void onTaskDispatched(Task theTask);
 
 }

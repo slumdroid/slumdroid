@@ -34,7 +34,7 @@ public class SessionParams implements Serializable {
 	/**
 	 * Instantiates a new session params.
 	 */
-	public SessionParams () {
+	public SessionParams() {
 		this.values = new Hashtable<String,String>();
 	}
 
@@ -44,9 +44,9 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @param value the value
 	 */
-	public SessionParams (String key, String value) {
+	public SessionParams(String key, String value) {
 		this();
-		store (key,value);
+		store(key,value);
 	}
 
 	/**
@@ -55,9 +55,9 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @param number the number
 	 */
-	public SessionParams (String key, int number) {
+	public SessionParams(String key, int number) {
 		this();
-		store (key, number);
+		store(key, number);
 	}
 
 	/**
@@ -66,9 +66,9 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @param number the number
 	 */
-	public SessionParams (String key, long number) {
+	public SessionParams(String key, long number) {
 		this();
-		store (key, number);
+		store(key, number);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @return the string
 	 */
-	public String get (String key) {
+	public String get(String key) {
 		return this.values.get(key);
 	}
 
@@ -87,7 +87,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @return the int
 	 */
-	public int getInt (String key) {
+	public int getInt(String key) {
 		return Integer.parseInt(this.values.get(key));
 	}
 
@@ -97,7 +97,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @return the long
 	 */
-	public long getLong (String key) {
+	public long getLong(String key) {
 		return Long.parseLong(this.values.get(key));
 	}
 
@@ -107,7 +107,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @return true, if successful
 	 */
-	public boolean has (String key) {
+	public boolean has(String key) {
 		return this.values.containsKey(key);
 	}
 
@@ -117,7 +117,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @param value the value
 	 */
-	public void store (String key, String value) {
+	public void store(String key, String value) {
 		this.values.put(key, value);
 	}
 
@@ -127,7 +127,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @param number the number
 	 */
-	public void store (String key, int number) {
+	public void store(String key, int number) {
 		this.values.put(key, String.valueOf(number));
 	}
 
@@ -137,7 +137,7 @@ public class SessionParams implements Serializable {
 	 * @param key the key
 	 * @param number the number
 	 */
-	public void store (String key, long number) {
+	public void store(String key, long number) {
 		this.values.put(key, String.valueOf(number));
 	}
 
@@ -146,7 +146,7 @@ public class SessionParams implements Serializable {
 	 *
 	 * @param params the params
 	 */
-	public void store (SessionParams params) {
+	public void store(SessionParams params) {
 		this.values.putAll(params.values);
 	}
 

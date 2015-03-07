@@ -29,8 +29,8 @@ public class RandomWriteEditor extends RandomInteractorAdapter {
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public RandomWriteEditor (String ... simpleTypes) {
-		super (simpleTypes);
+	public RandomWriteEditor(String ... simpleTypes) {
+		super(simpleTypes);
 	}
 
 	/* (non-Javadoc)

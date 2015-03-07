@@ -38,7 +38,7 @@ public class AbstractorUtilities {
 	 * @param view the view
 	 * @return the string
 	 */
-	public static String detectName (View view) {
+	public static String detectName(View view) {
 		String name = new String();
 		if (view instanceof TextView) {
 			TextView text = (TextView)view;
@@ -55,7 +55,7 @@ public class AbstractorUtilities {
 			String text = new String();
 			for (int item = 0; item < max; item++) {
 				View child = group.getChildAt(item);
-				text = detectName (child);
+				text = detectName(child);
 				if (!text.equals("")) {
 					name = text;
 					break;
@@ -71,7 +71,7 @@ public class AbstractorUtilities {
 	 * @param view the view
 	 * @param widget the widget
 	 */
-	public static void setCount (View view, WidgetState widget) {
+	public static void setCount(View view, WidgetState widget) {
 		if (view instanceof AdapterView) {
 			widget.setCount(((AdapterView<?>)view).getCount());
 			return;
@@ -96,17 +96,17 @@ public class AbstractorUtilities {
 	 * @param view the view
 	 * @param widget the widget
 	 */
-	public static void setValue (View view, WidgetState widget) {
+	public static void setValue(View view, WidgetState widget) {
 		if (view instanceof Checkable) {
-			widget.setValue(((Checkable) view).isChecked()?"true":"false");
+			widget.setValue(((Checkable)view).isChecked()?"true":"false");
 			return;
 		}
 		if (view instanceof TextView) {
-			widget.setValue(((TextView) view).getText().toString());
+			widget.setValue(((TextView)view).getText().toString());
 			return;
 		}
 		if (view instanceof ProgressBar) {
-			widget.setValue(String.valueOf(((ProgressBar) view).getProgress()));
+			widget.setValue(String.valueOf(((ProgressBar)view).getProgress()));
 			return;
 		}
 	}
@@ -117,7 +117,7 @@ public class AbstractorUtilities {
 	 * @param view the view
 	 * @return the type
 	 */
-	public static String getType (View view) {
+	public static String getType(View view) {
 		return view.getClass().getName();
 	}
 

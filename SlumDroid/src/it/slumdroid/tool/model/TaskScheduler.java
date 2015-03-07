@@ -31,55 +31,55 @@ public interface TaskScheduler {
 	 *
 	 * @return the task
 	 */
-	public Task nextTask ();
+	public Task nextTask();
 
 	/**
 	 * Adds the tasks.
 	 *
 	 * @param newTasks the new tasks
 	 */
-	public void addTasks (Collection<Task> newTasks);
+	public void addTasks(Collection<Task> newTasks);
 
 	/**
 	 * Adds the planned tasks.
 	 *
 	 * @param newTasks the new tasks
 	 */
-	public void addPlannedTasks (List<Task> newTasks);
+	public void addPlannedTasks(List<Task> newTasks);
 
 	/**
 	 * Sets the task list.
 	 *
 	 * @param theList the new task list
 	 */
-	public void setTaskList (List<Task> theList);
+	public void setTaskList(List<Task> theList);
 
 	/**
 	 * Checks for more.
 	 *
 	 * @return true, if successful
 	 */
-	public boolean hasMore ();
+	public boolean hasMore();
 
 	/**
 	 * Removes the.
 	 *
 	 * @param theTask the task
 	 */
-	public void remove (Task theTask);
+	public void remove(Task theTask);
 
 	/**
 	 * Adds the tasks.
 	 *
 	 * @param theTask the task
 	 */
-	public void addTasks (Task theTask);
+	public void addTasks(Task theTask);
 
 	/**
 	 * Gets the task list.
 	 *
 	 * @return the task list
 	 */
-	public List<Task> getTaskList ();
+	public List<Task> getTaskList();
 
 }

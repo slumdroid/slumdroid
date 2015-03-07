@@ -29,14 +29,14 @@ public class SpinnerSelector extends IterativeInteractorAdapter {
 	/**
 	 * Instantiates a new spinner selector.
 	 */
-	public SpinnerSelector () {
-		super (MAX_NUM_EVENTS_PER_SELECTOR, SPINNER);
+	public SpinnerSelector() {
+		super(MAX_NUM_EVENTS_PER_SELECTOR, SPINNER);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
 	 */
-	public String getInteractionType () {
+	public String getInteractionType() {
 		return SPINNER_SELECT;
 	}
 

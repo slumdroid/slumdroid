@@ -27,12 +27,12 @@ public interface Extractor {
 	 *
 	 * @return the activity description
 	 */
-	public ActivityDescription describeActivity ();
+	public ActivityDescription describeActivity();
 
 	/**
 	 * Extract state.
 	 */
-	public void extractState ();
+	public void extractState();
 
 
 }

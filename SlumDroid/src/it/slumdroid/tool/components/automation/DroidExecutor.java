@@ -52,9 +52,9 @@ public class DroidExecutor {
 	 *
 	 * @param test the test
 	 */
-	public DroidExecutor (ActivityInstrumentationTestCase2<?> test) {
+	public DroidExecutor(ActivityInstrumentationTestCase2<?> test) {
 		instrumentation = test.getInstrumentation();
-		robotium = new Solo (instrumentation, test.getActivity());
+		robotium = new Solo(instrumentation, test.getActivity());
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void click (View view) {
+	public void click(View view) {
 		getRobotium().clickOnView(view);
 	}
 
@@ -71,7 +71,7 @@ public class DroidExecutor {
 	 *
 	 * @param view the view
 	 */
-	public void longClick (View view) {
+	public void longClick(View view) {
 		getRobotium().clickLongOnView(view);
 	}
 
@@ -81,7 +81,7 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param value the value
 	 */
-	public void selectListItem (ListView list, String value) {
+	public void selectListItem(ListView list, String value) {
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			if (item < list.getChildCount()) {
@@ -103,7 +103,7 @@ public class DroidExecutor {
 	 * @param list the list
 	 * @param value the value
 	 */
-	public void selectLongListItem (ListView list, String value) {
+	public void selectLongListItem(ListView list, String value) {
 		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
 			if (item < list.getChildCount()) {
@@ -125,13 +125,12 @@ public class DroidExecutor {
 	 * @param spinner the spinner
 	 * @param value the value
 	 */
-	public void selectSpinnerItem (Spinner spinner, String value) {
+	public void selectSpinnerItem(Spinner spinner, String value) {
 		click(spinner);
 		sync();
 		int item = Integer.valueOf(value);
 		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		String type = getType(list);
-		if (type.endsWith("DropDownListView")) {
+		if (getType(list).endsWith("DropDownListView")) {
 			getRobotium().scrollListToLine(list, 0);
 			sync();
 			for (int row = 0; row < item; row++) {
@@ -149,7 +148,7 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public void writeText (EditText editText, String value) {
+	public void writeText(EditText editText, String value) {
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().enterText(editText, value);
@@ -162,7 +161,7 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public void typeText (EditText editText, String value) {
+	public void typeText(EditText editText, String value) {
 		getRobotium().clearEditText(editText);
 		if (!value.equals("")) {
 			getRobotium().typeText(editText, value);
@@ -175,8 +174,8 @@ public class DroidExecutor {
 	 * @param editText the edit text
 	 * @param value the value
 	 */
-	public void writeTextAndEnter (EditText editText, String value) {
-		typeText (editText, value);
+	public void writeTextAndEnter(EditText editText, String value) {
+		typeText(editText, value);
 		getRobotium().sendKey(Solo.ENTER);
 	}
 
@@ -186,7 +185,7 @@ public class DroidExecutor {
 	 * @param radioGroup the radio group
 	 * @param value the value
 	 */
-	public void selectRadioItem (RadioGroup radioGroup, String value) {
+	public void selectRadioItem(RadioGroup radioGroup, String value) {
 		int item = Integer.valueOf(value);
 		click(radioGroup.getChildAt(item - 1));
 	}
@@ -207,7 +206,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 * @param value the value
 	 */
-	public void setProgressBar (View view, String value) {
+	public void setProgressBar(View view, String value) {
 		ProgressBar progressBar = (ProgressBar)view; 
 		getRobotium().setProgressBar(progressBar, Integer.parseInt(value));
 	}
@@ -218,7 +217,7 @@ public class DroidExecutor {
 	 * @param view the view
 	 * @param value the value
 	 */
-	public void swapTab (View view, String value) {
+	public void swapTab(View view, String value) {
 		TabHost tabHost = (TabHost)view; 
 		int item = Integer.valueOf(value);
 		int count = tabHost.getTabWidget().getTabCount();
@@ -231,7 +230,7 @@ public class DroidExecutor {
 	 *
 	 * @param milli the milli
 	 */
-	public void wait (int milli) {
+	public void wait(int milli) {
 		getRobotium().sleep(milli);
 	}
 

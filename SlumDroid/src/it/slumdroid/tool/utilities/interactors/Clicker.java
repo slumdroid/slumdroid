@@ -30,21 +30,21 @@ public class Clicker extends SimpleInteractorAdapter {
 	 *
 	 * @param simpleTypes the simple types
 	 */
-	public Clicker (String ... simpleTypes) {
-		super (simpleTypes);
+	public Clicker(String ... simpleTypes) {
+		super(simpleTypes);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#canUseWidget(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public boolean canUseWidget (WidgetState widget) {
+	public boolean canUseWidget(WidgetState widget) {
 		return widget.isClickable() && super.canUseWidget(widget);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter#getInteractionType()
 	 */
-	public String getInteractionType () {
+	public String getInteractionType() {
 		return CLICK;
 	}
 

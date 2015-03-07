@@ -28,6 +28,6 @@ public interface RandomInteractor {
 	 *
 	 * @param random the new random generator
 	 */
-	public void setRandomGenerator (Random random);
+	public void setRandomGenerator(Random random);
 
 }

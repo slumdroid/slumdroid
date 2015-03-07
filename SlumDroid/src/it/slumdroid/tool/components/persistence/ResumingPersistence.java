@@ -121,14 +121,14 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param theSession the the session
 	 */
-	public ResumingPersistence (Session theSession) {
+	public ResumingPersistence(Session theSession) {
 		setSession(theSession);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#addTask(it.slumdroid.droidmodels.model.Task)
 	 */ 
-	public void addTask (Task task) {
+	public void addTask(Task task) {
 		task.setFailed(false);
 		getSession().addTask(task);
 		saveStep();
@@ -140,7 +140,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param original the original
 	 * @return the string
 	 */
-	private String backup (String original) {
+	private String backup(String original) {
 		return original + ".bak";
 	}
 
@@ -149,7 +149,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param fileName the file name
 	 */
-	private void backupFile (String fileName) {
+	private void backupFile(String fileName) {
 		copy(fileName, backup(fileName));
 	}
 
@@ -158,7 +158,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @return true, if successful
 	 */
-	public boolean canHasResume () {
+	public boolean canHasResume() {
 		if (!exists(GUI_TREE_FILE_NAME)) {
 			return false; 
 		}
@@ -210,7 +210,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	/**
 	 * Close file.
 	 */
-	private void closeFile () {
+	private void closeFile() {
 		closeFile (this.fOut, this.osw);
 	}
 
@@ -220,7 +220,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param theFile the the file
 	 * @param theStream the the stream
 	 */
-	private void closeFile (FileOutputStream theFile, OutputStreamWriter theStream) {
+	private void closeFile(FileOutputStream theFile, OutputStreamWriter theStream) {
 		try {
 			theStream.flush();
 		} catch (Exception e) {
@@ -241,7 +241,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param theFile the the file
 	 * @param theStream the the stream
 	 */
-	private void closeFile (OutputStream theFile, OutputStream theStream) {
+	private void closeFile(OutputStream theFile, OutputStream theStream) {
 		try {
 			theStream.flush();
 		} catch (Exception e) {
@@ -259,14 +259,14 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	/**
 	 * Close state file.
 	 */
-	private void closeStateFile () {
+	private void closeStateFile() {
 		closeFile(this.stateFile, this.stateStream);
 	}
 
 	/**
 	 * Close task file.
 	 */
-	private void closeTaskFile () {
+	private void closeTaskFile() {
 		closeFile(this.taskFile, this.taskStream);
 	}
 
@@ -276,7 +276,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param from the from
 	 * @param to the to
 	 */
-	private void copy (String from, String to) {
+	private void copy(String from, String to) {
 		FileInputStream in = null;
 		FileOutputStream out = null;
 		byte[] buffer = new byte[4096];
@@ -305,14 +305,14 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param fileName the file name
 	 * @return true, if successful
 	 */
-	private boolean delete (String fileName) {
+	private boolean delete(String fileName) {
 		return this.wrapper.deleteFile(fileName);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Persistence#exists(java.lang.String)
 	 */
-	public boolean exists (String filename) {
+	public boolean exists(String filename) {
 		return this.wrapper.getFileStreamPath(filename).exists();
 	}
 
@@ -347,7 +347,8 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		if (isLast()) {
 			return (bodyBegin == -1)?(this.footer):graph.substring(bodyBegin);
 		}
-		if ( (bodyBegin == -1) || (bodyEnd == -1) ) { // Empty body
+		if ((bodyBegin == -1) 
+				|| (bodyEnd == -1)) { // Empty body
 			return new String();
 		}
 
@@ -375,7 +376,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @return true, if is first
 	 */
-	private boolean isFirst () {
+	private boolean isFirst() {
 		return this.first;
 	}
 
@@ -435,7 +436,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 */
 	public void onNewState(ActivityState newState) {
 		if (exists(ACTIVITY_LIST_FILE_NAME)) {
-			backupFile (ACTIVITY_LIST_FILE_NAME);
+			backupFile(ACTIVITY_LIST_FILE_NAME);
 		}
 		try {
 			openStateFile(newState instanceof FinalActivity); 
@@ -469,7 +470,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param fileName the file name
 	 */
-	private void openFile (String fileName) {
+	private void openFile(String fileName) {
 		try{
 			this.fOut = this.wrapper.openFileOutput(fileName, this.mode);
 			this.osw = new OutputStreamWriter(this.fOut);
@@ -484,7 +485,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param append the append
 	 */
-	private void openStateFile (boolean append) {
+	private void openStateFile(boolean append) {
 		try{
 			this.stateFile = wrapper.openFileOutput(ACTIVITY_LIST_FILE_NAME, (append)?ContextWrapper.MODE_APPEND:ContextWrapper.MODE_PRIVATE);
 			this.stateStream = new OutputStreamWriter(this.stateFile);
@@ -496,7 +497,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	/**
 	 * Open task file.
 	 */
-	private void openTaskFile () {
+	private void openTaskFile() {
 		try{
 			this.taskFile = wrapper.openFileOutput(TASK_LIST_FILE_NAME, ContextWrapper.MODE_PRIVATE);
 			this.taskStream = new OutputStreamWriter(this.taskFile);
@@ -511,15 +512,15 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param input the input
 	 * @return the list
 	 */
-	private List<String> readFile (String input) {
+	private List<String> readFile(String input) {
 		FileInputStream theFile = null;
 		BufferedReader theStream = null;
 		String line = new String();
 		List<String> output = new ArrayList<String>();
 		try{
-			theFile = wrapper.openFileInput (input);
-			theStream = new BufferedReader (new FileReader (theFile.getFD()));
-			while ( (line = theStream.readLine()) != null) {
+			theFile = wrapper.openFileInput(input);
+			theStream = new BufferedReader (new FileReader(theFile.getFD()));
+			while ((line = theStream.readLine()) != null) {
 				output.add(line);
 			}
 		} catch (Exception e) {
@@ -540,7 +541,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @return the list
 	 */
-	public List<String> readStateFile () {
+	public List<String> readStateFile() {
 		return readFile(ACTIVITY_LIST_FILE_NAME);
 	}
 
@@ -549,7 +550,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @return the list
 	 */
-	public List<String> readTaskFile () {
+	public List<String> readTaskFile() {
 		return readFile(TASK_LIST_FILE_NAME);
 	}
 
@@ -558,7 +559,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param listener the listener
 	 */
-	public void registerListener (SaveStateListener listener) {
+	public void registerListener(SaveStateListener listener) {
 		theListeners.put(listener.getListenerName(), listener);
 	}
 
@@ -567,7 +568,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param fileName the file name
 	 */
-	private void restoreFile (String fileName) {
+	private void restoreFile(String fileName) {
 		copy(backup(fileName),fileName);
 	}
 
@@ -575,15 +576,15 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#save()
 	 */
 	public void save() {
-		save (true);
+		save(true);
 		saveParameters();
 		saveTaskList();
 		if (noTasks()) { 
-			delete (backup(ACTIVITY_LIST_FILE_NAME));
-			delete (PARAMETERS_FILE_NAME);
-			delete (backup(PARAMETERS_FILE_NAME));
-			delete (TASK_LIST_FILE_NAME);
-			delete (backup(TASK_LIST_FILE_NAME));
+			delete(backup(ACTIVITY_LIST_FILE_NAME));
+			delete(PARAMETERS_FILE_NAME);
+			delete(backup(PARAMETERS_FILE_NAME));
+			delete(TASK_LIST_FILE_NAME);
+			delete(backup(TASK_LIST_FILE_NAME));
 		}
 	}
 
@@ -592,7 +593,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param last the last
 	 */
-	private void save (boolean last) {
+	private void save(boolean last) {
 		if (!isFirst()) {
 			this.mode = ContextWrapper.MODE_APPEND;
 		}
@@ -607,11 +608,11 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 *
 	 * @param fileName the file name
 	 */
-	protected void save (String fileName) {
+	protected void save(String fileName) {
 		String graph = generate();
 		openFile(fileName);
 		try {
-			writeOnFile (graph);
+			writeOnFile(graph);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -693,7 +694,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	/**
 	 * Save step.
 	 */
-	public void saveStep () {
+	public void saveStep() {
 		save(isLast());
 		for (Task task: getSession()) {
 			getSession().removeTask(task);
@@ -706,11 +707,11 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 */
 	private void saveTaskList() {
 		if (noTasks()) {
-			delete (TASK_LIST_FILE_NAME);
+			delete(TASK_LIST_FILE_NAME);
 			return;
 		}
 		if (exists(TASK_LIST_FILE_NAME)) {
-			backupFile (TASK_LIST_FILE_NAME);
+			backupFile(TASK_LIST_FILE_NAME);
 		}
 		try {
 			openTaskFile();
@@ -723,10 +724,10 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			e.printStackTrace();
 		}
 		if (exists(backup(TASK_LIST_FILE_NAME))) {
-			delete (backup(TASK_LIST_FILE_NAME));
+			delete(backup(TASK_LIST_FILE_NAME));
 		}
 		if (exists(backup(ACTIVITY_LIST_FILE_NAME))) {
-			delete (backup(ACTIVITY_LIST_FILE_NAME));
+			delete(backup(ACTIVITY_LIST_FILE_NAME));
 		}
 	}
 
@@ -740,14 +741,14 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	/**
 	 * Sets the last.
 	 */
-	private void setLast () {
+	private void setLast() {
 		this.last = true;
 	}
 
 	/**
 	 * Sets the not first.
 	 */
-	public void setNotFirst () {
+	public void setNotFirst() {
 		this.first = false;
 	}
 
@@ -773,8 +774,8 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param graph the graph
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private void writeOnFile (String graph) throws IOException {
-		writeOnFile (this.osw, graph);
+	private void writeOnFile(String graph) throws IOException {
+		writeOnFile(this.osw, graph);
 	}
 
 	/**
@@ -784,7 +785,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param graph the graph
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private void writeOnFile (OutputStreamWriter output, String graph) throws IOException {
+	private void writeOnFile(OutputStreamWriter output, String graph) throws IOException {
 		output.write(graph);
 	}
 
@@ -794,8 +795,8 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param graph the graph
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private void writeOnStateFile (String graph) throws IOException {
-		writeOnFile (this.stateStream, graph);
+	private void writeOnStateFile(String graph) throws IOException {
+		writeOnFile(this.stateStream, graph);
 	}
 
 	/**
@@ -804,8 +805,8 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 	 * @param graph the graph
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	private void writeOnTaskFile (String graph) throws IOException {
-		writeOnFile (this.taskStream, graph);
+	private void writeOnTaskFile(String graph) throws IOException {
+		writeOnFile(this.taskStream, graph);
 	}
 
 }
