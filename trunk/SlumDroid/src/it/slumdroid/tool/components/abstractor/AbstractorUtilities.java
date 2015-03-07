@@ -41,8 +41,7 @@ public class AbstractorUtilities {
 	public static String detectName(View view) {
 		String name = new String();
 		if (view instanceof TextView) {
-			TextView text = (TextView)view;
-			name = text.getText().toString();
+			name = ((TextView)view).getText().toString();
 			if (view instanceof EditText) {
 				CharSequence hint = ((EditText)view).getHint();
 				name = (hint == null)?new String():hint.toString();

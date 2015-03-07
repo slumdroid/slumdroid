@@ -240,7 +240,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		for (String row: entries) {
 			sandboxSession.parse(row);
 			Element element = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-			ActivityState state = getAbstractor().importState (element);
+			ActivityState state = getAbstractor().importState(element);
 			stateList.add(state);
 		}
 		for (ActivityState state: stateList) {
@@ -260,7 +260,7 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		for (String row: entries) {
 			sandboxSession.parse(row);
 			Element element = ((XmlGraph)sandboxSession).getDom().getDocumentElement();
-			Task task = getAbstractor().importTask (element);
+			Task task = getAbstractor().importTask(element);
 			if (task.isFailed()) {
 				getTheGuiTree().addCrashedTask(task);
 			} else {
@@ -500,8 +500,8 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	 */
 	private void takeScreenshot(ActivityState theState) {
 		String fileName = theState.getUniqueId();
-		if ( android.os.Build.MANUFACTURER.contains("Genymotion") 
-				|| android.os.Build.MODEL.contains("Genymotion") ) {
+		if (android.os.Build.MANUFACTURER.contains("Genymotion") 
+				|| android.os.Build.MODEL.contains("Genymotion")) {
 			if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
 				saveJPG(theState, fileName);
 			} else {
