@@ -75,7 +75,7 @@ public interface WidgetState extends WrapperInterface {
 	 *
 	 * @param inputType the new text type
 	 */
-	public void setTextType (String inputType);
+	public void setTextType(String inputType);
 
 	/**
 	 * Gets the simple type.
@@ -117,7 +117,7 @@ public interface WidgetState extends WrapperInterface {
 	 *
 	 * @param value the new available
 	 */
-	public void setAvailable (String value);
+	public void setAvailable(String value);
 
 	/**
 	 * Checks if is clickable.
@@ -131,7 +131,7 @@ public interface WidgetState extends WrapperInterface {
 	 *
 	 * @param value the new clickable
 	 */
-	public void setClickable (String value);
+	public void setClickable(String value);
 
 	/**
 	 * Checks if is long clickable.
@@ -145,7 +145,7 @@ public interface WidgetState extends WrapperInterface {
 	 *
 	 * @param value the new long clickable
 	 */
-	public void setLongClickable (String value);
+	public void setLongClickable(String value);
 
 	/**
 	 * Gets the index.
@@ -159,7 +159,7 @@ public interface WidgetState extends WrapperInterface {
 	 *
 	 * @param index the new index
 	 */
-	public void setIndex (int index);
+	public void setIndex(int index);
 
 	/**
 	 * Gets the value.
@@ -173,7 +173,7 @@ public interface WidgetState extends WrapperInterface {
 	 *
 	 * @param value the new value
 	 */
-	public void setValue (String value);
+	public void setValue(String value);
 
 	/**
 	 * Clone.

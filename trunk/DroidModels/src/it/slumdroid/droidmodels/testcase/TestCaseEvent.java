@@ -35,7 +35,7 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	/**
 	 * Instantiates a new test case event.
 	 */
-	public TestCaseEvent () {
+	public TestCaseEvent() {
 		super();
 	}
 
@@ -44,7 +44,7 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	 *
 	 * @param element the element
 	 */
-	public TestCaseEvent (Element element) {
+	public TestCaseEvent(Element element) {
 		super (element);
 	}
 
@@ -53,7 +53,7 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	 *
 	 * @param graph the graph
 	 */
-	public TestCaseEvent (XmlGraph graph) {
+	public TestCaseEvent(XmlGraph graph) {
 		super (graph, TAG);
 	}
 
@@ -62,7 +62,7 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	 *
 	 * @param dom the dom
 	 */
-	public TestCaseEvent (Document dom) {
+	public TestCaseEvent(Document dom) {
 		super (dom, TAG);
 	}
 
@@ -113,7 +113,7 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.UserInteraction#setId(java.lang.String)
 	 */
-	public void setId (String id) {
+	public void setId(String id) {
 		setAttribute("id", id);
 	}
 
@@ -147,8 +147,8 @@ public class TestCaseEvent extends TestCaseInteraction implements UserEvent {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
-	public TestCaseEvent clone () {
-		TestCaseEvent that = createEvent (getElement().getOwnerDocument());
+	public TestCaseEvent clone() {
+		TestCaseEvent that = createEvent(getElement().getOwnerDocument());
 		that.setType(this.getType());
 		if (this.hasValue()) {
 			that.setValue(this.getValue());

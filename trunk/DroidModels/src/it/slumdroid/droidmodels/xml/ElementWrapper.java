@@ -54,7 +54,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 *
 	 * @param element the element
 	 */
-	public ElementWrapper (Element element) {
+	public ElementWrapper(Element element) {
 		super();
 		setElement(element);
 	}
@@ -65,8 +65,8 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @param graph the graph
 	 * @param tag the tag
 	 */
-	public ElementWrapper (XmlGraph graph, String tag) {
-		this (graph.getDom(), tag);
+	public ElementWrapper(XmlGraph graph, String tag) {
+		this(graph.getDom(), tag);
 	}
 
 	/**
@@ -75,8 +75,8 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @param dom the dom
 	 * @param tag the tag
 	 */
-	public ElementWrapper (Document dom, String tag) {
-		this (dom.createElement(tag));
+	public ElementWrapper(Document dom, String tag) {
+		this(dom.createElement(tag));
 	}
 
 	/* (non-Javadoc)
@@ -109,7 +109,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @param name the name
 	 * @return the attribute
 	 */
-	public String getAttribute (String name) {
+	public String getAttribute(String name) {
 		try{
 			return getElement().getAttribute(name);
 		}catch (Exception ignore){
@@ -124,7 +124,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @param name the name
 	 * @return true, if successful
 	 */
-	public boolean hasAttribute (String name) {
+	public boolean hasAttribute(String name) {
 		try {
 			return getElement().hasAttribute(name);	
 		} catch (Exception e) {
@@ -137,7 +137,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 *
 	 * @param child the child
 	 */
-	public void appendChild (Element child) {
+	public void appendChild(Element child) {
 		getElement().appendChild(child);
 	}
 
@@ -146,7 +146,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 *
 	 * @param child the child
 	 */
-	public void appendChild (ElementWrapper child) {
+	public void appendChild(ElementWrapper child) {
 		getElement().appendChild(child.getElement());
 	}
 
@@ -157,7 +157,7 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
 	 * @throws TransformerException the transformer exception
 	 */
-	public String toXml () throws TransformerFactoryConfigurationError, TransformerException {
+	public String toXml() throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(getElement());
 		StringWriter autput = new StringWriter();
 		getTransformer().transform(theDom, new StreamResult(autput));
@@ -172,7 +172,9 @@ public abstract class ElementWrapper implements WrapperInterface {
 	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
 	 */
 	protected Transformer getTransformer() throws TransformerConfigurationException, TransformerFactoryConfigurationError {
-		if (trasformer instanceof Transformer) return trasformer;
+		if (trasformer instanceof Transformer) {
+			return trasformer;
+		}
 		trasformer = TransformerFactory.newInstance().newTransformer();
 		return trasformer;
 	}

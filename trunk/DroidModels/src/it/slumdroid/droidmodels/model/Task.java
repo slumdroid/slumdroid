@@ -28,14 +28,14 @@ public interface Task extends Iterable<Transition>, WrapperInterface {
 	 *
 	 * @return the id
 	 */
-	public String getId ();
+	public String getId();
 
 	/**
 	 * Sets the id.
 	 *
 	 * @param id the new id
 	 */
-	public void setId (String id);
+	public void setId(String id);
 
 	/**
 	 * Transitions.
@@ -63,7 +63,7 @@ public interface Task extends Iterable<Transition>, WrapperInterface {
 	 *
 	 * @return the final transition
 	 */
-	public Transition getFinalTransition ();
+	public Transition getFinalTransition();
 
 	/**
 	 * Checks if is failed.
@@ -77,6 +77,6 @@ public interface Task extends Iterable<Transition>, WrapperInterface {
 	 *
 	 * @param failure the new failed
 	 */
-	public void setFailed (boolean failure);
+	public void setFailed(boolean failure);
 
 }

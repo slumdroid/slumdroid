@@ -39,7 +39,7 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	/**
 	 * Instantiates a new test case task.
 	 */
-	public TestCaseTask () {
+	public TestCaseTask() {
 		super();
 	}
 
@@ -48,7 +48,7 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	 *
 	 * @param task the task
 	 */
-	public TestCaseTask (Element task) {
+	public TestCaseTask(Element task) {
 		super(task);
 	}
 
@@ -57,8 +57,8 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	 *
 	 * @param session the session
 	 */
-	public TestCaseTask (GuiTree session) {
-		this (session.getDom());
+	public TestCaseTask(GuiTree session) {
+		this(session.getDom());
 	}
 
 	/**
@@ -66,21 +66,21 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	 *
 	 * @param dom the dom
 	 */
-	public TestCaseTask (Document dom) {
-		super (dom, TAG);
+	public TestCaseTask(Document dom) {
+		super(dom, TAG);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Task#getId()
 	 */
-	public String getId () {
+	public String getId() {
 		return getAttribute("id");
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Task#setId(java.lang.String)
 	 */
-	public void setId (String id) {
+	public void setId(String id) {
 		setAttribute("id", id);
 	}
 
@@ -88,7 +88,9 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	 * @see it.slumdroid.droidmodels.model.Task#isFailed()
 	 */
 	public boolean isFailed() {
-		if (!hasAttribute("fail")) return false;
+		if (!hasAttribute("fail")) {
+			return false;
+		}
 		return (getAttribute("fail").equals("true"));
 	}
 
@@ -128,10 +130,10 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Task#transitions()
 	 */
-	public Iterator<Transition> transitions () {
+	public Iterator<Transition> transitions() {
 		Element transition = getElement();
 		if (transition.getNodeName().equals(TAG)) {
-			return new NodeListWrapper<Transition> (transition, new TestCaseTransition());
+			return new NodeListWrapper<Transition>(transition, new TestCaseTransition());
 		}
 		return null;		
 	}
@@ -154,8 +156,8 @@ public class TestCaseTask extends ElementWrapper implements Task {
 	 * @see java.lang.Object#clone()
 	 */
 	@Override
-	public TestCaseTask clone () {
-		TestCaseTask task = new TestCaseTask (getElement().getOwnerDocument());
+	public TestCaseTask clone() {
+		TestCaseTask task = new TestCaseTask(getElement().getOwnerDocument());
 		for (Transition child: this) {
 			TestCaseTransition newChild = ((TestCaseTransition)child).clone();
 			task.addTransition(newChild);

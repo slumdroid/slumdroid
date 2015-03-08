@@ -42,7 +42,7 @@ public interface ActivityState extends WrapperInterface, Iterable<WidgetState> {
 	 *
 	 * @param name the new name
 	 */
-	public void setName (String name);
+	public void setName(String name);
 
 	/**
 	 * Gets the title.
@@ -70,7 +70,7 @@ public interface ActivityState extends WrapperInterface, Iterable<WidgetState> {
 	 *
 	 * @param id the new id
 	 */
-	public void setId (String id);
+	public void setId(String id);
 
 	/**
 	 * Gets the unique id.
@@ -84,7 +84,7 @@ public interface ActivityState extends WrapperInterface, Iterable<WidgetState> {
 	 *
 	 * @param id the new unique id
 	 */
-	public void setUniqueId (String id);
+	public void setUniqueId(String id);
 
 	/**
 	 * Gets the screenshot.
@@ -98,7 +98,7 @@ public interface ActivityState extends WrapperInterface, Iterable<WidgetState> {
 	 *
 	 * @param screenshot the new screenshot
 	 */
-	public void setScreenshot (String screenshot);
+	public void setScreenshot(String screenshot);
 
 	/**
 	 * Checks for widget.
@@ -106,7 +106,7 @@ public interface ActivityState extends WrapperInterface, Iterable<WidgetState> {
 	 * @param widget the widget
 	 * @return true, if successful
 	 */
-	public boolean hasWidget (WidgetState widget);
+	public boolean hasWidget(WidgetState widget);
 
 	/**
 	 * Checks if is exit.

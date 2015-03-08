@@ -54,8 +54,8 @@ public class GuiTree extends XmlGraph implements Session {
 	 *
 	 * @throws ParserConfigurationException the parser configuration exception
 	 */
-	public GuiTree () throws ParserConfigurationException {
-		super ("guitree.dtd", TAG);
+	public GuiTree() throws ParserConfigurationException {
+		super("guitree.dtd", TAG);
 		this.guiTree = getBuilder().newDocument();
 		Element rootElement = this.guiTree.createElement(TAG);
 		this.guiTree.appendChild(rootElement);
@@ -103,14 +103,14 @@ public class GuiTree extends XmlGraph implements Session {
 	 * @param key the key
 	 * @param value the value
 	 */
-	public void setAttribute (String key, String value) {
+	public void setAttribute(String key, String value) {
 		this.getDom().getDocumentElement().setAttribute(key, value);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Session#getDateTime()
 	 */
-	public String getDateTime () {
+	public String getDateTime() {
 		return this.getDom().getDocumentElement().getAttribute("date_time");
 	}
 
@@ -119,14 +119,14 @@ public class GuiTree extends XmlGraph implements Session {
 	 *
 	 * @param date the new date time
 	 */
-	public void setDateTime (String date) {
+	public void setDateTime(String date) {
 		getDom().getDocumentElement().setAttribute("date_time", date);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Session#getBaseActivity()
 	 */
-	public ActivityState getBaseActivity () {
+	public ActivityState getBaseActivity() {
 		return tasks().next().transitions().next().getStartActivity();
 	}
 
@@ -139,7 +139,7 @@ public class GuiTree extends XmlGraph implements Session {
 	 * @throws SAXException the SAX exception
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
-	public static GuiTree fromXml (File file) throws ParserConfigurationException, SAXException, IOException {
+	public static GuiTree fromXml(File file) throws ParserConfigurationException, SAXException, IOException {
 		GuiTree guiT = new GuiTree();
 		guiT.parse(file);
 		return guiT;
@@ -148,22 +148,22 @@ public class GuiTree extends XmlGraph implements Session {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Session#addTask(it.slumdroid.droidmodels.model.Task)
 	 */
-	public void addTask (Task task) {
+	public void addTask(Task task) {
 		getDom().getDocumentElement().appendChild(task.getElement());
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Session#addCrashedTask(it.slumdroid.droidmodels.model.Task)
 	 */
-	public void addCrashedTask (Task task) {
-		addFailedTask (task, CRASH);
+	public void addCrashedTask(Task task) {
+		addFailedTask(task, CRASH);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Session#addFailedTask(it.slumdroid.droidmodels.model.Task)
 	 */
-	public void addFailedTask (Task task) {
-		addFailedTask (task, FAILURE);
+	public void addFailedTask(Task task) {
+		addFailedTask(task, FAILURE);
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class GuiTree extends XmlGraph implements Session {
 	 * @param task the task
 	 * @param failType the fail type
 	 */
-	protected void addFailedTask (Task task, String failType) {
+	protected void addFailedTask(Task task, String failType) {
 		task.setFailed(true);
 		FinalActivity fail = FinalActivity.createActivity(this);
 		fail.setName(failType);
@@ -184,7 +184,7 @@ public class GuiTree extends XmlGraph implements Session {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Session#removeTask(it.slumdroid.droidmodels.model.Task)
 	 */
-	public void removeTask (Task task) {
+	public void removeTask(Task task) {
 		getDom().getDocumentElement().removeChild(task.getElement());
 	}
 
@@ -195,7 +195,7 @@ public class GuiTree extends XmlGraph implements Session {
 	public Iterator<Task> tasks() {
 		Element session = getDom().getDocumentElement();
 		if (session.getNodeName().equals(TAG)) {
-			return new NodeListWrapper<Task> (session, new TestCaseTask());
+			return new NodeListWrapper<Task>(session, new TestCaseTask());
 		}
 		return null;		
 	}
@@ -213,7 +213,7 @@ public class GuiTree extends XmlGraph implements Session {
 	 * @param fromXml the from xml
 	 * @return the test case activity
 	 */
-	public TestCaseActivity importState (Element fromXml) {
+	public TestCaseActivity importState(Element fromXml) {
 		Element state = (Element)getDom().adoptNode(fromXml);
 		TestCaseActivity imported = (state.getNodeName().equals(FinalActivity.getTag()))?FinalActivity.createActivity(this):StartActivity.createActivity(this);
 		imported.setElement(state);

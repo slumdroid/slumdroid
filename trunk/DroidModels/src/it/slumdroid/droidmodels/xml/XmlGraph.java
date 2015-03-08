@@ -63,13 +63,13 @@ public abstract class XmlGraph {
 	 *
 	 * @return the dom
 	 */
-	public abstract Document getDom ();
+	public abstract Document getDom();
 
 	/**
 	 * Instantiates a new xml graph.
 	 */
-	public XmlGraph () {
-		this ("","");
+	public XmlGraph() {
+		this("","");
 	}
 
 	/**
@@ -78,7 +78,7 @@ public abstract class XmlGraph {
 	 * @param systemId the system id
 	 * @param publicId the public id
 	 */
-	public XmlGraph (String systemId, String publicId) {
+	public XmlGraph(String systemId, String publicId) {
 		this.setDoctype(systemId, publicId);
 	}
 
@@ -88,7 +88,7 @@ public abstract class XmlGraph {
 	 * @param systemId the system id
 	 * @param publicId the public id
 	 */
-	public void setDoctype (String systemId, String publicId) {
+	public void setDoctype(String systemId, String publicId) {
 		this.doctypePublic = publicId;
 		this.doctypeSystem = systemId;
 	}
@@ -100,7 +100,7 @@ public abstract class XmlGraph {
 	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
 	 * @throws TransformerException the transformer exception
 	 */
-	public String toXml () throws TransformerFactoryConfigurationError, TransformerException {
+	public String toXml() throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(this.getDom());
 		StringWriter autput = new StringWriter();
 		Transformer trasformer = TransformerFactory.newInstance().newTransformer();
@@ -119,9 +119,10 @@ public abstract class XmlGraph {
 	 * @return the builder
 	 * @throws ParserConfigurationException the parser configuration exception
 	 */
-	static protected DocumentBuilder getBuilder () throws ParserConfigurationException {
-		if (builder instanceof DocumentBuilder)
+	static protected DocumentBuilder getBuilder() throws ParserConfigurationException {
+		if (builder instanceof DocumentBuilder) {
 			return builder;
+		}
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			if (isValidation()) {
@@ -130,12 +131,14 @@ public abstract class XmlGraph {
 			}
 
 			builder = factory.newDocumentBuilder();
-			builder.setEntityResolver(new EntityResolver (){
+			builder.setEntityResolver(new EntityResolver() {
+				
 				public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 					String dtdFileName = systemId.substring(systemId.lastIndexOf("/") + 1);
 					InputStream input = XmlGraph.class.getClassLoader().getResourceAsStream("ext/" + dtdFileName);
 					return (input == null)?null:new InputSource (input);
 				}
+				
 			});
 
 		} catch (ParserConfigurationException e) {

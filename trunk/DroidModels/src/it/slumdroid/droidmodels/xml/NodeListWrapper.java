@@ -53,8 +53,8 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @param parent the parent
 	 * @param theClass the the class
 	 */
-	public NodeListWrapper (Element parent, Class<E> theClass) {
-		this (parent.getChildNodes(), theClass);
+	public NodeListWrapper(Element parent, Class<E> theClass) {
+		this(parent.getChildNodes(), theClass);
 	}
 
 	/**
@@ -63,8 +63,8 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @param parent the parent
 	 * @param theClass the the class
 	 */
-	public NodeListWrapper (WrapperInterface parent, Class<E> theClass) {
-		this (parent.getElement(), theClass);
+	public NodeListWrapper(WrapperInterface parent, Class<E> theClass) {
+		this(parent.getElement(), theClass);
 	}
 
 	/**
@@ -73,8 +73,8 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @param list the list
 	 * @param theClass the the class
 	 */
-	public NodeListWrapper (NodeList list, Class<E> theClass) {
-		this.theIterator = new NodeListIterator (list);
+	public NodeListWrapper(NodeList list, Class<E> theClass) {
+		this.theIterator = new NodeListIterator(list);
 		this.theClassE = theClass;
 		try {
 			this.theConstructor = this.theClassE.getConstructor(NodeListWrapper.theElement);
@@ -91,8 +91,8 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @param parent the parent
 	 * @param wrapper the wrapper
 	 */
-	public NodeListWrapper (Element parent, E wrapper) {
-		this (parent.getChildNodes(), wrapper);
+	public NodeListWrapper(Element parent, E wrapper) {
+		this(parent.getChildNodes(), wrapper);
 	}
 
 	/**
@@ -101,8 +101,8 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @param parent the parent
 	 * @param wrapper the wrapper
 	 */
-	public NodeListWrapper (WrapperInterface parent, E wrapper) {
-		this (parent.getElement(), wrapper);
+	public NodeListWrapper(WrapperInterface parent, E wrapper) {
+		this(parent.getElement(), wrapper);
 	}
 
 	/**
@@ -111,8 +111,8 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @param list the list
 	 * @param wrapper the wrapper
 	 */
-	public NodeListWrapper (NodeList list, E wrapper) {
-		this.theIterator = new NodeListIterator (list);
+	public NodeListWrapper(NodeList list, E wrapper) {
+		this.theIterator = new NodeListIterator(list);
 		this.theWrapper = wrapper;
 	}
 
@@ -156,11 +156,13 @@ public class NodeListWrapper<E extends WrapperInterface> implements Iterator<E> 
 	 * @throws InvocationTargetException the invocation target exception
 	 */
 	@SuppressWarnings("unchecked")
-	private E wrap (Element element) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
-		if (this.theWrapper instanceof WrapperInterface)
+	private E wrap(Element element) throws IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+		if (this.theWrapper instanceof WrapperInterface) {
 			return ((E) this.theWrapper.getWrapper(element));
-		if (this.theClassE instanceof Class)
+		}
+		if (this.theClassE instanceof Class) {
 			return this.theConstructor.newInstance (element);
+		}
 		return null;
 	}
 

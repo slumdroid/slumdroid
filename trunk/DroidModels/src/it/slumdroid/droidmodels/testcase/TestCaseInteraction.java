@@ -31,7 +31,7 @@ public abstract class TestCaseInteraction extends ElementWrapper {
 	/**
 	 * Instantiates a new test case interaction.
 	 */
-	public TestCaseInteraction () {
+	public TestCaseInteraction() {
 		super();
 	}
 
@@ -40,8 +40,8 @@ public abstract class TestCaseInteraction extends ElementWrapper {
 	 *
 	 * @param element the element
 	 */
-	public TestCaseInteraction (Element element) {
-		super (element);
+	public TestCaseInteraction(Element element) {
+		super(element);
 	}
 
 	/**
@@ -50,8 +50,8 @@ public abstract class TestCaseInteraction extends ElementWrapper {
 	 * @param graph the graph
 	 * @param tag the tag
 	 */
-	public TestCaseInteraction (XmlGraph graph, String tag) {
-		super (graph, tag);
+	public TestCaseInteraction(XmlGraph graph, String tag) {
+		super(graph, tag);
 	}
 
 	/**
@@ -60,8 +60,8 @@ public abstract class TestCaseInteraction extends ElementWrapper {
 	 * @param dom the dom
 	 * @param tag the tag
 	 */
-	public TestCaseInteraction (Document dom, String tag) {
-		super (dom, tag);
+	public TestCaseInteraction(Document dom, String tag) {
+		super(dom, tag);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public abstract class TestCaseInteraction extends ElementWrapper {
 	 * @return the widget
 	 */
 	public WidgetState getWidget() {
-		return new TestCaseWidget ((Element)getElement().getChildNodes().item(0));
+		return new TestCaseWidget((Element)getElement().getChildNodes().item(0));
 	}
 
 	/**
