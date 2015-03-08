@@ -39,7 +39,7 @@ public class Edge {
 	 * @param from the from
 	 * @param to the to
 	 */
-	public Edge (Node from, Node to) {
+	public Edge(Node from, Node to) {
 		setNodes(from, to);
 	}
 
@@ -121,7 +121,7 @@ public class Edge {
 	 * @param from the from
 	 * @param to the to
 	 */
-	public void setNodes (Node from, Node to) {
+	public void setNodes(Node from, Node to) {
 		setFrom(from);
 		setTo(to);
 	}

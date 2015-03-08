@@ -43,7 +43,7 @@ public class Perturbations {
 	 * @param colValue the col value
 	 * @param colType the col type
 	 */
-	public Perturbations (Object colValue, Object colType) {
+	public Perturbations(Object colValue, Object colType) {
 		this.valueLowerCase = colType.toString().toLowerCase();
 		this.type = colValue.toString();
 	}
@@ -63,7 +63,6 @@ public class Perturbations {
 			if (!valueLowerCase.equals("")) {
 				pertubedInputs = pertubedInputs.concat(","); // M03 - Empty Input for all Types
 			}
-
 			if (type.equals("Generic")) {
 				return pertubedInputs.concat(generic());
 			}
@@ -95,7 +94,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String generic () {
+	private String generic() {
 		String pertubedInputs =  new String();
 		// MO3 - Dangerous Inputs
 		pertubedInputs = pertubedInputs.concat(", "); // Only "SpaceBar" Character
@@ -113,7 +112,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String number () {
+	private String number() {
 		String pertubedInputs =  new String();
 		pertubedInputs = pertubedInputs.concat(",0"); // MO3 - Dangerous Input == 0 
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{20,}")); // MO3 - Dangerous Inputs
@@ -134,7 +133,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String url () {
+	private String url() {
 		String pertubedInputs =  new String();
 		// MO1 - Remove the Mandatory Sets
 		String withoutHTTP = valueLowerCase.replace("http", "");
@@ -155,7 +154,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String email () {
+	private String email() {
 		String pertubedInputs =  new String();	
 		// MO1 - Remove the Mandatory Sets
 		String withoutET = valueLowerCase.replace("@", "");
@@ -175,7 +174,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String zip () {
+	private String zip() {
 		String pertubedInputs =  new String();	
 		// MO0 - Valid Input
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]{5}([-]{1}[0-9]{4})?"));
@@ -195,7 +194,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String isbn () {
+	private String isbn() {
 		String pertubedInputs =  new String();
 		// MO0 - Valid input
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("[0-9]+[- ][0-9]+[- ][0-9]+[- ][0-9]*[- ]*[xX0-9]"));
@@ -216,7 +215,7 @@ public class Perturbations {
 	 *
 	 * @return the string
 	 */
-	private String creditcard () {
+	private String creditcard() {
 		String pertubedInputs =  new String();	
 		// MO0 - Valid Input
 		pertubedInputs = pertubedInputs.concat("," + createRegEx("((4[0-9]{3})|(5[1-5][0-9]{2})|(6011)|(34[0-9]{1})|(37[0-9]{1}))-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}|3[4,7][0-9-]{15}"));
@@ -235,7 +234,7 @@ public class Perturbations {
 	 * @param regex the regex
 	 * @return the string
 	 */
-	private String createRegEx (String regex) {
+	private String createRegEx(String regex) {
 		return new Xeger(regex).generate();
 	}
 

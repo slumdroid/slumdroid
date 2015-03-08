@@ -20,7 +20,7 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	/**
 	 * Instantiates a new efg event.
 	 */
-	public EfgEvent () {
+	public EfgEvent() {
 		super();
 	}
 
@@ -29,8 +29,8 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	 *
 	 * @param element the element
 	 */
-	public EfgEvent (Element element) {
-		super (element);
+	public EfgEvent(Element element) {
+		super(element);
 	}
 
 	/**
@@ -38,8 +38,8 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	 *
 	 * @param graph the graph
 	 */
-	public EfgEvent (XmlGraph graph) {
-		super (graph, "EVENT");
+	public EfgEvent(XmlGraph graph) {
+		super(graph, "EVENT");
 	}
 
 	/**
@@ -48,8 +48,8 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	 * @param graph the graph
 	 * @param event the event
 	 */
-	private EfgEvent (XmlGraph graph, UserEvent event) {
-		this (graph);
+	private EfgEvent(XmlGraph graph, UserEvent event) {
+		this(graph);
 		if (!event.getType().equals("")) {
 			setType(event.getType());
 		}
@@ -130,7 +130,7 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.UserEvent#setWidget(it.slumdroid.droidmodels.model.WidgetState)
 	 */
-	public void setWidget (WidgetState widget) {
+	public void setWidget(WidgetState widget) {
 		if (!widget.getName().equals("")) {
 			setWidgetName (widget.getName());
 		}
@@ -197,7 +197,7 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	 * @param event the event
 	 * @return true, if successful
 	 */
-	public boolean equals (UserEvent event) {
+	public boolean equals(UserEvent event) {
 		return event.getType().equals(this.getType()) && event.getWidgetId().equals(this.getWidgetId()) && event.getValue().equals(this.getValue()); 
 	}
 
@@ -208,14 +208,14 @@ public class EfgEvent extends ElementWrapper implements UserEvent, Iterable<EfgE
 	 * @param event the event
 	 * @return the efg event
 	 */
-	public static EfgEvent fromUserEvent (XmlGraph graph, UserEvent event) {
-		return new EfgEvent (graph, event);
+	public static EfgEvent fromUserEvent(XmlGraph graph, UserEvent event) {
+		return new EfgEvent(graph, event);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.UserInteraction#setId(java.lang.String)
 	 */
-	public void setId (String id) {
+	public void setId(String id) {
 		getElement().setAttribute("id", id);
 	}
 

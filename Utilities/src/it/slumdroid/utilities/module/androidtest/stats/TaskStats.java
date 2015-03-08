@@ -73,7 +73,7 @@ public class TaskStats extends StatsReport {
 	 *
 	 * @param theTask the the task
 	 */
-	public void analyzeTask (Task theTask) {
+	public void analyzeTask(Task theTask) {
 		this.tasks++;
 		ActivityState state = theTask.getFinalTransition().getFinalActivity();
 		String text;
@@ -98,7 +98,7 @@ public class TaskStats extends StatsReport {
 	 * @param list the list
 	 * @return the string
 	 */
-	private String printList (List<String> list) {
+	private String printList(List<String> list) {
 		return ((list.size() > 0)?(TAB + TAB + "Tasks: " + expandList(list) + NEW_LINE):"");
 	}
 

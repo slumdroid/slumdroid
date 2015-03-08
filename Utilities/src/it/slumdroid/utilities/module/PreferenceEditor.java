@@ -50,9 +50,10 @@ public class PreferenceEditor {
 				prefs.put (PACKAGE, args[3]);
 				prefs.put (CLASS, args[4]);
 			}
-			else if (keyWord.equals("randomize")) {
+			if (keyWord.equals("randomize")) {
 				prefs.putLong(SEED, new Tools().newSeed(args[3]));
-			} else if (keyWord.equals("update")) {
+			} 
+			if (keyWord.equals("update")) {
 				prefs.put(args[3], args[4]);			
 			}
 			new Tools().saveNode (preferencesPath, prefs);

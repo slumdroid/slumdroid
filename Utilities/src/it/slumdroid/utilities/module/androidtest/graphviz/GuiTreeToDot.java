@@ -59,7 +59,7 @@ public class GuiTreeToDot {
 	 *
 	 * @param session the session
 	 */
-	public GuiTreeToDot (GuiTree session) {
+	public GuiTreeToDot(GuiTree session) {
 		this.session = session;
 		this.nodes = new ArrayList<Node>();
 		this.edges = new ArrayList<Edge>();
@@ -70,7 +70,7 @@ public class GuiTreeToDot {
 	 *
 	 * @return the dot
 	 */
-	public String getDot () {
+	public String getDot() {
 		boolean first = true;
 		for (Task theTask: this.session) {
 			Transition theTransition = theTask.getFinalTransition();
@@ -134,7 +134,7 @@ public class GuiTreeToDot {
 	 * @param state the state
 	 * @return the string
 	 */
-	private String createLabel (Node state) {
+	private String createLabel(Node state) {
 		String label = state.getLabel();
 		String id = state.getId();
 		if (label.equals(state.getId())) {
@@ -158,7 +158,7 @@ public class GuiTreeToDot {
 	 * @param id the id
 	 * @return true, if successful
 	 */
-	protected boolean abnormalState (String id) {
+	protected boolean abnormalState(String id) {
 		return id.equals(EXIT) || id.equals(CRASH) || id.equals(FAILURE);
 	}
 
@@ -168,7 +168,7 @@ public class GuiTreeToDot {
 	 * @param state the state
 	 * @return the node
 	 */
-	private Node getNode (ActivityState state) {
+	private Node getNode(ActivityState state) {
 		Node ret = new Node (state);
 		if (state.isCrash()) {
 			ret.setId(getCrashId());

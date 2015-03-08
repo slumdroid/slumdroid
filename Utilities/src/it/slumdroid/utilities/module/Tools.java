@@ -73,7 +73,7 @@ public class Tools {
 	 *
 	 * @param prefs the prefs
 	 */
-	public void cleanNode (Preferences prefs) {
+	public void cleanNode(Preferences prefs) {
 		try {
 			prefs.removeNode();
 		} catch (Exception e) {
@@ -87,7 +87,7 @@ public class Tools {
 	 * @param path the path
 	 * @return true, if successful
 	 */
-	public boolean loadNode (String path) {
+	public boolean loadNode(String path) {
 		InputStream is = null;
 		try {
 			is = new BufferedInputStream(new FileInputStream(path));
@@ -121,7 +121,7 @@ public class Tools {
 	 * @param seed the seed
 	 * @return the long
 	 */
-	public long newSeed (String seed) {
+	public long newSeed(String seed) {
 		Random Rs = new Random(Long.parseLong(seed));
 		Long generatedSeed = Rs.nextLong();
 		return generatedSeed;
@@ -421,7 +421,7 @@ public class Tools {
 	 * @throws TransformerFactoryConfigurationError the transformer factory configuration error
 	 * @throws TransformerException the transformer exception
 	 */
-	private String toXml (Element dom) throws TransformerFactoryConfigurationError, TransformerException {
+	private String toXml(Element dom) throws TransformerFactoryConfigurationError, TransformerException {
 		DOMSource theDom = new DOMSource(dom);
 		StringWriter output = new StringWriter();
 		Transformer t = TransformerFactory.newInstance().newTransformer();

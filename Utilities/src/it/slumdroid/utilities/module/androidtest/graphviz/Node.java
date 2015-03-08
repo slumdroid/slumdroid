@@ -40,7 +40,7 @@ public class Node {
 	 *
 	 * @param id the id
 	 */
-	public Node (String id) {
+	public Node(String id) {
 		setId(id);
 	}
 
@@ -49,7 +49,7 @@ public class Node {
 	 *
 	 * @param s the s
 	 */
-	public Node (ActivityState s) {
+	public Node(ActivityState s) {
 		this (s.getUniqueId());
 		setImage (s.getScreenshot());
 		setName (s.getName());

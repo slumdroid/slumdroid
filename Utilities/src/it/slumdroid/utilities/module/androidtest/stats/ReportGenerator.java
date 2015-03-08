@@ -155,7 +155,7 @@ public class ReportGenerator extends StatsReport {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.utilities.module.androidtest.stats.StatsReport#getReport()
 	 */
-	public String getReport () {
+	public String getReport() {
 		evaluate();
 		StringBuilder builder = new StringBuilder();
 		builder.append(this.taskReport + NEW_LINE);
@@ -175,7 +175,7 @@ public class ReportGenerator extends StatsReport {
 	 *
 	 * @param state the state
 	 */
-	private void countStates (ActivityState state) {
+	private void countStates(ActivityState state) {
 		this.activityStates.add(state.getId());
 		if (state.isFailure() 
 				|| state.isExit() 

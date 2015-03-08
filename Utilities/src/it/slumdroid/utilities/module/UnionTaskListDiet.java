@@ -100,7 +100,7 @@ public class UnionTaskListDiet {
 	 * @param path the path
 	 * @return the string
 	 */
-	private static String returnAlgorithm (String path) {
+	private static String returnAlgorithm(String path) {
 		prefs = Preferences.userRoot().node(TOOL);
 		new Tools().cleanNode (prefs);
 		prefs = Preferences.userRoot().node(TOOL);
