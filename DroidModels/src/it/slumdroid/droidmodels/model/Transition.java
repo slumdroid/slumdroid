@@ -33,55 +33,55 @@ public interface Transition extends Iterable<UserInput>, WrapperInterface {
 	 *
 	 * @param id the new id
 	 */
-	public void setId (String id);
+	public void setId(String id);
 
 	/**
 	 * Gets the start activity.
 	 *
 	 * @return the start activity
 	 */
-	public ActivityState getStartActivity ();
+	public ActivityState getStartActivity();
 
 	/**
 	 * Sets the start activity.
 	 *
 	 * @param theState the new start activity
 	 */
-	public void setStartActivity (ActivityState theState);
+	public void setStartActivity(ActivityState theState);
 
 	/**
 	 * Adds the input.
 	 *
 	 * @param theInput the the input
 	 */
-	public void addInput (UserInput theInput);
+	public void addInput(UserInput theInput);
 
 	/**
 	 * Gets the event.
 	 *
 	 * @return the event
 	 */
-	public UserEvent getEvent ();
+	public UserEvent getEvent();
 
 	/**
 	 * Sets the event.
 	 *
 	 * @param theEvent the new event
 	 */
-	public void setEvent (UserEvent theEvent);
+	public void setEvent(UserEvent theEvent);
 
 	/**
 	 * Gets the final activity.
 	 *
 	 * @return the final activity
 	 */
-	public ActivityState getFinalActivity ();
+	public ActivityState getFinalActivity();
 
 	/**
 	 * Sets the final activity.
 	 *
 	 * @param theState the new final activity
 	 */
-	public void setFinalActivity (ActivityState theState);
+	public void setFinalActivity(ActivityState theState);
 
 }

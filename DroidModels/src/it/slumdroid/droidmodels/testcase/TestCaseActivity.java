@@ -44,7 +44,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 *
 	 * @param element the element
 	 */
-	public TestCaseActivity (Element element) {
+	public TestCaseActivity(Element element) {
 		super(element);
 	}
 
@@ -139,8 +139,8 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 * @param tag the tag
 	 * @return the test case activity
 	 */
-	public static TestCaseActivity createActivity (Document dom, String tag) {
-		return new TestCaseActivity (dom.createElement(tag));		
+	public static TestCaseActivity createActivity(Document dom, String tag) {
+		return new TestCaseActivity(dom.createElement(tag));		
 	}
 
 	/**
@@ -149,8 +149,8 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 * @param dom the dom
 	 * @return the test case activity
 	 */
-	public static TestCaseActivity createActivity (Document dom) {
-		return createActivity (dom, getTag());
+	public static TestCaseActivity createActivity(Document dom) {
+		return createActivity(dom, getTag());
 	}
 
 	/**
@@ -159,8 +159,8 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 * @param session the session
 	 * @return the test case activity
 	 */
-	public static TestCaseActivity createActivity (GuiTree session) {
-		return createActivity (session.getDom());
+	public static TestCaseActivity createActivity(GuiTree session) {
+		return createActivity(session.getDom());
 	}
 
 	// The main purpose of this method is to create the start activity  
@@ -171,16 +171,16 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 * @param originalActivity the original activity
 	 * @return the test case activity
 	 */
-	public static TestCaseActivity createActivity (ActivityState originalActivity) {
+	public static TestCaseActivity createActivity(ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
-		TestCaseActivity newActivity = createActivity (dom);		
+		TestCaseActivity newActivity = createActivity(dom);		
 		return newActivity;
 	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
-	public TestCaseActivity clone () {
+	public TestCaseActivity clone() {
 		return createActivity(this);
 	}
 
@@ -200,7 +200,7 @@ public class TestCaseActivity extends ElementWrapper implements ActivityState {
 	 *
 	 * @return the tag
 	 */
-	public static String getTag () {
+	public static String getTag() {
 		return "STATE";
 	}
 

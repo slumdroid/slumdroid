@@ -35,7 +35,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	/**
 	 * Instantiates a new test case widget.
 	 */
-	public TestCaseWidget () {
+	public TestCaseWidget() {
 		super();
 	}
 
@@ -44,7 +44,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 *
 	 * @param element the element
 	 */
-	public TestCaseWidget (Element element) {
+	public TestCaseWidget(Element element) {
 		super(element);
 	}
 
@@ -73,7 +73,9 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#isAvailable()
 	 */
 	public boolean isAvailable() {
-		if (!hasAttribute("available")) return true;
+		if (!hasAttribute("available")) {
+			return true;
+		}
 		return (getAttribute("available").equals("true"));
 	}
 
@@ -81,7 +83,9 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#isClickable()
 	 */
 	public boolean isClickable() {
-		if (!hasAttribute("clickable")) return true;
+		if (!hasAttribute("clickable")) {
+			return true;
+		}
 		return (getAttribute("clickable").equals("true"));
 	}
 
@@ -89,7 +93,9 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#isLongClickable()
 	 */
 	public boolean isLongClickable() {
-		if (!hasAttribute("long_clickable")) return true;
+		if (!hasAttribute("long_clickable")) {
+			return true;
+		}
 		return (getAttribute("long_clickable").equals("true"));
 	}
 
@@ -97,7 +103,9 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @see it.slumdroid.droidmodels.model.WidgetState#getCount()
 	 */
 	public int getCount() {
-		if (!hasAttribute("count")) return 1;
+		if (!hasAttribute("count")) {
+			return 1;
+		}
 		return Integer.parseInt(getAttribute("count"));
 	}
 
@@ -128,7 +136,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setIndex(int)
 	 */
-	public void setIndex (int index) {
+	public void setIndex(int index) {
 		setAttribute("index", String.valueOf(index));
 	}
 
@@ -167,28 +175,28 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setValue(java.lang.String)
 	 */
-	public void setValue (String value) {
+	public void setValue(String value) {
 		setAttribute("value", value);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setAvailable(java.lang.String)
 	 */
-	public void setAvailable (String value) {
+	public void setAvailable(String value) {
 		setAttribute("available", value);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setClickable(java.lang.String)
 	 */
-	public void setClickable (String value) {
+	public void setClickable(String value) {
 		setAttribute("clickable", value);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#setLongClickable(java.lang.String)
 	 */
-	public void setLongClickable (String value) {
+	public void setLongClickable(String value) {
 		setAttribute("long_clickable", value);
 	}
 
@@ -227,10 +235,12 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @param name the name
 	 * @param type the type
 	 */
-	public void setIdNameType (String id, String name, String type) {
-		setId (id);
-		if (!name.equals("")) setName (name);
-		setType (type);
+	public void setIdNameType(String id, String name, String type) {
+		setId(id);
+		if (!name.equals("")) {
+			setName(name);
+		}
+		setType(type);
 	}
 
 	/**
@@ -239,8 +249,8 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @param dom the dom
 	 * @return the test case widget
 	 */
-	public static TestCaseWidget createWidget (Document dom) {
-		return new TestCaseWidget (dom.createElement(TAG));		
+	public static TestCaseWidget createWidget(Document dom) {
+		return new TestCaseWidget(dom.createElement(TAG));		
 	}
 
 	/**
@@ -249,8 +259,8 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 * @param session the session
 	 * @return the test case widget
 	 */
-	public static TestCaseWidget createWidget (GuiTree session) {
-		return createWidget (session.getDom());
+	public static TestCaseWidget createWidget(GuiTree session) {
+		return createWidget(session.getDom());
 	}
 
 	/* (non-Javadoc)
@@ -261,11 +271,21 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 		TestCaseWidget newOne = new TestCaseWidget(el);
 		newOne.setIdNameType(this.getId(), this.getName(), this.getType());
 		newOne.setSimpleType(this.getSimpleType());
-		if (!this.getTextType().equals("")) newOne.setTextType(this.getTextType());
-		if (!this.getAvailable().equals("")) newOne.setAvailable(this.getAvailable());
-		if (!this.getClickable().equals("")) newOne.setClickable(this.getClickable());
-		if (!this.getLongClickable().equals("")) newOne.setLongClickable(this.getLongClickable());
-		if (!this.getValue().equals("")) newOne.setValue(this.getValue());
+		if (!this.getTextType().equals("")) {
+			newOne.setTextType(this.getTextType());
+		}
+		if (!this.getAvailable().equals("")) {
+			newOne.setAvailable(this.getAvailable());
+		}
+		if (!this.getClickable().equals("")) {
+			newOne.setClickable(this.getClickable());
+		}
+		if (!this.getLongClickable().equals("")) {
+			newOne.setLongClickable(this.getLongClickable());
+		}
+		if (!this.getValue().equals("")) {
+			newOne.setValue(this.getValue());
+		}
 		if (this.getCount() != 1) {
 			newOne.setCount(this.getCount());
 		}
@@ -278,7 +298,7 @@ public class TestCaseWidget extends ElementWrapper implements WidgetState {
 	 *
 	 * @return the available
 	 */
-	protected String getAvailable () {
+	protected String getAvailable() {
 		return getAttribute("available");
 	}
 

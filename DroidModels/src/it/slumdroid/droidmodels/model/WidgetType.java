@@ -56,7 +56,7 @@ public class WidgetType {
 	 * @param name the name
 	 * @param value the value
 	 */
-	public WidgetType (int type, String name, String value) {
+	public WidgetType(int type, String name, String value) {
 		this.type = new Integer(type);
 		this.nameLowerCase = new String(name.toLowerCase());
 		this.valueLowerCase =  new String(value.toLowerCase());
@@ -67,7 +67,7 @@ public class WidgetType {
 	 *
 	 * @return the string
 	 */
-	public String convert () {
+	public String convert() {
 		String output = "";
 		if (isText()) {
 			output = "Text";
@@ -111,7 +111,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is text
 	 */
-	private boolean isText () {
+	private boolean isText() {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_TEXT) {
 			return false;
 		}
@@ -123,7 +123,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is number
 	 */
-	private boolean isNumber () {
+	private boolean isNumber() {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_NUMBER) {
 			return false;
 		}
@@ -135,7 +135,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is datetime
 	 */
-	private boolean isDatetime () {
+	private boolean isDatetime() {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_DATETIME) {
 			return false;
 		}
@@ -147,7 +147,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is phone
 	 */
-	private boolean isPhone () {
+	private boolean isPhone() {
 		if ((this.type & TYPE_MASK_CLASS) != TYPE_CLASS_PHONE) {
 			return false;
 		}
@@ -159,7 +159,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is text multiline
 	 */
-	private boolean isTextMultiline () {
+	private boolean isTextMultiline() {
 		if (!isText() 
 				|| ((this.type & TYPE_MASK_FLAGS) != TYPE_TEXT_FLAG_MULTI_LINE)
 				|| ((this.type & TYPE_MASK_FLAGS) != TYPE_TEXT_FLAG_IME_MULTI_LINE)) {
@@ -173,7 +173,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is text email address
 	 */
-	private boolean isTextEmailAddress () {
+	private boolean isTextEmailAddress() {
 		if (this.nameLowerCase.contains("e-mail")
 				|| this.nameLowerCase.contains("mail")
 				|| (this.valueLowerCase.contains("@") && this.valueLowerCase.contains(".")))
@@ -189,7 +189,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is text postal address
 	 */
-	private boolean isTextPostalAddress () {
+	private boolean isTextPostalAddress() {
 		if (!isText() || ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_POSTAL_ADDRESS)) {
 			return false;
 		}
@@ -201,7 +201,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is text uri
 	 */
-	private boolean isTextURI () {
+	private boolean isTextURI() {
 		if (this.valueLowerCase.contains("http")
 				|| this.valueLowerCase.contains("www")
 				|| this.nameLowerCase.contains("site")
@@ -219,7 +219,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is person name
 	 */
-	private boolean isPersonName () {
+	private boolean isPersonName() {
 		if (!isText() || ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_PERSON_NAME)) {
 			return false;
 		}
@@ -231,7 +231,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is password
 	 */
-	private boolean isPassword () {
+	private boolean isPassword() {
 		if (!isText() 
 				|| ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_PASSWORD)
 				|| ((this.type & TYPE_MASK_VARIATION) != TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) ) {
@@ -245,7 +245,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is number signed
 	 */
-	private boolean isNumberSigned () {
+	private boolean isNumberSigned() {
 		if (!isNumber() || ((this.type & TYPE_MASK_FLAGS) != TYPE_NUMBER_FLAG_SIGNED)) {
 			return false;
 		}
@@ -257,7 +257,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is number decimal
 	 */
-	private boolean isNumberDecimal () {
+	private boolean isNumberDecimal() {
 		if (!isNumber() || ((this.type & TYPE_MASK_FLAGS) != TYPE_NUMBER_FLAG_DECIMAL)) {
 			return false;
 		}
@@ -269,7 +269,7 @@ public class WidgetType {
 	 *
 	 * @return true, if is number password
 	 */
-	private boolean isNumberPassword () {
+	private boolean isNumberPassword() {
 		if (!isNumber() || ((this.type & TYPE_MASK_VARIATION) != TYPE_NUMBER_VARIATION_PASSWORD)) {
 			return false;
 		}

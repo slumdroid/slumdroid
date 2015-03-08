@@ -28,14 +28,14 @@ public interface WrapperInterface extends Cloneable {
 	 *
 	 * @param element the new element
 	 */
-	public void setElement (Element element);
+	public void setElement(Element element);
 
 	/**
 	 * Gets the element.
 	 *
 	 * @return the element
 	 */
-	public Element getElement ();
+	public Element getElement();
 
 	/**
 	 * Gets the wrapper.
@@ -43,6 +43,6 @@ public interface WrapperInterface extends Cloneable {
 	 * @param element the element
 	 * @return the wrapper
 	 */
-	public WrapperInterface getWrapper (Element element);
+	public WrapperInterface getWrapper(Element element);
 
 }

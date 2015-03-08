@@ -33,7 +33,7 @@ public interface UserInteraction extends WrapperInterface {
 	 *
 	 * @param type the new type
 	 */
-	public void setType (String type);
+	public void setType(String type);
 
 	/**
 	 * Gets the widget id.
@@ -47,7 +47,7 @@ public interface UserInteraction extends WrapperInterface {
 	 *
 	 * @param widgetId the new widget id
 	 */
-	public void setWidgetId (String widgetId);
+	public void setWidgetId(String widgetId);
 
 	/**
 	 * Gets the value.
@@ -61,7 +61,7 @@ public interface UserInteraction extends WrapperInterface {
 	 *
 	 * @param value the new value
 	 */
-	public void setValue (String value);
+	public void setValue(String value);
 
 	/**
 	 * Gets the id.
@@ -75,6 +75,6 @@ public interface UserInteraction extends WrapperInterface {
 	 *
 	 * @param id the new id
 	 */
-	public void setId (String id);
+	public void setId(String id);
 
 }

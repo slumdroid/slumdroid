@@ -37,8 +37,8 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 	 *
 	 * @param element the element
 	 */
-	public NodeListIterator (Element element) {
-		this (element.getChildNodes());
+	public NodeListIterator(Element element) {
+		this(element.getChildNodes());
 	}
 
 	/**
@@ -88,8 +88,9 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 	 * @return the items
 	 */
 	private NodeList getItems() {
-		if (this.items instanceof NodeList)
+		if (this.items instanceof NodeList) {
 			return this.items;
+		}
 		return null;
 	}
 
@@ -98,7 +99,7 @@ public class NodeListIterator implements Iterator<Element>, Iterable<Element> {
 	 *
 	 * @param list the new items
 	 */
-	private void setItems (NodeList list) {
+	private void setItems(NodeList list) {
 		this.items = list;
 		this.currentItem = 0;
 	}

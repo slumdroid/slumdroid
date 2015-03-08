@@ -41,7 +41,7 @@ public class FinalActivity extends TestCaseActivity {
 	 *
 	 * @return the tag
 	 */
-	public final static String getTag () {
+	public final static String getTag() {
 		return "FINAL_STATE";
 	}
 
@@ -51,8 +51,8 @@ public class FinalActivity extends TestCaseActivity {
 	 * @param session the session
 	 * @return the final activity
 	 */
-	public static FinalActivity createActivity (GuiTree session) {
-		return createActivity (session.getDom());
+	public static FinalActivity createActivity(GuiTree session) {
+		return createActivity(session.getDom());
 	}
 
 	/**
@@ -61,8 +61,8 @@ public class FinalActivity extends TestCaseActivity {
 	 * @param dom the dom
 	 * @return the final activity
 	 */
-	public static FinalActivity createActivity (Document dom) {
-		return createActivity (dom, getTag());
+	public static FinalActivity createActivity(Document dom) {
+		return createActivity(dom, getTag());
 	}
 
 	/**
@@ -72,8 +72,8 @@ public class FinalActivity extends TestCaseActivity {
 	 * @param tag the tag
 	 * @return the final activity
 	 */
-	public static FinalActivity createActivity (Document dom, String tag) {
-		return new FinalActivity (dom.createElement(tag));
+	public static FinalActivity createActivity(Document dom, String tag) {
+		return new FinalActivity(dom.createElement(tag));
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class FinalActivity extends TestCaseActivity {
 	 * @param originalActivity the original activity
 	 * @return the final activity
 	 */
-	public static FinalActivity createActivity (ActivityState originalActivity) {
+	public static FinalActivity createActivity(ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
-		FinalActivity newActivity = createActivity (dom);
+		FinalActivity newActivity = createActivity(dom);
 		if (!originalActivity.getName().equals("")) {
 			newActivity.setName(originalActivity.getName());
 		}
@@ -106,7 +106,7 @@ public class FinalActivity extends TestCaseActivity {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.testcase.TestCaseActivity#clone()
 	 */
-	public FinalActivity clone () {
+	public FinalActivity clone() {
 		return createActivity(this);
 	}
 

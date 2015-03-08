@@ -41,7 +41,7 @@ public class StartActivity extends TestCaseActivity {
 	 *
 	 * @return the tag
 	 */
-	public final static String getTag () {
+	public final static String getTag() {
 		return "START_STATE";
 	}
 
@@ -51,8 +51,8 @@ public class StartActivity extends TestCaseActivity {
 	 * @param session the session
 	 * @return the start activity
 	 */
-	public static StartActivity createActivity (GuiTree session) {
-		return createActivity (session.getDom());
+	public static StartActivity createActivity(GuiTree session) {
+		return createActivity(session.getDom());
 	}
 
 	/**
@@ -61,8 +61,8 @@ public class StartActivity extends TestCaseActivity {
 	 * @param dom the dom
 	 * @return the start activity
 	 */
-	public static StartActivity createActivity (Document dom) {
-		return createActivity (dom, getTag());
+	public static StartActivity createActivity(Document dom) {
+		return createActivity(dom, getTag());
 	}
 
 	/**
@@ -72,8 +72,8 @@ public class StartActivity extends TestCaseActivity {
 	 * @param tag the tag
 	 * @return the start activity
 	 */
-	public static StartActivity createActivity (Document dom, String tag) {
-		return new StartActivity (dom.createElement(tag));		
+	public static StartActivity createActivity(Document dom, String tag) {
+		return new StartActivity(dom.createElement(tag));		
 	}
 
 	/**
@@ -82,9 +82,9 @@ public class StartActivity extends TestCaseActivity {
 	 * @param originalActivity the original activity
 	 * @return the start activity
 	 */
-	public static StartActivity createActivity (ActivityState originalActivity) {
+	public static StartActivity createActivity(ActivityState originalActivity) {
 		Document dom = originalActivity.getElement().getOwnerDocument();
-		StartActivity newActivity = createActivity (dom);
+		StartActivity newActivity = createActivity(dom);
 		if (!originalActivity.getName().equals("")) {
 			newActivity.setName(originalActivity.getName());
 		}
@@ -106,7 +106,7 @@ public class StartActivity extends TestCaseActivity {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.testcase.TestCaseActivity#clone()
 	 */
-	public StartActivity clone () {
+	public StartActivity clone() {
 		return createActivity(this);
 	}
 

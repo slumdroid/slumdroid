@@ -37,7 +37,7 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	/**
 	 * Instantiates a new test case input.
 	 */
-	public TestCaseInput () {
+	public TestCaseInput() {
 		super();
 	}
 
@@ -46,8 +46,8 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	 *
 	 * @param element the element
 	 */
-	public TestCaseInput (Element element) {
-		super (element);
+	public TestCaseInput(Element element) {
+		super(element);
 	}
 
 	/**
@@ -55,8 +55,8 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	 *
 	 * @param graph the graph
 	 */
-	public TestCaseInput (XmlGraph graph) {
-		super (graph, TAG);
+	public TestCaseInput(XmlGraph graph) {
+		super(graph, TAG);
 	}
 
 	/**
@@ -64,15 +64,15 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	 *
 	 * @param dom the dom
 	 */
-	public TestCaseInput (Document dom) {
-		super (dom, TAG);
+	public TestCaseInput(Document dom) {
+		super(dom, TAG);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WrapperInterface#getWrapper(org.w3c.dom.Element)
 	 */
 	public WrapperInterface getWrapper(Element element) {
-		return new TestCaseInput (element);
+		return new TestCaseInput(element);
 	}
 
 	/* (non-Javadoc)
@@ -111,21 +111,21 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.UserInteraction#setType(java.lang.String)
 	 */
-	public void setType (String type) {
+	public void setType(String type) {
 		setAttribute("type", type);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.UserInteraction#setValue(java.lang.String)
 	 */
-	public void setValue (String value) {
+	public void setValue(String value) {
 		setAttribute("value", value);
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.UserInteraction#setId(java.lang.String)
 	 */
-	public void setId (String id) {
+	public void setId(String id) {
 		setAttribute("id", id);
 	}
 
@@ -159,7 +159,7 @@ public class TestCaseInput extends TestCaseInteraction implements UserInput {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
-	public TestCaseInput clone () {
+	public TestCaseInput clone() {
 		TestCaseInput i = createInput(this.getElement().getOwnerDocument());
 		i.setType(this.getType());
 		if (!this.getType().equals(CLICK)){

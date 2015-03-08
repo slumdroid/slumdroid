@@ -42,7 +42,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	/**
 	 * Instantiates a new test case transition.
 	 */
-	public TestCaseTransition () {
+	public TestCaseTransition() {
 		super();
 	}
 
@@ -51,7 +51,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	 *
 	 * @param element the element
 	 */
-	public TestCaseTransition (Element element)	{
+	public TestCaseTransition(Element element)	{
 		super(element);
 	}
 
@@ -60,7 +60,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	 *
 	 * @param dom the dom
 	 */
-	public TestCaseTransition (Document dom) {
+	public TestCaseTransition(Document dom) {
 		super (dom, TAG);
 	}
 
@@ -69,7 +69,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	 *
 	 * @return the node list
 	 */
-	public NodeList eventProperties () {
+	public NodeList eventProperties() {
 		return getElement().getChildNodes();
 	}
 
@@ -84,13 +84,13 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	 * @see it.slumdroid.droidmodels.model.Transition#getStartActivity()
 	 */
 	public StartActivity getStartActivity() {
-		return new StartActivity ((Element) eventProperties().item(0));
+		return new StartActivity((Element) eventProperties().item(0));
 	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Transition#setStartActivity(it.slumdroid.droidmodels.model.ActivityState)
 	 */
-	public void setStartActivity (ActivityState theState) {
+	public void setStartActivity(ActivityState theState) {
 		getElement().replaceChild(theState.getElement(), getStartActivity().getElement());
 	}	
 
@@ -113,7 +113,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Transition#addInput(it.slumdroid.droidmodels.model.UserInput)
 	 */
-	public void addInput (UserInput theInput) {
+	public void addInput(UserInput theInput) {
 		eventProperties().item(1).appendChild(theInput.getElement());
 	}
 
@@ -127,7 +127,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Transition#setEvent(it.slumdroid.droidmodels.model.UserEvent)
 	 */
-	public void setEvent (UserEvent theEvent) {
+	public void setEvent(UserEvent theEvent) {
 		getElement().replaceChild(theEvent.getElement(), getEvent().getElement());
 	}
 
@@ -141,7 +141,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Transition#setFinalActivity(it.slumdroid.droidmodels.model.ActivityState)
 	 */
-	public void setFinalActivity (ActivityState theState) {
+	public void setFinalActivity(ActivityState theState) {
 		getElement().replaceChild(theState.getElement(), getFinalActivity().getElement());
 	}
 
@@ -155,7 +155,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.Transition#setId(java.lang.String)
 	 */
-	public void setId (String id) {
+	public void setId(String id) {
 		getElement().setAttribute("id_transition", id);
 	}
 
@@ -165,7 +165,7 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	 * @param dom the dom
 	 * @return the test case transition
 	 */
-	public static TestCaseTransition createTransition (Document dom) {
+	public static TestCaseTransition createTransition(Document dom) {
 		TestCaseTransition transition = new TestCaseTransition(dom);
 		StartActivity sa = StartActivity.createActivity(dom);
 		transition.appendChild(sa); 
@@ -181,8 +181,8 @@ public class TestCaseTransition extends ElementWrapper implements Transition {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
-	public TestCaseTransition clone () {
-		TestCaseTransition theTransition = createTransition (this.getElement().getOwnerDocument());
+	public TestCaseTransition clone() {
+		TestCaseTransition theTransition = createTransition(this.getElement().getOwnerDocument());
 		theTransition.setStartActivity(this.getStartActivity().clone());
 		for (UserInput input: this) {
 			theTransition.addInput (((TestCaseInput)input).clone());

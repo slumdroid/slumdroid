@@ -28,7 +28,7 @@ public interface Session extends Iterable<Task> {
 	 *
 	 * @return the date time
 	 */
-	public String getDateTime ();
+	public String getDateTime();
 
 	/**
 	 * Tasks.
@@ -49,14 +49,14 @@ public interface Session extends Iterable<Task> {
 	 *
 	 * @param theTask the the task
 	 */
-	public void addTask (Task theTask);
+	public void addTask(Task theTask);
 
 	/**
 	 * Removes the task.
 	 *
 	 * @param theTask the the task
 	 */
-	public void removeTask (Task theTask);
+	public void removeTask(Task theTask);
 
 	/**
 	 * Adds the failed task.
@@ -70,13 +70,13 @@ public interface Session extends Iterable<Task> {
 	 *
 	 * @param theTask the the task
 	 */
-	public void addCrashedTask (Task theTask);
+	public void addCrashedTask(Task theTask);
 
 	/**
 	 * Parses the.
 	 *
 	 * @param xml the xml
 	 */
-	public void parse (String xml);
+	public void parse(String xml);
 
 }
