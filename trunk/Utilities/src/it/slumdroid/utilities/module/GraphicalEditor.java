@@ -644,11 +644,13 @@ public class GraphicalEditor extends JFrame {
 				System.exit(NORMAL);
 			} else {
 				EventQueue.invokeLater(new Runnable() {
+					
 					@Override
 					public void run () {
 						GuiAnalyzer frame = new GuiAnalyzer(firstPath);
 						frame.setVisible(true);
 					}
+					
 				});
 				setVisible(false);
 			}

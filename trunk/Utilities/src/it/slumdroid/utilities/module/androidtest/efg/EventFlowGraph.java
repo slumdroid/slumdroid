@@ -31,7 +31,7 @@ public class EventFlowGraph extends XmlGraph {
 	 *
 	 * @throws ParserConfigurationException the parser configuration exception
 	 */
-	public EventFlowGraph () throws ParserConfigurationException {
+	public EventFlowGraph() throws ParserConfigurationException {
 		super ("eventtree.dtd","EFG");
 		this.efg = getBuilder().newDocument();
 		this.rootElement = this.efg.createElement("EFG");
@@ -46,7 +46,7 @@ public class EventFlowGraph extends XmlGraph {
 	 * @param key the key
 	 * @param value the value
 	 */
-	public void setAttribute (String key, String value) {
+	public void setAttribute(String key, String value) {
 		this.rootElement.setAttribute(key, value);
 	}
 
@@ -55,7 +55,7 @@ public class EventFlowGraph extends XmlGraph {
 	 *
 	 * @param value the new date time
 	 */
-	public void setDateTime (String value) {
+	public void setDateTime(String value) {
 		setAttribute ("session_date_time",value);
 	}
 
@@ -66,7 +66,7 @@ public class EventFlowGraph extends XmlGraph {
 	 * @return the event flow graph
 	 * @throws ParserConfigurationException the parser configuration exception
 	 */
-	public static EventFlowGraph fromSession (GuiTree guiTree) throws ParserConfigurationException {
+	public static EventFlowGraph fromSession(GuiTree guiTree) throws ParserConfigurationException {
 		EventFlowGraph efg = new EventFlowGraph();
 		efg.setDateTime(guiTree.getDateTime());		
 
@@ -82,7 +82,7 @@ public class EventFlowGraph extends XmlGraph {
 	 *
 	 * @param task the task
 	 */
-	public void addTrace (Task task) {
+	public void addTrace(Task task) {
 		resetNavigator();
 		for (Transition transition: task) {
 			addEvent(transition.getEvent(),true);		
@@ -97,7 +97,7 @@ public class EventFlowGraph extends XmlGraph {
 	 * @param traverse the traverse
 	 * @return true, if successful
 	 */
-	private boolean addEvent (UserEvent newEvent, boolean traverse) {
+	private boolean addEvent(UserEvent newEvent, boolean traverse) {
 		if (traverse) {
 			EfgEvent oldEvent = hasEvent(newEvent);
 			if (oldEvent==null) {
@@ -118,7 +118,7 @@ public class EventFlowGraph extends XmlGraph {
 	 * @param newEvent the new event
 	 * @return true, if successful
 	 */
-	protected boolean addEvent (UserEvent newEvent) {
+	protected boolean addEvent(UserEvent newEvent) {
 		EfgEvent event = EfgEvent.fromUserEvent (this, newEvent);
 		event.setId(newEvent.getId());
 		getNavigator().appendChild(event.getElement());
@@ -133,7 +133,7 @@ public class EventFlowGraph extends XmlGraph {
 	 * @param event the event
 	 * @return the efg event
 	 */
-	public EfgEvent hasEvent (UserEvent event) {
+	public EfgEvent hasEvent(UserEvent event) {
 		for (EfgEvent candidate: new EfgEvent (getNavigator())) {
 			if (candidate.getId().equals(event.getId())) {
 				return candidate;
@@ -145,7 +145,7 @@ public class EventFlowGraph extends XmlGraph {
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.xml.XmlGraph#getDom()
 	 */
-	public Document getDom () {
+	public Document getDom() {
 		return this.efg;
 	}
 
@@ -163,7 +163,7 @@ public class EventFlowGraph extends XmlGraph {
 	 *
 	 * @param element the new navigator
 	 */
-	public void setNavigator (Element element) {
+	public void setNavigator(Element element) {
 		this.navigator = element;
 	}
 
@@ -172,14 +172,14 @@ public class EventFlowGraph extends XmlGraph {
 	 *
 	 * @param efg the new navigator
 	 */
-	public void setNavigator (EfgEvent efg) {
+	public void setNavigator(EfgEvent efg) {
 		this.navigator = efg.getElement();
 	}
 
 	/**
 	 * Reset navigator.
 	 */
-	public void resetNavigator () {
+	public void resetNavigator() {
 		this.navigator = this.rootElement;
 	}
 

@@ -38,7 +38,7 @@ public abstract class StatsReport {
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
-	public String toString () {
+	public String toString() {
 		return getReport();
 	}
 
@@ -49,7 +49,7 @@ public abstract class StatsReport {
 	 * @param value2 the value2
 	 * @return the int
 	 */
-	public static int max (int value1, Integer value2) {
+	public static int max(int value1, Integer value2) {
 		if (value2 == null) {
 			return value1;
 		}
@@ -62,8 +62,8 @@ public abstract class StatsReport {
 	 * @param map the map
 	 * @return the int
 	 */
-	public static int sum (Map<String,Integer> map) {
-		return sum (map.values());
+	public static int sum(Map<String,Integer> map) {
+		return sum(map.values());
 	}
 
 	/**
@@ -72,7 +72,7 @@ public abstract class StatsReport {
 	 * @param collection the collection
 	 * @return the int
 	 */
-	public static int sum (Collection<Integer> collection) {
+	public static int sum(Collection<Integer> collection) {
 		int sum = 0;
 		for (Integer i: collection) {
 			sum+=i;
@@ -86,7 +86,7 @@ public abstract class StatsReport {
 	 * @param table the table
 	 * @param key the key
 	 */
-	public static void inc (Map<String,Integer> table, String key) {
+	public static void inc(Map<String,Integer> table, String key) {
 		if (table.containsKey(key)) {
 			table.put(key, table.get(key) + 1);
 		} else {
@@ -100,7 +100,7 @@ public abstract class StatsReport {
 	 * @param map the map
 	 * @return the string
 	 */
-	public static String expandMap (Map<String,Integer> map) {
+	public static String expandMap(Map<String,Integer> map) {
 		StringBuilder builder = new StringBuilder();
 		for (Map.Entry<String,Integer> entry: map.entrySet()) {
 			builder.append(TAB + TAB + entry.getKey().substring(0,1).toUpperCase() 
@@ -116,7 +116,7 @@ public abstract class StatsReport {
 	 * @param list the list
 	 * @return the string
 	 */
-	public static String expandList (List<String> list) {
+	public static String expandList(List<String> list) {
 		StringBuilder builder = new StringBuilder();
 		String separator = new String();
 		for (String item: list) {

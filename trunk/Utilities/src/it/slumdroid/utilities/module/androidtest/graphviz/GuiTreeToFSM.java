@@ -47,7 +47,7 @@ public class GuiTreeToFSM {
 	 *
 	 * @param session the session
 	 */
-	public GuiTreeToFSM (GuiTree session) {
+	public GuiTreeToFSM(GuiTree session) {
 		this.session = session;
 		this.nodes = new TreeSet<String>();
 	}
@@ -57,7 +57,7 @@ public class GuiTreeToFSM {
 	 *
 	 * @return the dot
 	 */
-	public String getDot () {
+	public String getDot() {
 		ArrayList<String> insertedEvents = new ArrayList<String>();
 		StringBuilder dot = new StringBuilder ();
 		dot.append("digraph finite_state_machine {" + BREAK);

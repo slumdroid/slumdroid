@@ -39,7 +39,7 @@ public class ImagePanel extends JPanel {
 	 *
 	 * @param image the image
 	 */
-	public ImagePanel (String image) {
+	public ImagePanel(String image) {
 		this(new ImageIcon(image).getImage());
 	}
 
@@ -48,7 +48,7 @@ public class ImagePanel extends JPanel {
 	 *
 	 * @param image the image
 	 */
-	public ImagePanel (Image image) {
+	public ImagePanel(Image image) {
 		this.image = image;
 		Dimension size = new Dimension(image.getWidth(null), image.getHeight(null));
 		setPreferredSize(size);
@@ -62,7 +62,7 @@ public class ImagePanel extends JPanel {
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
 	@Override
-	public void paintComponent (Graphics graph) {
+	public void paintComponent(Graphics graph) {
 		graph.drawImage(image, 0, 0, null);
 	}
 

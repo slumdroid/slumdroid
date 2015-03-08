@@ -50,7 +50,7 @@ public class ProcessGuiTree {
 	 *
 	 * @param inputFileName the input file name
 	 */
-	public ProcessGuiTree (String inputFileName) {
+	public ProcessGuiTree(String inputFileName) {
 		try {
 			this.guiTree = GuiTree.fromXml(new File(inputFileName));
 			this.Widgets = new HashMap<String, WidgetState>();
@@ -67,7 +67,7 @@ public class ProcessGuiTree {
 	 *
 	 * @throws Exception the exception
 	 */
-	private void processFile () throws Exception {
+	private void processFile() throws Exception {
 		try {
 			for (Task task: this.guiTree) {
 				for (Transition transition: task) {
@@ -112,7 +112,7 @@ public class ProcessGuiTree {
 	 *
 	 * @return the widgets
 	 */
-	public HashMap<String, WidgetState> getWidgets () {
+	public HashMap<String, WidgetState> getWidgets() {
 		return Widgets;
 	}
 
@@ -121,7 +121,7 @@ public class ProcessGuiTree {
 	 *
 	 * @return the screens
 	 */
-	public HashMap<String, String> getScreens () {
+	public HashMap<String, String> getScreens() {
 		return Screens;  
 	}
 
@@ -130,7 +130,7 @@ public class ProcessGuiTree {
 	 *
 	 * @return the interactions
 	 */
-	public HashMap<String, String> getInteractions () {
+	public HashMap<String, String> getInteractions() {
 		return Interactions;  
 	}
 

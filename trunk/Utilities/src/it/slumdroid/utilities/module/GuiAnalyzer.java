@@ -124,7 +124,7 @@ public class GuiAnalyzer extends JFrame {
 	/**
 	 * Instantiates a new gui analyzer.
 	 */
-	public GuiAnalyzer () {
+	public GuiAnalyzer() {
 		setResizable(false);
 		initComponents();
 		new FileDrop (null, jPanelWidgets, new FileDrop.Listener() {
@@ -144,7 +144,7 @@ public class GuiAnalyzer extends JFrame {
 	 *
 	 * @param expPath the exp path
 	 */
-	public GuiAnalyzer (String expPath) {
+	public GuiAnalyzer(String expPath) {
 		this.firstPath = new String(expPath);
 		setResizable(false);
 		initComponents();
@@ -301,7 +301,7 @@ public class GuiAnalyzer extends JFrame {
 	/**
 	 * Reset all.
 	 */
-	private void resetAll () {
+	private void resetAll() {
 		tabelModel = (DefaultTableModel) jTableInfo.getModel();
 		tabelModel.setRowCount(0);
 		tabelModel.setColumnCount(0);
@@ -310,7 +310,7 @@ public class GuiAnalyzer extends JFrame {
 	/**
 	 * Change widget info.
 	 */
-	private void changeWidgetInfo () {
+	private void changeWidgetInfo() {
 		int row = jTableInfo.getSelectedRow();
 		Object value = ((JButton) jTableInfo.getValueAt(row, 8)).getText();
 		addImage(currentDirectory + screenshotsDirectory + value);
@@ -319,7 +319,7 @@ public class GuiAnalyzer extends JFrame {
 	/**
 	 * First image.
 	 */
-	private void firstImage () {
+	private void firstImage() {
 		if (processGuiTree.getNumWidgets() != 0) {
 			Object value = ((JButton) jTableInfo.getValueAt(0, 8)).getText();
 			addImage(currentDirectory + screenshotsDirectory + value);	
@@ -331,7 +331,7 @@ public class GuiAnalyzer extends JFrame {
 	 *
 	 * @param image the image
 	 */
-	private void addImage (String image) {
+	private void addImage(String image) {
 		try{
 			jPanelWidgets.remove(jPanelImage);
 		}catch (Exception e){
@@ -347,7 +347,7 @@ public class GuiAnalyzer extends JFrame {
 	/**
 	 * Open.
 	 */
-	private void open () {
+	private void open() {
 		JFileChooser toLoad = new JFileChooser();
 		toLoad.setFileFilter(new FileNameExtensionFilter("XML GUI Tree", "xml"));
 		toLoad.setCurrentDirectory(new File(System.getProperty("user.dir")));

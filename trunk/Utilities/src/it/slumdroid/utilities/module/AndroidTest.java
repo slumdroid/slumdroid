@@ -60,7 +60,7 @@ public class AndroidTest  {
 	 *
 	 * @param inputPath the input path
 	 */
-	public AndroidTest (String inputPath) {
+	public AndroidTest(String inputPath) {
 		if (!inputPath.equals("")) {
 
 			// Inputs

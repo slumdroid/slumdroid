@@ -37,7 +37,7 @@ public class GuiTreeToEfgDot {
 	 *
 	 * @param efg the efg
 	 */
-	public GuiTreeToEfgDot (EventFlowGraph efg) {
+	public GuiTreeToEfgDot(EventFlowGraph efg) {
 		this.efg = efg.getDom();
 		this.edges = new ArrayList<String>();
 		this.nodes = new HashMap<String,String>();
@@ -46,7 +46,7 @@ public class GuiTreeToEfgDot {
 	/**
 	 * Extract edges.
 	 */
-	public void extractEdges () {
+	public void extractEdges() {
 		Element efg = (Element) this.efg.getChildNodes().item(0);
 		this.extractEdges (efg);
 	}
@@ -56,7 +56,7 @@ public class GuiTreeToEfgDot {
 	 *
 	 * @param event the event
 	 */
-	private void extractEdges (Element event) {
+	private void extractEdges(Element event) {
 		String parentName = event.getAttribute("id");
 		for (Element element: new NodeListIterator (event)) {
 			String transition = parentName + " -> " + element.getAttribute("id");
@@ -92,7 +92,7 @@ public class GuiTreeToEfgDot {
 	 *
 	 * @return the dot
 	 */
-	public String getDot () {		
+	public String getDot() {		
 		StringBuilder dot = new StringBuilder ();
 		dot.append("digraph EFG {" + NEW_LINE);
 		extractEdges();

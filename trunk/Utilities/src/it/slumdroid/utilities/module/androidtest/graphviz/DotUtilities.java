@@ -33,7 +33,7 @@ public class DotUtilities {
 	 * @param event the event
 	 * @return the caption
 	 */
-	public static String getCaption (UserEvent event) {
+	public static String getCaption(UserEvent event) {
 		String type = event.getType();
 		String target = event.getWidgetName();
 		boolean special = event.getWidgetType().equals("");
@@ -60,7 +60,7 @@ public class DotUtilities {
 	 * @param string the string
 	 * @return the string
 	 */
-	public static String escapeDot (String string) {
+	public static String escapeDot(String string) {
 		if (string == null) {
 			return null;
 		}
@@ -134,8 +134,8 @@ public class DotUtilities {
 	 * @param xml the xml
 	 * @return the string
 	 */
-	public static String exportToDot (GuiTree xml) {
-		return new GuiTreeToDot (xml).getDot();
+	public static String exportToDot(GuiTree xml) {
+		return new GuiTreeToDot(xml).getDot();
 	}
 
 	/**
@@ -144,8 +144,8 @@ public class DotUtilities {
 	 * @param xml the xml
 	 * @return the string
 	 */
-	public static String exportToFsm (GuiTree xml) {
-		return new GuiTreeToFSM (xml).getDot();
+	public static String exportToFsm(GuiTree xml) {
+		return new GuiTreeToFSM(xml).getDot();
 	}
 
 	/**
@@ -154,8 +154,8 @@ public class DotUtilities {
 	 * @param efg the efg
 	 * @return the string
 	 */
-	public static String exportToEfg (EventFlowGraph efg) {
-		return new GuiTreeToEfgDot (efg).getDot();
+	public static String exportToEfg(EventFlowGraph efg) {
+		return new GuiTreeToEfgDot(efg).getDot();
 	}
 
 }

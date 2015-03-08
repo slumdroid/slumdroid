@@ -53,7 +53,7 @@ public class InteractionStats extends StatsReport {
 	/**
 	 * Instantiates a new interaction stats.
 	 */
-	public InteractionStats () {
+	public InteractionStats() {
 		this.events = 0;
 		this.inputs = 0;
 		this.diffEvents = new HashSet<String>();
@@ -79,7 +79,7 @@ public class InteractionStats extends StatsReport {
 	 *
 	 * @param event the event
 	 */
-	private void addEvent (UserEvent event) {
+	private void addEvent(UserEvent event) {
 		if (!this.diffEvents.contains(event.getId())) {
 			inc (this.eventTypes, event.getType());
 		}
@@ -92,7 +92,7 @@ public class InteractionStats extends StatsReport {
 	 *
 	 * @param input the input
 	 */
-	private void addInput (UserInput input) {
+	private void addInput(UserInput input) {
 		if (!this.diffInputs.contains(input.getId())) {
 			inc (this.inputTypes, input.getType());
 		}
