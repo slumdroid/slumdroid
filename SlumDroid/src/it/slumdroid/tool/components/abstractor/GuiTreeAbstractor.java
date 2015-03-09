@@ -357,6 +357,21 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	public ActivityState importState(Element fromXml) {
 		return getTheSession().importState(fromXml);
 	}
+	
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.Abstractor#createTransition(it.slumdroid.droidmodels.model.ActivityState, it.slumdroid.droidmodels.model.UserEvent)
+	 */
+	public Transition createTransition(ActivityState start, UserEvent event) {
+		Transition transition = TestCaseTransition.createTransition(start.getElement().getOwnerDocument());
+		try {
+			setStartActivity(transition, StartActivity.createActivity(start));
+			transition.setEvent(event);
+		}
+		catch (DOMException e) {
+			e.printStackTrace();
+		}
+		return transition;
+	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Abstractor#createTransition(it.slumdroid.droidmodels.model.ActivityState, java.util.Collection, it.slumdroid.droidmodels.model.UserEvent)
