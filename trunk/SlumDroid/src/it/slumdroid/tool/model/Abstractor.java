@@ -57,19 +57,19 @@ public interface Abstractor {
 	/**
 	 * Creates the event.
 	 *
+	 * @param type the type
+	 * @return the user event
+	 */
+	public UserEvent createEvent(String type);
+	
+	/**
+	 * Creates the event.
+	 *
 	 * @param target the target
 	 * @param type the type
 	 * @return the user event
 	 */
 	public UserEvent createEvent(WidgetState target, String type);
-
-	/**
-	 * Creates the event.
-	 *
-	 * @param type the type
-	 * @return the user event
-	 */
-	public UserEvent createEvent(String type);
 
 	/**
 	 * Creates the input.
@@ -84,11 +84,20 @@ public interface Abstractor {
 	/**
 	 * Creates the task.
 	 *
-	 * @param prototype the prototype
-	 * @param appendix the appendix
+	 * @param theTask the task
+	 * @param theTransition the transition
 	 * @return the task
 	 */
-	public Task createTask(Task prototype, Transition appendix);
+	public Task createTask(Task theTask, Transition theTransition);
+	
+	/**
+	 * Creates the transition.
+	 *
+	 * @param theState the state
+	 * @param event the event
+	 * @return the transition
+	 */
+	public Transition createTransition(ActivityState theState, UserEvent event);
 
 	/**
 	 * Creates the transition.

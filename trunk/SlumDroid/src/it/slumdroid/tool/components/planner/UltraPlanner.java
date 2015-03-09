@@ -40,7 +40,6 @@ import it.slumdroid.tool.utilities.AllPassFilter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 
 // TODO: Auto-generated Javadoc
@@ -153,7 +152,7 @@ public class UltraPlanner {
 		Transition transition = getAbstractor().createTransition(theState, inputs, theEvent);                          
 		thePlanner.addTransition(transition);
 		for(int widget = 0; widget < numWidgets; widget++) {                                                                  
-			for(int inPut = 1; inPut <= macroInputs.get(widget).size() - 1; inPut++) {
+			for(int inPut = 1; inPut < macroInputs.get(widget).size(); inPut++) {
 				Collection<UserInput> combinations = new ArrayList<UserInput>();
 				for(int component = 0; component < numWidgets; component++) {
 					if(component == widget) {
@@ -165,10 +164,10 @@ public class UltraPlanner {
 					}
 					UserInput input = macroInputs.get(component).get(0);
 					if (includeInput(input, theEvent)) {
-						combinations.add(((TestCaseInput) input).clone());
+						combinations.add(((TestCaseInput)input).clone());
 					}
 				}
-				transition = getAbstractor().createTransition(theState, combinations,((TestCaseEvent) theEvent).clone());                                        
+				transition = getAbstractor().createTransition(theState, combinations,((TestCaseEvent)theEvent).clone());                                        
 				thePlanner.addTransition(transition);                           
 			}                                                               
 		}
@@ -218,21 +217,21 @@ public class UltraPlanner {
 		Transition transition;
 		if (isIncludeMenu()) {
 			event = getAbstractor().createEvent(PRESS_MENU);
-			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createTransition(theState, event);
 			planner.addTransition(transition);
 		}
 		if (isIncludeAction()) {
 			event = getAbstractor().createEvent(PRESS_ACTION);
-			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createTransition(theState, event);
 			planner.addTransition(transition);
 		}
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(CHANGE_ORIENTATION);
-			transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
+			transition = getAbstractor().createTransition(theState, event);
 			planner.addTransition(transition);
 		}
 		event = getAbstractor().createEvent(PRESS_BACK);
-		transition = getAbstractor().createTransition(theState, new HashSet<UserInput>(), event);
+		transition = getAbstractor().createTransition(theState, event);
 		planner.addTransition(transition);
 		return planner;
 	}
