@@ -89,11 +89,20 @@ public class Automation implements Executor {
 	public void execute(Task theTask) {
 		Log.i (TAG, "Playing Task " + theTask.getId());
 		for (Transition transition: theTask) {
-			for (UserInput input: transition) {
-				setInput(input);
-			}
-			fireEvent (transition.getEvent());
+			process(transition);
 		}
+	}
+	
+	/**
+	 * Process.
+	 *
+	 * @param theTransition the transition
+	 */
+	private void process(Transition theTransition) {
+		for (UserInput input: theTransition) {
+			setInput(input);
+		}
+		fireEvent (theTransition.getEvent());
 	}
 
 	/* (non-Javadoc)
