@@ -82,18 +82,17 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectListItem(ListView list, String value) {
-		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
-			if (item < list.getChildCount()) {
+			if (Integer.valueOf(value) < list.getChildCount()) {
 				getRobotium().scrollListToLine(list, 0);
-				getRobotium().clickInList(item);
+				getRobotium().clickInList(Integer.valueOf(value));
 			} else {
-				getRobotium().scrollListToLine(list, item - 1);
+				getRobotium().scrollListToLine(list, Integer.valueOf(value) - 1);
 				getRobotium().sendKey(Solo.DOWN);
 				click(list.getSelectedView());	
 			}
 		} else {
-			getRobotium().clickInList(item);	
+			getRobotium().clickInList(Integer.valueOf(value));	
 		}
 	}
 
@@ -104,18 +103,17 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectLongListItem(ListView list, String value) {
-		int item = Integer.valueOf(value);
 		if (list.getCount() != list.getChildCount()) {
-			if (item < list.getChildCount()) {
+			if (Integer.valueOf(value) < list.getChildCount()) {
 				getRobotium().scrollListToLine(list, 0);
-				getRobotium().clickLongInList(item);	
+				getRobotium().clickLongInList(Integer.valueOf(value));	
 			} else {
-				getRobotium().scrollListToLine(list, item - 1);
+				getRobotium().scrollListToLine(list, Integer.valueOf(value) - 1);
 				getRobotium().sendKey(Solo.DOWN);
 				longClick(list.getSelectedView());
 			}
 		} else {
-			getRobotium().clickLongInList(item);	
+			getRobotium().clickLongInList(Integer.valueOf(value));	
 		}
 	}
 
@@ -128,12 +126,11 @@ public class DroidExecutor {
 	public void selectSpinnerItem(Spinner spinner, String value) {
 		click(spinner);
 		sync();
-		int item = Integer.valueOf(value);
 		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
 		if (getType(list).endsWith("DropDownListView")) {
 			getRobotium().scrollListToLine(list, 0);
 			sync();
-			for (int row = 0; row < item; row++) {
+			for (int row = 0; row < Integer.valueOf(value); row++) {
 				getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 			}
 			getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
@@ -186,8 +183,7 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectRadioItem(RadioGroup radioGroup, String value) {
-		int item = Integer.valueOf(value);
-		click(radioGroup.getChildAt(item - 1));
+		click(radioGroup.getChildAt(Integer.valueOf(value) - 1));
 	}
 
 	/**
@@ -203,26 +199,21 @@ public class DroidExecutor {
 	/**
 	 * Sets the progress bar.
 	 *
-	 * @param view the view
+	 * @param progressBar the progress bar
 	 * @param value the value
 	 */
-	public void setProgressBar(View view, String value) {
-		ProgressBar progressBar = (ProgressBar)view; 
+	public void setProgressBar(ProgressBar progressBar, String value) { 
 		getRobotium().setProgressBar(progressBar, Integer.parseInt(value));
 	}
 
 	/**
 	 * Swap tab.
 	 *
-	 * @param view the view
+	 * @param tabHost the tab host
 	 * @param value the value
 	 */
-	public void swapTab(View view, String value) {
-		TabHost tabHost = (TabHost)view; 
-		int item = Integer.valueOf(value);
-		int count = tabHost.getTabWidget().getTabCount();
-		int index = Math.min(count, Math.max(1, item)) - 1;
-		click(tabHost.getTabWidget().getChildAt(index));
+	public void swapTab(TabHost tabHost, String value) {
+		click(tabHost.getTabWidget().getChildAt(Integer.valueOf(value) - 1));
 	}
 
 	/**

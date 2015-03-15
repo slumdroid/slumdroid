@@ -52,6 +52,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TabHost;
 
 import com.robotium.solo.Solo;
 
@@ -144,7 +145,7 @@ public class Automation implements Executor {
 			return;
 		}
 		if (interactionType.equals(SET_BAR)) {
-			getExecutor().setProgressBar(view, value);
+			getExecutor().setProgressBar((ProgressBar)view, value);
 			return;
 		}
 	}
@@ -250,7 +251,7 @@ public class Automation implements Executor {
 			return;
 		}
 		if (interactionType.equals(SWAP_TAB)) {
-			getExecutor().swapTab(view, value);
+			getExecutor().swapTab((TabHost)view, value);
 			return;
 		}
 	}
