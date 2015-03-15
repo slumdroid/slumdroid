@@ -15,13 +15,14 @@
 
 package it.slumdroid.tool.components.scheduler;
 
-import static it.slumdroid.tool.Resources.SchedulerAlgorithm.DEPTH_FIRST;
+import static it.slumdroid.tool.Resources.RANDOM_SEED;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.tool.Resources.SchedulerAlgorithm;
 import it.slumdroid.tool.model.TaskScheduler;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -51,9 +52,13 @@ public class TrivialScheduler implements TaskScheduler {
 		if (!hasMore()) {
 			return null;
 		}
-		if (this.algorithm.equals(DEPTH_FIRST)) {
+		switch (this.algorithm) {
+		case DEPTH_FIRST:
 			return lastTask();
-		} else {
+		case RANDOM_FIRST:
+		 // return randomTask(); 
+		case BREADTH_FIRST:
+		default:
 			return firstTask();
 		}
 	}
@@ -112,7 +117,7 @@ public class TrivialScheduler implements TaskScheduler {
 	/**
 	 * First task.
 	 *
-	 * @return the task
+	 * @return the first task
 	 */
 	public Task firstTask() {
 		return this.tasks.get(0);
@@ -121,10 +126,19 @@ public class TrivialScheduler implements TaskScheduler {
 	/**
 	 * Last task.
 	 *
-	 * @return the task
+	 * @return the last task
 	 */
 	public Task lastTask() {
 		return this.tasks.get(this.tasks.size() - 1);
+	}
+	
+	/**
+	 * Random task.
+	 *
+	 * @return the random task
+	 */
+	public Task randomTask() {
+		return this.tasks.get(new Random(RANDOM_SEED).nextInt(this.tasks.size()));
 	}
 
 }

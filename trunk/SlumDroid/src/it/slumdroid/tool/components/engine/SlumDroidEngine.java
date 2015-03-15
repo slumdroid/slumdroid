@@ -57,10 +57,10 @@ import android.view.KeyEvent;
  * The Class SystematicEngine.
  */
 @SuppressWarnings("rawtypes")
-public class SystematicEngine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
+public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
 
 	/** The Constant ACTOR_NAME. */
-	public final static String ACTOR_NAME = "SystematicEngine";
+	public final static String ACTOR_NAME = "SlumDroidEngine";
 
 	/** The Constant PARAM_NAME. */
 	private final static String PARAM_NAME = "taskId";
@@ -90,12 +90,12 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	private ExplorationStrategy theStrategy;
 
 	/**
-	 * Instantiates a new systematic engine.
+	 * Instantiates a new SlumDroid engine.
 	 *
 	 * @throws ClassNotFoundException the class not found exception
 	 */
 	@SuppressWarnings("unchecked")
-	public SystematicEngine() throws ClassNotFoundException {
+	public SlumDroidEngine() throws ClassNotFoundException {
 		super(Class.forName(CLASS_NAME));
 		PersistenceFactory.registerForSavingState(this);
 		setScheduler(new TraceDispatcher());
@@ -293,13 +293,13 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 	/**
 	 * Plan tests.
 	 *
-	 * @param baseTask the base task
+	 * @param theTask the task
 	 * @param thePlan the plan
 	 */
-	protected void planTests(Task baseTask, Plan thePlan) {
+	protected void planTests(Task theTask, Plan thePlan) {
 		List<Task> tasks = new ArrayList<Task>();
 		for (Transition transition: thePlan) {
-			tasks.add(getNewTask(baseTask, transition));
+			tasks.add(getNewTask(theTask, transition));
 		}
 		getScheduler().addPlannedTasks(tasks);
 	}
@@ -315,20 +315,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		Task newTask = getAbstractor().createTask(theTask, transition);
 		newTask.setId(nextId());
 		return newTask;
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
-	 */
-	public SessionParams onSavingState() {
-		return new SessionParams(PARAM_NAME, getLastId());
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.SaveStateListener#onLoadingState(it.slumdroid.tool.utilities.SessionParams)
-	 */
-	public void onLoadingState(SessionParams sessionParams) {
-		this.id = sessionParams.getInt(PARAM_NAME);
 	}
 
 	/**
@@ -486,13 +472,6 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 		return String.valueOf(num);
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
-	 */
-	public String getListenerName() {
-		return ACTOR_NAME;
-	}
-
 	/**
 	 * Take screenshot.
 	 *
@@ -557,6 +536,29 @@ public class SystematicEngine extends android.test.ActivityInstrumentationTestCa
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onSavingState()
+	 */
+	public SessionParams onSavingState() {
+		SessionParams state = new SessionParams();
+		state.store(PARAM_NAME, getLastId());
+		return state;
+	}
+
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#onLoadingState(it.slumdroid.tool.utilities.SessionParams)
+	 */
+	public void onLoadingState(SessionParams sessionParams) {
+		this.id = sessionParams.getInt(PARAM_NAME);
+	}
+	
+	/* (non-Javadoc)
+	 * @see it.slumdroid.tool.model.SaveStateListener#getListenerName()
+	 */
+	public String getListenerName() {
+		return ACTOR_NAME;
 	}
 
 }

@@ -341,7 +341,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 
 		if (isFirst()) {
 			this.footer = graph.substring(bodyEnd);
-			return graph.substring(0,bodyEnd);
+			return graph.substring(0, bodyEnd);
 		}
 
 		if (isLast()) {
@@ -352,7 +352,7 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 			return new String();
 		}
 
-		return graph.substring(bodyBegin,bodyEnd) + System.getProperty("line.separator");
+		return graph.substring(bodyBegin, bodyEnd) + System.getProperty("line.separator");
 	}
 
 	/* (non-Javadoc)
