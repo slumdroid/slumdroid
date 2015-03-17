@@ -29,6 +29,7 @@ import it.slumdroid.tool.utilities.interactors.BarSlider;
 import it.slumdroid.tool.utilities.interactors.Clicker;
 import it.slumdroid.tool.utilities.interactors.LongClicker;
 import it.slumdroid.tool.utilities.interactors.TabSwapper;
+import it.slumdroid.tool.utilities.interactors.TabSwiper;
 import it.slumdroid.tool.utilities.interactors.editor.HashEnterEditor;
 import it.slumdroid.tool.utilities.interactors.editor.HashWriteEditor;
 import it.slumdroid.tool.utilities.interactors.editor.RandomEnterEditor;
@@ -141,6 +142,7 @@ public class UserFactory {
 		userAdapter.addEvent(new SpinnerSelector());	
 		userAdapter.addEvent(new RadioSelector());
 		userAdapter.addEvent(new TabSwapper());
+		userAdapter.addEvent(new TabSwiper());
 		for (SimpleInteractorAdapter interactor: ADDITIONAL_EVENTS) {
 			userAdapter.addEvent(interactor);			
 		}
