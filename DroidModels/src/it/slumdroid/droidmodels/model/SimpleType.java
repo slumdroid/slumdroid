@@ -51,6 +51,9 @@ public interface SimpleType {
 	/** The Constant EMPTY_SPINNER. */
 	public final static String EMPTY_SPINNER = "emptySpinner";
 
+	/** The Constant EXPAND_LIST. */
+	public final static String EXPAND_LIST = "expandListView";
+	
 	/** The Constant EXPAND_MENU. */
 	public final static String EXPAND_MENU = "expandMenu";
 
