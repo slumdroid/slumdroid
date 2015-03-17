@@ -25,6 +25,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.droidmodels.model.SimpleType.EDIT_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_SPINNER;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
@@ -35,6 +36,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.NOEDITABLE_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.PAGER_TAB_STRIP;
 import static it.slumdroid.droidmodels.model.SimpleType.POPUP_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.POPUP_WINDOW;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
@@ -57,7 +59,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.PAGER_TAB_STRIP;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
 import android.view.View;
 import android.webkit.WebView;
@@ -66,6 +67,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -205,6 +207,10 @@ public class TypeDetector {
 		if (view instanceof ImageView 
 				|| type.endsWith("ImageView")) {
 			return IMAGE_VIEW;
+		}
+		if (view instanceof ExpandableListView 
+				|| type.endsWith("ExpandableListView")) {
+			return EXPAND_LIST;
 		}
 		if (view instanceof ListView 
 				|| type.endsWith("ListView")) {
