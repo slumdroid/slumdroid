@@ -57,6 +57,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
 import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.PAGER_TAB_STRIP;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
 import android.view.View;
 import android.webkit.WebView;
@@ -147,6 +148,9 @@ public class TypeDetector {
 		}
 		if (view instanceof TabHost) {
 			return TAB_HOST;
+		}
+		if (type.endsWith("PagerTabStrip")) {
+			return PAGER_TAB_STRIP;
 		}
 		if (type.endsWith("Container")) {
 			return "Container"; // Generic Container

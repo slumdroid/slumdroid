@@ -28,6 +28,7 @@ import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
+import static it.slumdroid.droidmodels.model.InteractionType.SWIPE_TAB;
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
@@ -252,6 +253,10 @@ public class Automation implements Executor {
 		}
 		if (interactionType.equals(SWAP_TAB)) {
 			getExecutor().swapTab((TabHost)view, value);
+			return;
+		}
+		if (interactionType.equals(SWIPE_TAB)) {
+			getExecutor().swipeTab(view, value);
 			return;
 		}
 	}

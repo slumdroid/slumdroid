@@ -25,6 +25,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -214,6 +215,16 @@ public class DroidExecutor {
 	 */
 	public void swapTab(TabHost tabHost, String value) {
 		click(tabHost.getTabWidget().getChildAt(Integer.valueOf(value) - 1));
+	}
+	
+	/**
+	 * Swipe tab.
+	 *
+	 * @param view the view
+	 * @param value the value
+	 */
+	public void swipeTab(View view, String value) {
+		click(((ViewGroup)view).getChildAt(Integer.valueOf(value) - 1));
 	}
 
 	/**
