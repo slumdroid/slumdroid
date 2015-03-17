@@ -16,6 +16,7 @@
 package it.slumdroid.tool.utilities.interactors.selector;
 
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
@@ -33,7 +34,7 @@ public class ListSelector extends IterativeInteractorAdapter {
 	 * Instantiates a new list selector.
 	 */
 	public ListSelector() {
-		super(MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW, PREFERENCE_LIST, EXPAND_MENU);
+		super(MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW, PREFERENCE_LIST, EXPAND_LIST, EXPAND_MENU);
 	}
 
 	/* (non-Javadoc)

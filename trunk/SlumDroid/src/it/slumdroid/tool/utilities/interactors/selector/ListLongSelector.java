@@ -16,6 +16,7 @@
 package it.slumdroid.tool.utilities.interactors.selector;
 
 import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.tool.Resources.MAX_NUM_EVENTS_PER_SELECTOR;
 import it.slumdroid.droidmodels.model.WidgetState;
@@ -31,7 +32,7 @@ public class ListLongSelector extends IterativeInteractorAdapter {
 	 * Instantiates a new list long selector.
 	 */
 	public ListLongSelector() {
-		super(MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW);
+		super(MAX_NUM_EVENTS_PER_SELECTOR, LIST_VIEW, EXPAND_LIST);
 	}
 
 	/* (non-Javadoc)
