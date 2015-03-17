@@ -34,6 +34,9 @@ import static it.slumdroid.tool.Resources.COMPARE_TOAST;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class CompositionalComparator.
@@ -119,8 +122,14 @@ public class CompositionalComparator {
 				boolean compareValue = field.getValue().equals(otherField.getValue()); 
 				return compareValue && compareIndex;
 			}
+			if (COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE)) {
+				if (!field.getValue().contains(String.valueOf(new GregorianCalendar().get(Calendar.YEAR)))) {
+					return field.getValue().equals(otherField.getValue());	
+				} else {
+					return compareWidget;
+				}
+			}
 			if (field.getSimpleType().equals(BUTTON) 
-					|| (COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE))
 					|| (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX))
 					|| (COMPARE_TOAST && field.getSimpleType().equals(TOAST))) {
 				return field.getValue().equals(otherField.getValue());
