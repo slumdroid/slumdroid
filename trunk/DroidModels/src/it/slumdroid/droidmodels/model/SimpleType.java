@@ -81,15 +81,18 @@ public interface SimpleType {
 	/** The Constant NUMBER_PICKER_BUTTON. */
 	public final static String NUMBER_PICKER_BUTTON = "numberPickerButton";
 
-	/** The Constant PREFERENCE_LIST. */
-	public final static String PREFERENCE_LIST = "preferenceList";
-
+	/** The Constant PAGER_TAB_STRIP. */
+	public final static String PAGER_TAB_STRIP = "pagerTabStrip";
+	
 	/** The Constant POPUP_MENU. */
 	public final static String POPUP_MENU = "popUpMenu";
 
 	/** The Constant POPUP_WINDOW. */
 	public final static String POPUP_WINDOW = "popUpWindow";
 
+	/** The Constant PREFERENCE_LIST. */
+	public final static String PREFERENCE_LIST = "preferenceList";
+	
 	/** The Constant PROGRESS_BAR. */
 	public final static String PROGRESS_BAR = "progressBar";
 
