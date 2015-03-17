@@ -62,5 +62,8 @@ public interface InteractionType {
 
 	/** The Constant SWAP_TAB. */
 	public final static String SWAP_TAB = "swapTab";
+	
+	/** The Constant SWIPE_TAB. */
+	public final static String SWIPE_TAB = "swipeTab";
 
 }
