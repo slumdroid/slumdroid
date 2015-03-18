@@ -364,8 +364,10 @@ public class GraphicalEditor extends JFrame {
 					maxEventSelectorBox.setSelectedIndex(1);
 					maxEventSelectorBox.setEnabled(false);
 				} else {
-					maxEventSelectorBox.setSelectedIndex(3);
-					maxEventSelectorBox.setEnabled(true);
+					if (listComparatorBox.getSelectedIndex() != 0) {
+						maxEventSelectorBox.setSelectedIndex(3);
+						maxEventSelectorBox.setEnabled(true);	
+					}
 				}
 			}
 
@@ -388,8 +390,10 @@ public class GraphicalEditor extends JFrame {
 					maxEventSelectorBox.setSelectedIndex(1);
 					maxEventSelectorBox.setEnabled(false);
 				} else {
-					maxEventSelectorBox.setSelectedIndex(3);
-					maxEventSelectorBox.setEnabled(true);
+					if (availableComparatorBox.getSelectedIndex() != 0) {
+						maxEventSelectorBox.setSelectedIndex(3);
+						maxEventSelectorBox.setEnabled(true);	
+					}
 				}
 			}
 
