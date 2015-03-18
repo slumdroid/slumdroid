@@ -256,29 +256,29 @@ public class GraphicalEditor extends JFrame {
 		lblInteractionParameters.setBounds(245, 6, 216, 25);
 		contentPane.add(lblInteractionParameters);
 
-		JLabel lblEdittextInteractions = new JLabel("EditText as");
-		lblEdittextInteractions.setBounds(245, 111, 132, 14);
-		contentPane.add(lblEdittextInteractions);
+		JLabel lblEditText = new JLabel("EditText as");
+		lblEditText.setBounds(245, 111, 132, 14);
+		contentPane.add(lblEditText);
 
-		JLabel lblAutocompleteInteractions = new JLabel("AutoComplete as");
-		lblAutocompleteInteractions.setBounds(245, 136, 132, 14);
-		contentPane.add(lblAutocompleteInteractions);
+		JLabel lblAutoComplete = new JLabel("AutoComplete as");
+		lblAutoComplete.setBounds(245, 136, 132, 14);
+		contentPane.add(lblAutoComplete);
 
-		JLabel lblCheckboxInteractions = new JLabel("CheckBox as");
-		lblCheckboxInteractions.setBounds(245, 186, 132, 14);
-		contentPane.add(lblCheckboxInteractions);
+		JLabel lblCheckBox = new JLabel("CheckBox as");
+		lblCheckBox.setBounds(245, 186, 132, 14);
+		contentPane.add(lblCheckBox);
 
-		JLabel lblToggleInteractions = new JLabel("Toggle as");
-		lblToggleInteractions.setBounds(245, 210, 132, 14);
-		contentPane.add(lblToggleInteractions);
+		JLabel lblToggle = new JLabel("Toggle as");
+		lblToggle.setBounds(245, 210, 132, 14);
+		contentPane.add(lblToggle);
 
 		JLabel lblTextInputs = new JLabel("Text Inputs use");
 		lblTextInputs.setBounds(245, 161, 99, 14);
 		contentPane.add(lblTextInputs);
 
-		JLabel lblMaxEventsFor = new JLabel("Max Events 4 Selector");
-		lblMaxEventsFor.setBounds(245, 61, 132, 14);
-		contentPane.add(lblMaxEventsFor);
+		JLabel lblMaxEventsSelector = new JLabel("Max Events 4 Selector");
+		lblMaxEventsSelector.setBounds(245, 61, 132, 14);
+		contentPane.add(lblMaxEventsSelector);
 
 		JLabel lblSwapTab = new JLabel("SwapTab only initially");
 		lblSwapTab.setBounds(244, 36, 133, 14);
@@ -313,51 +313,7 @@ public class GraphicalEditor extends JFrame {
 		screenshotBox.setBounds(171, 33, 64, 20);
 		screenshotBox.setSelectedIndex(0);
 		contentPane.add(screenshotBox);
-
-		availableComparatorBox = new JComboBox(bool);
-		availableComparatorBox.setSelectedIndex(1);
-		availableComparatorBox.setBounds(171, 108, 64, 20);
-		availableComparatorBox.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent event) {
-				if (availableComparatorBox.getSelectedIndex() == 0) {
-					maxEventSelectorBox.setSelectedIndex(1);
-					maxEventSelectorBox.setEnabled(false);
-				} else {
-					maxEventSelectorBox.setSelectedIndex(3);
-					maxEventSelectorBox.setEnabled(true);
-				}
-			}
-
-		});
-		contentPane.add(availableComparatorBox);
-
-		checkComparatorBox = new JComboBox(bool);
-		checkComparatorBox.setSelectedIndex(1);
-		checkComparatorBox.setBounds(171, 133, 64, 20);
-		contentPane.add(checkComparatorBox);
-
-		listComparatorBox = new JComboBox(bool);
-		listComparatorBox.setSelectedIndex(1);
-		listComparatorBox.setBounds(171, 158, 64, 20);
-		contentPane.add(listComparatorBox);
-
-		titleComparatorBox = new JComboBox(bool);
-		titleComparatorBox.setSelectedIndex(0);
-		titleComparatorBox.setBounds(171, 183, 64, 20);
-		contentPane.add(titleComparatorBox);
-
-		toastComparatorBox = new JComboBox(bool);
-		toastComparatorBox.setSelectedIndex(1);
-		toastComparatorBox.setBounds(171, 207, 64, 20);
-		contentPane.add(toastComparatorBox);
-
-		maxEventSelectorBox = new JComboBox(maxEventSelector);
-		maxEventSelectorBox.setSelectedIndex(3);
-		maxEventSelectorBox.setBounds(387, 58, 74, 20);
-		contentPane.add(maxEventSelectorBox);
-
+		
 		editTextBox = new JComboBox(interactions);
 		editTextBox.setBounds(387, 108, 74, 20);
 		editTextBox.setSelectedIndex(1);
@@ -391,6 +347,64 @@ public class GraphicalEditor extends JFrame {
 		tabEventsBox.setSelectedIndex(0);
 		tabEventsBox.setBounds(387, 33, 74, 20);
 		contentPane.add(tabEventsBox);
+	
+		maxEventSelectorBox = new JComboBox(maxEventSelector);
+		maxEventSelectorBox.setSelectedIndex(3);
+		maxEventSelectorBox.setBounds(387, 58, 74, 20);
+		contentPane.add(maxEventSelectorBox);
+
+		availableComparatorBox = new JComboBox(bool);
+		availableComparatorBox.setSelectedIndex(1);
+		availableComparatorBox.setBounds(171, 108, 64, 20);
+		availableComparatorBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				if (availableComparatorBox.getSelectedIndex() == 0) {
+					maxEventSelectorBox.setSelectedIndex(1);
+					maxEventSelectorBox.setEnabled(false);
+				} else {
+					maxEventSelectorBox.setSelectedIndex(3);
+					maxEventSelectorBox.setEnabled(true);
+				}
+			}
+
+		});
+		contentPane.add(availableComparatorBox);
+		
+		checkComparatorBox = new JComboBox(bool);
+		checkComparatorBox.setSelectedIndex(1);
+		checkComparatorBox.setBounds(171, 133, 64, 20);
+		contentPane.add(checkComparatorBox);
+
+		listComparatorBox = new JComboBox(bool);
+		listComparatorBox.setSelectedIndex(1);
+		listComparatorBox.setBounds(171, 158, 64, 20);
+		listComparatorBox.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				if (listComparatorBox.getSelectedIndex() == 0) {
+					maxEventSelectorBox.setSelectedIndex(1);
+					maxEventSelectorBox.setEnabled(false);
+				} else {
+					maxEventSelectorBox.setSelectedIndex(3);
+					maxEventSelectorBox.setEnabled(true);
+				}
+			}
+
+		});
+		contentPane.add(listComparatorBox);
+
+		titleComparatorBox = new JComboBox(bool);
+		titleComparatorBox.setSelectedIndex(0);
+		titleComparatorBox.setBounds(171, 183, 64, 20);
+		contentPane.add(titleComparatorBox);
+
+		toastComparatorBox = new JComboBox(bool);
+		toastComparatorBox.setSelectedIndex(1);
+		toastComparatorBox.setBounds(171, 207, 64, 20);
+		contentPane.add(toastComparatorBox);
 
 		// CheckBox
 		chckbxInputPertubation = new JCheckBox("Input Pertubation ");
@@ -400,22 +414,26 @@ public class GraphicalEditor extends JFrame {
 		// Button
 		btnDefaultValues = new JButton("Default Values");
 		btnDefaultValues.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnDefaultValues.setBounds(245, 337, 121, 27);
 		btnDefaultValues.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
 				resetDefaultValues();
 			}
+			
 		});
-		btnDefaultValues.setBounds(245, 337, 121, 27);
 		contentPane.add(btnDefaultValues);
 
 		btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSave.setBounds(369, 337, 92, 27);
 		btnSave.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent arg0) {
 				saveXML(); 
 			}
+			
 		});
-		btnSave.setBounds(369, 337, 92, 27);
 		contentPane.add(btnSave);
 
 		resetDefaultValues();
