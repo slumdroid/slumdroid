@@ -28,7 +28,6 @@ import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.tool.components.abstractor.GuiTreeAbstractor;
 import it.slumdroid.tool.components.automation.Automation;
-import it.slumdroid.tool.components.exploration.CompositionalComparator;
 import it.slumdroid.tool.components.exploration.ExplorationStrategy;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.components.persistence.ResumingPersistence;
@@ -69,10 +68,10 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	private int id = 0;
 
 	/** The abstractor. */
-	private GuiTreeAbstractor theAbstractor;
+	private GuiTreeAbstractor theAbstractor = new GuiTreeAbstractor();
 
 	/** The automation. */
-	private Automation theAutomation;
+	private Automation theAutomation = new Automation();
 
 	/** The persistence. */
 	private ResumingPersistence thePersistence;
@@ -81,43 +80,38 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	protected PersistenceFactory thePersistenceFactory;
 
 	/** The planner. */
-	private UltraPlanner thePlanner;
+	private UltraPlanner thePlanner = new UltraPlanner();
 
 	/** The scheduler. */
-	private TraceDispatcher theScheduler;
+	private TraceDispatcher theScheduler = new TraceDispatcher();
 
 	/** The strategy. */
-	private ExplorationStrategy theStrategy;
+	private ExplorationStrategy theStrategy = new ExplorationStrategy();
 
 	/**
 	 * Instantiates a new SlumDroid engine.
 	 *
 	 * @throws ClassNotFoundException the class not found exception
+	 * @throws ParserConfigurationException 
 	 */
 	@SuppressWarnings("unchecked")
-	public SlumDroidEngine() throws ClassNotFoundException {
+	public SlumDroidEngine() throws ClassNotFoundException, ParserConfigurationException {
 		super(Class.forName(CLASS_NAME));
-		PersistenceFactory.registerForSavingState(this);
-		setScheduler(new TraceDispatcher());
-		setAutomation(new Automation());
-		try {
-			GuiTree.setValidation(false);
-			setAbstractor(new GuiTreeAbstractor());
-			getTheGuiTree().setDateTime(new GregorianCalendar().getTime().toString());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		setPlanner(new UltraPlanner());
+		getTheGuiTree().setDateTime(new GregorianCalendar().getTime().toString());
+		
 		AllPassFilter inputFilter = new AllPassFilter();
 		getPlanner().setInputFilter(inputFilter);
 		getAbstractor().addFilter(inputFilter);
+		
 		AllPassFilter eventFilter = new AllPassFilter();
 		getPlanner().setEventFilter(eventFilter);
 		getAbstractor().addFilter(eventFilter);
+		
 		getPlanner().setUser(UserFactory.getUser(getAbstractor()));
 		getPlanner().setFormFiller(UserFactory.getUser(getAbstractor()));
 		getPlanner().setAbstractor(getAbstractor());
-		setStrategy(new ExplorationStrategy(new CompositionalComparator()));
+		
+		PersistenceFactory.registerForSavingState(this);
 		setPersistenceFactory(new PersistenceFactory (getTheGuiTree(), getScheduler(), getStrategy()));
 		setPersistence(getPersistenceFactory().getPersistence());
 	}
@@ -327,30 +321,12 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	}
 
 	/**
-	 * Sets the automation.
-	 *
-	 * @param theAutomation the new automation
-	 */
-	public void setAutomation(Automation theAutomation) {
-		this.theAutomation = theAutomation;
-	}
-
-	/**
 	 * Gets the abstractor.
 	 *
 	 * @return the abstractor
 	 */
 	public GuiTreeAbstractor getAbstractor() {
 		return this.theAbstractor;
-	}
-
-	/**
-	 * Sets the abstractor.
-	 *
-	 * @param theAbstractor the new abstractor
-	 */
-	public void setAbstractor(GuiTreeAbstractor theAbstractor) {
-		this.theAbstractor = theAbstractor;
 	}
 
 	/**
@@ -408,15 +384,6 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	}
 
 	/**
-	 * Sets the planner.
-	 *
-	 * @param thePlanner the new planner
-	 */
-	public void setPlanner(UltraPlanner thePlanner) {
-		this.thePlanner = thePlanner;
-	}
-
-	/**
 	 * Gets the scheduler.
 	 *
 	 * @return the scheduler
@@ -426,30 +393,12 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	}
 
 	/**
-	 * Sets the scheduler.
-	 *
-	 * @param theScheduler the new scheduler
-	 */
-	public void setScheduler(TraceDispatcher theScheduler) {
-		this.theScheduler = theScheduler;
-	}
-
-	/**
 	 * Gets the strategy.
 	 *
 	 * @return the strategy
 	 */
 	public ExplorationStrategy getStrategy() {
 		return this.theStrategy;
-	}
-
-	/**
-	 * Sets the strategy.
-	 *
-	 * @param theStrategy the new strategy
-	 */
-	public void setStrategy(ExplorationStrategy theStrategy) {
-		this.theStrategy = theStrategy;
 	}
 
 	/**
