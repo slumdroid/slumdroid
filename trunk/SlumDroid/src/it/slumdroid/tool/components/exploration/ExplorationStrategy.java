@@ -52,19 +52,19 @@ public class ExplorationStrategy implements Strategy {
 	 * Instantiates a new exploration strategy.
 	 */
 	public ExplorationStrategy() {
-        this(new CompositionalComparator());
+		this(new CompositionalComparator());
 	}
-	
+
 	/**
 	 * Instantiates a new exploration strategy.
 	 *
 	 * @param comparator the comparator
 	 */
 	public ExplorationStrategy(CompositionalComparator comparator) {
-        super();
-        setComparator(comparator);
+		super();
+		setComparator(comparator);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Strategy#addState(it.slumdroid.droidmodels.model.ActivityState)
 	 */
