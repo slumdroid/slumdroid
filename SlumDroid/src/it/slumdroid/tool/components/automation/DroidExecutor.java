@@ -83,18 +83,16 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectListItem(ListView list, String value) {
-		if (list.getCount() != list.getChildCount()) {
-			if (Integer.valueOf(value) < list.getChildCount()) {
+		int item = Integer.valueOf(value) - 1;
+		if (item < list.getChildCount()) {
+			if (list.getChildCount() != list.getCount()) {
 				getRobotium().scrollListToLine(list, 0);
-				getRobotium().clickInList(Integer.valueOf(value));	
-			} else {
-				getRobotium().scrollListToLine(list, Integer.valueOf(value) - 1);
-				getRobotium().sendKey(Solo.DOWN);
-				click(list.getSelectedView());		
 			}
-		} else {		
-			sync();
-			getRobotium().clickInList(Integer.valueOf(value));	
+			click(list.getChildAt(item));
+		} else {
+			getRobotium().scrollListToLine(list, item);
+			getRobotium().sendKey(Solo.DOWN);
+			click(list.getSelectedView());
 		}
 	}
 
@@ -105,18 +103,16 @@ public class DroidExecutor {
 	 * @param value the value
 	 */
 	public void selectLongListItem(ListView list, String value) {
-		if (list.getCount() != list.getChildCount()) {
-			if (Integer.valueOf(value) < list.getChildCount()) {
+		int item = Integer.valueOf(value) - 1;
+		if (item < list.getChildCount()) {
+			if (list.getChildCount() != list.getCount()) {
 				getRobotium().scrollListToLine(list, 0);
-				getRobotium().clickLongInList(Integer.valueOf(value));	
-			} else {
-				getRobotium().scrollListToLine(list, Integer.valueOf(value) - 1);
-				getRobotium().sendKey(Solo.DOWN);
-				longClick(list.getSelectedView());
 			}
+			longClick(list.getChildAt(item));	
 		} else {
-			sync();
-			getRobotium().clickLongInList(Integer.valueOf(value));	
+			getRobotium().scrollListToLine(list, item);
+			getRobotium().sendKey(Solo.DOWN);
+			longClick(list.getSelectedView());
 		}
 	}
 
@@ -130,10 +126,10 @@ public class DroidExecutor {
 		click(spinner);
 		sync();
 		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		int index = getType(list).endsWith("DropDownListView")?Integer.valueOf(value):Integer.valueOf(value) - 1;
+		int item = getType(list).endsWith("DropDownListView")?Integer.valueOf(value):Integer.valueOf(value) - 1;
 		getRobotium().scrollListToLine(list, 0);
 		sync();
-		for (int row = 0; row < index; row++) {
+		for (int row = 0; row < item; row++) {
 			getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
 		}
 		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
