@@ -117,6 +117,25 @@ public class DroidExecutor {
 	}
 
 	/**
+	 * Select spinner item.
+	 *
+	 * @param spinner the spinner
+	 * @param value the value
+	 */
+	public void selectSpinnerItem(Spinner spinner, String value) {
+		click(spinner);
+		sync();
+		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
+		int item = getType(list).endsWith("DropDownListView")?Integer.valueOf(value):Integer.valueOf(value) - 1;
+		scrollListToLine(list, 0);
+		sync();
+		for (int row = 0; row < item; row++) {
+			getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
+		}
+		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
+	}
+
+	/**
 	 * Scroll list to line.
 	 *
 	 * @param list the list
@@ -128,25 +147,6 @@ public class DroidExecutor {
 				list.setSelection(line);
 			}
 		});
-	}
-
-	/**
-	 * Select spinner item.
-	 *
-	 * @param spinner the spinner
-	 * @param value the value
-	 */
-	public void selectSpinnerItem(Spinner spinner, String value) {
-		click(spinner);
-		sync();
-		final ListView list = getRobotium().getCurrentViews(ListView.class).get(0);
-		int item = getType(list).endsWith("DropDownListView")?Integer.valueOf(value):Integer.valueOf(value) - 1;
-		getRobotium().scrollListToLine(list, 0);
-		sync();
-		for (int row = 0; row < item; row++) {
-			getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_DPAD_DOWN);
-		}
-		getInstrumentation().sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER);
 	}
 
 	/**
@@ -225,7 +225,7 @@ public class DroidExecutor {
 	public void swapTab(TabHost tabHost, String value) {
 		click(tabHost.getTabWidget().getChildAt(Integer.valueOf(value) - 1));
 	}
-	
+
 	/**
 	 * Swipe tab.
 	 *
