@@ -82,6 +82,11 @@ public class UltraPlanner {
 		setIncludeAction(false);
 		setIncludeMenu(true);
 		setIncludeRotation(true);
+		int orientation = Automation.getCurrentActivity().getRequestedOrientation();
+		if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE 
+				|| orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)  {
+			setIncludeRotation(false);
+		}
 		for (WidgetState widget: getEventFilter()) {
 			reductionActions(widget, theState);
 			Collection<UserEvent> events = getUser().handleEvent(widget);
@@ -117,9 +122,13 @@ public class UltraPlanner {
 			setIncludeAction(true);
 			return;
 		}
-		if (theWidget.getSimpleType().equals(DIALOG_TITLE) 
-				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
+		if (theWidget.getSimpleType().equals(DIALOG_TITLE)) {
 			setIncludeMenu(false);
+			return;
+		}
+		if (theWidget.getSimpleType().equals(PREFERENCE_LIST)) {                
+			setIncludeMenu(false);
+			setIncludeRotation(false);
 			return;
 		}
 	}
@@ -223,11 +232,6 @@ public class UltraPlanner {
 			event = getAbstractor().createEvent(PRESS_ACTION);
 			transition = getAbstractor().createTransition(theState, event);
 			planner.addTransition(transition);
-		}
-		int orientation = Automation.getCurrentActivity().getRequestedOrientation();
-		if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE 
-				|| orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)  {
-			setIncludeRotation(false);
 		}
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(CHANGE_ORIENTATION);
