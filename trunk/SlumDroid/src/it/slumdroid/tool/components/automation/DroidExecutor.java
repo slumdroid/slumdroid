@@ -86,11 +86,11 @@ public class DroidExecutor {
 		int item = Integer.valueOf(value) - 1;
 		if (item < list.getChildCount()) {
 			if (list.getChildCount() != list.getCount()) {
-				getRobotium().scrollListToLine(list, 0);
+				scrollListToLine(list, 0);
 			}
 			click(list.getChildAt(item));
 		} else {
-			getRobotium().scrollListToLine(list, item);
+			scrollListToLine(list, item);
 			getRobotium().sendKey(Solo.DOWN);
 			click(list.getSelectedView());
 		}
@@ -106,14 +106,28 @@ public class DroidExecutor {
 		int item = Integer.valueOf(value) - 1;
 		if (item < list.getChildCount()) {
 			if (list.getChildCount() != list.getCount()) {
-				getRobotium().scrollListToLine(list, 0);
+				scrollListToLine(list, 0);
 			}
 			longClick(list.getChildAt(item));	
 		} else {
-			getRobotium().scrollListToLine(list, item);
+			scrollListToLine(list, item);
 			getRobotium().sendKey(Solo.DOWN);
 			longClick(list.getSelectedView());
 		}
+	}
+
+	/**
+	 * Scroll list to line.
+	 *
+	 * @param list the list
+	 * @param line the line
+	 */
+	private void scrollListToLine(final ListView list, final int line) {
+		getInstrumentation().runOnMainSync(new Runnable() {
+			public void run(){
+				list.setSelection(line);
+			}
+		});
 	}
 
 	/**

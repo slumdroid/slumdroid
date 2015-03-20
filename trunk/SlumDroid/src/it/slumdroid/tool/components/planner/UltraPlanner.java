@@ -33,6 +33,7 @@ import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.droidmodels.testcase.TestCaseEvent;
 import it.slumdroid.droidmodels.testcase.TestCaseInput;
+import it.slumdroid.tool.components.automation.Automation;
 import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.EventHandler;
 import it.slumdroid.tool.model.InputHandler;
@@ -41,6 +42,8 @@ import it.slumdroid.tool.utilities.AllPassFilter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import android.content.pm.ActivityInfo;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -114,13 +117,9 @@ public class UltraPlanner {
 			setIncludeAction(true);
 			return;
 		}
-		if (theWidget.getSimpleType().equals(DIALOG_TITLE)) {
+		if (theWidget.getSimpleType().equals(DIALOG_TITLE) 
+				|| theWidget.getSimpleType().equals(PREFERENCE_LIST)) {
 			setIncludeMenu(false);
-			return;
-		}
-		if (theWidget.getSimpleType().equals(PREFERENCE_LIST)) {		
-			setIncludeMenu(false);
-			setIncludeRotation(false);
 			return;
 		}
 	}
@@ -224,6 +223,11 @@ public class UltraPlanner {
 			event = getAbstractor().createEvent(PRESS_ACTION);
 			transition = getAbstractor().createTransition(theState, event);
 			planner.addTransition(transition);
+		}
+		int orientation = Automation.getCurrentActivity().getRequestedOrientation();
+		if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE 
+				|| orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)  {
+			setIncludeRotation(false);
 		}
 		if (isIncludeRotation()) {
 			event = getAbstractor().createEvent(CHANGE_ORIENTATION);
