@@ -125,20 +125,18 @@ public class CompositionalComparator {
 			if (COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE)) {
 				if (!field.getValue().contains(String.valueOf(new GregorianCalendar().get(Calendar.YEAR)))) {
 					return field.getValue().equals(otherField.getValue());	
-				} else {
-					return compareWidget;
-				}
+				} 
 			}
 			if (field.getSimpleType().equals(BUTTON) 
 					|| (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX))
 					|| (COMPARE_TOAST && field.getSimpleType().equals(TOAST))) {
 				return field.getValue().equals(otherField.getValue());
 			}
+			boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(EXPAND_LIST);
 			if (field.getSimpleType().equals(MENU_VIEW) 
 					|| field.getSimpleType().equals(EXPAND_MENU)
 					|| field.getSimpleType().equals(PREFERENCE_LIST)
-					|| (COMPARE_LIST_COUNT 
-							&& (field.getSimpleType().equals(LIST_VIEW)) || field.getSimpleType().equals(EXPAND_LIST))) {
+					|| (COMPARE_LIST_COUNT && isList)) {
 				return field.getCount() == otherField.getCount();
 			}
 		}
