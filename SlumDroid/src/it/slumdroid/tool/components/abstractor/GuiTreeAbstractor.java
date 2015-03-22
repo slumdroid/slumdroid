@@ -190,8 +190,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 		String name = detectName(view);
 		widget.setIdNameType(id, name, getType(view));
 		widget.setSimpleType(getTypeDetector().getSimpleType(view));
-		setCount(view,widget);
-		setValue(view,widget);
+		setCount(view, widget);
+		setValue(view, widget);
 		if (view instanceof TextView) {
 			int type = ((TextView)view).getInputType();
 			if (type != 0) {

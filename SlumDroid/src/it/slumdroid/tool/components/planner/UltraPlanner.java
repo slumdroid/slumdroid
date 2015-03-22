@@ -81,11 +81,12 @@ public class UltraPlanner {
 	private void addPlanForActivityWidgets(Plan thePlanner, ActivityState theState) {
 		setIncludeAction(false);
 		setIncludeMenu(true);
-		setIncludeRotation(true);
 		int orientation = Automation.getCurrentActivity().getRequestedOrientation();
 		if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE 
 				|| orientation == ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)  {
 			setIncludeRotation(false);
+		} else {
+			setIncludeRotation(true);
 		}
 		for (WidgetState widget: getEventFilter()) {
 			reductionActions(widget, theState);
