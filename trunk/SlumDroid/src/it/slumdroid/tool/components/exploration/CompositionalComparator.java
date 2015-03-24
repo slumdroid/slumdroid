@@ -51,7 +51,7 @@ public class CompositionalComparator {
 	 * @return true, if successful
 	 */
 	public boolean compare(ActivityState currentActivity, ActivityState storedActivity) {
-		if (!compareNameTitle(currentActivity, storedActivity)) {
+		if (!compareNameAndTitle(currentActivity, storedActivity)) {
 			return false;
 		}
 		for (WidgetState field: currentActivity) {	
@@ -63,13 +63,13 @@ public class CompositionalComparator {
 	}
 
 	/**
-	 * Compare name title.
+	 * Compare name and title.
 	 *
 	 * @param currentActivity the current activity
 	 * @param storedActivity the stored activity
 	 * @return true, if successful
 	 */
-	private boolean compareNameTitle(ActivityState currentActivity, ActivityState storedActivity) {
+	private boolean compareNameAndTitle(ActivityState currentActivity, ActivityState storedActivity) {
 		if (COMPARE_TITLE) {
 			if (!currentActivity.getTitle().equals(storedActivity.getTitle())) {
 				return false;
@@ -122,21 +122,21 @@ public class CompositionalComparator {
 				boolean compareValue = field.getValue().equals(otherField.getValue()); 
 				return compareValue && compareIndex;
 			}
-			if (COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE)) {
+			boolean compareTitle = COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE);
+			boolean compareToast = COMPARE_TOAST && field.getSimpleType().equals(TOAST);
+			if (compareTitle || compareToast) {
 				if (!field.getValue().contains(String.valueOf(new GregorianCalendar().get(Calendar.YEAR)))) {
 					return field.getValue().equals(otherField.getValue());	
 				} 
 			}
-			if (field.getSimpleType().equals(BUTTON) 
-					|| (COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX))
-					|| (COMPARE_TOAST && field.getSimpleType().equals(TOAST))) {
+			boolean compareCheck = COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX);
+			if (field.getSimpleType().equals(BUTTON) || compareCheck) {
 				return field.getValue().equals(otherField.getValue());
 			}
+			boolean compareCount = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU) || field.getSimpleType().equals(PREFERENCE_LIST);
 			boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(EXPAND_LIST);
-			if (field.getSimpleType().equals(MENU_VIEW) 
-					|| field.getSimpleType().equals(EXPAND_MENU)
-					|| field.getSimpleType().equals(PREFERENCE_LIST)
-					|| (COMPARE_LIST_COUNT && isList)) {
+			boolean compareList = COMPARE_LIST_COUNT && isList;
+			if (compareCount || compareList) {
 				return field.getCount() == otherField.getCount();
 			}
 		}

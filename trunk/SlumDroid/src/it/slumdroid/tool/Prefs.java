@@ -22,7 +22,6 @@ import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
 import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
 import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
@@ -396,10 +395,10 @@ public class Prefs {
 	private static void checkEvents() {
 		if (EVENTS != null) {
 			if (!hasClickAsEvents()) {
-				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW, TAB_VIEW);
+				UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TAB_VIEW);
 			}
 		} else {
-			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, LINEAR_LAYOUT, IMAGE_VIEW, TAB_VIEW);
+			UserFactory.addEvent(CLICK, BUTTON, MENU_ITEM, IMAGE_VIEW, TAB_VIEW);
 		}
 		if (EXTRA_EVENTS != null) {
 			ADDITIONAL_EVENTS.clear();
