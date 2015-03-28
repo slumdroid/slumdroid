@@ -15,6 +15,8 @@
 
 package it.slumdroid.tool.components.abstractor;
 
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.detectName;
@@ -213,6 +215,8 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 */
 	public boolean updateDescription(ActivityState newActivity, ActivityDescription theDescription) {
 		boolean hasDescription = false;
+		boolean hasMenuList = false;
+		int countMenuList = 0;
 		for (View view: theDescription) {
 			hasDescription = true;
 			if (!view.isShown()) {
@@ -223,6 +227,18 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 			if (widget.getIndex() == 0 
 					&& widget.getSimpleType().equals(TEXT_VIEW)) {
 				widget.setSimpleType(TOAST);
+			}
+			if (widget.getSimpleType().equals(EXPAND_MENU)) {
+				countMenuList = widget.getCount();
+				hasMenuList = true;
+			}
+			if (hasMenuList && countMenuList != 0) {
+				if (!widget.getId().equals("-1")) {
+					if (widget.getSimpleType().equals(TEXT_VIEW)) {
+						widget.setSimpleType(EXPAND_MENU_ITEM);
+						countMenuList--;
+					}
+				}
 			}
 			((ElementWrapper) newActivity).appendChild(widget.getElement());
 			for (AllPassFilter filter: this.filters) {

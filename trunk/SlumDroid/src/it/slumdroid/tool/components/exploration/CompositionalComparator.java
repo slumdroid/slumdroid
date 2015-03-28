@@ -20,6 +20,7 @@ import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
 import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
 import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
@@ -117,7 +118,8 @@ public class CompositionalComparator {
 			if (field.getSimpleType().equals(TEXT_VIEW)) {
 				return field.getValue().isEmpty() == otherField.getValue().isEmpty();   
 			}
-			if (field.getSimpleType().equals(MENU_ITEM)) {
+			boolean compareMenuItem = field.getSimpleType().equals(MENU_ITEM) || field.getSimpleType().equals(EXPAND_MENU_ITEM);
+			if (compareMenuItem) {
 				boolean compareIndex = field.getIndex() == otherField.getIndex();
 				boolean compareValue = field.getValue().equals(otherField.getValue()); 
 				return compareValue && compareIndex;
