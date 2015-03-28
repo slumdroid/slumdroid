@@ -57,6 +57,9 @@ public interface SimpleType {
 	/** The Constant EXPAND_MENU. */
 	public final static String EXPAND_MENU = "expandMenu";
 
+	/** The Constant EXPAND_MENU_ITEM. */
+	public final static String EXPAND_MENU_ITEM = "expandMenuItem";
+	
 	/** The Constant IMAGE_VIEW. */
 	public final static String IMAGE_VIEW = "image";
 
