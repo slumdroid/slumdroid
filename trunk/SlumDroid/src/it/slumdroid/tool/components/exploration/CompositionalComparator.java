@@ -43,6 +43,8 @@ import java.util.GregorianCalendar;
  * The Class CompositionalComparator.
  */
 public class CompositionalComparator {
+	
+	private static boolean hasList = false;
 
 	/**
 	 * Compare.
@@ -55,6 +57,7 @@ public class CompositionalComparator {
 		if (!compareNameAndTitle(currentActivity, storedActivity)) {
 			return false;
 		}
+		hasList = false;
 		for (WidgetState field: currentActivity) {	
 			if (!lookFor(field, storedActivity)) {
 				return false;
@@ -109,10 +112,18 @@ public class CompositionalComparator {
 		boolean compareId = field.getId().equals(otherField.getId());
 		boolean compareType = field.getSimpleType().equals(otherField.getSimpleType());
 		boolean compareWidget = compareId && compareType;
+		boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(EXPAND_LIST);
+		if (isList || field.getSimpleType().equals(EXPAND_MENU)) {
+			hasList = true;
+		}
 		if (COMPARE_AVAILABLE) {
 			boolean compareAvailable = field.isAvailable() == otherField.isAvailable();
-			boolean compareIndex = field.getIndex() == otherField.getIndex();
-			compareWidget = compareId && compareType && compareAvailable && compareIndex;
+			if (!hasList) {
+				boolean compareIndex = field.getIndex() == otherField.getIndex();
+				compareWidget = compareId && compareType && compareAvailable && compareIndex;
+			} else {
+				compareWidget = compareId && compareType && compareAvailable;
+			}
 		}
 		if (compareWidget) {
 			if (field.getSimpleType().equals(TEXT_VIEW)) {
@@ -124,22 +135,21 @@ public class CompositionalComparator {
 				boolean compareValue = field.getValue().equals(otherField.getValue()); 
 				return compareValue && compareIndex;
 			}
+			boolean compareCheck = COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX);
+			if (field.getSimpleType().equals(BUTTON) || compareCheck) {
+				return field.getValue().equals(otherField.getValue());
+			}
+			boolean compareCount = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU) || field.getSimpleType().equals(PREFERENCE_LIST);
+			boolean compareList = COMPARE_LIST_COUNT && isList;
+			if (compareCount || compareList) {
+				return field.getCount() == otherField.getCount();
+			}
 			boolean compareTitle = COMPARE_TITLE && field.getSimpleType().equals(DIALOG_TITLE);
 			boolean compareToast = COMPARE_TOAST && field.getSimpleType().equals(TOAST);
 			if (compareTitle || compareToast) {
 				if (!field.getValue().contains(String.valueOf(new GregorianCalendar().get(Calendar.YEAR)))) {
 					return field.getValue().equals(otherField.getValue());	
 				} 
-			}
-			boolean compareCheck = COMPARE_CHECKBOX && field.getSimpleType().equals(CHECKBOX);
-			if (field.getSimpleType().equals(BUTTON) || compareCheck) {
-				return field.getValue().equals(otherField.getValue());
-			}
-			boolean compareCount = field.getSimpleType().equals(MENU_VIEW) || field.getSimpleType().equals(EXPAND_MENU) || field.getSimpleType().equals(PREFERENCE_LIST);
-			boolean isList = field.getSimpleType().equals(LIST_VIEW) || field.getSimpleType().equals(EXPAND_LIST);
-			boolean compareList = COMPARE_LIST_COUNT && isList;
-			if (compareCount || compareList) {
-				return field.getCount() == otherField.getCount();
 			}
 		}
 		return compareWidget;
