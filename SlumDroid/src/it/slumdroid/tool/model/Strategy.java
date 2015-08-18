@@ -17,7 +17,6 @@ package it.slumdroid.tool.model;
 
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.tool.components.exploration.CompositionalComparator;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,20 +30,6 @@ public interface Strategy {
 	 * @param theState the state
 	 */
 	public void addState(ActivityState theState);
-
-	/**
-	 * Gets the comparator.
-	 *
-	 * @return the comparator
-	 */
-	public CompositionalComparator getComparator();
-
-	/**
-	 * Sets the comparator.
-	 *
-	 * @param theComparator the new comparator
-	 */
-	public void setComparator(CompositionalComparator theComparator);
 
 	/**
 	 * Compare state.

@@ -34,10 +34,10 @@ import android.util.Log;
 public class ExplorationStrategy implements Strategy {
 
 	/** The gui nodes. */
-	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState> ();
+	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState>();
 
 	/** The comparator. */
-	private CompositionalComparator comparator;
+	private CompositionalComparator comparator = new CompositionalComparator();
 
 	/** The positive comparation. */
 	protected boolean positiveComparation = true;
@@ -48,22 +48,6 @@ public class ExplorationStrategy implements Strategy {
 	/** The listeners. */
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 
-	/**
-	 * Instantiates a new exploration strategy.
-	 */
-	public ExplorationStrategy() {
-		this(new CompositionalComparator());
-	}
-
-	/**
-	 * Instantiates a new exploration strategy.
-	 *
-	 * @param comparator the comparator
-	 */
-	public ExplorationStrategy(CompositionalComparator comparator) {
-		super();
-		setComparator(comparator);
-	}
 
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Strategy#addState(it.slumdroid.droidmodels.model.ActivityState)
@@ -81,7 +65,7 @@ public class ExplorationStrategy implements Strategy {
 	public void compareState(ActivityState theActivity) {
 		this.positiveComparation = true;
 		for (ActivityState stored: this.guiNodes) {
-			if (getComparator().compare(theActivity, stored)) {
+			if (this.comparator.compare(theActivity, stored)) {
 				theActivity.setId(stored.getId());
 				Log.i(TAG, "This activity state is equivalent to " + stored.getId());
 				return;
@@ -97,20 +81,6 @@ public class ExplorationStrategy implements Strategy {
 	 */
 	public final boolean checkForExploration() {		
 		return !this.positiveComparation;		
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#getComparator()
-	 */
-	public CompositionalComparator getComparator() {
-		return this.comparator;
-	}
-
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#setComparator(it.slumdroid.tool.components.exploration.CompositionalComparator)
-	 */
-	public void setComparator(CompositionalComparator comparator) {
-		this.comparator = comparator;
 	}
 
 	/* (non-Javadoc)

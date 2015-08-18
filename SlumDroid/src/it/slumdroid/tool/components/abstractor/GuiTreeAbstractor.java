@@ -72,10 +72,10 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	private StartActivity baseActivity;
 
 	/** The filters. */
-	private HashSet<AllPassFilter> filters;
+	private HashSet<AllPassFilter> filters = new HashSet<AllPassFilter>();
 
 	/** The detector. */
-	private TypeDetector detector;
+	private TypeDetector detector = new TypeDetector();
 
 	/** The event id. */
 	private int eventId = 0;
@@ -104,19 +104,7 @@ public class GuiTreeAbstractor implements Abstractor, SaveStateListener {
 	 * @throws ParserConfigurationException the parser configuration exception
 	 */
 	public GuiTreeAbstractor() throws ParserConfigurationException {
-		this(new GuiTree());
-	}
-
-	/**
-	 * Instantiates a new gui tree abstractor.
-	 *
-	 * @param theSession the session
-	 */
-	public GuiTreeAbstractor(GuiTree theSession) {
-		super();
-		this.filters = new HashSet<AllPassFilter>();
-		this.detector = new TypeDetector();
-		setTheSession(theSession);
+		setTheSession(new GuiTree());
 		PersistenceFactory.registerForSavingState(this);
 	}
 
