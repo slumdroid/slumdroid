@@ -15,11 +15,11 @@
 
 package it.slumdroid.tool.utilities.adapters;
 
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.WidgetState;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.WidgetState;
 
 // TODO: Auto-generated Javadoc
 /**

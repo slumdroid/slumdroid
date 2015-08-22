@@ -35,13 +35,10 @@ import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
 import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
 import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
 import static it.slumdroid.tool.Resources.TAG;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.model.Transition;
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.tool.model.Executor;
 
 import java.util.ArrayList;
+
+import com.robotium.solo.Solo;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
@@ -54,39 +51,45 @@ import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TabHost;
-
-import com.robotium.solo.Solo;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class Automation.
  */
-public class Automation implements Executor {
+public class Automation {
 
 	/** The extractor. */
-	private static TrivialExtractor extractor;
+	private static Extractor extractor;
 
 	/** The executor. */
-	private static DroidExecutor executor;
+	private static Executor executor;
 
 	/**
 	 * Instantiates a new automation.
 	 */
 	public Automation() {
-		extractor = new TrivialExtractor(); 
+		extractor = new Extractor(); 
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Executor#bind(android.test.ActivityInstrumentationTestCase2)
+	/**
+	 * Bind.
+	 *
+	 * @param test the test
 	 */
 	public void bind(ActivityInstrumentationTestCase2<?> test) {
-		executor = new DroidExecutor(test);
+		executor = new Executor(test);
 		getRobotium().unlockScreen();
 		afterRestart();
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Executor#execute(it.slumdroid.droidmodels.model.Task)
+	/**
+	 * Execute.
+	 *
+	 * @param theTask the the task
 	 */
 	public void execute(Task theTask) {
 		Log.i (TAG, "Playing Task " + theTask.getId());
@@ -107,8 +110,10 @@ public class Automation implements Executor {
 		fireEvent (theTransition.getEvent());
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Executor#setInput(it.slumdroid.droidmodels.model.UserInput)
+	/**
+	 * Sets the input.
+	 *
+	 * @param input the new input
 	 */
 	public void setInput(UserInput input) {
 		String toWrite = "Setting input: " + input.getType() + " widgetId=" + input.getWidgetId() + " widgetType=" + input.getWidget().getSimpleType();
@@ -151,8 +156,10 @@ public class Automation implements Executor {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Executor#fireEvent(it.slumdroid.droidmodels.model.UserEvent)
+	/**
+	 * Fire event.
+	 *
+	 * @param event the event
 	 */
 	public void fireEvent(UserEvent event) {
 		String eventType = event.getType();
@@ -261,8 +268,10 @@ public class Automation implements Executor {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Executor#wait(int)
+	/**
+	 * Wait.
+	 *
+	 * @param milli the milli
 	 */
 	public void wait(int milli) {
 		getExecutor().wait(milli);
@@ -318,7 +327,7 @@ public class Automation implements Executor {
 	 *
 	 * @return the extractor
 	 */
-	public static TrivialExtractor getExtractor() {
+	public static Extractor getExtractor() {
 		return extractor;
 	}
 
@@ -327,7 +336,7 @@ public class Automation implements Executor {
 	 *
 	 * @return the executor
 	 */
-	public static DroidExecutor getExecutor() {
+	public static Executor getExecutor() {
 		return executor;
 	}
 

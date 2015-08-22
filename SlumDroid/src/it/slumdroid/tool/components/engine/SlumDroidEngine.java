@@ -26,7 +26,7 @@ import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.droidmodels.model.Task;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.xml.XmlGraph;
-import it.slumdroid.tool.components.abstractor.GuiTreeAbstractor;
+import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.components.automation.Automation;
 import it.slumdroid.tool.components.exploration.ExplorationStrategy;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
@@ -68,7 +68,7 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	private int id = 0;
 
 	/** The abstractor. */
-	private GuiTreeAbstractor theAbstractor = new GuiTreeAbstractor();
+	private Abstractor theAbstractor = new Abstractor();
 
 	/** The automation. */
 	private Automation theAutomation = new Automation();
@@ -92,7 +92,7 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	 * Instantiates a new SlumDroid engine.
 	 *
 	 * @throws ClassNotFoundException the class not found exception
-	 * @throws ParserConfigurationException 
+	 * @throws ParserConfigurationException the parser configuration exception
 	 */
 	@SuppressWarnings("unchecked")
 	public SlumDroidEngine() throws ClassNotFoundException, ParserConfigurationException {
@@ -325,7 +325,7 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	 *
 	 * @return the abstractor
 	 */
-	public GuiTreeAbstractor getAbstractor() {
+	public Abstractor getAbstractor() {
 		return this.theAbstractor;
 	}
 

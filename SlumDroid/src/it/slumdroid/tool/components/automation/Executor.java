@@ -40,7 +40,7 @@ import com.robotium.solo.Solo;
 /**
  * The Class DroidExecutor.
  */
-public class DroidExecutor {
+public class Executor {
 
 	/** The robotium. */
 	private static Solo robotium;
@@ -53,7 +53,7 @@ public class DroidExecutor {
 	 *
 	 * @param test the test
 	 */
-	public DroidExecutor(ActivityInstrumentationTestCase2<?> test) {
+	public Executor(ActivityInstrumentationTestCase2<?> test) {
 		instrumentation = test.getInstrumentation();
 		robotium = new Solo(instrumentation, test.getActivity());
 	}

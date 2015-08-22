@@ -44,6 +44,7 @@ import java.util.GregorianCalendar;
  */
 public class CompositionalComparator {
 	
+	/** The has list. */
 	private static boolean hasList = false;
 
 	/**

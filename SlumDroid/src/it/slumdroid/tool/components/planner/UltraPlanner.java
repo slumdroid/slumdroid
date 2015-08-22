@@ -26,6 +26,12 @@ import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
 import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
 import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
 import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import android.content.pm.ActivityInfo;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.model.UserEvent;
@@ -33,17 +39,11 @@ import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.droidmodels.testcase.TestCaseEvent;
 import it.slumdroid.droidmodels.testcase.TestCaseInput;
+import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.components.automation.Automation;
-import it.slumdroid.tool.model.Abstractor;
 import it.slumdroid.tool.model.EventHandler;
 import it.slumdroid.tool.model.InputHandler;
 import it.slumdroid.tool.utilities.AllPassFilter;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import android.content.pm.ActivityInfo;
 
 // TODO: Auto-generated Javadoc
 /**

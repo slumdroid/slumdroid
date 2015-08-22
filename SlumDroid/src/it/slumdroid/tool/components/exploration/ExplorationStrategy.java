@@ -16,22 +16,21 @@
 package it.slumdroid.tool.components.exploration;
 
 import static it.slumdroid.tool.Resources.TAG;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.tool.model.StateDiscoveryListener;
-import it.slumdroid.tool.model.Strategy;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 import android.util.Log;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.tool.model.StateDiscoveryListener;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ExplorationStrategy.
  */
-public class ExplorationStrategy implements Strategy {
+public class ExplorationStrategy {
 
 	/** The gui nodes. */
 	private HashSet<ActivityState> guiNodes = new HashSet<ActivityState>();
@@ -49,8 +48,10 @@ public class ExplorationStrategy implements Strategy {
 	private List<StateDiscoveryListener> theListeners = new ArrayList<StateDiscoveryListener>();
 
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#addState(it.slumdroid.droidmodels.model.ActivityState)
+	/**
+	 * Adds the state.
+	 *
+	 * @param newActivity the new activity
 	 */
 	public void addState(ActivityState newActivity) {
 		for (StateDiscoveryListener listener: getListeners()) {
@@ -59,8 +60,10 @@ public class ExplorationStrategy implements Strategy {
 		this.guiNodes.add(newActivity);
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#compareState(it.slumdroid.droidmodels.model.ActivityState)
+	/**
+	 * Compare state.
+	 *
+	 * @param theActivity the the activity
 	 */
 	public void compareState(ActivityState theActivity) {
 		this.positiveComparation = true;
@@ -76,22 +79,28 @@ public class ExplorationStrategy implements Strategy {
 		addState (theActivity);
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#checkForExploration()
+	/**
+	 * Check for exploration.
+	 *
+	 * @return true, if successful
 	 */
 	public final boolean checkForExploration() {		
 		return !this.positiveComparation;		
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#setTask(it.slumdroid.droidmodels.model.Task)
+	/**
+	 * Sets the task.
+	 *
+	 * @param theTask the new task
 	 */
 	public void setTask(Task theTask) {
 		this.theTask = theTask;
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Strategy#getTask()
+	/**
+	 * Gets the task.
+	 *
+	 * @return the task
 	 */
 	public Task getTask() {
 		return this.theTask;

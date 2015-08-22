@@ -16,19 +16,19 @@
 package it.slumdroid.tool.components.scheduler;
 
 import static it.slumdroid.tool.Resources.RANDOM_SEED;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.tool.Resources.SchedulerAlgorithm;
-import it.slumdroid.tool.model.TaskScheduler;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.tool.Resources.SchedulerAlgorithm;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class TrivialScheduler.
  */
-public class TrivialScheduler implements TaskScheduler {
+public class TaskScheduler {
 
 	/** The tasks. */
 	private List<Task> tasks;
@@ -41,12 +41,14 @@ public class TrivialScheduler implements TaskScheduler {
 	 *
 	 * @param algorithm the algorithm
 	 */
-	public TrivialScheduler(SchedulerAlgorithm algorithm) {
+	public TaskScheduler(SchedulerAlgorithm algorithm) {
 		this.algorithm = algorithm;
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#nextTask()
+	/**
+	 * Next task.
+	 *
+	 * @return the task
 	 */
 	public Task nextTask() {
 		if (!hasMore()) {
@@ -63,8 +65,10 @@ public class TrivialScheduler implements TaskScheduler {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#addTasks(java.util.Collection)
+	/**
+	 * Adds the tasks.
+	 *
+	 * @param newTasks the new tasks
 	 */
 	public void addTasks(Collection<Task> newTasks) {
 		for (Task task: newTasks) {
@@ -72,43 +76,55 @@ public class TrivialScheduler implements TaskScheduler {
 		}				
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#addPlannedTasks(java.util.List)
+	/**
+	 * Adds the planned tasks.
+	 *
+	 * @param newTasks the new tasks
 	 */
 	public void addPlannedTasks(List<Task> newTasks) {
 		addTasks(newTasks);
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#setTaskList(java.util.List)
+	/**
+	 * Sets the task list.
+	 *
+	 * @param theList the new task list
 	 */
 	public void setTaskList(List<Task> theList) {
 		this.tasks = theList;
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#getTaskList()
+	/**
+	 * Gets the task list.
+	 *
+	 * @return the task list
 	 */
 	public List<Task> getTaskList() {
 		return this.tasks;
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#hasMore()
+	/**
+	 * Checks for more.
+	 *
+	 * @return true, if successful
 	 */
 	public boolean hasMore() {
 		return !this.tasks.isEmpty();
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#remove(it.slumdroid.droidmodels.model.Task)
+	/**
+	 * Removes the.
+	 *
+	 * @param task the task
 	 */
 	public void remove(Task task) {
 		this.tasks.remove(task);
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.TaskScheduler#addTasks(it.slumdroid.droidmodels.model.Task)
+	/**
+	 * Adds the tasks.
+	 *
+	 * @param task the task
 	 */
 	public void addTasks(Task task) {
 		this.tasks.add(task);

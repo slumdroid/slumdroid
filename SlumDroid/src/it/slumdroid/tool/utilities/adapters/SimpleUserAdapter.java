@@ -15,17 +15,17 @@
 
 package it.slumdroid.tool.utilities.adapters;
 
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.tool.model.Abstractor;
-import it.slumdroid.tool.model.Interactor;
-import it.slumdroid.tool.model.RandomInteractor;
-import it.slumdroid.tool.model.UserAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.components.abstractor.Abstractor;
+import it.slumdroid.tool.model.Interactor;
+import it.slumdroid.tool.model.RandomInteractor;
+import it.slumdroid.tool.model.UserAdapter;
 
 // TODO: Auto-generated Javadoc
 /**

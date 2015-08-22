@@ -15,19 +15,17 @@
 
 package it.slumdroid.tool.components.automation;
 
-import it.slumdroid.tool.model.ActivityDescription;
-import it.slumdroid.tool.model.Extractor;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
 import android.view.View;
+import it.slumdroid.tool.model.ActivityDescription;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class TrivialExtractor.
  */
-public class TrivialExtractor implements Extractor {
+public class Extractor {
 
 	/** The all views. */
 	private ArrayList<View> allViews = new ArrayList<View>();
@@ -41,15 +39,17 @@ public class TrivialExtractor implements Extractor {
 		return this.allViews;
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#extractState()
+	/**
+	 * Extract state.
 	 */
 	public void extractState() {
 		this.allViews = new ArrayList<View>(Automation.getRobotium().getViews());
 	}
 
-	/* (non-Javadoc)
-	 * @see it.slumdroid.tool.model.Extractor#describeActivity()
+	/**
+	 * Describe activity.
+	 *
+	 * @return the activity description
 	 */
 	public ActivityDescription describeActivity() {
 		return new ActivityDescription() {

@@ -19,18 +19,6 @@ import static it.slumdroid.tool.Resources.ACTIVITY_LIST_FILE_NAME;
 import static it.slumdroid.tool.Resources.GUI_TREE_FILE_NAME;
 import static it.slumdroid.tool.Resources.PARAMETERS_FILE_NAME;
 import static it.slumdroid.tool.Resources.TASK_LIST_FILE_NAME;
-import it.slumdroid.droidmodels.guitree.FinalActivity;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Session;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.xml.ElementWrapper;
-import it.slumdroid.droidmodels.xml.XmlGraph;
-import it.slumdroid.tool.components.automation.Automation;
-import it.slumdroid.tool.model.DispatchListener;
-import it.slumdroid.tool.model.Persistence;
-import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.model.StateDiscoveryListener;
-import it.slumdroid.tool.utilities.SessionParams;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -52,12 +40,23 @@ import android.app.Activity;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.view.View;
+import it.slumdroid.droidmodels.guitree.FinalActivity;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.xml.ElementWrapper;
+import it.slumdroid.droidmodels.xml.XmlGraph;
+import it.slumdroid.tool.components.automation.Automation;
+import it.slumdroid.tool.model.DispatchListener;
+import it.slumdroid.tool.model.SaveStateListener;
+import it.slumdroid.tool.model.StateDiscoveryListener;
+import it.slumdroid.tool.utilities.SessionParams;
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ResumingPersistence.
  */
-public class ResumingPersistence implements Persistence, SaveStateListener, DispatchListener, StateDiscoveryListener {
+public class ResumingPersistence implements SaveStateListener, DispatchListener, StateDiscoveryListener {
 
 	/** The actor name. */
 	public final String ACTOR_NAME = "ResumingPersistence";
@@ -125,6 +124,11 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		setSession(theSession);
 	}
 
+	/**
+	 * Adds the task.
+	 *
+	 * @param task the task
+	 */
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#addTask(it.slumdroid.droidmodels.model.Task)
 	 */ 
@@ -309,6 +313,12 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		return this.wrapper.deleteFile(fileName);
 	}
 
+	/**
+	 * Exists.
+	 *
+	 * @param filename the filename
+	 * @return true, if successful
+	 */
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Persistence#exists(java.lang.String)
 	 */
@@ -572,6 +582,9 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		copy(backup(fileName), fileName);
 	}
 
+	/**
+	 * Save.
+	 */
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.components.persistence.StepDiskPersistence#save()
 	 */
@@ -731,6 +744,11 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		}
 	}
 
+	/**
+	 * Sets the context.
+	 *
+	 * @param activity the new context
+	 */
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Persistence#setContext(android.app.Activity)
 	 */
@@ -752,6 +770,11 @@ public class ResumingPersistence implements Persistence, SaveStateListener, Disp
 		this.first = false;
 	}
 
+	/**
+	 * Sets the session.
+	 *
+	 * @param session the new session
+	 */
 	/* (non-Javadoc)
 	 * @see it.slumdroid.tool.model.Persistence#setSession(it.slumdroid.droidmodels.model.Session)
 	 */

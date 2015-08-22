@@ -15,15 +15,15 @@
 
 package it.slumdroid.tool.utilities.adapters;
 
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.tool.model.Abstractor;
-import it.slumdroid.tool.model.Interactor;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.components.abstractor.Abstractor;
+import it.slumdroid.tool.model.Interactor;
 
 // TODO: Auto-generated Javadoc
 /**

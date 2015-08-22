@@ -21,7 +21,11 @@ import static it.slumdroid.tool.Prefs.ADDITIONAL_EVENTS;
 import static it.slumdroid.tool.Prefs.ADDITIONAL_INPUTS;
 import static it.slumdroid.tool.Resources.HASH_VALUES;
 import static it.slumdroid.tool.Resources.RANDOM_SEED;
-import it.slumdroid.tool.model.Abstractor;
+
+import java.util.HashMap;
+import java.util.Random;
+
+import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.model.UserAdapter;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 import it.slumdroid.tool.utilities.adapters.SimpleUserAdapter;
@@ -39,9 +43,6 @@ import it.slumdroid.tool.utilities.interactors.selector.ListSelector;
 import it.slumdroid.tool.utilities.interactors.selector.RadioSelector;
 import it.slumdroid.tool.utilities.interactors.selector.RandomSpinnerSelector;
 import it.slumdroid.tool.utilities.interactors.selector.SpinnerSelector;
-
-import java.util.HashMap;
-import java.util.Random;
 
 // TODO: Auto-generated Javadoc
 /**
