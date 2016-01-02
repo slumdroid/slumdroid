@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,28 +10,13 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.exploration;
 
-import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
-import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU_ITEM;
-import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
-import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
-import static it.slumdroid.tool.Resources.COMPARE_AVAILABLE;
-import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
-import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
-import static it.slumdroid.tool.Resources.COMPARE_TITLE;
-import static it.slumdroid.tool.Resources.COMPARE_TOAST;
+import static it.slumdroid.droidmodels.model.SimpleType.*;
+import static it.slumdroid.tool.Resources.*;
 import it.slumdroid.droidmodels.model.ActivityState;
 import it.slumdroid.droidmodels.model.WidgetState;
 

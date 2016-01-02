@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.automation;
@@ -22,23 +22,14 @@ import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getTyp
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.Display;
-import android.view.KeyEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.TabHost;
+import android.view.*;
+import android.widget.*;
 
 import com.robotium.solo.Solo;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class DroidExecutor.
+ * The Class Executor.
  */
 public class Executor {
 

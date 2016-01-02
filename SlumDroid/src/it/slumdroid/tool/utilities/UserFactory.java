@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,7 +10,7 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.utilities;
@@ -27,22 +27,10 @@ import java.util.Random;
 
 import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.model.UserAdapter;
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
-import it.slumdroid.tool.utilities.adapters.SimpleUserAdapter;
-import it.slumdroid.tool.utilities.interactors.BarSlider;
-import it.slumdroid.tool.utilities.interactors.Clicker;
-import it.slumdroid.tool.utilities.interactors.LongClicker;
-import it.slumdroid.tool.utilities.interactors.TabSwapper;
-import it.slumdroid.tool.utilities.interactors.TabSwiper;
-import it.slumdroid.tool.utilities.interactors.editor.HashEnterEditor;
-import it.slumdroid.tool.utilities.interactors.editor.HashWriteEditor;
-import it.slumdroid.tool.utilities.interactors.editor.RandomEnterEditor;
-import it.slumdroid.tool.utilities.interactors.editor.RandomWriteEditor;
-import it.slumdroid.tool.utilities.interactors.selector.ListLongSelector;
-import it.slumdroid.tool.utilities.interactors.selector.ListSelector;
-import it.slumdroid.tool.utilities.interactors.selector.RadioSelector;
-import it.slumdroid.tool.utilities.interactors.selector.RandomSpinnerSelector;
-import it.slumdroid.tool.utilities.interactors.selector.SpinnerSelector;
+import it.slumdroid.tool.utilities.adapters.*;
+import it.slumdroid.tool.utilities.interactors.*;
+import it.slumdroid.tool.utilities.interactors.editor.*;
+import it.slumdroid.tool.utilities.interactors.selector.*;
 
 // TODO: Auto-generated Javadoc
 /**

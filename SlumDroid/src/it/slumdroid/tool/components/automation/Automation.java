@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,31 +10,14 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.automation;
 
-import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
-import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
-import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
-import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
-import static it.slumdroid.droidmodels.model.InteractionType.PRESS_BACK;
-import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
-import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
-import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
-import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
-import static it.slumdroid.droidmodels.model.InteractionType.SWIPE_TAB;
-import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.*;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
-import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
-import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
-import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
-import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.Resources.*;
 
 import java.util.ArrayList;
 

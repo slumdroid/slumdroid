@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,30 +10,15 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.persistence;
 
-import static it.slumdroid.tool.Resources.ACTIVITY_LIST_FILE_NAME;
-import static it.slumdroid.tool.Resources.GUI_TREE_FILE_NAME;
-import static it.slumdroid.tool.Resources.PARAMETERS_FILE_NAME;
-import static it.slumdroid.tool.Resources.TASK_LIST_FILE_NAME;
+import static it.slumdroid.tool.Resources.*;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.Map.Entry;
 
 import android.app.Activity;

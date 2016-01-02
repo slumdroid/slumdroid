@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,78 +10,16 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.abstractor;
 
-import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
-import static it.slumdroid.droidmodels.model.SimpleType.AUTOC_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
-import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.DATE_PICKER;
-import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
-import static it.slumdroid.droidmodels.model.SimpleType.EDIT_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.EMPTY_SPINNER;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
-import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.LINEAR_LAYOUT;
-import static it.slumdroid.droidmodels.model.SimpleType.LIST_ITEM;
-import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
-import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.NOEDITABLE_TEXT;
-import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER;
-import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.PAGER_TAB_STRIP;
-import static it.slumdroid.droidmodels.model.SimpleType.POPUP_MENU;
-import static it.slumdroid.droidmodels.model.SimpleType.POPUP_WINDOW;
-import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
-import static it.slumdroid.droidmodels.model.SimpleType.PROGRESS_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
-import static it.slumdroid.droidmodels.model.SimpleType.RADIO_GROUP;
-import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.RELATIVE_LAYOUT;
-import static it.slumdroid.droidmodels.model.SimpleType.SCROLL_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
-import static it.slumdroid.droidmodels.model.SimpleType.SLIDING_DRAWER;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER;
-import static it.slumdroid.droidmodels.model.SimpleType.SPINNER_INPUT;
-import static it.slumdroid.droidmodels.model.SimpleType.TABLE_LAYOUT;
-import static it.slumdroid.droidmodels.model.SimpleType.TABLE_ROW;
-import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
-import static it.slumdroid.droidmodels.model.SimpleType.TAB_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.TIME_PICKER;
-import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
-import static it.slumdroid.droidmodels.model.SimpleType.WEB_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.*;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.EditText;
-import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RatingBar;
-import android.widget.ScrollView;
-import android.widget.SeekBar;
-import android.widget.SlidingDrawer;
-import android.widget.Spinner;
-import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.*;
 
 // TODO: Auto-generated Javadoc
 /**

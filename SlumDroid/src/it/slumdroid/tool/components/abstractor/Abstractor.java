@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,19 +10,13 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.abstractor;
 
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
-import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU_ITEM;
-import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
-import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
-import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.detectName;
-import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
-import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.setCount;
-import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.setValue;
+import static it.slumdroid.droidmodels.model.SimpleType.*;
+import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -35,22 +29,9 @@ import org.w3c.dom.Element;
 
 import android.view.View;
 import android.widget.TextView;
-import it.slumdroid.droidmodels.guitree.FinalActivity;
-import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.guitree.StartActivity;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.model.Transition;
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.droidmodels.model.WidgetType;
-import it.slumdroid.droidmodels.testcase.TestCaseActivity;
-import it.slumdroid.droidmodels.testcase.TestCaseEvent;
-import it.slumdroid.droidmodels.testcase.TestCaseInput;
-import it.slumdroid.droidmodels.testcase.TestCaseTask;
-import it.slumdroid.droidmodels.testcase.TestCaseTransition;
-import it.slumdroid.droidmodels.testcase.TestCaseWidget;
+import it.slumdroid.droidmodels.guitree.*;
+import it.slumdroid.droidmodels.model.*;
+import it.slumdroid.droidmodels.testcase.*;
 import it.slumdroid.droidmodels.xml.ElementWrapper;
 import it.slumdroid.tool.components.persistence.PersistenceFactory;
 import it.slumdroid.tool.model.ActivityDescription;
@@ -60,7 +41,7 @@ import it.slumdroid.tool.utilities.SessionParams;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class GuiTreeAbstractor.
+ * The Class Abstractor.
  */
 public class Abstractor implements SaveStateListener {
 

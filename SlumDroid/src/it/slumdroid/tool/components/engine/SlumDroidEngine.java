@@ -1,4 +1,4 @@
-/* This file is part of SlumDroid <https://code.google.com/p/slumdroid/>.
+/* This file is part of SlumDroid <https://github.com/slumdroid/slumdroid>.
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3
@@ -10,21 +10,14 @@
  * GNU General Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  * for more details.
  * 
- * Copyright (C) 2013-2015 Gennaro Imparato
+ * Copyright (C) 2012-2016 Gennaro Imparato
  */
 
 package it.slumdroid.tool.components.engine;
 
-import static it.slumdroid.tool.Resources.CLASS_NAME;
-import static it.slumdroid.tool.Resources.PACKAGE_NAME;
-import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
-import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
-import static it.slumdroid.tool.Resources.TAG;
+import static it.slumdroid.tool.Resources.*;
 import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.Session;
-import it.slumdroid.droidmodels.model.Task;
-import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.*;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.components.automation.Automation;
@@ -36,9 +29,7 @@ import it.slumdroid.tool.components.planner.UltraPlanner;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.utilities.AllPassFilter;
-import it.slumdroid.tool.utilities.SessionParams;
-import it.slumdroid.tool.utilities.UserFactory;
+import it.slumdroid.tool.utilities.*;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -53,7 +44,7 @@ import android.view.KeyEvent;
 
 // TODO: Auto-generated Javadoc
 /**
- * The Class SystematicEngine.
+ * The Class SlumDroidEngine.
  */
 @SuppressWarnings("rawtypes")
 public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
@@ -428,16 +419,11 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	 */
 	private void takeScreenshot(ActivityState theState) {
 		String fileName = theState.getUniqueId();
-		if (android.os.Build.MANUFACTURER.contains("Genymotion") 
-				|| android.os.Build.MODEL.contains("Genymotion")) {
-			if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-				saveJPG(theState, fileName);
-			} else {
-				savePNG(theState, fileName);	
-			}	
-		} else {
+		if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
 			saveJPG(theState, fileName);
-		}
+		} else {
+			savePNG(theState, fileName);	
+		}			
 	}
 
 	/**
