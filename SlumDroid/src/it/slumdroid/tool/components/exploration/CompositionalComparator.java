@@ -15,13 +15,29 @@
 
 package it.slumdroid.tool.components.exploration;
 
-import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.*;
-import it.slumdroid.droidmodels.model.ActivityState;
-import it.slumdroid.droidmodels.model.WidgetState;
+import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
+import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_LIST;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU;
+import static it.slumdroid.droidmodels.model.SimpleType.EXPAND_MENU_ITEM;
+import static it.slumdroid.droidmodels.model.SimpleType.LIST_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
+import static it.slumdroid.droidmodels.model.SimpleType.TEXT_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.TOAST;
+import static it.slumdroid.tool.Resources.COMPARE_AVAILABLE;
+import static it.slumdroid.tool.Resources.COMPARE_CHECKBOX;
+import static it.slumdroid.tool.Resources.COMPARE_LIST_COUNT;
+import static it.slumdroid.tool.Resources.COMPARE_TITLE;
+import static it.slumdroid.tool.Resources.COMPARE_TOAST;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.WidgetState;
 
 // TODO: Auto-generated Javadoc
 /**

@@ -16,6 +16,7 @@
 package it.slumdroid.tool.utilities.interactors.editor;
 
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
 // TODO: Auto-generated Javadoc

@@ -15,13 +15,23 @@
 
 package it.slumdroid.tool;
 
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.*;
-import it.slumdroid.tool.utilities.UserFactory;
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
-import it.slumdroid.tool.utilities.interactors.editor.AdditionalEnterEditor;
-import it.slumdroid.tool.utilities.interactors.editor.AdditionalWriteEditor;
+import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.CHECKBOX;
+import static it.slumdroid.droidmodels.model.SimpleType.CHECKTEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
+import static it.slumdroid.droidmodels.model.SimpleType.NUMBER_PICKER_BUTTON;
+import static it.slumdroid.droidmodels.model.SimpleType.RADIO;
+import static it.slumdroid.droidmodels.model.SimpleType.TAB_VIEW;
+import static it.slumdroid.droidmodels.model.SimpleType.TOGGLE_BUTTON;
+import static it.slumdroid.tool.Resources.EVENTS;
+import static it.slumdroid.tool.Resources.EXTRA_EVENTS;
+import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
+import static it.slumdroid.tool.Resources.INPUTS;
+import static it.slumdroid.tool.Resources.TAG;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -36,6 +46,10 @@ import java.util.prefs.Preferences;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
+import it.slumdroid.tool.utilities.UserFactory;
+import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
+import it.slumdroid.tool.utilities.interactors.editor.AdditionalEnterEditor;
+import it.slumdroid.tool.utilities.interactors.editor.AdditionalWriteEditor;
 
 // TODO: Auto-generated Javadoc
 /**

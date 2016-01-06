@@ -15,9 +15,26 @@
 
 package it.slumdroid.tool.components.automation;
 
-import static it.slumdroid.droidmodels.model.InteractionType.*;
+import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
+import static it.slumdroid.droidmodels.model.InteractionType.CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_BACK;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
+import static it.slumdroid.droidmodels.model.InteractionType.RADIO_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
+import static it.slumdroid.droidmodels.model.InteractionType.SPINNER_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
+import static it.slumdroid.droidmodels.model.InteractionType.SWIPE_TAB;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.MENU_ITEM;
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_EVENT;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_RESTART;
+import static it.slumdroid.tool.Resources.SLEEP_ON_THROBBER;
+import static it.slumdroid.tool.Resources.TAG;
 
 import java.util.ArrayList;
 

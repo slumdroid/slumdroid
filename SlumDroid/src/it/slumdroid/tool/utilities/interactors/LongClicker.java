@@ -17,6 +17,7 @@ package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.LONG_CLICK;
 import static it.slumdroid.droidmodels.model.SimpleType.IMAGE_VIEW;
+
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 

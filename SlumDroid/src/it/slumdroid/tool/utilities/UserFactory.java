@@ -27,10 +27,22 @@ import java.util.Random;
 
 import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.model.UserAdapter;
-import it.slumdroid.tool.utilities.adapters.*;
-import it.slumdroid.tool.utilities.interactors.*;
-import it.slumdroid.tool.utilities.interactors.editor.*;
-import it.slumdroid.tool.utilities.interactors.selector.*;
+import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
+import it.slumdroid.tool.utilities.adapters.SimpleUserAdapter;
+import it.slumdroid.tool.utilities.interactors.BarSlider;
+import it.slumdroid.tool.utilities.interactors.Clicker;
+import it.slumdroid.tool.utilities.interactors.LongClicker;
+import it.slumdroid.tool.utilities.interactors.TabSwapper;
+import it.slumdroid.tool.utilities.interactors.TabSwiper;
+import it.slumdroid.tool.utilities.interactors.editor.HashEnterEditor;
+import it.slumdroid.tool.utilities.interactors.editor.HashWriteEditor;
+import it.slumdroid.tool.utilities.interactors.editor.RandomEnterEditor;
+import it.slumdroid.tool.utilities.interactors.editor.RandomWriteEditor;
+import it.slumdroid.tool.utilities.interactors.selector.ListLongSelector;
+import it.slumdroid.tool.utilities.interactors.selector.ListSelector;
+import it.slumdroid.tool.utilities.interactors.selector.RadioSelector;
+import it.slumdroid.tool.utilities.interactors.selector.RandomSpinnerSelector;
+import it.slumdroid.tool.utilities.interactors.selector.SpinnerSelector;
 
 // TODO: Auto-generated Javadoc
 /**

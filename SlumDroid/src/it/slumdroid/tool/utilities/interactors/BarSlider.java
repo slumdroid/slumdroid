@@ -18,6 +18,7 @@ package it.slumdroid.tool.utilities.interactors;
 import static it.slumdroid.droidmodels.model.InteractionType.SET_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.RATING_BAR;
 import static it.slumdroid.droidmodels.model.SimpleType.SEEK_BAR;
+
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 

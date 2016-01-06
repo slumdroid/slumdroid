@@ -17,6 +17,7 @@ package it.slumdroid.tool.utilities.interactors.editor;
 
 import static it.slumdroid.droidmodels.model.InteractionType.ENTER_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
+
 import it.slumdroid.tool.utilities.adapters.RandomInteractorAdapter;
 
 // TODO: Auto-generated Javadoc

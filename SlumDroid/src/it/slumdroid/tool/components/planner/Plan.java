@@ -15,9 +15,11 @@
 
 package it.slumdroid.tool.components.planner;
 
-import it.slumdroid.droidmodels.model.Transition;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import java.util.*;
+import it.slumdroid.droidmodels.model.Transition;
 
 // TODO: Auto-generated Javadoc
 /**

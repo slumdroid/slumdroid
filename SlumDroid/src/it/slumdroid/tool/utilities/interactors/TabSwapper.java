@@ -18,6 +18,7 @@ package it.slumdroid.tool.utilities.interactors;
 import static it.slumdroid.droidmodels.model.InteractionType.SWAP_TAB;
 import static it.slumdroid.droidmodels.model.SimpleType.TAB_HOST;
 import static it.slumdroid.tool.Resources.TAB_EVENTS_START_ONLY;
+
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 

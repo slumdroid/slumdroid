@@ -16,13 +16,14 @@
 package it.slumdroid.tool.utilities.adapters;
 
 import static it.slumdroid.tool.Resources.RANDOM_SEED;
+
+import java.util.List;
+import java.util.Random;
+
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.model.RandomInteractor;
-
-import java.util.List;
-import java.util.Random;
 
 // TODO: Auto-generated Javadoc
 /**

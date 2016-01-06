@@ -16,12 +16,13 @@
 package it.slumdroid.tool.utilities.interactors.editor;
 
 import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+
+import java.util.List;
+
 import it.slumdroid.droidmodels.model.UserEvent;
 import it.slumdroid.droidmodels.model.UserInput;
 import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
-
-import java.util.List;
 
 // TODO: Auto-generated Javadoc
 /**

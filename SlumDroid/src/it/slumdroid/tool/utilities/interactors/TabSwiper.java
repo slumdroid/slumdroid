@@ -17,6 +17,7 @@ package it.slumdroid.tool.utilities.interactors;
 
 import static it.slumdroid.droidmodels.model.InteractionType.SWIPE_TAB;
 import static it.slumdroid.droidmodels.model.SimpleType.PAGER_TAB_STRIP;
+
 import it.slumdroid.tool.utilities.adapters.IterativeInteractorAdapter;
 
 // TODO: Auto-generated Javadoc

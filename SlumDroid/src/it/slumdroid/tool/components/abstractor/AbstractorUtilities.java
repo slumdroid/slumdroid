@@ -15,10 +15,16 @@
 
 package it.slumdroid.tool.components.abstractor;
 
-import it.slumdroid.droidmodels.model.WidgetState;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.Checkable;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.TabHost;
+import android.widget.TextView;
+import it.slumdroid.droidmodels.model.WidgetState;
 
 // TODO: Auto-generated Javadoc
 /**

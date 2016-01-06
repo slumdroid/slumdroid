@@ -19,15 +19,16 @@ import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.AUTOC_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.EDIT_TEXT;
 import static it.slumdroid.droidmodels.model.SimpleType.SEARCH_BAR;
-import it.slumdroid.droidmodels.model.UserEvent;
-import it.slumdroid.droidmodels.model.UserInput;
-import it.slumdroid.droidmodels.model.WidgetState;
-import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
+import it.slumdroid.tool.utilities.adapters.SimpleInteractorAdapter;
 
 // TODO: Auto-generated Javadoc
 /**

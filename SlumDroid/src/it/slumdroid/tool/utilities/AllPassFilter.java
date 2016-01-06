@@ -15,10 +15,10 @@
 
 package it.slumdroid.tool.utilities;
 
-import it.slumdroid.droidmodels.model.WidgetState;
-
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import it.slumdroid.droidmodels.model.WidgetState;
 
 // TODO: Auto-generated Javadoc
 /**

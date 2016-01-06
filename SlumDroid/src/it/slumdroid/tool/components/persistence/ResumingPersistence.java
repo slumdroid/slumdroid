@@ -15,10 +15,25 @@
 
 package it.slumdroid.tool.components.persistence;
 
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.ACTIVITY_LIST_FILE_NAME;
+import static it.slumdroid.tool.Resources.GUI_TREE_FILE_NAME;
+import static it.slumdroid.tool.Resources.PARAMETERS_FILE_NAME;
+import static it.slumdroid.tool.Resources.TASK_LIST_FILE_NAME;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import android.app.Activity;
@@ -632,7 +647,7 @@ public class ResumingPersistence implements SaveStateListener, DispatchListener,
 			fileOutput = wrapper.openFileOutput(name, ContextWrapper.MODE_PRIVATE);
 			streamWriter = new OutputStreamWriter(fileOutput);
 			if (fileOutput != null) {
-				image.compress(Bitmap.CompressFormat.JPEG, 50, fileOutput);
+				image.compress(Bitmap.CompressFormat.PNG, 50, fileOutput);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

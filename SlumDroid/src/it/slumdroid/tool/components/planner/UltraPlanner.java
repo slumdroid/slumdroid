@@ -15,16 +15,28 @@
 
 package it.slumdroid.tool.components.planner;
 
-import static it.slumdroid.droidmodels.model.InteractionType.*;
-import static it.slumdroid.droidmodels.model.SimpleType.*;
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.droidmodels.model.InteractionType.CHANGE_ORIENTATION;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_LONG_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.LIST_SELECT;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_ACTION;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_BACK;
+import static it.slumdroid.droidmodels.model.InteractionType.PRESS_MENU;
+import static it.slumdroid.droidmodels.model.InteractionType.WRITE_TEXT;
+import static it.slumdroid.droidmodels.model.SimpleType.ACTION_HOME;
+import static it.slumdroid.droidmodels.model.SimpleType.DIALOG_TITLE;
+import static it.slumdroid.droidmodels.model.SimpleType.PREFERENCE_LIST;
+import static it.slumdroid.tool.Resources.EXTRA_INPUTS;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import android.content.pm.ActivityInfo;
-import it.slumdroid.droidmodels.model.*;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Transition;
+import it.slumdroid.droidmodels.model.UserEvent;
+import it.slumdroid.droidmodels.model.UserInput;
+import it.slumdroid.droidmodels.model.WidgetState;
 import it.slumdroid.droidmodels.testcase.TestCaseEvent;
 import it.slumdroid.droidmodels.testcase.TestCaseInput;
 import it.slumdroid.tool.components.abstractor.Abstractor;

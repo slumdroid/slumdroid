@@ -15,9 +15,25 @@
 
 package it.slumdroid.tool.components.engine;
 
-import static it.slumdroid.tool.Resources.*;
+import static it.slumdroid.tool.Resources.CLASS_NAME;
+import static it.slumdroid.tool.Resources.SCREENSHOT_ENABLED;
+import static it.slumdroid.tool.Resources.SLEEP_AFTER_TASK;
+import static it.slumdroid.tool.Resources.TAG;
+
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Element;
+
+import android.util.Log;
 import it.slumdroid.droidmodels.guitree.GuiTree;
-import it.slumdroid.droidmodels.model.*;
+import it.slumdroid.droidmodels.model.ActivityState;
+import it.slumdroid.droidmodels.model.Session;
+import it.slumdroid.droidmodels.model.Task;
+import it.slumdroid.droidmodels.model.Transition;
 import it.slumdroid.droidmodels.xml.XmlGraph;
 import it.slumdroid.tool.components.abstractor.Abstractor;
 import it.slumdroid.tool.components.automation.Automation;
@@ -29,18 +45,9 @@ import it.slumdroid.tool.components.planner.UltraPlanner;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
 import it.slumdroid.tool.model.ActivityDescription;
 import it.slumdroid.tool.model.SaveStateListener;
-import it.slumdroid.tool.utilities.*;
-
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Element;
-
-import android.util.Log;
-import android.view.KeyEvent;
+import it.slumdroid.tool.utilities.AllPassFilter;
+import it.slumdroid.tool.utilities.SessionParams;
+import it.slumdroid.tool.utilities.UserFactory;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -147,12 +154,6 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 			ActivityState theState = getAbstractor().createActivity(theDescription);
 			if (theState.isExit()) {
 				Log.i(TAG, "Exit state");
-				try {
-					String command = "adb shell input keyevent " + KeyEvent.KEYCODE_HOME;
-					Runtime.getRuntime().exec(command);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			} else {
 				getStrategy().compareState(theState);
 				if (SCREENSHOT_ENABLED) {
@@ -419,44 +420,12 @@ public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCas
 	 */
 	private void takeScreenshot(ActivityState theState) {
 		String fileName = theState.getUniqueId();
-		if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-			saveJPG(theState, fileName);
-		} else {
-			savePNG(theState, fileName);	
-		}			
-	}
-
-	/**
-	 * Save JPG.
-	 *
-	 * @param theState the the state
-	 * @param fileName the file name
-	 */
-	private void saveJPG(ActivityState theState, String fileName) {
-		if (getPersistence().saveScreenshot(fileName + ".jpg")) {
-			theState.setScreenshot(fileName + ".jpg");
-			Log.i(TAG, "Saved image on disk: " + fileName + ".jpg");
-		} else {
-			theState.setScreenshot(new String());
-		}
-	}
-
-	/**
-	 * Save PNG.
-	 *
-	 * @param theState the the state
-	 * @param fileName the file name
-	 */
-	private void savePNG(ActivityState theState, String fileName) {
-		try {
-			String command = "adb shell screencap -p /data/data/" + PACKAGE_NAME + "/files/" + fileName + ".png";
-			Runtime.getRuntime().exec(command);
+		if (getPersistence().saveScreenshot(fileName + ".png")) {
 			theState.setScreenshot(fileName + ".png");
 			Log.i(TAG, "Saved image on disk: " + fileName + ".png");
-		} catch (Exception e) {
-			e.printStackTrace();
+		} else {
 			theState.setScreenshot(new String());
-		}
+		}			
 	}
 
 	/**

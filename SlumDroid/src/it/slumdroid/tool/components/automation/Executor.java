@@ -19,13 +19,23 @@ import static android.content.Context.WINDOW_SERVICE;
 import static android.view.Surface.ROTATION_0;
 import static android.view.Surface.ROTATION_180;
 import static it.slumdroid.tool.components.abstractor.AbstractorUtilities.getType;
+
+import com.robotium.solo.Solo;
+
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.*;
-import android.widget.*;
-
-import com.robotium.solo.Solo;
+import android.view.Display;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TabHost;
 
 // TODO: Auto-generated Javadoc
 /**

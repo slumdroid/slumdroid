@@ -15,13 +15,13 @@
 
 package it.slumdroid.tool.components.persistence;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import it.slumdroid.droidmodels.model.Session;
 import it.slumdroid.tool.components.exploration.ExplorationStrategy;
 import it.slumdroid.tool.components.scheduler.TraceDispatcher;
 import it.slumdroid.tool.model.SaveStateListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 // TODO: Auto-generated Javadoc
 /**
