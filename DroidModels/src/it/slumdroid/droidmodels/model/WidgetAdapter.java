@@ -84,22 +84,6 @@ public class WidgetAdapter implements WidgetState {
 	 */
 	public void setType(String type) {}
 
-	/**
-	 * Gets the unique id.
-	 *
-	 * @return the unique id
-	 */
-	public String getUniqueId() {
-		return new String();
-	}
-
-	/**
-	 * Sets the unique id.
-	 *
-	 * @param id the new unique id
-	 */
-	public void setUniqueId(String id) {}
-
 	/* (non-Javadoc)
 	 * @see it.slumdroid.droidmodels.model.WidgetState#getSimpleType()
 	 */
