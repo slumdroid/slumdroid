@@ -53,7 +53,7 @@ import it.slumdroid.tool.utilities.UserFactory;
 /**
  * The Class SlumDroidEngine.
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({ "rawtypes", "deprecation" })
 public class SlumDroidEngine extends android.test.ActivityInstrumentationTestCase2 implements SaveStateListener {
 
 	/** The Constant ACTOR_NAME. */

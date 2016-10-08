@@ -60,6 +60,7 @@ import it.slumdroid.droidmodels.model.UserInput;
 /**
  * The Class Automation.
  */
+@SuppressWarnings("deprecation")
 public class Automation {
 
 	/** The extractor. */
