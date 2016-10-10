@@ -46,7 +46,7 @@ public class Resources {
 	public static final String TOOL = "it.slumdroid.tool";
 
 	/** The Constant TOOL_TARGET. */
-	public static final String TOOL_TARGET = "24";
+	public static final String TOOL_TARGET = "19";
 
 	/** The Constant NEW_LINE. */
 	public final static String NEW_LINE = System.getProperty("line.separator");

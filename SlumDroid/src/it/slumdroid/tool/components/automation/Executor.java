@@ -41,7 +41,6 @@ import android.widget.TabHost;
 /**
  * The Class Executor.
  */
-@SuppressWarnings("deprecation")
 public class Executor {
 
 	/** The robotium. */
